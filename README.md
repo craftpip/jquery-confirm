@@ -1,4 +1,4 @@
-jconfirm
+jquery-confirm
 ========
 
 the modern alert, confirm, prompt.
