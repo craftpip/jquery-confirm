@@ -1,0 +1,197 @@
+body.mobileSelect-noscroll{
+    overflow:hidden !important;
+}
+
+.jconfirm{
+    position:fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99999999;
+    font-family: Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif;
+
+    .jconfirm-bg{
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+    .jconfirm-box{
+        background: white;
+        border-radius: 4px;
+        padding: 10px 15px;
+        margin-top: 100px;
+
+        div.title{
+            font-size: 24px;
+            font-weight: bold;
+            font-family: inherit;
+            margin-bottom: 10px;
+        }
+        .buttons{
+            margin-top: 20px;
+        }
+
+    }
+
+    .jquery-clear{
+        clear:both;
+    }
+
+    &.white{
+        .jconfirm-bg{
+            background-color: rgba(0,0,0,.2);
+        }
+        .jconfirm-box{
+            box-shadow: 0 2px 6px rgba(0,0,0,.2);
+            border-radius: 5px;
+
+            &.hilight{
+                box-shadow: 0 0 20px red;
+            }
+
+            .buttons{
+                button{   
+                    background: none;
+                    border: none;
+                    text-transform: uppercase;
+                    font-size:14px;
+                    font-weight: bold;
+                    color: #444;
+                }
+                button + button{
+                    margin-left: 5px;
+                }
+                button.btn-default{
+                    transition: background .2s;
+
+                    &:hover{
+                        background: #ddd;
+                    }
+                }
+                button.btn-danger{
+                    background-color: rgba(255,0,0,.1);
+                    text-shadow: none;
+
+                    &:hover{
+                        background-color: rgba(255,0,0,.2);
+                    }
+                }
+            }
+
+        }
+
+    }
+
+    &.black{
+        .jconfirm-bg{
+            background-color: rgba(0,0,0,.5);
+        }
+        .jconfirm-box{
+            box-shadow: 0 2px 6px rgba(0,0,0,.2);
+            background: #444;
+            border-radius: 5px;
+            color: white;
+
+            &.hilight{
+                box-shadow: 0 0 20px red;
+            }
+
+            .buttons{
+
+                button{   
+                    background: none;
+                    border: none;
+                    text-transform: uppercase;
+                    font-size:14px;
+                    font-weight: bold;
+                    color: #fff;
+                }
+                button + button{
+                    margin-left: 5px;
+                }
+                button.btn-default{
+                    transition: background .2s;
+
+                    &:hover{
+                        background: #777;
+                    }
+                }
+                button.btn-danger{
+                    background-color: rgba(255,0,0,.1);
+                    text-shadow: none;
+
+                    &:hover{
+                        background-color: #777;
+                    }
+                }
+            }
+
+        }
+
+    }
+}
+
+
+.jconfirm{
+	perspective: 400px;
+
+    .jconfirm-box{
+        visibility: visible;
+
+        &.anim-top,&.anim-left,&.anim-right,&.anim-bottom,&.anim-opacity,&.anim-zoom,&.anim-scale,&.anim-none,&.anim-rotate,&.anim-rotatex,&.anim-rotatey, &.anim-scaley, &.anim-scalex,&.anim-blur{
+            visibility: hidden;
+            opacity: 0;
+        }
+        &.anim-rotate{
+        	transform: rotate(90deg);
+        }
+        &.anim-blur{
+        	filter: blur(10px);
+        	opacity: 1;
+        }
+        &.anim-rotatex{
+        	transform: rotateX(90deg);
+			transform-origin: top;
+        }
+        &.anim-rotatey{
+        	transform: rotatey(90deg);
+			transform-origin: top;
+        }
+        &.anim-scaley{
+        	transform: scaley(1.5);
+			transform-origin: top;
+        }
+        &.anim-scalex{
+        	transform: scalex(1.5);
+			transform-origin: top;
+        }
+        &.anim-top{
+            transform: translate(0px, -100px);
+        }
+        &.anim-left{
+            transform: translate(-100px, 0px);
+        }
+        &.anim-right{
+            transform: translate(100px, 0px);
+        }
+        &.anim-bottom{
+            transform: translate(0px, 100px);
+        }
+        &.anim-opacity{
+            
+        }
+        &.anim-zoom{
+            transform: scale(1.2);
+        }
+        &.anim-scale{
+            transform: scale(0.8);
+        }
+        &.anim-none{
+            display:none;
+        }
+    }
+}

@@ -11,7 +11,7 @@
         <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
         
-        <meta name="description" content="a modern browser alert, confirm & prompt box.">
+        <meta name="description" content="a modern browser alert, confirm &amp; prompt box.">
         <link rel="canonical" href="https://craftpip.github.io/" />
         <link rel="icon" type="img/ico" href="http://craftpip.com/assets/img/logo.png">
         <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
@@ -77,7 +77,7 @@
                             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                                 <ul class="nav navbar-nav">
                                     <li class=""><a href="http://github.com/craftpip"><i class="fa fa-github fa-fw"></i> GITHUB HOME</a></li>
-                                    <li class=""><a href="http://github.com/craftpip/bootstrap-fullscreen-select">PROJECT PAGE</a></li>
+                                    <li class=""><a href="http://github.com/craftpip/jquery-confirm">PROJECT PAGE</a></li>
                                     <li class=""><a href="http://craftpip.com/#/contact">CONTACT</a></li>
                                 </ul>
                                 <ul class="nav navbar-nav">
@@ -104,16 +104,16 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <p>
-                                    <strong>bootstrap-fullscreen-select</strong><br>
-                                    <a href="https://github.com/craftpip/bootstrap-fullscreen-select">
+                                    <strong>jquery-confirm</strong><br>
+                                    <a href="https://github.com/craftpip/jquery-confirm">
                                         view on <i class="fa fa-github"></i> Github
                                     </a>
                                 </p>
                                 <div class="btn-group btn-group-justified">
-                                    <a href="https://github.com/craftpip/bootstrap-fullscreen-select/zipball/master" class="btn btn-download btn-lg">
+                                    <a href="https://github.com/craftpip/jquery-confirm/zipball/master" class="btn btn-download btn-lg">
                                         <i class="fa fa-download"></i> .zip file
                                     </a>
-                                    <a href="https://github.com/craftpip/bootstrap-fullscreen-select/tarball/master" class="btn btn-download btn-lg">
+                                    <a href="https://github.com/craftpip/jquery-confirm/tarball/master" class="btn btn-download btn-lg">
                                         .tar.gz ball
                                     </a>
                                 </div>
@@ -121,14 +121,10 @@
                                 <div class="panel panel-default" style="margin-bottom: 10px">
                                     <div class="list-group">
                                         <a class="list-group-item gotoSmooth" href="#introduction"><i class="fa fa-circle-o fa-fw"></i> Introduction</a>
-                                        <a class="list-group-item gotoSmooth" href="#usage"><i class="fa fa-circle-o fa-fw"></i> Usage</a>
-                                        <a class="list-group-item gotoSmooth" href="#examples"><i class="fa fa-circle-o fa-fw"></i> Examples</a>
-                                        <a class="list-group-item gotoSmooth" href="#themes"><i class="fa fa-circle-o fa-fw"></i> Themes</a>
-                                        <a class="list-group-item gotoSmooth" href="#options"><i class="fa fa-circle-o fa-fw"></i> Options</a>
                                     </div>
                                 </div>
                                 <p class="text-right">
-                                    <code>version 1.5.1</code>
+                                    <code>version 0.1.0</code>
                                 </p>
                             </div>
                         </div>
@@ -136,197 +132,463 @@
                 </div>
                 <div class="col-md-9">
 
-
-
                 <!-- introduction -->
 
                     <section id="introduction">
                         <header>
                             <h1 style="margin-top: 0px;">
-                                bootstrap-fullscreen-select
+                                jquery-confirm
                             </h1>
                             <p>
-                                <strong>What the heck is this?</strong>
-                                <br>
-                                A powerful <code>SELECT</code> for your Web app, mobile UI, cordova/phoneGap project.<br>
-                                This plugin makes it super easy for a user to use the 'select' on small touch screen devices.
+                                A modern look to how a alert, confirm feels.
                             </p>
-                            <p>
-                                <strong>Why use this?</strong>
-                                <br>
-                                <ul>
-                                    <li><em>Full functionality</em> of a native html select.</li>
-                                    <li>3 OS suited themes (white, holo, mac).</li>
-                                    <li>8 graceful in and out animations.</li>
-                                    <li>Custom titles and button text.</li>
-                                    <li>Customizable button colors.</li>
-                                    <li>CSS3 animations.</li>
-                                    <li>onOpen &amp; onClose callbacks</li>
-                                    <li>Tested reliable code.</li>
-                                </ul>
-                            </p>
-                            <p>
-                                <strong>Feature Showcase</strong>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <p>Theme (white)</p>
-                                        <select class="mobileSelect">
-                                            <option>Option 1</option>
-                                            <option>Option 2</option>
-                                            <option>Option 3</option>
-                                            <option>Option 4</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <p>Theme (holo)</p>
-                                        <select class="mobileSelect" data-theme="holo">
-                                            <option>Option 1</option>
-                                            <option>Option 2</option>
-                                            <option>Option 3</option>
-                                            <option>Option 4</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <p>Theme (mac)</p>
-                                        <select class="mobileSelect" data-theme="mac">
-                                            <option>Option 1</option>
-                                            <option>Option 2</option>
-                                            <option>Option 3</option>
-                                            <option>Option 4</option>
-                                        </select>
-                                    </div>
-                                    <div class="row">
-                                    <div class="col-md-3">
-                                        <p>Animations (opacity)</p>
-                                        <select class="mobileSelectCALLBACKexample">
-                                            <option>Option 1</option>
-                                            <option>Option 2</option>
-                                            <option>Option 3</option>
-                                            <option>Option 4</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                </div>
-                                <div style="height: 10px;"></div>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <p>No animations</p>
-                                        <select class="mobileSelect" data-animation="none">
-                                            <option>Option 1</option>
-                                            <option>Option 2</option>
-                                            <option>Option 3</option>
-                                            <option>Option 4</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <p>Animation (zoom)</p>
-                                        <select class="mobileSelect" data-animation="zoom">
-                                            <option>Option 1</option>
-                                            <option>Option 2</option>
-                                            <option>Option 3</option>
-                                            <option>Option 4</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <p>Animations (bottom)</p>
-                                        <select class="mobileSelect" data-animation="bottom">
-                                            <option>Option 1</option>
-                                            <option>Option 2</option>
-                                            <option>Option 3</option>
-                                            <option>Option 4</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <p>Animations (opacity)</p>
-                                        <select class="mobileSelect" data-animation="opacity">
-                                            <option>Option 1</option>
-                                            <option>Option 2</option>
-                                            <option>Option 3</option>
-                                            <option>Option 4</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                
-                            </p>
-
+                            <strong>Why use this?</strong>
+                            <ul>
+                                <li><strong>Auto-close timer</strong><br>
+                                    A option is auto selected if user does not respond in given time.
+                                </li>
+                                <li>Awesome looks</li>
+                                <li>Light and Dark themes</li>
+                                <li>14 Eyecandy animations</li>
+                                <li>Alert and Confirm dialogs</li>
+                                <li>CSS3 animations</li>
+                            </ul>
                         </header>
                     </section>
 
-
                     <!-- basic usage -->
 
-
+<style type="text/css">
+    .space10{
+        height: 10px;
+    }
+</style>
                     <section id="usage">
-                        <h1>Usage</h1>
-                        <p>
-                            Dependencies:
-                            <ul>
-                                <li>
-                                    Bootstrap by Twitter <a href="http://www.getbootstrap.com" target="_emptyb">[link]</a>
-                                </li>
-                                <li>
-                                    jQuery library <a href="http://www.jquery.com/download" target="_emptyj">[link]</a>
-                                </li>
-                            </ul>
-                        </p>
-                        <p>Create your <code>&lt;select&gt;</code> with the <code>.mobileSelect</code> class.</p>
-                        <pre class="prettyprint linenums"><code class="html">&lt;select class="form-control mobileSelect" &gt;
-    &lt;option value="pizza"&gt;Pizza&lt;/option&gt;
-    &lt;option value="burger"&gt;Burger&lt;/option&gt;
-    &lt;option value="tacos"&gt;Tacos&lt;/option&gt;
-    &lt;option value="garlic-bread"&gt;Garlic Bread&lt;/option&gt;
-&lt;/select&gt;</code></pre>
-
-                        <p>Enable mobileSelect via Javascript</p>
-                        <pre class="prettyprint linenums"><code class="js">$('.mobileSelect').mobileSelect();
-</code></pre>
-                        <p><kbd>or</kbd> Options can be passed via JavaScript</p>
-                        <pre class="prettyprint linenums"><code class="js">$('.mobileSelect').mobileSelect({
-    animation: 'scale',
-    animationSpeed: 400
+                        <h1>Quick Usage</h1>
+                        <p>Dependencies:</p>
+                        <ul>
+                            <li>Bootstrap by Twitter</li>
+                            <li>jQuery library</li>
+                        </ul>
+                        <p>show an <strong>alert dialog</strong></p>
+                        <button class="example1 btn btn-primary">example alert</button>
+                        <script type="text/javascript">
+                        $('.example1').on('click', function(){
+                            $.alert({
+                                title: 'Alert!',
+                                content: 'Alert! Alert! Alert!',
+                                confirm: function(){
+                                    alert('the user clicked yes');
+                                }
+                            });
+                        });
+                        </script>
+                        <div class="space10"></div>
+                        <pre class="prettyprint linenums"><code class="js">$.alert({
+    title: 'Alert!',
+    content: 'Alert! alert! alert!',
+    confirm: function(){
+        alert('the user clicked yes');
+    }
 });
 </code></pre>
-
+                        <p>show an <strong>confirm dialog</strong></p>
+                        <button class="example2 btn btn-primary">example confirm</button>
+                        <script type="text/javascript">
+                        $('.example2').on('click', function(){
+                            $.confirm({
+                                title: 'Confirm!',
+                                content: 'Confirm! Confirm! Confirm!',
+                                confirm: function(){
+                                    alert('the user clicked confirm');
+                                },
+                                cancel: function(){
+                                    alert('the user clicked cancel')
+                                }
+                            });
+                        });
+                        </script>
+                        <div class="space10"></div>
+                        <pre class="prettyprint linenums"><code class="js">$.confrim({
+    title: 'Confirm!',
+    content: 'Confirm! Confirm! Confirm!',
+    confirm: function(){
+        alert('the user clicked confirm');
+    },
+    cancel: function(){
+        alert('the user clicked cancel')
+    }
+});
+</code></pre>
                     </section>
 
                     <section id="examples">
                         <h1>Examples</h1>
-                        <h3>SELECT</h3>
+                        <div class="alert alert-info">
+                            <p>
+                                <i class="fa fa-info fa-fw"></i> <strong>NOTE</strong>:
+                                The <code>$.confirm()</code> &amp; <code>$.alert()</code> methods are alias of <code>jconfirm()</code>.<br>
+                                <i class="fa fa-fw"></i>The options shown below can be used with <code>$.alert()</code> in the same way.
+                            </p>
+                        </div>
+                        <h3>Button text</h3>
                         <div class="section">
-                            <span>before</span> <br>
-                            <select> 
-                                <option value="pizza">Pizza</option>
-                                <option value="burger">Burger</option>
-                                <option value="tacos">Tacos</option>
-                                <option value="garlic-bread">Garlic Bread</option>
-                            </select> <br>
-                            <span>after</span> <br>
-                            <select class="form-control mobileSelect">
-                                <option value="pizza">Pizza</option>
-                                <option value="burger">Burger</option>
-                                <option value="tacos">Tacos</option>
-                                <option value="garlic-bread">Garlic Bread</option>
-                            </select>
-
-                            <h4>code</h4>
-                            <pre  class="prettyprint linenums"><code class="html">
-
+                            <p>Change the button text for confirm and cancel.</p>
+                            <button class="btn btn-primary example3">click me!</button>
+                            <script type="text/javascript">
+                            $('.example3').on('click', function(){
+                                $.confirm({
+                                    confirmButton: 'Yes i agree',
+                                    cancelButton: 'NO never !'
+                                })
+                            });
+                            </script>
+                            <div class="space10"></div>
+                            <pre  class="prettyprint linenums"><code class="html">$.confirm({
+    confirmButton: 'Yes i agree',
+    cancelButton: 'NO never !'
+})
+</code></pre>
+                        </div>
+                        <h3>Button style</h3>
+                        <div class="section">
+                            <p>Apply the classes you want in the buttons.</p>
+                            <p class="text-info">
+                                Available bootstrap options are <code>btn-primary</code> <code>btn-warning</code> <code>btn-info</code> <code>btn-danger</code> <code>btn-success</code>
+                            </p>
+                            <button class="btn btn-primary example3-1">click me!</button>
+                            <script type="text/javascript">
+                            $('.example3-1').on('click', function(){
+                                $.confirm({
+                                    confirmButtonClass: 'btn-info',
+                                    cancelButtonClass: 'btn-danger'
+                                })
+                            });
+                            </script>
+                            <div class="space10"></div>
+                            <pre  class="prettyprint linenums"><code class="html">$.confirm({
+    confirmButtonClass: 'btn-info',
+    cancelButtonClass: 'btn-danger'
+})
 </code></pre>
                     </section>
+                    <h3>Theme</h3>
+                    <div class="section">
+                        <p>Thats your taste</p>
+                        <button class="btn btn-primary example4">Light theme</button> 
+                        <button class="btn btn-primary example5">Dark theme</button> 
+                        <div class="space10"></div>
+                        <script type="text/javascript">
+                        $('.example4').on('click', function(){
+                            $.confirm({
+                                theme: 'white'
+                            })
+                        });
+                        $('.example5').on('click', function(){
+                            $.confirm({
+                                theme: 'black'
+                            })
+                        });
+                        </script>
+                        <pre class="prettyprint linenums"><code>$.confirm({
+    theme: 'white'
+});
+$.confirm({
+    theme: 'black'
+});                          
+                        </code></pre>
+                    </div>
+
+                    <h3>Animation!</h3>
+                    <div class="section">
+                        <p>All the impression lies in what we see.<br>
+                        Lots and lots of animations
+                        </p>
+                        <button class="example6 btn btn-primary">blur (experimental)</button>
+                        <script type="text/javascript">
+                        $('.example6').on('click', function(){
+                            $.confirm({
+                                animation: 'blur'
+                            })
+                        });
+                        </script>
+                        <button class="example7 btn btn-primary">scaleY</button>
+                        <script type="text/javascript">
+                        $('.example7').on('click', function(){
+                            $.confirm({
+                                animation: 'scaleY'
+                            })
+                        });
+                        </script>
+                        <button class="example8 btn btn-primary">scaleX</button>
+                        <script type="text/javascript">
+                        $('.example8').on('click', function(){
+                            $.confirm({
+                                animation: 'scaleX'
+                            })
+                        });
+                        </script>
+                        <button class="example9 btn btn-primary">RotateY</button>
+                        <script type="text/javascript">
+                        $('.example9').on('click', function(){
+                            $.confirm({
+                                animation: 'rotateY'
+                            });
+                        });
+                        </script>
+                        <button class="example10 btn btn-primary">RotateX</button>
+                        <script type="text/javascript">
+                        $('.example10').on('click', function(){
+                            $.confirm({
+                                animation: 'rotateX'
+                            });
+                        });
+                        </script>
+                        <button class="example11 btn btn-primary">Rotate</button>
+                        <script type="text/javascript">
+                        $('.example11').on('click', function(){
+                            $.confirm({
+                                animation: 'Rotate'
+                            });
+                        });
+                        </script>
+                        <button class="example12 btn btn-primary">none</button>
+                        <script type="text/javascript">
+                        $('.example12').on('click', function(){
+                            $.confirm({
+                                animation: 'none'
+                            });
+                        });
+                        </script>
+                        <button class="example13 btn btn-primary">opacity</button>
+                        <script type="text/javascript">
+                        $('.example13').on('click', function(){
+                            $.confirm({
+                                animation: 'opacity'
+                            });
+                        });
+                        </script>
+                        <button class="example14 btn btn-primary">zoom</button>
+                        <script type="text/javascript">
+                        $('.example14').on('click', function(){
+                            $.confirm({
+                                animation: 'zoom'
+                            });
+                        });
+                        </script>
+                        <button class="example15 btn btn-primary">scale (default)</button>
+                        <script type="text/javascript">
+                        $('.example15').on('click', function(){
+                            $.confirm({
+                                animation: 'scale'
+                            });
+                        });
+                        </script>
+                        <button class="example16 btn btn-primary">right</button>
+                        <script type="text/javascript">
+                        $('.example16').on('click', function(){
+                            $.confirm({
+                                animation: 'right'
+                            });
+                        });
+                        </script>
+                        <button class="example17 btn btn-primary">left</button>
+                        <script type="text/javascript">
+                        $('.example17').on('click', function(){
+                            $.confirm({
+                                animation: 'left'
+                            });
+                        });
+                        </script>
+                        <button class="example18 btn btn-primary">bottom</button>
+                        <script type="text/javascript">
+                        $('.example18').on('click', function(){
+                            $.confirm({
+                                animation: 'bottom'
+                            });
+                        });
+                        </script>
+                        <button class="example19 btn btn-primary">top</button>
+                        <script type="text/javascript">
+                        $('.example19').on('click', function(){
+                            $.confirm({
+                                animation: 'top'
+                            });
+                        });
+                        </script>
+                        <div class="space10"></div>
+                        <pre class="prettyprint linenums"><code>$.confirm({
+    animation: 'blur'
+});</code></pre>
+                    <p><i class="fa fa-info fa-fw"></i> see <a class="gotoSmooth" href="#options">options</a> for list of options you can apply.</p>
+                    </div>
+                    <h3>Animation Speed</h3>
+                    <div class="section">
+                        <p>Adjust what speed you need for the animation.</p>
+                        <button class="btn btn-primary example19-1">I'm too Late</button>
+                        <button class="btn btn-primary example19-2">I'm too Quick</button>
+                        <script type="text/javascript">
+                        $('.example19-1').on('click', function(){
+                            $.confirm({
+                                animationSpeed: 2000
+                            });
+                        });
+                        $('.example19-2').on('click', function(){
+                            $.confirm({
+                                animationSpeed: 200
+                            });
+                        });
+                        </script>
+                        <pre class="prettyprint linenums"><code>$.confirm({
+    animationSpeed: 2000 // 2 seconds
+});
+$.confirm({
+    animationSpeed: 200 // 0.2 seconds
+}); 
+</code></pre>
+                    </div>
+
+                    <h3>Auto-close</h3>
+                    <div class="section">
+                        <p>
+                            At times you need the user to respond to the alert, 
+                            if not, a default action is triggered.
+                            <br>
+                            The <code>autoClose</code> option takes in a string, example <code>'confirm|4000'</code> where confirm is the action to trigger and 4000 is the time to wait in miliseconds.
+                            <br>
+                            <i class="fa fa-info"></i> Practical examples of autoClose
+                        </p>
+
+                        <button class="btn btn-primary example20">Auto Cancel.</button>
+                        <button class="btn btn-primary example21">Auto Confirm.</button>
+                        <script type="text/javascript">
+                        $('.example20').on('click',function(){
+                            $.confirm({
+                                title: 'Delete user?',
+                                content: 'This dialog will automatically trigger \'cancel\' in 6 seconds if you don\'t respond.',
+                                autoClose: 'cancel|6000',
+                                confirm: function(){
+                                    alert('confrimed');
+                                },
+                                cancel:function(){
+                                    alert('cancelled');
+                                }
+                            });
+                        });
+                        $('.example21').on('click',function(){
+                            $.confirm({
+                                title: 'Logout?',
+                                content: 'Your time is out, you will be automatically logged out in 10 seconds.',
+                                autoClose: 'confirm|10000',
+                                confirm: function(){
+                                    alert('confrimed');
+                                },
+                                cancel:function(){
+                                    alert('cancelled');
+                                }
+                            });
+                        });
+                        </script>
+                        <div class="space10"></div>
+                        <pre class="prettyprint linenums"><code>$.confirm({
+    title: 'Delete user?',
+    content: 'This dialog will automatically trigger \'cancel\' in 6 seconds if you don\'t respond.',
+    autoClose: 'cancel|6000',
+    confirm: function(){
+        alert('confrimed');
+    },
+    cancel:function(){
+        alert('cancelled');
+    }
+});
+
+$.confirm({
+    title: 'Logout?',
+    content: 'Your time is out, you will be automatically logged out in 10 seconds.',
+    autoClose: 'confirm|10000',
+    confirm: function(){
+        alert('confrimed');
+    },
+    cancel:function(){
+        alert('cancelled');
+    }
+});
+</code></pre>
+                    </div>
+                    <h3 id="icon">Icons</h3>
+                    <div class="section">
+                        <p>Give meaning to your dialog with custom icons.<br>
+                        Read about Font Awesome <a href="http://fortawesome.github.io/Font-Awesome">here</a>.
+                        </p>
+
+                        <button class="btn btn-primary example21-1">Using bootstrap's glyphicon</button>
+                        <button class="btn btn-primary example21-2">Using font-awesome</button>
+                        <script type="text/javascript">
+                        $('.example21-1').on('click',function(){
+                            $.confirm({
+                                icon: 'glyphicon glyphicon-heart',
+                                title: 'glyphicon'
+                            });
+                        });
+                        $('.example21-2').on('click',function(){
+                            $.confirm({
+                                icon: 'fa fa-warning',
+                                title: 'font-awesome'
+                            });
+                        });
+                        </script>
+                        <div class="space10"></div>
+                        <pre class="prettyprint linenums"><code>$.confirm({
+    icon: 'glyphicon glyphicon-heart',
+    title: 'glyphicon'
+});
+$.confirm({
+    icon: 'fa fa-warning',
+    title: 'font-awesome'
+}); 
+</code></pre>
+                    </div>
+                    <h3 id="background-dismiss">Background Dismiss</h3>
+                    <div class="section">
+                        <p>By default the 'cancel' action is trigged if the user click outside of the dialog.
+                        </p>
+                        <button class="btn btn-primary example22">With backgroundDismiss</button>
+                        <button class="btn btn-primary example23">Without backgroundDismiss</button>
+
+                        <script type="text/javascript">
+                        $('.example22').on('click',function(){
+                            $.confirm({
+                                backgroundDismiss: true,
+                                content: 'Click outside the dialog'
+                            });
+                        });
+                        $('.example23').on('click',function(){
+                            $.confirm({
+                                backgroundDismiss: false,
+                                content: 'Click outside the dialog'
+                            });
+                        });
+                        </script>
+                        <div class="space10"></div>
+                        <pre class="prettyprint linenums"><code>$.confirm({
+    backgroundDismiss: true,
+    content: 'Click outside the dialog'
+});
+$.confirm({
+    backgroundDismiss: false,
+    content: 'Click outside the dialog'
+});
+</code></pre>
+                    </div>
+
                     <section>
                         <div class="spacer15"></div>
-                        <h1 style="text-align:center"><i class="fa fa-coffee" style="color: #979797"></i> happy coding </h1>
+                        <h1 style="text-align:center"><i class="fa fa-coffee" style="color: #666"></i> happy coding </h1>
                         <div class="spacer15"></div>
                     </section>
                 </div>
             </div>
         </div>
-        <script type="text/javascript">
-            $(function () {
-                $('.mobileSelect').mobileSelect();
-            });
-        </script>
-
         <script type="text/javascript" src="demo/demo.min.js"></script> 
         <!-- javascript for the demo page interface. -->
     </body>
