@@ -1,6 +1,6 @@
 'use strict';
 /*!
- * jquery-confirm v0.1.0 (http://craftpip.github.io/jquery-confirm/)
+ * jquery-confirm v1.0.0 (http://craftpip.github.io/jquery-confirm/)
  * Author: boniface pereira
  * Website: www.craftpip.com
  * Contact: hey@craftpip.com
@@ -148,10 +148,6 @@ var jconfirm;
                 that.confirm();
             });
 
-            this.$b.on('keypress', function (e) {
-                console.log(e);
-            });
-
             if (this.$cancelButton) {
                 this.$cancelButton.click(function (e) {
                     that.close();
@@ -173,12 +169,12 @@ var jconfirm;
     };
 
     jconfirm.pluginDefaults = {
-        type: 'confirm',
+        type: 'alert',
         template: '<div class="jconfirm"><div class="jconfirm-bg"></div><div class="container"><div class="row"><div class="col-md-6 col-md-offset-3"><div class="jconfirm-box"><div class="title"></div><div class="content"></div><div class="buttons pull-right"></div><div class="jquery-clear"></div></div></div></div></div></div>',
         title: 'Hello',
         content: 'Are you sure to continue?',
-        confirmButton: 'Okay',
         icon: '',
+        confirmButton: 'Okay',
         cancelButton: 'Cancel',
         confirmButtonClass: 'btn-default',
         cancelButtonClass: 'btn-default',

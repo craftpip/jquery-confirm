@@ -1,4 +1,13 @@
-body.mobileSelect-noscroll{
+/*!
+ * jquery-confirm v1.0.0 (http://craftpip.github.io/jquery-confirm/)
+ * Author: boniface pereira
+ * Website: www.craftpip.com
+ * Contact: hey@craftpip.com
+ *
+ * Copyright 2013-2014 jquery-confirm
+ * Licensed under MIT (https://github.com/craftpip/jquery-confirm/blob/master/LICENSE)
+ */
+body.jconfirm-noscroll{
     overflow:hidden !important;
 }
 
@@ -22,17 +31,25 @@ body.mobileSelect-noscroll{
     .jconfirm-box{
         background: white;
         border-radius: 4px;
-        padding: 10px 15px;
+        /*padding: 10px 15px;*/
         margin-top: 100px;
 
         div.title{
             font-size: 24px;
             font-weight: bold;
             font-family: inherit;
-            margin-bottom: 10px;
+            padding: 10px 15px 5px;
+        }
+        div.content{
+            padding-top: 10px;
+            padding: 10px 15px 10px;
         }
         .buttons{
-            margin-top: 20px;
+            padding: 10px 15px;
+
+            button + button{
+                margin-left: 5px;
+            }
         }
 
     }
@@ -49,35 +66,24 @@ body.mobileSelect-noscroll{
             box-shadow: 0 2px 6px rgba(0,0,0,.2);
             border-radius: 5px;
 
-            &.hilight{
-                box-shadow: 0 0 20px red;
-            }
-
             .buttons{
-                button{   
-                    background: none;
+
+                button{
                     border: none;
+                    background-image: none;
                     text-transform: uppercase;
                     font-size:14px;
                     font-weight: bold;
-                    color: #444;
-                }
-                button + button{
-                    margin-left: 5px;
+                    text-shadow: none;
+                    transition: background .1s;
+                    color: white;
                 }
                 button.btn-default{
-                    transition: background .2s;
+                    box-shadow: none;
+                    color: #333;
 
                     &:hover{
                         background: #ddd;
-                    }
-                }
-                button.btn-danger{
-                    background-color: rgba(255,0,0,.1);
-                    text-shadow: none;
-
-                    &:hover{
-                        background-color: rgba(255,0,0,.2);
                     }
                 }
             }
@@ -96,42 +102,121 @@ body.mobileSelect-noscroll{
             border-radius: 5px;
             color: white;
 
-            &.hilight{
-                box-shadow: 0 0 20px red;
-            }
-
             .buttons{
-
-                button{   
-                    background: none;
+                button{
                     border: none;
+                    background-image: none;
                     text-transform: uppercase;
                     font-size:14px;
                     font-weight: bold;
-                    color: #fff;
-                }
-                button + button{
-                    margin-left: 5px;
+                    text-shadow: none;
+                    transition: background .1s;
+                    color: white;
                 }
                 button.btn-default{
-                    transition: background .2s;
+                    box-shadow: none;
+                    color: #fff;
+                    background: none;
 
                     &:hover{
-                        background: #777;
-                    }
-                }
-                button.btn-danger{
-                    background-color: rgba(255,0,0,.1);
-                    text-shadow: none;
-
-                    &:hover{
-                        background-color: #777;
+                        background: #666;
                     }
                 }
             }
 
         }
 
+    }
+
+    &.hololight{
+        .jconfirm-bg{
+            background-color: rgba(0,0,0,.5);
+        }
+        .jconfirm-box{
+            box-shadow: 0 2px 6px rgba(0,0,0,.4);
+            border-radius: 2px;
+            overflow: hidden;
+
+            div.title{
+                font-weight: inherit;
+                border-bottom: solid 2px #76CFDF;
+                color: #76CFDF;
+            }
+            div.content{
+
+            }
+            .buttons{
+                border-top: solid 2px #E7E7E7;
+                width: 100%;
+                float: none;
+                padding: 0;
+
+                button{
+                    margin:0;
+                    border: none;
+                    background: #fff;
+                    border-radius: 0px;
+                    width: 50%;
+                    padding: 13px;
+                    font-size: 16px;
+                    font-weight: bold;
+                    color: #666;
+                }
+                button + button{
+                    border-left: solid 2px #E7E7E7;
+                }
+            }
+
+        }
+
+    }
+    &.holodark{
+        .jconfirm-bg{
+            background-color: rgba(0,0,0,.5);
+        }
+        .jconfirm-box{
+            box-shadow: 0 2px 6px rgba(0,0,0,.4);
+            border-radius: 2px;
+            background: #333;
+            overflow: hidden;
+
+            div.title{
+                font-weight: inherit;
+                border-bottom: solid 2px #76CFDF;
+                color: #76CFDF;
+            }
+            div.content{
+                color: white;
+            }
+            .buttons{
+                border-top: solid 2px rgba(255,255,255,.2);
+                width: 100%;
+                float: none;
+                padding: 0;
+
+                button{
+                    margin:0;
+                    border: none;
+                    background: #333;
+                    border-radius: 0px;
+                    width: 50%;
+                    padding: 13px;
+                    font-size: 16px;
+                    font-weight: bold;
+                    color: #fff;
+                    text-shadow: none;
+                }
+                button + button{
+                    border-left: solid 2px rgba(255,255,255,.2);
+                }
+            }
+
+        }
+
+    }
+
+    .jconfirm-box.hilight{
+        box-shadow: 0 0 20px red;
     }
 }
 
