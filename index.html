@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="chrome=1">
-        <title>jquery-confirm by craftpip</title>
+        <title>jquery-confirm | Custom web alert & confirm</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         
         <!--[if lt IE 9]>
@@ -568,6 +568,31 @@ $.confirm({
 });</code></pre>
                     <p><i class="fa fa-info fa-fw"></i> see <a class="gotoSmooth" href="#options">options</a> for list of options you can apply.</p>
                     </div>
+
+                    <h3 id="loadfromURL">LOAD FROM URL</h3>
+                    <div class="section">
+                        <p>Add content via Url.</p>
+                        <button class="btn btn-primary example18-1">Load from a file named text.txt</button>
+                        <a class="btn btn-default" href="text.txt" target="_empty"><i class="fa fa-external-link"></i> view text.txt</a>
+                        <div class="space10"></div>
+                        <script type="text/javascript">
+                        $('.example18-1').on('click', function(){
+                            $.confirm({
+                                title: 'Disclaimer',
+                                content: 'url:text.txt',
+                                backgroundDismiss: false,
+                                confirmButton: 'Continue',
+                                cancelButton: false
+                            });
+                        });
+                        </script>
+                        <pre class="prettyprint linenums"><code>$.confirm({
+    content: 'url:text.txt'
+}); 
+                        </code></pre>
+
+                    </div>
+
                     <h3 id="animationspeed">ANIMATION SPEED</h3>
                     <div class="section">
                         <p>Adjust what speed you need for the animation.</p>
