@@ -11,27 +11,31 @@ A full documentation page is included within the release.
 copy the css and js files from `/dist/` to your project, and link them to your HTML page.<br>
 and finally via Javascript run `$.alert()` or `$.confirm()`.
 
-callback functions:
-`$.alert({
+##Basic Usage
+
+How to respond to user action
+```js
+$.alert({
 	confirm: function(){
 		console.log('the user clicked confirm');
 	},
 	cancel: function(){
 		console.log('the user clicked cancel');
 	}
-});`
+});
+```
 
 ## Demo and Documentation
 
-See Docs + Example [here](http://craftpip.github.io/jquery-confirm).
+See Detailed Docs + Example [here](http://craftpip.github.io/jquery-confirm).
 
 ## Authors
 
 [Boniface Pereira](https://github.com/craftpip)
 
-## Basic Usage
+## jconfirm alias
 
-the `$.alert()` & `$.confirm()` are alias of `jconfirm();`
+The `$.alert()` & `$.confirm()` are alias of `jconfirm();`.
 
 Checkout the [documentation](http://craftpip.github.io/jquery-confirm) for further information.
 
