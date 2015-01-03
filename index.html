@@ -142,7 +142,7 @@
                                     </div>
                                 </div>
                                 <p class="text-right">
-                                    <code>version 1.0.0</code>
+                                    <code>version 1.1.0</code>
                                 </p>
                             </div>
                         </div>
@@ -587,7 +587,11 @@ $.confirm({
                         });
                         </script>
                         <pre class="prettyprint linenums"><code>$.confirm({
-    content: 'url:text.txt'
+    content: 'url:text.txt',
+    title: 'Disclaimer',
+    backgroundDismiss: false,
+    confirmButton: 'Nice.',
+    cancelButton: false
 }); 
 </code></pre>
 

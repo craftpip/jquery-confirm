@@ -1,6 +1,6 @@
 'use strict';
 /*!
- * jquery-confirm v1.0.0 (http://craftpip.github.io/jquery-confirm/)
+ * jquery-confirm v1.1.0 (http://craftpip.github.io/jquery-confirm/)
  * Author: boniface pereira
  * Website: www.craftpip.com
  * Contact: hey@craftpip.com
@@ -8,10 +8,12 @@
  * Copyright 2013-2014 jquery-confirm
  * Licensed under MIT (https://github.com/craftpip/jquery-confirm/blob/master/LICENSE)
  */
+
 if (typeof jQuery === 'undefined') {
     throw new Error('jquery-confirm requires jQuery');
 }
-var jconfirm;
+
+var jconfirm, Jconfirm;
 (function ($) {
     $.confirm = function (options) {
         return jconfirm(options);
@@ -36,7 +38,7 @@ var jconfirm;
         var options = $.extend({}, jconfirm.pluginDefaults, options);
         return new Jconfirm(options);
     };
-    var Jconfirm = function (options) {
+    Jconfirm = function (options) {
         /*
          * constructor function Jconfirm,
          * options = user options.
@@ -78,7 +80,6 @@ var jconfirm;
              */
             this.$el.find('div.title').html('<i class="' + this.icon + '"></i> ' + this.title);
             var contentDiv = this.$el.find('div.content');
-
             /*
              * Settings up buttons
              */
@@ -144,13 +145,13 @@ var jconfirm;
                 }
             });
             this.$confirmButton.click(function (e) {
-                that.close();
                 that.confirm();
+                that.close();
             });
             if (this.$cancelButton) {
                 this.$cancelButton.click(function (e) {
-                    that.close();
                     that.cancel();
+                    that.close();
                 });
             }
         },
