@@ -4,16 +4,16 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="chrome=1">
-        <title>jquery-confirm by craftpip</title>
+        <title>jquery-confirm | Custom web alert & confirm</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         
         <!--[if lt IE 9]>
         <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
         
-        <meta name="description" content="a modern browser alert, confirm &amp; prompt box.">
+        <meta name="description" content="The multipurpose modern alert &amp; confirm, with powerful features.">
         <link rel="canonical" href="https://craftpip.github.io/" />
-        <link rel="icon" type="img/ico" href="http://craftpip.com/assets/img/logo.png">
+        <link rel="icon" type="img/ico" href="http://craftpip.com/apple-touch-icon-57x57.png">
         <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
         <meta name="robots" content="index,follow,noodp,noydir"/>
         <meta name="google-site-verification" content="T_M_Ym5DQ-cEQQhx_jswyCBTssIdgtewICcvb3sgh8g" />
@@ -26,11 +26,11 @@
         <link rel="apple-touch-icon" sizes="144x144" href="http://craftpip.com/apple-touch-icon-144x144.png" />
         <link rel="apple-touch-icon" href="http://craftpip.com/apple-touch-icon-57x57.png" />
 
-        <meta property="og:title" content="jquery-confirm by craftpip" />
+        <meta property="og:title" content="jquery-confirm | Custom web alert &amp; confirm" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="http://craftpip.com/assets/img/logo.png" />
+        <meta property="og:image" content="http://craftpip.com/apple-touch-icon-57x57.png" />
         <meta property="og:url" content="https://craftpip.github.io/" />
-        <meta property="og:description" content="" />
+        <meta property="og:description" content="The multipurpose modern alert &amp; confirm, with powerful features." />
         <meta property="og:site_name" content="craftpip.github.io" />
 
         <link rel="stylesheet" href="demo/libs/bootstrap.min.css">
@@ -142,7 +142,7 @@
                                     </div>
                                 </div>
                                 <p class="text-right">
-                                    <code>version 1.0.0</code>
+                                    <code>version 1.1.0</code>
                                 </p>
                             </div>
                         </div>
@@ -568,6 +568,35 @@ $.confirm({
 });</code></pre>
                     <p><i class="fa fa-info fa-fw"></i> see <a class="gotoSmooth" href="#options">options</a> for list of options you can apply.</p>
                     </div>
+
+                    <h3 id="loadfromURL">LOAD FROM URL</h3>
+                    <div class="section">
+                        <p>Add content via Url.</p>
+                        <button class="btn btn-primary example18-1">Load from text.txt</button>
+                        <a class="btn btn-default" href="text.txt" target="_empty"><i class="fa fa-external-link"></i> view text.txt</a>
+                        <div class="space10"></div>
+                        <script type="text/javascript">
+                        $('.example18-1').on('click', function(){
+                            $.confirm({
+                                title: 'Disclaimer',
+                                content: 'url:text.txt',
+                                backgroundDismiss: false,
+                                confirmButton: 'Nice.',
+                                cancelButton: false
+                            });
+                        });
+                        </script>
+                        <pre class="prettyprint linenums"><code>$.confirm({
+    content: 'url:text.txt',
+    title: 'Disclaimer',
+    backgroundDismiss: false,
+    confirmButton: 'Nice.',
+    cancelButton: false
+}); 
+</code></pre>
+
+                    </div>
+
                     <h3 id="animationspeed">ANIMATION SPEED</h3>
                     <div class="section">
                         <p>Adjust what speed you need for the animation.</p>
