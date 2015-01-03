@@ -89,6 +89,7 @@
                                         <li><a class="gotoSmooth" href="#buttontext">Button text</a></li>
                                         <li><a class="gotoSmooth" href="#buttonstyle">Button style</a></li>
                                         <li><a class="gotoSmooth" href="#theme">Theme</a></li>
+                                        <li><a class="gotoSmooth" href="#loadfromurl">Load via URL</a></li>
                                         <li><a class="gotoSmooth" href="#animation">Animation</a></li>
                                         <li><a class="gotoSmooth" href="#animationspeed">Animation Speed</a></li>
                                         <li><a class="gotoSmooth" href="#autoclose">Auto close</a></li>
@@ -445,6 +446,34 @@ $.confirm({
 </code></pre>
                     </div>
 
+                    <h3 id="loadfromurl">LOAD VIA URL</h3>
+                    <div class="section">
+                        <p>Add content from an external file.<br>
+                        prepend your link with <code>URL:</code> to call the file contents.</p>
+                        <button class="btn btn-primary example18-1">Load from text.txt</button>
+                        <a class="btn btn-default" href="text.txt" target="_empty"><i class="fa fa-external-link"></i> view text.txt</a>
+                        <div class="space10"></div>
+                        <script type="text/javascript">
+                        $('.example18-1').on('click', function(){
+                            $.confirm({
+                                title: 'Disclaimer',
+                                content: 'url:text.txt',
+                                backgroundDismiss: false,
+                                confirmButton: 'Nice.',
+                                cancelButton: false
+                            });
+                        });
+                        </script>
+                        <pre class="prettyprint linenums"><code>$.confirm({
+    content: 'url:text.txt',
+    title: 'Disclaimer',
+    backgroundDismiss: false,
+    confirmButton: 'Nice.',
+    cancelButton: false
+}); 
+</code></pre>
+
+                    </div>
                     <h3 id="animation">ANIMATION!</h3>
                     <div class="section">
                         <p>All the impression lies in what we see.<br>
@@ -569,34 +598,6 @@ $.confirm({
                     <p><i class="fa fa-info fa-fw"></i> see <a class="gotoSmooth" href="#options">options</a> for list of options you can apply.</p>
                     </div>
 
-                    <h3 id="loadfromURL">LOAD FROM URL</h3>
-                    <div class="section">
-                        <p>Add content from an external file.<br>
-                        prepend your link with <code>URL:</code> to call the file contents.</p>
-                        <button class="btn btn-primary example18-1">Load from text.txt</button>
-                        <a class="btn btn-default" href="text.txt" target="_empty"><i class="fa fa-external-link"></i> view text.txt</a>
-                        <div class="space10"></div>
-                        <script type="text/javascript">
-                        $('.example18-1').on('click', function(){
-                            $.confirm({
-                                title: 'Disclaimer',
-                                content: 'url:text.txt',
-                                backgroundDismiss: false,
-                                confirmButton: 'Nice.',
-                                cancelButton: false
-                            });
-                        });
-                        </script>
-                        <pre class="prettyprint linenums"><code>$.confirm({
-    content: 'url:text.txt',
-    title: 'Disclaimer',
-    backgroundDismiss: false,
-    confirmButton: 'Nice.',
-    cancelButton: false
-}); 
-</code></pre>
-
-                    </div>
 
                     <h3 id="animationspeed">ANIMATION SPEED</h3>
                     <div class="section">
