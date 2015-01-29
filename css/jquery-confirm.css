@@ -37,7 +37,7 @@ body.jconfirm-noscroll {
   right: 0;
   bottom: 0;
   z-index: 99999999;
-  /*font-family: Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif;*/
+  font-family: Segoe UI, Frutiger, Frutiger Linotype, Dejavu Sans, Helvetica Neue, Arial, sans-serif;
   font-family: inherit;
   overflow-y: auto;
 }
