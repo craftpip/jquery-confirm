@@ -10,6 +10,7 @@
 body.jconfirm-noscroll{
     overflow:hidden !important;
 }
+
 @keyframes jconfirm-rotate{
     from {
         transform: rotate(0deg);
@@ -18,6 +19,7 @@ body.jconfirm-noscroll{
         transform: rotate(360deg);
     }
 }
+
 .jconfirm{
     position:fixed;
     top: 0;
@@ -25,9 +27,9 @@ body.jconfirm-noscroll{
     right: 0;
     bottom: 0;
     z-index: 99999999;
-    font-family: Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif;
+    /*font-family: Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif;*/
+    font-family: inherit;
     overflow-y: auto;
-
 
     .jconfirm-bg{
         position: absolute;
@@ -40,9 +42,23 @@ body.jconfirm-noscroll{
     .jconfirm-box{
         background: white;
         border-radius: 4px;
-        /*padding: 10px 15px;*/
-        margin-top: 100px;
+        position: relative;
 
+        div.closeIcon{
+            height: 20px;
+            width: 20px;
+            position: absolute;
+            top: 20px;
+            right: 15px;
+            cursor: pointer;
+            opacity: .6;
+            text-align: center;
+            display: none;
+
+            &:hover{
+                opacity: 1;
+            }
+        }
         div.title{
             font-size: 24px;
             font-weight: bold;
@@ -65,10 +81,11 @@ body.jconfirm-noscroll{
                     height: 30px;
                     width: 30px;
                     border: solid 2px #aaa;
+                    background-color: #ddd;
                     position: absolute;
                     left: 50%;
                     margin-left: -15px;
-                    border-radius: 30%;
+                    border-radius: 20%;
                     animation: jconfirm-rotate 1s infinite;
                 }
             }
@@ -209,7 +226,9 @@ body.jconfirm-noscroll{
             border-radius: 2px;
             background: #333;
             overflow: hidden;
-
+            div.closeIcon{
+                color: white; 
+            }
             div.title{
                 font-weight: inherit;
                 border-bottom: solid 2px #76CFDF;
@@ -250,39 +269,44 @@ body.jconfirm-noscroll{
     }
 }
 
+/*Transition rules*/
 
 .jconfirm{
-	perspective: 400px;
+    perspective: 400px;
 
     .jconfirm-box{
-        visibility: visible;
+        /*visibility: visible;*/
+        opacity: 1;
+        transition-timing-function: ease;
+        /*transition-delay: 0s;*/
+        transition-property: transform, opacity, box-shadow;
+        /*transition-property: all;*/
+        /*transition-duration: 2s;*/
+        /*transition: all 2s;*/
 
-        &.anim-top,&.anim-left,&.anim-right,&.anim-bottom,&.anim-opacity,&.anim-zoom,&.anim-scale,&.anim-none,&.anim-rotate,&.anim-rotatex,&.anim-rotatey, &.anim-scaley, &.anim-scalex,&.anim-blur{
-            visibility: hidden;
+
+        &.anim-top,&.anim-left,&.anim-right,&.anim-bottom,&.anim-opacity,&.anim-zoom,&.anim-scale,&.anim-none,&.anim-rotate,&.anim-rotatex,&.anim-rotatey, &.anim-scaley, &.anim-scalex{
+            /*visibility: hidden;*/
             opacity: 0;
         }
         &.anim-rotate{
-        	transform: rotate(90deg);
-        }
-        &.anim-blur{
-        	filter: blur(10px);
-        	opacity: 1;
+            transform: rotate(90deg);
         }
         &.anim-rotatex{
-        	transform: rotateX(90deg);
-			transform-origin: top;
+            transform: rotateX(90deg);
+            transform-origin: top;
         }
         &.anim-rotatey{
-        	transform: rotatey(90deg);
-			transform-origin: top;
+            transform: rotatey(90deg);
+            transform-origin: top;
         }
         &.anim-scaley{
-        	transform: scaley(1.5);
-			transform-origin: top;
+            transform: scaley(1.5);
+            transform-origin: top;
         }
         &.anim-scalex{
-        	transform: scalex(1.5);
-			transform-origin: top;
+            transform: scalex(1.5);
+            transform-origin: top;
         }
         &.anim-top{
             transform: translate(0px, -100px);
@@ -297,7 +321,7 @@ body.jconfirm-noscroll{
             transform: translate(0px, 100px);
         }
         &.anim-opacity{
-            
+
         }
         &.anim-zoom{
             transform: scale(1.2);
