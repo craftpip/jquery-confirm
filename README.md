@@ -1,7 +1,17 @@
-jquery-confirm
-================
-An multipurpose alert, confirm plugin, alternative to the native alert() and confirm() functions.
-Supports features like auto-close, themes, animations, and more.
+<h1>jquery-confirm </h1>
+*alerts, confirms and dialogs in* ***one.***
+
+A multipurpose plugin for alert, confirm & dialog.
+With rich set of features,
+
+&bull; directly load content via Ajax,
+&bull; Auto-close dialog after a specified time,
+&bull; prevent Dialog close on background click,
+&bull; callback function, and more..
+
+VERSION 1.1.3
+
+View Detailed [Documentation & Examples](http://craftpip.github.io/jquery-confirm)
 
 ## Installation
 
@@ -15,7 +25,7 @@ and finally via Javascript run `$.alert()` or `$.confirm()`.
 
 How to respond to user action
 ```js
-$.alert({
+$.confirm({
 	confirm: function(){
 		console.log('the user clicked confirm');
 	},
@@ -35,7 +45,7 @@ See Detailed Docs + Example [here](http://craftpip.github.io/jquery-confirm).
 
 ## jconfirm alias
 
-The `$.alert()` & `$.confirm()` are alias of `jconfirm();`.
+The `$.alert()` , `$.confirm()` & `$.dialog()` are alias of `jconfirm();`.
 
 Checkout the [documentation](http://craftpip.github.io/jquery-confirm) for further information.
 
