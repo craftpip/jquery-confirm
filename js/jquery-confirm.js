@@ -16,10 +16,24 @@ if (typeof jQuery === 'undefined') {
 var jconfirm, Jconfirm;
 (function ($) {
     $.confirm = function (options) {
+        /*
+         *  Alias of jconfirm 
+         */
         return jconfirm(options);
     };
     $.alert = function (options) {
+        /*
+         *  Alias of jconfirm 
+         */
         options.cancelButton = false;
+        return jconfirm(options);
+    };
+    $.dialog = function (options) {
+        /*
+         *  Alias of jconfirm 
+         */
+        options.cancelButton = false;
+        options.confirmButton = false;
         return jconfirm(options);
     };
     jconfirm = function (options) {
@@ -114,7 +128,7 @@ var jconfirm, Jconfirm;
                         $btnc.find('button').removeAttr('disabled');
                         that.setDialogCenter();
                     });
-                }, 2000);
+                }, 1);
             } else {
                 contentDiv.html(this.content);
             }
