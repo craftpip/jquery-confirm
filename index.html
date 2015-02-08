@@ -78,14 +78,13 @@
                                 <a class="navbar-brand" href="http://craftpip.github.io"><span class="craftpip-logo"></span></a>
                             </div>
                             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                                <!-- <ul class="nav navbar-nav">
+                                <ul class="nav navbar-nav">
                                     <li class=""><a href="http://github.com/craftpip"><i class="fa fa-github fa-fw"></i> GITHUB HOME</a></li>
                                     <li class=""><a href="http://github.com/craftpip/jquery-confirm">PROJECT PAGE</a></li>
                                     <li class=""><a href="http://craftpip.com/#/contact">CONTACT</a></li>
-                                </ul> -->
+                                </ul>
                                 <ul class="nav navbar-nav">
                                     <li class="dropdown">
-
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-list fa-fw"></i> FEATURES LIST <span class="caret"></span></a>
                                         <ul class="dropdown-menu" role="menu">
                                             <li><a class="gotoSmooth" href="#introduction">Introduction</a></li>
@@ -145,17 +144,15 @@
                     </p>
                 </div>
                 <div class="col-md-9 col-sm-8">
-
+                
                     <!-- introduction -->
-
                     <section id="introduction">
                         <header>
                             <h1 style="margin-top: 0px;">
                                 jquery-confirm
                             </h1>
                             <p>
-
-                                <br>
+                                Good times always come close
                             </p>
                             <strong>Why use this?</strong>
                             <ul>
@@ -163,7 +160,7 @@
                                 </li>
                                 <li>Awesome looks</li>
                                 <li>4 themes</li>
-                                <li>14 Eyecandy animations</li>
+                                <li>14 Eye candy animations</li>
                                 <li>Alert and Confirm dialogs</li>
                                 <li>CSS3 animations</li>
                             </ul>
@@ -240,106 +237,111 @@
                         <p>These features can practically be used like so.</p>
                         <div class="row">
                             <div class="col-md-3">
-                                <button class="btn btn-primary btn-block example-p-1">Delete user?</button>
-                                <p class="text-success">Ask confirmation!</p>
+                                <button class="btn btn-primary btn-block example-p-1">Alerts</button>
+                                <p class="text-success">Elegant Alerts.</p>
                             </div>
                             <div class="col-md-3">
-                                <button class="btn btn-primary btn-block example-p-2">Delete user?</button>
-                                <p class="text-success">Double Confirmation!</p>
+                                <button class="btn btn-primary btn-block example-p-2">Confirmation</button>
+                                <p class="text-success">Stacked Confirmations</p>
                             </div>
                             <div class="col-md-3">
-                                <button class="btn btn-primary btn-block example-p-3">Delete user?</button>
-                                <p class="text-success">Get Attention!</p>
+                                <button class="btn btn-primary btn-block example-p-3">Must read</button>
+                                <p class="text-success">Hi-light modal</p>
                             </div>
                             <div class="col-md-3">
-                                <button class="btn btn-primary btn-block example-p-4">Loop</button>
-                                <p class="text-success">Looping! (just for fun.)</p>
+                                <button class="btn btn-primary btn-block example-p-4">Need Modals?</button>
+                                <p class="text-success">Its also a Dialog.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <button class="btn btn-primary btn-block example-p-5">Getting data from API</button>
+                                <p class="text-success">Something huge?</p>
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-primary btn-block example-p-6">Auto-close</button>
+                                <p class="text-success">User friendly?</p>
                             </div>
                         </div>
 
                         <script type="text/javascript">
                             $('.example-p-1').on('click', function () {
-                                $.confirm({
-                                    title: 'Are you sure?',
-                                    content: 'Deleting critical data can result undesired output. Are you sure to continue.',
-                                    confirmButton: 'Delete',
-                                    confirmButtonClass: 'btn-danger',
-                                    autoClose: 'cancel|10000',
-                                    icon: 'fa fa-warning',
-                                    animation: 'top',
+                                $.alert({
+                                    title: 'Attention',
+                                    content: 'This is some alert to the user. <br> with some <strong>HTML</strong> <em>contents</em>',
+                                    confirmButton: 'Okay',
+                                    confirmButtonClass: 'btn-primary',
+                                    icon: 'fa fa-info',
+                                    animation: 'zoom',
                                     confirm: function () {
-                                        alert('delete!');
+                                        alert('Okay action clicked.');
                                     }
                                 });
                             });
                             $('.example-p-2').on('click', function () {
                                 $.confirm({
-                                    title: 'Are you sure?',
-                                    content: 'Click on the delete button! and we will ask you again.',
-                                    confirmButton: 'Delete',
-                                    confirmButtonClass: 'btn-danger',
-                                    autoClose: 'cancel|10000',
-                                    icon: 'fa fa-warning',
-                                    animation: 'scale',
+                                    title: 'A critical action',
+                                    content: 'You can queue confirms, you\'ll be asked again for a confirmation.',
+                                    confirmButton: 'Proceed',
+                                    confirmButtonClass: 'btn-info',
+                                    icon: 'fa fa-question-circle',
+                                    animation: 'top',
                                     confirm: function () {
                                         $.confirm({
-                                            title: 'You cannot undo this',
-                                            content: 'So, have you changed you\'re mind?',
-                                            confirmButton: 'Delete',
-                                            icon: 'fa fa-info',
-                                            confirmButtonClass: 'btn-danger',
-                                            autoClose: 'cancel|7000',
-                                            animation: 'bottom',
+                                            title: 'A very critical action',
+                                            content: 'Are you sure you want to proceed?',
+                                            confirmButton: 'Hell, yes!',
+                                            icon: 'fa fa-warning',
+                                            confirmButtonClass: 'btn-warning',
+                                            animation: 'top',
                                             confirm: function () {
-                                                alert('delete!');
+                                                alert('A very critical action triggered!');
                                             }
                                         });
                                     }
                                 });
                             });
                             $('.example-p-3').on('click', function () {
-                                $.confirm({
-                                    title: 'Are you sure?',
-                                    content: 'You cannot click outside, to dismiss the dialog. try it.',
-                                    confirmButton: 'Delete',
-                                    confirmButtonClass: 'btn-danger',
-                                    animation: 'zoom',
-                                    icon: 'fa fa-warning',
-                                    confirm: function () {
-                                        alert('delete!');
-                                    },
+                                $.alert({
+                                    title: 'No backroundDismiss!',
+                                    content: 'This feature hi-lights the dialog if the user clicks outside the dialog. <br> Else if backgroundDismiss is set to <code>TRUE</code> a cancel action is fired.',
+                                    confirmButton: 'okay',
+                                    confirmButtonClass: 'btn-info',
+                                    animation: 'bottom',
+                                    icon: 'fa fa-check',
                                     backgroundDismiss: false
                                 });
                             });
                             $('.example-p-4').on('click', function () {
-                                window.loop1 = function () {
-                                    $.confirm({
-                                        title: 'Dialog 1',
-                                        content: 'Only way to come out is to click cancel.',
-                                        confirmButtonClass: 'btn-danger',
-                                        animation: 'scale',
-                                        autoClose: 'confirm|4000',
-                                        confirm: function () {
-                                            window.loop2();
-                                        },
-                                        backgroundDismiss: false
-                                    });
-                                }
-                                window.loop2 = function () {
-                                    $.confirm({
-                                        title: 'Dialog 2',
-                                        content: 'The autoClose option is activated',
-                                        confirmButtonClass: 'btn-danger',
-                                        animation: 'zoom',
-                                        icon: 'fa fa-warning',
-                                        autoClose: 'confirm|4000',
-                                        confirm: function () {
-                                            window.loop1();
-                                        },
-                                        backgroundDismiss: false
-                                    });
-                                }
-                                window.loop1();
+                                $.confirm({
+                                    title: 'This is a model title',
+                                    content: 'Need a popup modal?, no problem<br>disable the buttons, and get a full functional modal. <br><h3>HTML in modals</h3><h4><strong>centered in the screen</strong></h4><h5><em>Like a boss</em></h5>',
+                                    confirmButton: false,
+                                    cancelButton: false,
+                                    animation: 'scale',
+                                });
+                            });
+                            $('.example-p-5').on('click', function () {
+                                $.confirm({
+                                    title: 'Getting data from html file',
+                                    content: 'url:table.html',
+                                });
+                            });
+                            $('.example-p-6').on('click', function () {
+                                $.confirm({
+                                    title: 'Need a vacation?',
+                                    content: 'You have 6 seconds to make a choice',
+                                    autoClose: 'cancel|6000',
+                                    confirmButton: 'Yes please!',
+                                    confirmButtonClass: 'btn-info',
+                                    cancelButton: 'I dont need vacations',
+                                    confirm: function(){
+                                        alert('Vacation time!');
+                                    },
+                                    cancel: function(){
+                                        alert('Time up!');
+                                    }
+                                });
                             });
                         </script>
                     </section>
@@ -354,7 +356,6 @@
                                 <i class="fa fa-fw"></i>The options shown below can be used with <code>$.alert()</code> in the same way.
                             </p>
                         </div>
-
 
                         <h3 id="buttontext">BUTTON TEXT</h3>
                         <div class="section">
@@ -372,7 +373,7 @@
                             <pre  class="prettyprint linenums"><code class="html">$.confirm({
     confirmButton: 'Yes i agree',
     cancelButton: 'NO never !'
-})
+});
 </code></pre>
                         </div>
                         <h3 id="buttonstyle">BUTTON STYLE</h3>
@@ -406,7 +407,9 @@
                     </section>
                     <h3 id="theme">THEME</h3>
                     <div class="section">
-                        <p>Thats your taste</p>
+                        <p>The <u>light</u> &amp; <u>dark</u> themes that suit any website design, <br>
+                            <u>HoloLight</u> and <u>HoloDark</u> themes for android web apps.
+                        </p>
                         <button class="btn btn-primary example4">Light theme</button> 
                         <button class="btn btn-primary example5">Dark theme</button> 
                         <button class="btn btn-primary example5-1">HoloLight theme</button> 
@@ -452,8 +455,9 @@ $.confirm({
                     <h3 id="loadfromurl">LOAD VIA URL</h3>
                     <div class="section">
                         <p>
-                            Get content from an external file.<br>
-                            Prepend <code>URL:</code> to your URL. The URL will be called with the get ajax method.
+                            Get content from a file/url.<br>
+                            Prepend <code>URL:</code> to your URL. The URL will be called with the get ajax method. <br>
+                            Example <code>content: "URL:http://example.com/getData?id=1"</code>
                         </p>
                         <p class="text-info"><i class="fa fa-info fa-fw"></i> The confirm/cancel buttons are disabled until the content is fetched from the URL.</p>
                         <p class="text-info"><i class="fa fa-star fa-fw"></i> You can also load HTML contents to the modal with ease.</p>
@@ -463,14 +467,14 @@ $.confirm({
                         <script type="text/javascript">
                             $('.example18-1').on('click', function () {
                                 $.confirm({
-                                    title: 'Disclaimer',
+                                    title: 'Title',
                                     content: 'url:text.txt'
                                 });
                             });
                         </script>
                         <pre class="prettyprint linenums"><code>$.confirm({
     content: 'url:text.txt',
-    title: 'Disclaimer'
+    title: 'Title'
 }); 
 </code></pre>
                     </div>
@@ -479,12 +483,78 @@ $.confirm({
                         <p>All the impression lies in what we see.<br>
                             Lots and lots of animations
                         </p>
-                        <p>basic animations:</p> <br>
+                        <p>2D animations:</p>
+                        <button class="example16 btn btn-primary">right</button>
+                        <script type="text/javascript">
+                            $('.example16').on('click', function () {
+                                $.confirm({
+                                    animation: 'right'
+                                });
+                            });
+                        </script>
+                        <button class="example17 btn btn-primary">left</button>
+                        <script type="text/javascript">
+                            $('.example17').on('click', function () {
+                                $.confirm({
+                                    animation: 'left'
+                                });
+                            });
+                        </script>
+                        <button class="example18 btn btn-primary">bottom</button>
+                        <script type="text/javascript">
+                            $('.example18').on('click', function () {
+                                $.confirm({
+                                    animation: 'bottom'
+                                });
+                            });
+                        </script>
+                        <button class="example19 btn btn-primary">top</button>
+                        <script type="text/javascript">
+                            $('.example19').on('click', function () {
+                                $.confirm({
+                                    animation: 'top'
+                                });
+                            });
+                        </script>
+                        <button class="example11 btn btn-primary">Rotate</button>
+                        <script type="text/javascript">
+                            $('.example11').on('click', function () {
+                                $.confirm({
+                                    animation: 'Rotate'
+                                });
+                            });
+                        </script>
+                        <button class="example12 btn btn-primary">none</button>
+                        <script type="text/javascript">
+                            $('.example12').on('click', function () {
+                                $.confirm({
+                                    animation: 'none'
+                                });
+                            });
+                        </script>
+                        <button class="example13 btn btn-primary">opacity</button>
+                        <script type="text/javascript">
+                            $('.example13').on('click', function () {
+                                $.confirm({
+                                    animation: 'opacity'
+                                });
+                            });
+                        </script>
+                        <div class="space10"></div>
+                        <p>3D animations:</p>
                         <button class="example15 btn btn-primary">scale (default)</button>
                         <script type="text/javascript">
                             $('.example15').on('click', function () {
                                 $.confirm({
                                     animation: 'scale'
+                                });
+                            });
+                        </script>
+                        <button class="example14 btn btn-primary">zoom</button>
+                        <script type="text/javascript">
+                            $('.example14').on('click', function () {
+                                $.confirm({
+                                    animation: 'zoom'
                                 });
                             });
                         </script>
@@ -520,70 +590,6 @@ $.confirm({
                                 });
                             });
                         </script>
-                        <button class="example11 btn btn-primary">Rotate</button>
-                        <script type="text/javascript">
-                            $('.example11').on('click', function () {
-                                $.confirm({
-                                    animation: 'Rotate'
-                                });
-                            });
-                        </script>
-                        <button class="example12 btn btn-primary">none</button>
-                        <script type="text/javascript">
-                            $('.example12').on('click', function () {
-                                $.confirm({
-                                    animation: 'none'
-                                });
-                            });
-                        </script>
-                        <button class="example13 btn btn-primary">opacity</button>
-                        <script type="text/javascript">
-                            $('.example13').on('click', function () {
-                                $.confirm({
-                                    animation: 'opacity'
-                                });
-                            });
-                        </script>
-                        <button class="example14 btn btn-primary">zoom</button>
-                        <script type="text/javascript">
-                            $('.example14').on('click', function () {
-                                $.confirm({
-                                    animation: 'zoom'
-                                });
-                            });
-                        </script>
-                        <button class="example16 btn btn-primary">right</button>
-                        <script type="text/javascript">
-                            $('.example16').on('click', function () {
-                                $.confirm({
-                                    animation: 'right'
-                                });
-                            });
-                        </script>
-                        <button class="example17 btn btn-primary">left</button>
-                        <script type="text/javascript">
-                            $('.example17').on('click', function () {
-                                $.confirm({
-                                    animation: 'left'
-                                });
-                            });
-                        </script>
-                        <button class="example18 btn btn-primary">bottom</button>
-                        <script type="text/javascript">
-                            $('.example18').on('click', function () {
-                                $.confirm({
-                                    animation: 'bottom'
-                                });
-                            });
-                        </script>
-                        <button class="example19 btn btn-primary">top</button>
-                        <script type="text/javascript">
-                            $('.example19').on('click', function () {
-                                $.confirm({
-                                    animation: 'top'
-                                });
-                            });
-                        </script>
                         <div class="space10"></div>
                         <pre class="prettyprint linenums"><code>$.confirm({
     animation: 'blur'
@@ -594,7 +600,7 @@ $.confirm({
 
                     <h3 id="animationspeed">ANIMATION SPEED</h3>
                     <div class="section">
-                        <p>Adjust what speed you need for the animation.</p>
+                        <p>Adjust the duration of animation.</p>
                         <button class="btn btn-primary example19-1">I'm too Late</button>
                         <button class="btn btn-primary example19-2">I'm too Quick</button>
                         <div class="space10"></div>
@@ -622,10 +628,8 @@ $.confirm({
                     <h3 id="autoclose">AUTO-CLOSE</h3>
                     <div class="section">
                         <p>
-                            At times you need the user to respond to the alert, 
-                            if not, a default action is triggered.
-                            <br>
-                            The <code>autoClose</code> option takes in a string, example <code>'confirm|4000'</code> where confirm is the action to trigger and 4000 is the time to wait in miliseconds.
+                            Do a action if the user does not respond of specified time. <br>
+                            The <code>autoClose</code> option takes in a string, like <code>'confirm|4000'</code> where confirm is the action to trigger after 4000 milliseconds.
                             <br>
                             <i class="fa fa-info"></i> Practical examples of autoClose
                         </p>
@@ -639,10 +643,10 @@ $.confirm({
                                     content: 'This dialog will automatically trigger \'cancel\' in 6 seconds if you don\'t respond.',
                                     autoClose: 'cancel|6000',
                                     confirm: function () {
-                                        alert('confrimed');
+                                        alert('confirmed');
                                     },
                                     cancel: function () {
-                                        alert('cancelled');
+                                        alert('canceled');
                                     }
                                 });
                             });
@@ -652,10 +656,10 @@ $.confirm({
                                     content: 'Your time is out, you will be automatically logged out in 10 seconds.',
                                     autoClose: 'confirm|10000',
                                     confirm: function () {
-                                        alert('confrimed');
+                                        alert('confirmed');
                                     },
                                     cancel: function () {
-                                        alert('cancelled');
+                                        alert('canceled');
                                     }
                                 });
                             });
@@ -666,10 +670,10 @@ $.confirm({
     content: 'This dialog will automatically trigger \'cancel\' in 6 seconds if you don\'t respond.',
     autoClose: 'cancel|6000',
     confirm: function(){
-        alert('confrimed');
+        alert('confirmed');
     },
     cancel:function(){
-        alert('cancelled');
+        alert('canceled');
     }
 });
 
@@ -678,10 +682,10 @@ $.confirm({
     content: 'Your time is out, you will be automatically logged out in 10 seconds.',
     autoClose: 'confirm|10000',
     confirm: function(){
-        alert('confrimed');
+        alert('confirmed');
     },
     cancel:function(){
-        alert('cancelled');
+        alert('canceled');
     }
 });
 </code></pre>

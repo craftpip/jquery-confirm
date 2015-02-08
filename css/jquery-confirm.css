@@ -81,21 +81,28 @@ body.jconfirm-noscroll {
   overflow-y: auto;
 }
 .jconfirm .jconfirm-box div.content:empty {
-  height: 70px;
+  height: 40px;
   position: relative;
+  opacity: 0.6;
 }
 .jconfirm .jconfirm-box div.content:empty:before {
   content: '';
-  height: 30px;
-  width: 30px;
+  height: 20px;
+  width: 20px;
   border: solid 2px #aaa;
-  background-color: #ddd;
+  /*background-color: #ddd;*/
   position: absolute;
   left: 50%;
-  margin-left: -15px;
+  margin-left: -45px;
   border-radius: 20%;
   -webkit-animation: jconfirm-rotate 1s infinite;
           animation: jconfirm-rotate 1s infinite;
+}
+.jconfirm .jconfirm-box div.content:empty:after {
+  content: 'loading..';
+  position: absolute;
+  left: 50%;
+  margin-left: -15px;
 }
 .jconfirm .jconfirm-box .buttons {
   padding: 10px 15px;

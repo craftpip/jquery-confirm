@@ -120,3 +120,8 @@ ol.linenums li {
     color: #bc0000!important;
     background: #000
 }
+.gotoSmooth:hover{
+    background: #3498db !important;
+    font-weight: bold;
+    color: white !important;
+}
