@@ -4,9 +4,9 @@
 A multipurpose plugin for alert, confirm & dialog.
 With rich set of features,
 
-&bull; directly load content via Ajax,
-&bull; Auto-close dialog after a specified time,
-&bull; prevent Dialog close on background click,
+&bull; directly load content via Ajax, <br>
+&bull; Auto-close dialog after a specified time, <br>
+&bull; prevent Dialog close on background click, <br>
 &bull; callback function, and more..
 
 VERSION 1.1.3
