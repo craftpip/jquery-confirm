@@ -1,0 +1,29 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'adduser' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.35
+4 verbose node symlink C:\Program Files\nodejs\\node.exe
+5 warn invalid config init.author.url="'http://craftpip.com'"
+6 warn invalid config Must be a full url with 'http://'
+7 error Error: canceled
+7 error     at Interface.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\read\lib\read.js:66:13)
+7 error     at Interface.emit (events.js:92:17)
+7 error     at Interface._ttyWrite (readline.js:621:16)
+7 error     at ReadStream.onkeypress (readline.js:100:10)
+7 error     at ReadStream.emit (events.js:98:17)
+7 error     at emitKey (readline.js:1096:12)
+7 error     at ReadStream.onData (readline.js:841:14)
+7 error     at ReadStream.emit (events.js:95:17)
+7 error     at ReadStream.<anonymous> (_stream_readable.js:765:14)
+7 error     at ReadStream.emit (events.js:92:17)
+8 error If you need help, you may report this *entire* log,
+8 error including the npm and node versions, at:
+8 error     <http://github.com/npm/npm/issues>
+9 error System Windows_NT 6.2.9200
+10 error command "C:\\Program Files\\nodejs\\\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "adduser"
+11 error cwd E:\www\htdocs\jquery-confirm
+12 error node -v v0.10.35
+13 error npm -v 1.4.28
+14 verbose exit [ 1, true ]
