@@ -190,8 +190,7 @@ var jconfirm, Jconfirm;
                 $(window).on('keyup.' + this._rand, function (e) {
                     that.reactOnKey(e);
                 });
-                console.log('easd');
-            }, 100);
+            }, 500);
 
             $(window).on('resize.' + this._rand, function () {
                 that.setDialogCenter();
