@@ -63,6 +63,7 @@ var jconfirm, Jconfirm;
     Jconfirm.prototype = {
         _init: function () {
             var that = this;
+            this._rand = Math.round(Math.random() * 99999);
             this._buildHTML();
             this._bindEvents();
             setTimeout(function () {
@@ -76,7 +77,7 @@ var jconfirm, Jconfirm;
              * Cleaning animations.
              */
             this.animation = 'anim-' + this.animation.toLowerCase();
-            if (this.animation == 'none')
+            if (this.animation === 'none')
                 this.animationSpeed = 0;
 
             /*
@@ -95,7 +96,7 @@ var jconfirm, Jconfirm;
              */
             this.$el.find('div.title').html('<i class="' + this.icon + '"></i> ' + this.title);
             var contentDiv = this.$el.find('div.content');
-            
+
             /*
              * Settings up buttons
              */
@@ -182,18 +183,61 @@ var jconfirm, Jconfirm;
                 this.$closeButton.click(function (e) {
                     that.cancel();
                     that.close();
-                })
+                });
             }
-            $(window).on('resize', function () {
-                that.setDialogCenter()
+
+            $(window).on('keyup.' + this._rand, function (e) {
+                that.reactOnKey(e);
+            });
+
+            $(window).on('resize.' + this._rand, function () {
+                that.setDialogCenter();
             });
             this.setDialogCenter();
         },
-        setDialogCenter: function () {
-            var h = $(window).height();
-            var h2 = this.$b.height();
-            var mar = (h - h2) / 2;
+        reactOnKey: function key(e) {
+            /*
+             * prevent keyup event if the dialog is not last! 
+             */
+            var a = $('.jconfirm');
+            if (a.eq(a.length - 1)[0] !== this.$el[0])
+                return false;
 
+            var key = e.which;
+            console.log(e);
+            if (key === 27) {
+                /*
+                 * if ESC key
+                 */
+                if (!this.backgroundDismiss) {
+                    /*
+                     * If background dismiss is false, Glow the modal.
+                     */
+                    this.$el.find('.jconfirm-bg').click();
+                    return false;
+                }
+
+                if (this.$cancelButton) {
+                    this.$cancelButton.click();
+                } else {
+                    this.close();
+                }
+            }
+            if (key === 13) {
+                /*
+                 * if ENTER key
+                 */
+                if (this.$confirmButton) {
+                    this.$confirmButton.click();
+                } else {
+
+                }
+            }
+        },
+        setDialogCenter: function () {
+            var h = $(window).height(),
+                    h2 = this.$b.height(),
+                    mar = (h - h2) / 2;
             this.$b.find('.content').css({
                 'max-height': h - 200 + 'px'
             });
@@ -202,13 +246,13 @@ var jconfirm, Jconfirm;
             });
         },
         close: function () {
-            /*
-             Remove the window resize event.
-             */
-            $(window).unbind('resize', this.setDialogCenter);
             var that = this;
+            /*
+             unbind the window resize & keyup event.
+             */
+            $(window).unbind('resize.' + this._rand);
+            $(window).unbind('keyup.' + this._rand);
             this.$b.addClass(this.animation);
-
             $('body').removeClass('jconfirm-noscroll');
             setTimeout(function () {
                 that.$el.remove();
@@ -218,6 +262,10 @@ var jconfirm, Jconfirm;
             var that = this;
             $('body').addClass('jconfirm-noscroll');
             this.$b.removeClass(this.animations.join(' '));
+            /**
+             * Blur the focused elements, prevents re-execution with button press.
+             */
+            $('body :focus').trigger('blur');
         }
     };
     jconfirm.pluginDefaults = {
