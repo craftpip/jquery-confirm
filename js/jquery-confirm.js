@@ -185,10 +185,13 @@ var jconfirm, Jconfirm;
                     that.close();
                 });
             }
-
-            $(window).on('keyup.' + this._rand, function (e) {
-                that.reactOnKey(e);
-            });
+            
+            setTimeout(function(){
+                $(window).on('keyup.' + this._rand, function (e) {
+                    that.reactOnKey(e);
+                });
+                console.log('easd');
+            }, 100);
 
             $(window).on('resize.' + this._rand, function () {
                 that.setDialogCenter();
