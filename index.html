@@ -1,69 +1,55 @@
 <!doctype html>
 <html>
-
     <head>
         <meta charset="utf-8">
         <!-- <meta http-equiv="X-UA-Compatible" content="chrome=1"> -->
         <title>jquery-confirm.js | The multipurpose alert & confirm</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-
         <!--[if lt IE 9]>
         <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
-
         <meta name="description" content="A multipurpose alert, confirm plugin, alternative to the native alert() and confirm() functions. Supports features like auto-close, themes, animations, and more.">
         <link rel="canonical" href="https://craftpip.github.io/jquery-confirm" />
-        <link rel="icon" type="img/ico" href="http://craftpip.com/apple-touch-icon-57x57.png">
-        <!-- <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" /> -->
+        <link rel="icon" type="img/ico" href="http://craftpip.com/i/apple-touch-icon-57x57.png">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="robots" content="index,follow,noodp,noydir"/>
         <meta name="google-site-verification" content="T_M_Ym5DQ-cEQQhx_jswyCBTssIdgtewICcvb3sgh8g" />
-
         <meta name="Keywords" content="jquery.confirm, alert, confirm, prompt, dialog, javascript, bootstrap" />
-
-        <link rel="apple-touch-icon" sizes="57x57" href="http://craftpip.com/apple-touch-icon-57x57.png" />
-        <link rel="apple-touch-icon" sizes="72x72" href="http://craftpip.com/apple-touch-icon-72x72.png" />
-        <link rel="apple-touch-icon" sizes="114x114" href="http://craftpip.com/apple-touch-icon-114x114.png" />
-        <link rel="apple-touch-icon" sizes="144x144" href="http://craftpip.com/apple-touch-icon-144x144.png" />
-        <link rel="apple-touch-icon" href="http://craftpip.com/apple-touch-icon-57x57.png" />
-
+        <link rel="apple-touch-icon" sizes="57x57" href="http://craftpip.com/i/apple-touch-icon-57x57.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="http://craftpip.com/i/apple-touch-icon-72x72.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="http://craftpip.com/i/apple-touch-icon-114x114.png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="http://craftpip.com/i/apple-touch-icon-144x144.png" />
+        <link rel="apple-touch-icon" href="http://craftpip.com/i/apple-touch-icon-57x57.png" />
         <meta property="og:title" content="jquery-confirm.js | The multipurpose alert &amp; confirm" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="http://craftpip.com/apple-touch-icon-57x57.png" />
+        <meta property="og:image" content="http://craftpip.com/i/apple-touch-icon-57x57.png" />
         <meta property="og:url" content="https://craftpip.github.io/jquery-confirm" />
         <meta property="og:description" content="A multipurpose alert & confirm plugin, alternative to the native alert() and confirm() functions. Supports features like auto-close, themes, animations, and more." />
         <meta property="og:site_name" content="craftpip.github.io" />
-
         <link rel="stylesheet" href="demo/libs/bootstrap.min.css">
         <link rel="stylesheet" href="demo/libs/bootstrap-theme.min.css">
         <link rel="stylesheet" href="demo/libs/font-awesome.min.css">
         <link rel="stylesheet" href="demo/libs/default.min.css">
         <link rel="stylesheet" href="demo/demo.min.css">
-
         <script src="demo/libs/jquery.min.js"></script>
         <script src="demo/libs/bootstrap.min.js"></script>
         <script src="demo/libs/pretty.js"></script>
-
+        <script>
+            var version = '1.1.3';
+        </script>
         <style type="text/css">
             .space10{
                 height: 10px;
             }
+            body{
+                font-family: Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif;
+            }
         </style>
-
         <!-- Add the minified version of files from the /dist/ folder. -->
         <!-- jquery-confirm files -->
         <link rel="stylesheet" type="text/css" href="css/jquery-confirm.css" />
         <script type="text/javascript" src="js/jquery-confirm.js"></script>
         <!--END jquery-confirm files-->
-
-        <style type="text/css">
-            body{
-                font-family: Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif;
-            }
-        </style>
-        <script>
-            var version = '1.1.3';
-        </script>
     </head>
     <body>
         <div style="height: 15px"></div>
@@ -92,7 +78,7 @@
                                 </ul>
                                 <ul class="nav navbar-nav">
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-list fa-fw"></i> FEATURES LIST <span class="caret"></span></a>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="fa fa-list fa-fw"></i> FEATURES LIST <span class="caret"></span></a>
                                         <ul class="dropdown-menu" role="menu">
                                             <li><a class="gotoSmooth" href="#introduction">Introduction</a></li>
                                             <li><a class="gotoSmooth" href="#usage">Quick Use</a></li>
