@@ -14,7 +14,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="robots" content="index,follow,noodp,noydir"/>
         <meta name="google-site-verification" content="T_M_Ym5DQ-cEQQhx_jswyCBTssIdgtewICcvb3sgh8g" />
-        <meta name="Keywords" content="jquery.confirm, alert, confirm, prompt, dialog, javascript, bootstrap" />
+        <meta name="Keywords" content="jquery.confirm, jquery confirm, jquery alert, jquery prompt, jquery dialog, javascript, bootstrap" />
         <link rel="apple-touch-icon" sizes="57x57" href="http://craftpip.com/i/apple-touch-icon-57x57.png" />
         <link rel="apple-touch-icon" sizes="72x72" href="http://craftpip.com/i/apple-touch-icon-72x72.png" />
         <link rel="apple-touch-icon" sizes="114x114" href="http://craftpip.com/i/apple-touch-icon-114x114.png" />
@@ -76,27 +76,6 @@
                                     <li class=""><a href="http://github.com/craftpip/jquery-confirm">PROJECT PAGE</a></li>
                                     <li class=""><a href="http://craftpip.com/#/contact">CONTACT</a></li>
                                 </ul>
-                                <ul class="nav navbar-nav">
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="fa fa-list fa-fw"></i> FEATURES LIST <span class="caret"></span></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a class="gotoSmooth" href="#introduction">Introduction</a></li>
-                                            <li><a class="gotoSmooth" href="#usage">Quick Use</a></li>
-                                            <li><a class="gotoSmooth" href="#buttontext">Button text</a></li>
-                                            <li><a class="gotoSmooth" href="#buttonstyle">Button style</a></li>
-                                            <li><a class="gotoSmooth" href="#theme">Theme</a></li>
-                                            <li><a class="gotoSmooth" href="#loadfromurl">Load via URL</a></li>
-                                            <li><a class="gotoSmooth" href="#animation">Animation</a></li>
-                                            <li><a class="gotoSmooth" href="#animationspeed">Animation Speed</a></li>
-                                            <li><a class="gotoSmooth" href="#autoclose">Auto close</a></li>
-                                            <li><a class="gotoSmooth" href="#icons">Icons</a></li>
-                                            <li><a class="gotoSmooth" href="#backgrounddismiss">Background dismiss</a></li>
-                                            <li><a class="gotoSmooth" href="#globaldefaults">Global defaults</a></li>
-                                            <li><a class="gotoSmooth" href="#options">Options</a></li>
-                                            <li><a class="gotoSmooth" href="#methods">Methods</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
                             </div>
                         </div>
                     </nav>
@@ -108,36 +87,49 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-3 col-sm-4">
-                    <p>
-                        <strong>jquery-confirm v<span class="version"></span> docs</strong><br>
-                        <a href="https://github.com/craftpip/jquery-confirm">
-                            view on <i class="fa fa-github"></i> Github
-                        </a>
-                    </p>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-4" style="position:fixed">
+                            
+                            <p>
+                                <strong>jquery-confirm v<span class="version"></span> docs</strong><br>
+                                <a href="https://github.com/craftpip/jquery-confirm">
+                                    view on <i class="fa fa-github"></i> Github
+                                </a>
+                            </p>
 
-                    <a href="https://github.com/craftpip/jquery-confirm/zipball/master" class="btn btn-download btn-lg btn-block">
-                        Download latest
-                    </a>
-                    <a href="https://github.com/craftpip/jquery-confirm/releases" class="btn btn-download btn-block">
-                        View all releases
-                    </a>
+                            <a href="https://github.com/craftpip/jquery-confirm/zipball/master" class="btn btn-download btn-lg btn-block">
+                                Download latest
+                            </a>
+                            <a href="https://github.com/craftpip/jquery-confirm/releases" class="btn btn-download btn-block">
+                                View all releases
+                            </a>
 
-                    <div class="spacer15"></div>
-                    <div class="panel panel-default" style="margin-bottom: 10px">
-                        <div class="list-group">
-                            <a class="list-group-item gotoSmooth" href="#usage"> <i class="fa fa-circle-o fa-fw"></i> QUICK USE</a>
-                            <a class="list-group-item gotoSmooth" href="#theme"> <i class="fa fa-circle-o fa-fw"></i> THEME</a>
-                            <a class="list-group-item gotoSmooth" href="#animation"> <i class="fa fa-circle-o fa-fw"></i> ANIMATION</a>
-                            <a class="list-group-item gotoSmooth" href="#autoclose"> <i class="fa fa-circle-o fa-fw"></i> AUTO CLOSE</a>
-                            <a class="list-group-item gotoSmooth" href="#loadfromurl"> <i class="fa fa-circle-o fa-fw"></i> LOAD FROM URL</a>
-                            <a class="list-group-item gotoSmooth" href="#backgrounddismiss"> <i class="fa fa-circle-o fa-fw"></i> BACKGROUND DISMISS</a>
-                            <a class="list-group-item gotoSmooth" href="#globaldefaults"> <i class="fa fa-circle-o fa-fw"></I> GLOBAL DEFAULTS</a>
-                            <a class="list-group-item gotoSmooth" href="#options"> <i class="fa fa-circle-o fa-fw"></i> OPTIONS</a>
+                            <div class="spacer15"></div>
+                            
+                            <div class="panel panel-default demo-sidebar" style="margin-bottom: 10px; height: 300px; overflow-y:auto">
+                                <div class="list-group">
+                                    <a class="list-group-item gotoSmooth" href="#introduction"> <i class="fa fa-circle-o fa-fw"></i> Introduction</a>
+                                    <a class="list-group-item gotoSmooth" href="#usage"> <i class="fa fa-circle-o fa-fw"></i> Quick Use</a>
+                                    <a class="list-group-item gotoSmooth" href="#buttontext"> <i class="fa fa-circle-o fa-fw"></i> Button text</a>
+                                    <a class="list-group-item gotoSmooth" href="#buttonstyle"> <i class="fa fa-circle-o fa-fw"></i> Button style</a>
+                                    <a class="list-group-item gotoSmooth" href="#theme"> <i class="fa fa-circle-o fa-fw"></i> Theme</a>
+                                    <a class="list-group-item gotoSmooth" href="#loadfromurl"> <i class="fa fa-circle-o fa-fw"></i> Load via URL</a>
+                                    <a class="list-group-item gotoSmooth" href="#animation"> <i class="fa fa-circle-o fa-fw"></i> Animation</a>
+                                    <a class="list-group-item gotoSmooth" href="#animationspeed"> <i class="fa fa-circle-o fa-fw"></i> Animation Speed</a>
+                                    <a class="list-group-item gotoSmooth" href="#autoclose"> <i class="fa fa-circle-o fa-fw"></i> Auto close</a>
+                                    <a class="list-group-item gotoSmooth" href="#icons"> <i class="fa fa-circle-o fa-fw"></i> Icons</a>
+                                    <a class="list-group-item gotoSmooth" href="#backgrounddismiss"> <i class="fa fa-circle-o fa-fw"></i> Background dismiss</a>
+                                    <a class="list-group-item gotoSmooth" href="#globaldefaults"> <i class="fa fa-circle-o fa-fw"></i> Global defaults</a>
+                                    <a class="list-group-item gotoSmooth" href="#options"> <i class="fa fa-circle-o fa-fw"></i> Options</a>
+                                    <a class="list-group-item gotoSmooth" href="#methods"> <i class="fa fa-circle-o fa-fw"></i> Methods</a>
+                                </div>
+                            </div>
+                            
+                            <p class="text-right">
+                                <code>version <span class="version"></span></code>
+                            </p>
                         </div>
                     </div>
-                    <p class="text-right">
-                        <code>version <span class="version"></span></code>
-                    </p>
                 </div>
                 <div class="col-md-9 col-sm-8">
                     <!-- introduction -->
@@ -188,6 +180,10 @@
                             <div class="col-md-3">
                                 <button class="btn btn-primary btn-block example-p-6">Auto-close</button>
                                 <p class="text-success">User friendly?</p>
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-primary btn-block example-p-7">Dummy</button>
+                                <p class="text-success">Keyboard actions?</p>
                             </div>
                         </div>
 
@@ -270,9 +266,20 @@
                                     }
                                 });
                             });
+                            $('.example-p-7').on('click', function () {
+                                $.confirm({
+                                    title: 'Keyboard Enabled!',
+                                    content: 'Press ENTER to confirm, ESC to cancel.<br>keyboard actions is turned on by default. <br> Use <kbd>keyboardEnabled:false</kbd> to turn it off.',
+                                    confirm: function () {
+                                        alert('confirm triggered!');
+                                    },
+                                    cancel: function () {
+                                        alert('cancel triggered!');
+                                    },
+                                });
+                            });
                         </script>
                     </section>
-
 
 
                     <!-- basic usage -->
@@ -764,9 +771,10 @@ $.confirm({
                     <h3 id="globaldefaults">GLOBAL DEFAULTS</h3>
                     <div class="section">
                         <p>
-                            You can specify default actions like so.
+                            You can setup global settings for your jconfirm.
                         </p>
-                        <pre class="prettyprint linenums"><code>jconfirm.pluginDefaults = {
+                        <p class="text-danger"><i class="fa fa-info-circle fa-fw"></i> jconfirm.defaults should be set after the plugin has loaded.</p>
+                        <pre class="prettyprint linenums"><code>jconfirm.defaults = {
     title: 'Hello',
     content: 'Are you sure to continue?',
     icon: '',
@@ -778,12 +786,15 @@ $.confirm({
     animation: 'scale',
     animationSpeed: 400,
     confirm: function () {
+        // code here
     },
     cancel: function () {
+        // code here
     },
     backgroundDismiss: true,
     autoClose: false,
-    closeIcon: true
+    closeIcon: true,
+    keyboardEnabled: true
 };
 </code></pre>
                     </div>
@@ -903,6 +914,14 @@ $.confirm({
                                     <td>
                                         Close icon comes into picture if both the buttons are disabled, (dialog mode). <br>
                                         You may remove the close icon by settings this value to false.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>keyboardEnabled</td>
+                                    <td>Boolean</td>
+                                    <td><code>true</code></td>
+                                    <td>
+                                        Enables keyboard actions, ENTER key triggers the confirm action and ESC key triggers the cancel action.
                                     </td>
                                 </tr>
                             </table>

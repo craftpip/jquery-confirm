@@ -185,16 +185,18 @@ var jconfirm, Jconfirm;
                     that.close();
                 });
             }
-            
-            setTimeout(function(){
-                $(window).on('keyup.' + this._rand, function (e) {
-                    that.reactOnKey(e);
-                });
-            }, 500);
+            if(this.keyboardEnabled){
+                setTimeout(function(){
+                    $(window).on('keyup.' + this._rand, function (e) {
+                        that.reactOnKey(e);
+                    });
+                }, 500);
+            }
 
             $(window).on('resize.' + this._rand, function () {
                 that.setDialogCenter();
             });
+            
             this.setDialogCenter();
         },
         reactOnKey: function key(e) {
@@ -253,7 +255,9 @@ var jconfirm, Jconfirm;
              unbind the window resize & keyup event.
              */
             $(window).unbind('resize.' + this._rand);
-            $(window).unbind('keyup.' + this._rand);
+            if(this.keyboardEnabled)
+                $(window).unbind('keyup.' + this._rand);
+            
             this.$b.addClass(this.animation);
             $('body').removeClass('jconfirm-noscroll');
             setTimeout(function () {
@@ -270,6 +274,7 @@ var jconfirm, Jconfirm;
             $('body :focus').trigger('blur');
         }
     };
+    
     jconfirm.pluginDefaults = {
         template: '<div class="jconfirm"><div class="jconfirm-bg"></div><div class="container"><div class="row"><div class="col-md-6 col-md-offset-3 span6 offset3"><div class="jconfirm-box"><div class="closeIcon"><span class="glyphicon glyphicon-remove"></span></div><div class="title"></div><div class="content"></div><div class="buttons pull-right"></div><div class="jquery-clear"></div></div></div></div></div></div>',
         title: 'Hello',
@@ -282,6 +287,7 @@ var jconfirm, Jconfirm;
         theme: 'white',
         animation: 'scale',
         animationSpeed: 400,
+        keyboardEnabled: true,
         confirm: function () {
         },
         cancel: function () {
