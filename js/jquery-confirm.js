@@ -169,18 +169,23 @@ var jconfirm, Jconfirm;
             });
             if (this.$confirmButton) {
                 this.$confirmButton.click(function (e) {
-                    that.confirm();
-                    that.close();
+                    e.preventDefault();
+                    var r = that.confirm(that.$b);
+                    if(typeof r === 'undefined' || r)
+                        that.close();
                 });
             }
             if (this.$cancelButton) {
                 this.$cancelButton.click(function (e) {
-                    that.cancel();
-                    that.close();
+                    e.preventDefault();
+                    var r = that.cancel(that.$b);
+                    if(typeof r === 'undefined' || r)
+                        that.close();
                 });
             }
             if (this.$closeButton) {
                 this.$closeButton.click(function (e) {
+                    e.preventDefault();
                     that.cancel();
                     that.close();
                 });
