@@ -169,11 +169,15 @@
                                 <p class="text-success">Important modal</p>
                             </div>
                             <div class="col-md-3">
-                                <button class="btn btn-primary btn-block example-p-4">Need Modals?</button>
-                                <p class="text-success">Its also a Dialog.</p>
+                                <button class="btn btn-primary btn-block example-p-7-1">Act like Prompt</button>
+                                <p class="text-success">Need input?</p>
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col-md-3">
+                                <button class="btn btn-primary btn-block example-p-4">Need Modals?</button>
+                                <p class="text-success">Its also a Dialog.</p>
+                            </div>
                             <div class="col-md-3">
                                 <button class="btn btn-primary btn-block example-p-5">Getting data from API</button>
                                 <p class="text-success">Something huge?</p>
@@ -187,7 +191,6 @@
                                 <p class="text-success">Keyboard actions?</p>
                             </div>
                         </div>
-
                         <script type="text/javascript">
                             $('.example-p-1').on('click', function () {
                                 $.alert({
@@ -280,12 +283,26 @@
                                     },
                                 });
                             });
+                            $('.example-p-7-1').on('click', function () {
+                                $.confirm({
+                                    title: 'Fill this form!',
+                                    content: 'url:form.txt',
+                                    confirm: function(){
+                                        var input = this.$b.find('input#input-name');
+                                        var errorText = this.$b.find('.text-danger');
+                                        if(input.val() == ''){
+                                            errorText.show();
+                                            return false;
+                                        }else{
+                                            alert('Hello '+input.val());
+                                        }
+                                    }
+                                });
+                            });
                         </script>
                     </section>
 
-
                     <!-- basic usage -->
-
                     <section id="usage">
                         <h1>Quick Usage</h1>
                         <p><strong>Dependencies:</strong></p>
@@ -385,9 +402,9 @@
                         <h1>Examples</h1>
                         <div class="alert alert-info">
                             <p>
-                                <i class="fa fa-info fa-fw"></i> <strong>NOTE</strong>:
+                                <i class="fa fa-bookmark fa-fw"></i> <strong>NOTE</strong>:
                                 The <code>$.confirm()</code>, <code>$.dialog()</code> &amp; <code>$.alert()</code> methods are alias of <code>jconfirm()</code>.<br>
-                                <i class="fa fa-fw"></i>The options shown below can be used with <code>$.alert()</code> in the same way.
+                                <i class="fa fa-fw"></i> All three methods indirectly call the jconfirm base function altering the provided options.
                             </p>
                         </div>
 
