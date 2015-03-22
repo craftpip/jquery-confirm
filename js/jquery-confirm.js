@@ -290,7 +290,7 @@ var jconfirm, Jconfirm;
         theme: 'white',
         animation: 'scale',
         animationSpeed: 400,
-        keyboardEnabled: true,
+        keyboardEnabled: false,
         container: 'body',
         confirm: function () {
         },

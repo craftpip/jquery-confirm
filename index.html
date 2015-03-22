@@ -920,9 +920,18 @@ $.confirm({
                                 <tr>
                                     <td>keyboardEnabled</td>
                                     <td>Boolean</td>
-                                    <td><code>true</code></td>
+                                    <td><code>false</code></td>
                                     <td>
-                                        Enables keyboard actions, ENTER key triggers the confirm action and ESC key triggers the cancel action.
+                                        Use the ENTER key to trigger the confirm action and ESC key to trigger the cancel action.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>container</td>
+                                    <td>String</td>
+                                    <td><code>'body'</code></td>
+                                    <td>
+                                        Specify where the generated HTML content for jconfirm should append. <br>
+                                        By default it appends in the document's &lt;body&gt;.
                                     </td>
                                 </tr>
                             </table>
