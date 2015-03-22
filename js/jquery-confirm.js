@@ -79,18 +79,16 @@ var jconfirm, Jconfirm;
             this.animation = 'anim-' + this.animation.toLowerCase();
             if (this.animation === 'none')
                 this.animationSpeed = 0;
-
             /*
              * Append html to body.
              */
-            this.$el = $(this.template).appendTo('body').addClass(this.theme);
+            this.$el = $(this.template).appendTo(this.container).addClass(this.theme);
             this.$b = this.$el.find('.jconfirm-box').css({
                 '-webkit-transition-duration': this.animationSpeed / 1000 + 's',
                 'transition-duration': this.animationSpeed / 1000 + 's'
             });
             this.$b = this.$el.find('.jconfirm-box');
             this.$b.addClass(this.animation);
-
             /*
              * setup html contents
              */
@@ -293,6 +291,7 @@ var jconfirm, Jconfirm;
         animation: 'scale',
         animationSpeed: 400,
         keyboardEnabled: true,
+        container: 'body',
         confirm: function () {
         },
         cancel: function () {
