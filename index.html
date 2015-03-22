@@ -108,20 +108,21 @@
                             
                             <div class="panel panel-default demo-sidebar" style="margin-bottom: 10px; height: 300px; overflow-y:auto">
                                 <div class="list-group">
-                                    <a class="list-group-item gotoSmooth" href="#introduction"> <i class="fa fa-circle-o fa-fw"></i> Introduction</a>
-                                    <a class="list-group-item gotoSmooth" href="#usage"> <i class="fa fa-circle-o fa-fw"></i> Quick Use</a>
-                                    <a class="list-group-item gotoSmooth" href="#buttontext"> <i class="fa fa-circle-o fa-fw"></i> Button text</a>
-                                    <a class="list-group-item gotoSmooth" href="#buttonstyle"> <i class="fa fa-circle-o fa-fw"></i> Button style</a>
-                                    <a class="list-group-item gotoSmooth" href="#theme"> <i class="fa fa-circle-o fa-fw"></i> Theme</a>
-                                    <a class="list-group-item gotoSmooth" href="#loadfromurl"> <i class="fa fa-circle-o fa-fw"></i> Load via URL</a>
-                                    <a class="list-group-item gotoSmooth" href="#animation"> <i class="fa fa-circle-o fa-fw"></i> Animation</a>
-                                    <a class="list-group-item gotoSmooth" href="#animationspeed"> <i class="fa fa-circle-o fa-fw"></i> Animation Speed</a>
-                                    <a class="list-group-item gotoSmooth" href="#autoclose"> <i class="fa fa-circle-o fa-fw"></i> Auto close</a>
-                                    <a class="list-group-item gotoSmooth" href="#icons"> <i class="fa fa-circle-o fa-fw"></i> Icons</a>
-                                    <a class="list-group-item gotoSmooth" href="#backgrounddismiss"> <i class="fa fa-circle-o fa-fw"></i> Background dismiss</a>
-                                    <a class="list-group-item gotoSmooth" href="#globaldefaults"> <i class="fa fa-circle-o fa-fw"></i> Global defaults</a>
-                                    <a class="list-group-item gotoSmooth" href="#options"> <i class="fa fa-circle-o fa-fw"></i> Options</a>
-                                    <a class="list-group-item gotoSmooth" href="#methods"> <i class="fa fa-circle-o fa-fw"></i> Methods</a>
+                                    <a class="list-group-item gotoSmooth" href="#introduction"> Introduction</a>
+                                    <a class="list-group-item gotoSmooth" href="#usage"> Quick Use</a>
+                                    <a class="list-group-item gotoSmooth" href="#buttontext"> Button text</a>
+                                    <a class="list-group-item gotoSmooth" href="#buttonstyle"> Button style</a>
+                                    <a class="list-group-item gotoSmooth" href="#theme"> Theme</a>
+                                    <a class="list-group-item gotoSmooth" href="#loadfromurl"> Load via URL</a>
+                                    <a class="list-group-item gotoSmooth" href="#animation"> Animation</a>
+                                    <a class="list-group-item gotoSmooth" href="#animationspeed"> Animation Speed</a>
+                                    <a class="list-group-item gotoSmooth" href="#autoclose"> Auto close</a>
+                                    <a class="list-group-item gotoSmooth" href="#icons"> Icons</a>
+                                    <a class="list-group-item gotoSmooth" href="#backgrounddismiss"> Background dismiss</a>
+                                    <a class="list-group-item gotoSmooth" href="#keyboardactions"> Keyboard Actions</a>
+                                    <a class="list-group-item gotoSmooth" href="#globaldefaults"> Global defaults</a>
+                                    <a class="list-group-item gotoSmooth" href="#options"> Options</a>
+                                    <a class="list-group-item gotoSmooth" href="#methods"> Methods</a>
                                 </div>
                             </div>
                             
@@ -143,7 +144,7 @@
                             </p>
                             <br>
                             <p>
-                                Welcome to jquery-confirm!<br>
+                                <h3>Welcome to jquery-confirm!</h3>
                                 A jQuery plugin that provides great set of features like,
                                 Auto-close, Ajax-loading, background-dismiss, themes and more. <br>
                                 This plugin is actively developed, We would love you have your suggestions <a href="http://craftpip.com/#/contact"><u>here</u></a> or mail me <code>hey@craftpip.com</code>.
@@ -182,7 +183,7 @@
                                 <p class="text-success">User friendly?</p>
                             </div>
                             <div class="col-md-3">
-                                <button class="btn btn-primary btn-block example-p-7">Dummy</button>
+                                <button class="btn btn-primary btn-block example-p-7">Hit the keys</button>
                                 <p class="text-success">Keyboard actions?</p>
                             </div>
                         </div>
@@ -269,7 +270,8 @@
                             $('.example-p-7').on('click', function () {
                                 $.confirm({
                                     title: 'Keyboard Enabled!',
-                                    content: 'Press ENTER to confirm, ESC to cancel.<br>keyboard actions is turned on by default. <br> Use <kbd>keyboardEnabled:false</kbd> to turn it off.',
+                                    keyboardEnabled: true,
+                                    content: 'Press ENTER to confirm, ESC to cancel.<br> Use <kbd>keyboardEnabled:true</kbd> to turn it on.',
                                     confirm: function () {
                                         alert('confirm triggered!');
                                     },
@@ -288,59 +290,93 @@
                         <h1>Quick Usage</h1>
                         <p><strong>Dependencies:</strong></p>
                         <ul>
-                            <li>Bootstrap by Twitter > v2</li>
+                            <li>Bootstrap by Twitter >= v2</li>
                             <li>jQuery library > v1.8</li>
                         </ul>
-                        <p>show an <strong>alert dialog</strong></p>
-                        <button class="example1 btn btn-primary">example alert</button>
-                        <script type="text/javascript">
-                            $('.example1').on('click', function () {
-                                $.alert({
-                                    title: 'Alert!',
-                                    content: 'Alert! Alert! Alert!',
-                                    confirm: function () {
-                                        alert('the user clicked yes');
-                                    }
-                                });
-                            });
-                        </script>
-                        <div class="space10"></div>
-                        <pre class="prettyprint linenums"><code class="js">$.alert({
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>
+                                    Show an <strong>alert dialog</strong>
+                                    <br> 
+                                    <i class="fa fa-info-circle"></i> <code>$.alert()</code> Has only confirm button.
+                                </p>
+                                <button class="example1 btn btn-primary">example alert</button>
+                                <script type="text/javascript">
+                                    $('.example1').on('click', function () {
+                                        $.alert({
+                                            title: 'Alert!',
+                                            content: 'Simple alert!',
+                                            confirm: function () {
+                                                alert('Confirmed!');
+                                            }
+                                        });
+                                    });
+                                </script>
+                                <div class="space10"></div>
+                                <pre class="prettyprint linenums"><code class="js">$.alert({
     title: 'Alert!',
-    content: 'Alert! alert! alert!',
+    content: 'Simple alert!',
     confirm: function(){
-        alert('the user clicked yes');
+        alert('Confirmed!');
     }
 });
 </code></pre>
-                        <p>show an <strong>confirm dialog</strong></p>
-                        <button class="example2 btn btn-primary">example confirm</button>
-                        <script type="text/javascript">
-                            $('.example2').on('click', function () {
-                                $.confirm({
-                                    title: 'Confirm!',
-                                    content: 'Confirm! Confirm! Confirm!',
-                                    confirm: function () {
-                                        alert('the user clicked confirm');
-                                    },
-                                    cancel: function () {
-                                        alert('the user clicked cancel')
-                                    }
-                                });
-                            });
-                        </script>
-                        <div class="space10"></div>
-                        <pre class="prettyprint linenums"><code class="js">$.confrim({
+                            </div>
+                            <div class="col-md-12">
+                                <p>Show an <strong>confirm dialog</strong>
+                                    <br> 
+                                    <i class="fa fa-info-circle"></i> <code>$.confirm()</code> Has both confirm &amp; cancel buttons.
+                                </p>
+                                <button class="example2 btn btn-primary">example confirm</button>
+                                <script type="text/javascript">
+                                    $('.example2').on('click', function () {
+                                        $.confirm({
+                                            title: 'Confirm!',
+                                            content: 'Simple confirm!',
+                                            confirm: function () {
+                                                alert('Confirmed!');
+                                            },
+                                            cancel: function () {
+                                                alert('Canceled!')
+                                            }
+                                        });
+                                    });
+                                </script>
+                                <div class="space10"></div>
+                                <pre class="prettyprint linenums"><code class="js">$.confrim({
     title: 'Confirm!',
-    content: 'Confirm! Confirm! Confirm!',
+    content: 'Simple confirm!',
     confirm: function(){
-        alert('the user clicked confirm');
+        alert('Confirmed!');
     },
     cancel: function(){
-        alert('the user clicked cancel')
+        alert('Canceled!')
     }
 });
 </code></pre>
+                            </div>
+                            <div class="col-md-12">
+                                <p>Show an <strong>modal dialog</strong>
+                                    <br> 
+                                    <i class="fa fa-info-circle"></i> <code>$.dialog()</code> Hides both confirm &amp; cancel buttons. (Shows close [x] button)
+                                </p>
+                                <button class="example2-1 btn btn-primary">example dialog</button>
+                                <script type="text/javascript">
+                                    $('.example2-1').on('click', function () {
+                                        $.dialog({
+                                            title: 'Text content!',
+                                            content: 'Simple modal!',
+                                        });
+                                    });
+                                </script>
+                                <div class="space10"></div>
+                                <pre class="prettyprint linenums"><code class="js">$.dialog({
+    title: 'Text content!',
+    content: 'Simple modal!',
+});
+</code></pre>
+                            </div>
+                        </div>
                     </section>
 
 
@@ -350,7 +386,7 @@
                         <div class="alert alert-info">
                             <p>
                                 <i class="fa fa-info fa-fw"></i> <strong>NOTE</strong>:
-                                The <code>$.confirm()</code> &amp; <code>$.alert()</code> methods are alias of <code>jconfirm()</code>.<br>
+                                The <code>$.confirm()</code>, <code>$.dialog()</code> &amp; <code>$.alert()</code> methods are alias of <code>jconfirm()</code>.<br>
                                 <i class="fa fa-fw"></i>The options shown below can be used with <code>$.alert()</code> in the same way.
                             </p>
                         </div>
@@ -765,6 +801,42 @@ $.alert({
 $.confirm({
     backgroundDismiss: false,
     content: 'Click outside the dialog'
+});
+</code></pre>
+                    </div>
+                    <h3 id="keyboardactions">KEYBOARD ACTIONS</h3>
+                    <div class="section">
+                        <p>
+                            Enables keyboard events on jquery-confirm dialog. <br>
+                            ENTER calls <code>confirm();</code> &amp; ESC calls <code>cancel();</code>
+                        </p>
+                        
+                        <button class="btn btn-primary example22-1">Keyboard Enabled</button>
+                        
+                        <script type="text/javascript">
+                            $('.example22-1').on('click', function () {
+                                $.confirm({
+                                    keyboardEnabled: true,
+                                    content: 'Press ESC or ENTER to see it in action.',
+                                    cancel: function(){
+                                        alert('canceled');
+                                    },
+                                    confirm: function(){
+                                        alert('confirmed');
+                                    }
+                                });
+                            });
+                        </script>
+                        <div class="space10"></div>
+                        <pre class="prettyprint linenums"><code>$.confirm({
+    keyboardEnabled: true,
+    content: 'Press ESC or ENTER to see it in action.',
+    cancel: function(){
+        alert('canceled');
+    },
+    confirm: function(){
+        alert('confirmed');
+    }
 });
 </code></pre>
                     </div>

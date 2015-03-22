@@ -125,3 +125,8 @@ ol.linenums li {
     font-weight: bold;
     color: white !important;
 }
+
+.demo-sidebar .gotoSmooth{
+    padding: 5px 10px 5px 10px;
+    font-weight: bold;
+}
