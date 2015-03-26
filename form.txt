@@ -7,4 +7,4 @@
     <label>Your name</label>
     <input type="text" id="input-name" placeholder="name" class="form-control">
 </div>
-<p class="text-danger" style="display:none">The modal is prevented to close until the input isn't valid!</p>
+<p class="text-danger" style="display:none">The modal is prevented to close until the input is valid!</p>
