@@ -35,7 +35,7 @@
         <script src="demo/libs/bootstrap.min.js"></script>
         <script src="demo/libs/pretty.js"></script>
         <script>
-            var version = '1.1.3';
+            var version = '1.5.0';
         </script>
         <style type="text/css">
             .space10{
@@ -143,12 +143,13 @@
                                 <em>alerts</em>, <em>confirms</em> and <em>dialogs</em> in <strong>one</strong>.
                             </p>
                             <br>
+                            <h3>Welcome to jquery-confirm!</h3>
                             <p>
-                                <h3>Welcome to jquery-confirm!</h3>
                                 A jQuery plugin that provides great set of features like,
                                 Auto-close, Ajax-loading, background-dismiss, themes and more. <br>
-                                This plugin is actively developed, We would love you have your suggestions <a href="http://craftpip.com/#/contact"><u>here</u></a> or mail me <code>hey@craftpip.com</code>.
+                                This plugin is actively developed, We would love you have your suggestions.
                             </p>
+                            <a href="https://github.com/craftpip/jquery-confirm/issues" target="empty" class="btn btn-success"><i class="fa fa-bug fa-fw"></i> Issues/Features here.</a>
                         </header>
                     </section>
                     <hr>
@@ -1026,37 +1027,96 @@ $.confirm({
                             </table>
                         </div>
                     </div>
-                    <h3 id="methods">METHODS</h3>
+                    <h3 id="methods">RETURNED OBJECT</h3>
+                    <p>
+                        The function <code>var obj = $.confirm()</code> returns a reference object on execution. <br>
+                        This <code>obj</code> can be used to interact with the opened dialog.
+                    </p>
+                    <h4>
+                        <code>var obj = $.confirm({title: 'awesome'}); // initial execution</code>
+                    </h4>
                     <div class="section">
-                        <h4>close()</h4>
-                        <p>On calling the <code>$.alert</code> or <code>$.confirm</code> function, it returns a reference object. You can use this object to access the dialog.</p>
-                        <button class="btn btn-primary example25">Example Close() method.</button
-                        >
-                        <script type="text/javascript">
-                            $('.example25').on('click', function () {
-                                var obj = $.alert({
-                                    title: 'Closing this in 2 seconds.',
-                                    content: 'Closing me via SetTimeout for demonstration.'
-                                })
-                                setTimeout(function () {
-                                    obj.close();
-                                }, 2000);
-                            });
-                        </script>
-                        <div class="space10"></div>
-                        <pre class="prettyprint lineums"><code>var obj = $.alert({
-    title: 'Closing this in 2 seconds.',
-    content: 'Closing me via SetTimeout for demonstration.'
+                        <h4><kbd>obj.close()</kbd></h4>
+                        <p>The close method closes/destroys the dialog.</p>
+                        <pre class="prettyprint lineums"><code>var obj = $.confirm({
+    title: 'awesome',
+    content: 'Yeah, this is awesome'
 })
-setTimeout(function(){
-    // some point in future.
-    obj.close();
-},2000); 
+// Reference object is stored in 'obj', and the dialog opens on execution!
+
+obj.close();
+// The dialog is closed/destroyed.
 </code></pre>
                     </div>
-                    <section>
+                    
+                    <div class="section">
+                        <h4><kbd>obj.$b</kbd></h4>
+                        <p>The $b object is a jQuery DOM reference to the dialog. You can access your Dialogs contents via this object.</p>
+                        <pre class="prettyprint lineums"><code>var obj = $.confirm({
+    title: 'awesome',
+    content: '&lt;span class="styled"&gt;Yeah, this is awesome&lt;/span&gt;'
+})
+
+var finding = obj.$b.find('.styled').html();
+console.log(finding);
+// Yeah, this is awesome
+</code></pre>
+                    </div>
+                    
+                    <h3 id="methods">INSIDE CALLBACKS</h3>
+                    <div class="section">
+                        <h4>Getting the reference object inside callback functions</h4>
+                        <p>You may need the retured reference obj inside the callback function, <code>this</code> is what you need.</p>
+                        <pre class="prettyprint lineums"><code>var obj = $.confirm({
+    title: 'awesome',
+    content: 'Get me yeah.',
+    confirm: function(){
+        console.log(this.content);
+        // Get me yeah.
+    }
+})
+
+console.log(obj.content);
+// Get me yeah.
+
+// Moral, this within the callback function is the returned object on execution.
+</code></pre>
+                    </div>
+                    <div class="section">
+                        <h4>Preventing the dialog from closing</h4>
+                        <p>
+                            At times you need the content inside dialog be validated, (For example, If you have a form inside, and the fields are required).
+                            You can prevent the modal close by simply doing <code>return false;</code>
+                        </p>
+                        <pre class="prettyprint lineums"><code>var obj = $.confirm({
+    title: 'awesome',
+    content: 'Your name: &lt;input type="text" /&gt;', // You can also LOAD the html data using <a href="#loadfromurl">LOAD FROM URL feature</a>,
+    confirm: function(){
+
+        var val = this.$b.find('input').val();
+        // there is a input element inside the content.
+
+        if(val == ''){
+        // if the value is empty, dont close the dialog. (and maybe show some error.)
+
+            return false;
+        }
+
+    }
+
+    // <i class="fa fa-lightbulb-o fa-fw"></i>NOTE: You can return any falsy value to prevent close (such as '', null, undefined, 0).
+});
+</code></pre>
+                    </div>
+                    
+                    <section class="text-right">
                         <div class="spacer15"></div>
-                        <h1 style="text-align:center"><i class="fa fa-coffee" style="color: #666"></i> happy coding </h1>
+                        <p>
+                            Thanks for making it to the END of the document. <br>
+                            This Documentation needs review.
+                        </p>
+                        <a href="https://github.com/craftpip/jquery-confirm/issues/new" target="empty" class="btn btn-success">Please post your <br> Questions / Suggestions / Issues.</a>
+                        <h4><i class="fa fa-heart" style="color: #f00"></i> Made with Love. </h4>
                         <div class="spacer15"></div>
                     </section>
                 </div>

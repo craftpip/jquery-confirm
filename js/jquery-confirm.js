@@ -1,11 +1,11 @@
 'use strict';
 /*!
- * jquery-confirm v1.1.3 (http://craftpip.github.io/jquery-confirm/)
+ * jquery-confirm v1.5.0 (http://craftpip.github.io/jquery-confirm/)
  * Author: Boniface Pereira
  * Website: www.craftpip.com
  * Contact: hey@craftpip.com
  *
- * Copyright 2013-2014 jquery-confirm
+ * Copyright 2013-2015 jquery-confirm
  * Licensed under MIT (https://github.com/craftpip/jquery-confirm/blob/master/LICENSE)
  */
 
@@ -169,7 +169,7 @@ var jconfirm, Jconfirm;
                 this.$confirmButton.click(function (e) {
                     e.preventDefault();
                     var r = that.confirm(that.$b);
-                    if(typeof r === 'undefined' || r)
+                    if (typeof r === 'undefined' || r)
                         that.close();
                 });
             }
@@ -177,7 +177,7 @@ var jconfirm, Jconfirm;
                 this.$cancelButton.click(function (e) {
                     e.preventDefault();
                     var r = that.cancel(that.$b);
-                    if(typeof r === 'undefined' || r)
+                    if (typeof r === 'undefined' || r)
                         that.close();
                 });
             }
@@ -188,8 +188,8 @@ var jconfirm, Jconfirm;
                     that.close();
                 });
             }
-            if(this.keyboardEnabled){
-                setTimeout(function(){
+            if (this.keyboardEnabled) {
+                setTimeout(function () {
                     $(window).on('keyup.' + this._rand, function (e) {
                         that.reactOnKey(e);
                     });
@@ -199,7 +199,7 @@ var jconfirm, Jconfirm;
             $(window).on('resize.' + this._rand, function () {
                 that.setDialogCenter();
             });
-            
+
             this.setDialogCenter();
         },
         reactOnKey: function key(e) {
@@ -258,9 +258,9 @@ var jconfirm, Jconfirm;
              unbind the window resize & keyup event.
              */
             $(window).unbind('resize.' + this._rand);
-            if(this.keyboardEnabled)
+            if (this.keyboardEnabled)
                 $(window).unbind('keyup.' + this._rand);
-            
+
             this.$b.addClass(this.animation);
             $('body').removeClass('jconfirm-noscroll');
             setTimeout(function () {
@@ -277,7 +277,7 @@ var jconfirm, Jconfirm;
             $('body :focus').trigger('blur');
         }
     };
-    
+
     jconfirm.pluginDefaults = {
         template: '<div class="jconfirm"><div class="jconfirm-bg"></div><div class="container"><div class="row"><div class="col-md-6 col-md-offset-3 span6 offset3"><div class="jconfirm-box"><div class="closeIcon"><span class="glyphicon glyphicon-remove"></span></div><div class="title"></div><div class="content"></div><div class="buttons pull-right"></div><div class="jquery-clear"></div></div></div></div></div></div>',
         title: 'Hello',
