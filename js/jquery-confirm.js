@@ -1,6 +1,6 @@
 'use strict';
 /*!
- * jquery-confirm v1.5.0 (http://craftpip.github.io/jquery-confirm/)
+ * jquery-confirm v1.5.1 (http://craftpip.github.io/jquery-confirm/)
  * Author: Boniface Pereira
  * Website: www.craftpip.com
  * Contact: hey@craftpip.com

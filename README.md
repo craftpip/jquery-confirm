@@ -1,6 +1,6 @@
 ### jquery-confirm
 *alerts, confirms and dialogs in* ***one.***
-VERSION 1.5.0
+VERSION 1.5.1
 
 A multipurpose plugin for alert, confirm & dialog, with Extended features.
 
