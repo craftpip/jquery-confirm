@@ -221,7 +221,7 @@ var jconfirm, Jconfirm;
                 return false;
 
             var key = e.which;
-            console.log(e);
+            console.log(key);
             if (key === 27) {
                 /*
                  * if ESC key
@@ -240,9 +240,9 @@ var jconfirm, Jconfirm;
                     this.close();
                 }
             }
-            if (key === 13) {
+            if (key === 13 || key == 32) {
                 /*
-                 * if ENTER key
+                 * if ENTER or SPACE key
                  */
                 if (this.$confirmButton) {
                     this.$confirmButton.click();
