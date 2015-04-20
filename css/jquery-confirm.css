@@ -37,7 +37,6 @@ body.jconfirm-noscroll {
   right: 0;
   bottom: 0;
   z-index: 99999999;
-  font-family: Segoe UI, Frutiger, Frutiger Linotype, Dejavu Sans, Helvetica Neue, Arial, sans-serif;
   font-family: inherit;
   overflow-y: auto;
 }
@@ -47,6 +46,12 @@ body.jconfirm-noscroll {
   left: 0;
   right: 0;
   bottom: 0;
+  opacity: 0;
+  -webkit-transition: all .4s;
+          transition: all .4s;
+}
+.jconfirm .jconfirm-bg.seen {
+  opacity: 1;
 }
 .jconfirm .jconfirm-box {
   background: white;
