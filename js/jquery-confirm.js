@@ -87,8 +87,18 @@ var jconfirm, Jconfirm;
                 '-webkit-transition-duration': this.animationSpeed / 1000 + 's',
                 'transition-duration': this.animationSpeed / 1000 + 's'
             });
-            this.$b = this.$el.find('.jconfirm-box');
+            
             this.$b.addClass(this.animation);
+            
+            var that = this;
+            /*
+             * timeout needed for DOM render time. or it never animates.
+             */
+            setTimeout(function(){
+                that.$el.find('.jconfirm-bg').animate({
+                    opacity: 1
+                }, that.animationSpeed/2);
+            }, 1);
             /*
              * setup html contents
              */
@@ -211,7 +221,7 @@ var jconfirm, Jconfirm;
                 return false;
 
             var key = e.which;
-            console.log(e);
+            console.log(key);
             if (key === 27) {
                 /*
                  * if ESC key
@@ -230,9 +240,9 @@ var jconfirm, Jconfirm;
                     this.close();
                 }
             }
-            if (key === 13) {
+            if (key === 13 || key == 32) {
                 /*
-                 * if ENTER key
+                 * if ENTER or SPACE key
                  */
                 if (this.$confirmButton) {
                     this.$confirmButton.click();
@@ -260,12 +270,15 @@ var jconfirm, Jconfirm;
             $(window).unbind('resize.' + this._rand);
             if (this.keyboardEnabled)
                 $(window).unbind('keyup.' + this._rand);
-
+            
+            this.$el.find('.jconfirm-bg').animate({
+                opacity: 0
+            }, this.animationSpeed/2);
             this.$b.addClass(this.animation);
             $('body').removeClass('jconfirm-noscroll');
             setTimeout(function () {
                 that.$el.remove();
-            }, this.animationSpeed);
+            }, this.animationSpeed+30); // wait 30 miliseconds more, ensure everything is done.
         },
         open: function () {
             var that = this;
