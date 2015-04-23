@@ -35,7 +35,7 @@
         <script src="demo/libs/bootstrap.min.js"></script>
         <script src="demo/libs/pretty.js"></script>
         <script>
-            var version = '1.5.1';
+            var version = '1.5.3';
         </script>
         <style type="text/css">
             .space10{
@@ -72,9 +72,23 @@
                             </div>
                             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                                 <ul class="nav navbar-nav">
-                                    <li class=""><a href="http://github.com/craftpip"><i class="fa fa-github fa-fw"></i> GITHUB HOME</a></li>
-                                    <li class=""><a href="http://github.com/craftpip/jquery-confirm">PROJECT PAGE</a></li>
-                                    <li class=""><a href="http://github.com/craftpip/jquery-confirm/issues/new">REQUEST FEATURE</a></li>
+                                    <li class=""><a href="http://github.com/craftpip/jquery-confirm"><i class="fa fa-github"></i> PROJECT HOME</a></li>
+                                    <li class=""><a href="http://github.com/craftpip/jquery-confirm/issues/new">SUGGEST FEATURE</a></li>
+                                </ul>
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li class="">
+                                        <a href="https://twitter.com/share" data-size="large" class="twitter-share-button"><i class="fa fa-twitter"></i>
+                                            Tweet
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a class="twitter-follow-button" data-show-count="false" data-size="large" href="https://twitter.com/craftpip" data-show-count="false" data-lang="en">
+                                            Follow @craftpip
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <div style="width: 10px;"></div>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -82,6 +96,7 @@
                 </div>
             </div>
         </div>
+        <script> window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script>
         <div style="height:50px"></div>
 
         <div class="container-fluid">
@@ -89,7 +104,7 @@
                 <div class="col-md-3 col-sm-4">
                     <div class="row">
                         <div class="col-md-3 col-sm-4" id="demo-mainsidebar" style="position:fixed">
-                            
+
                             <p>
                                 <strong>jquery-confirm v<span class="version"></span> docs</strong><br>
                                 <a href="https://github.com/craftpip/jquery-confirm">
@@ -105,16 +120,18 @@
                             </a>
 
                             <div class="spacer15"></div>
-                            
+
                             <div class="panel panel-default demo-sidebar" style="margin-bottom: 10px; height: 300px; overflow-y:auto">
                                 <div class="list-group">
                                     <a class="list-group-item gotoSmooth" href="#introduction"> Introduction</a>
                                     <a class="list-group-item gotoSmooth" href="#usage"> Quick Use</a>
                                     <a class="list-group-item gotoSmooth" href="#buttontext"> Button text</a>
                                     <a class="list-group-item gotoSmooth" href="#buttonstyle"> Button style</a>
+                                    <a class="list-group-item gotoSmooth" href="#hide-elements"> Hide elements</a>
                                     <a class="list-group-item gotoSmooth" href="#theme"> Theme</a>
                                     <a class="list-group-item gotoSmooth" href="#loadfromurl"> Load via URL</a>
                                     <a class="list-group-item gotoSmooth" href="#animation"> Animation</a>
+                                    <a class="list-group-item gotoSmooth" href="#animationbounce"> Animation Bounce</a>
                                     <a class="list-group-item gotoSmooth" href="#animationspeed"> Animation Speed</a>
                                     <a class="list-group-item gotoSmooth" href="#autoclose"> Auto close</a>
                                     <a class="list-group-item gotoSmooth" href="#icons"> Icons</a>
@@ -125,7 +142,7 @@
                                     <a class="list-group-item gotoSmooth" href="#methods"> Methods</a>
                                 </div>
                             </div>
-                            
+
                             <p class="text-right">
                                 <code>version <span class="version"></span></code>
                             </p>
@@ -149,7 +166,7 @@
                                 Auto-close, Ajax-loading, background-dismiss, themes and more. <br>
                                 This plugin is actively developed, We would love you have your suggestions.
                             </p>
-                            <a href="https://github.com/craftpip/jquery-confirm/issues" target="empty" class="btn btn-success"><i class="fa fa-bug fa-fw"></i> Issues/Features here.</a>
+                            <a href="https://github.com/craftpip/jquery-confirm/issues" target="empty" class="btn btn-success"><i class="fa fa-bug fa-fw"></i> Post your Issues/Features here.</a>
                         </header>
                     </section>
                     <hr>
@@ -193,113 +210,113 @@
                             </div>
                         </div>
                         <script type="text/javascript">
-                            $('.example-p-1').on('click', function () {
-                                $.alert({
-                                    title: 'Attention',
-                                    content: 'This is some alert to the user. <br> with some <strong>HTML</strong> <em>contents</em>',
-                                    confirmButton: 'Okay',
-                                    confirmButtonClass: 'btn-primary',
-                                    icon: 'fa fa-info',
-                                    animation: 'zoom',
-                                    confirm: function () {
-                                        alert('Okay action clicked.');
-                                    }
-                                });
-                            });
-                            $('.example-p-2').on('click', function () {
-                                $.confirm({
-                                    title: 'A critical action',
-                                    content: 'You can queue confirms, you\'ll be asked again for a confirmation.',
-                                    confirmButton: 'Proceed',
-                                    confirmButtonClass: 'btn-info',
-                                    icon: 'fa fa-question-circle',
-                                    animation: 'top',
-                                    confirm: function () {
-                                        $.confirm({
-                                            title: 'A very critical action',
-                                            content: 'Are you sure you want to proceed?',
-                                            confirmButton: 'Hell, yes!',
-                                            icon: 'fa fa-warning',
-                                            confirmButtonClass: 'btn-warning',
-                                            animation: 'top',
-                                            confirm: function () {
-                                                alert('A very critical action triggered!');
-                                            }
-                                        });
-                                    }
-                                });
-                            });
-                            $('.example-p-3').on('click', function () {
-                                $.alert({
-                                    title: 'No backroundDismiss!',
-                                    content: 'This feature hi-lights the dialog if the user clicks outside the dialog. <br> Else if backgroundDismiss is set to <code>TRUE</code> a cancel action is fired.',
-                                    confirmButton: 'okay',
-                                    confirmButtonClass: 'btn-info',
-                                    animation: 'bottom',
-                                    icon: 'fa fa-check',
-                                    backgroundDismiss: false
-                                });
-                            });
-                            $('.example-p-4').on('click', function () {
-                                $.confirm({
-                                    title: 'This is a model title',
-                                    content: 'Need a popup modal?, no problem<br>disable the buttons, and get a full functional modal. <br><h3>HTML in modals</h3><h4><strong>centered in the screen</strong></h4><h5><em>Like a boss</em></h5>',
-                                    confirmButton: false,
-                                    cancelButton: false,
-                                    animation: 'scale',
-                                });
-                            });
-                            $('.example-p-5').on('click', function () {
-                                $.confirm({
-                                    title: 'Getting data from html file',
-                                    content: 'url:table.html',
-                                });
-                            });
-                            $('.example-p-6').on('click', function () {
-                                $.confirm({
-                                    title: 'Need a vacation?',
-                                    content: 'You have 6 seconds to make a choice',
-                                    autoClose: 'cancel|6000',
-                                    confirmButton: 'Yes please!',
-                                    confirmButtonClass: 'btn-info',
-                                    cancelButton: 'I dont need vacations',
-                                    confirm: function () {
-                                        alert('Vacation time!');
-                                    },
-                                    cancel: function () {
-                                        alert('Vacation cancelled!');
-                                    }
-                                });
-                            });
-                            $('.example-p-7').on('click', function () {
-                                $.confirm({
-                                    title: 'Keyboard Enabled!',
-                                    keyboardEnabled: true,
-                                    content: 'Press ENTER to confirm, ESC to cancel.<br> Use <kbd>keyboardEnabled:true</kbd> to turn it on.',
-                                    confirm: function () {
-                                        alert('confirm triggered!');
-                                    },
-                                    cancel: function () {
-                                        alert('cancel triggered!');
-                                    },
-                                });
-                            });
-                            $('.example-p-7-1').on('click', function () {
-                                $.confirm({
-                                    title: 'Fill this form!',
-                                    content: 'url:form.txt',
-                                    confirm: function(){
-                                        var input = this.$b.find('input#input-name');
-                                        var errorText = this.$b.find('.text-danger');
-                                        if(input.val() == ''){
-                                            errorText.show();
-                                            return false;
-                                        }else{
-                                            alert('Hello '+input.val());
-                                        }
-                                    }
-                                });
-                            });
+            $('.example-p-1').on('click', function () {
+                $.alert({
+                    title: 'Attention',
+                    content: 'This is some alert to the user. <br> with some <strong>HTML</strong> <em>contents</em>',
+                    confirmButton: 'Okay',
+                    confirmButtonClass: 'btn-primary',
+                    icon: 'fa fa-info',
+                    animation: 'zoom',
+                    confirm: function () {
+                        alert('Okay action clicked.');
+                    }
+                });
+            });
+            $('.example-p-2').on('click', function () {
+                $.confirm({
+                    title: 'A critical action',
+                    content: 'You can queue confirms, you\'ll be asked again for a confirmation.',
+                    confirmButton: 'Proceed',
+                    confirmButtonClass: 'btn-info',
+                    icon: 'fa fa-question-circle',
+                    animation: 'scale',
+                    confirm: function () {
+                        $.confirm({
+                            title: 'A very critical action',
+                            content: 'Are you sure you want to proceed?',
+                            confirmButton: 'Hell, yes!',
+                            icon: 'fa fa-warning',
+                            confirmButtonClass: 'btn-warning',
+                            animation: 'zoom',
+                            confirm: function () {
+                                alert('A very critical action triggered!');
+                            }
+                        });
+                    }
+                });
+            });
+            $('.example-p-3').on('click', function () {
+                $.alert({
+                    title: 'No backroundDismiss!',
+                    content: 'This feature hi-lights the dialog if the user clicks outside the dialog. <br> Else if backgroundDismiss is set to <code>TRUE</code> a cancel action is fired.',
+                    confirmButton: 'okay',
+                    confirmButtonClass: 'btn-info',
+                    animation: 'bottom',
+                    icon: 'fa fa-check',
+                    backgroundDismiss: false
+                });
+            });
+            $('.example-p-4').on('click', function () {
+                $.confirm({
+                    title: 'This is a model title',
+                    content: 'Need a popup modal?, no problem<br>disable the buttons, and get a full functional modal. <br><h3>HTML in modals</h3><h4><strong>centered in the screen</strong></h4><h5><em>Like a boss</em></h5>',
+                    confirmButton: false,
+                    cancelButton: false,
+                    animation: 'scale',
+                });
+            });
+            $('.example-p-5').on('click', function () {
+                $.confirm({
+                    title: 'Getting data from html file',
+                    content: 'url:table.html',
+                });
+            });
+            $('.example-p-6').on('click', function () {
+                $.confirm({
+                    title: 'Need a vacation?',
+                    content: 'You have 6 seconds to make a choice',
+                    autoClose: 'cancel|6000',
+                    confirmButton: 'Yes please!',
+                    confirmButtonClass: 'btn-info',
+                    cancelButton: 'I dont need vacations',
+                    confirm: function () {
+                        alert('Vacation time!');
+                    },
+                    cancel: function () {
+                        alert('Vacation cancelled!');
+                    }
+                });
+            });
+            $('.example-p-7').on('click', function () {
+                $.confirm({
+                    title: 'Keyboard Enabled!',
+                    keyboardEnabled: true,
+                    content: 'Press ENTER to confirm, ESC to cancel.<br> Use <kbd>keyboardEnabled:true</kbd> to turn it on.',
+                    confirm: function () {
+                        alert('confirm triggered!');
+                    },
+                    cancel: function () {
+                        alert('cancel triggered!');
+                    },
+                });
+            });
+            $('.example-p-7-1').on('click', function () {
+                $.confirm({
+                    title: 'Fill this form!',
+                    content: 'url:form.txt',
+                    confirm: function () {
+                        var input = this.$b.find('input#input-name');
+                        var errorText = this.$b.find('.text-danger');
+                        if (input.val() == '') {
+                            errorText.show();
+                            return false;
+                        } else {
+                            alert('Hello ' + input.val());
+                        }
+                    }
+                });
+            });
                         </script>
                     </section>
 
@@ -307,7 +324,7 @@
                     <section id="installation">
                         <h1>Installation</h1>
                         <p><strong>Download </strong> <br>
-                        Download the Latest version and use files in the <code>/dist/</code> folder.
+                            Download the Latest version and use files in the <code>/dist/</code> folder.
                         </p>
                         <p><strong>via Bower: </strong> <br>
                             <code>
@@ -321,7 +338,7 @@
                         </p>
 
                     </section>
-                    
+
                     <!-- basic usage -->
                     <section id="usage">
                         <h1>Quick Usage</h1>
@@ -428,6 +445,8 @@
                             </p>
                         </div>
 
+                        
+
                         <h3 id="buttontext">BUTTON TEXT</h3>
                         <div class="section">
                             <p>Change the button text for confirm and cancel.</p>
@@ -478,6 +497,60 @@
 </code></pre>
                         </div>
                     </section>
+                    <h3 id="hide-elements">HIDE ELEMENTS.</h3>
+                        <div class="section">
+                            <p>Hide the title/Confirm Button/Cancel Button/Close icon when u don't need them.</p>
+                            <button class="btn btn-primary example-hide-1">No title</button>
+                            <button class="btn btn-primary example-hide-2">No title/cancel Button</button>
+                            <button class="btn btn-primary example-hide-3">No title/cancel/confirm Button</button>
+                            <button class="btn btn-primary example-hide-4">No title/cancel/confirm Button + no close icon</button>
+                            <script type="text/javascript">
+                                $('.example-hide-1').on('click', function () {
+                                    $.confirm({
+                                        title: false,
+                                        content: 'Hide the title.'
+                                    });
+                                });
+                                $('.example-hide-2').on('click', function () {
+                                    $.confirm({
+                                        title: false,
+                                        content: 'Hide the cancel button &amp; title.',
+                                        cancelButton: false
+                                    });
+                                });
+                                $('.example-hide-3').on('click', function () {
+                                    $.confirm({
+                                        title: false,
+                                        content: 'Hide both the buttons &amp; title.',
+                                        cancelButton: false,
+                                        confirmButton: false,
+                                    });
+                                });
+                                $('.example-hide-4').on('click', function () {
+                                    $.confirm({
+                                        title: false,
+                                        content: 'Hide both the buttons, title &amp; close icon.',
+                                        cancelButton: false,
+                                        confirmButton: false,
+                                        closeIcon: false,
+                                    });
+                                });
+                            </script>
+                            <div class="space10"></div>
+                            <pre  class="prettyprint linenums"><code class="html">$.confirm({
+    title: false, // hides the title.
+    cancelButton: false // hides the cancel button.
+    confirmButton: false, // hides the confirm button.
+    closeIcon: false, // hides the close icon.
+});
+</code></pre>
+                            <i class="fa fa-info-circle fa-fw"></i> <strong>NOTE:</strong>
+                            <br>
+                            <p>
+                                The closeIcon is only visible if both confirm & cancel buttons are hidden. (dialog mode).<br>
+                                Shorthand to hide both buttons is to use <code>$.dialog()</code>.
+                            </p>
+                        </div>
                     <h3 id="theme">THEME</h3>
                     <div class="section">
                         <p>The <u>light</u> &amp; <u>dark</u> themes that suit any website design, <br>
@@ -670,6 +743,41 @@ $.confirm({
                         <p><i class="fa fa-info fa-fw"></i> see <a class="gotoSmooth" href="#options">options</a> for list of options you can apply.</p>
                     </div>
 
+                    <h3 id="animationbounce">ANIMATION BOUNCE</h3>
+                    <div class="section">
+                        <p>Some eye candy thats in fashion.</p>
+                        <button class="btn btn-primary example-bounce-1">No bounce</button>
+                        <button class="btn btn-primary example-bounce-2">1.5 bounce</button>
+                        <button class="btn btn-primary example-bounce-3">2 bounce</button>
+                        <button class="btn btn-primary example-bounce-4">2.5 bounce</button>
+                        <script type="text/javascript">
+                            $('.example-bounce-1').on('click', function () {
+                                $.confirm({
+                                    animationBounce: 1,
+                                });
+                            });
+                            $('.example-bounce-2').on('click', function () {
+                                $.confirm({
+                                    animationBounce: 1.5,
+                                });
+                            });
+                            $('.example-bounce-3').on('click', function () {
+                                $.confirm({
+                                    animationBounce: 2,
+                                });
+                            });
+                            $('.example-bounce-4').on('click', function () {
+                                $.confirm({
+                                    animationBounce: 2.5,
+                                });
+                            });
+                        </script>
+                        <div class="space10"></div>
+                        <pre  class="prettyprint linenums"><code class="html">$.confirm({
+    animationBounce: 1.5, // default is 1.5 whereas 1 is no bounce.
+});
+</code></pre>
+                    </div>
 
                     <h3 id="animationspeed">ANIMATION SPEED</h3>
                     <div class="section">
@@ -847,18 +955,18 @@ $.confirm({
                             Enables keyboard events on jquery-confirm dialog. <br>
                             ENTER calls <code>confirm();</code> &amp; ESC calls <code>cancel();</code>
                         </p>
-                        
+
                         <button class="btn btn-primary example22-1">Keyboard Enabled</button>
-                        
+
                         <script type="text/javascript">
                             $('.example22-1').on('click', function () {
                                 $.confirm({
                                     keyboardEnabled: true,
                                     content: 'Press ESC or ENTER to see it in action.',
-                                    cancel: function(){
+                                    cancel: function () {
                                         alert('canceled');
                                     },
-                                    confirm: function(){
+                                    confirm: function () {
                                         alert('confirmed');
                                     }
                                 });
@@ -894,16 +1002,16 @@ $.confirm({
     theme: 'white',
     animation: 'scale',
     animationSpeed: 400,
+    animationBounce: 1.5,
+    keyboardEnabled: false,
+    container: 'body',
     confirm: function () {
-        // code here
     },
     cancel: function () {
-        // code here
     },
     backgroundDismiss: true,
     autoClose: false,
     closeIcon: true,
-    keyboardEnabled: true
 };
 </code></pre>
                     </div>
@@ -976,7 +1084,7 @@ $.confirm({
                                     <td>
                                         Open &amp; Close animation for the dialog.<br>
                                         possible options are 'scale', 'top', 'bottom', 'left', 'right', 'zoom', 'opacity', 'none', 'rotate', 'rotatex', 'rotatey', 'scalex', 'scaley'.
-                                        <br><span class="text-info">The 'blur' animation was removed at v1.1.2</span>
+                                        <br><span class="text-info">The 'blur' animation was removed in v1.1.2</span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -984,6 +1092,29 @@ $.confirm({
                                     <td>Number</td>
                                     <td><code>400</code></td>
                                     <td>Animation duration in miliseconds.</td>
+                                </tr>
+                                <tr>
+                                    <td>animationBounce</td>
+                                    <td>Float</td>
+                                    <td><code>1.5</code></td>
+                                    <td>Adds a Bounce open animation, <br>1 = No bounce</td>
+                                </tr>
+                                <tr>
+                                    <td>keyboardEnabled</td>
+                                    <td>Boolean</td>
+                                    <td><code>false</code></td>
+                                    <td>
+                                        Use the ENTER key to trigger the confirm action and ESC key to trigger the cancel action.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>container</td>
+                                    <td>String</td>
+                                    <td><code>'body'</code></td>
+                                    <td>
+                                        Specify where the generated HTML content for jconfirm should append. <br>
+                                        By default it appends in the document's &lt;body&gt;.
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>confirm</td>
@@ -1026,23 +1157,6 @@ $.confirm({
                                         You may remove the close icon by settings this value to false.
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>keyboardEnabled</td>
-                                    <td>Boolean</td>
-                                    <td><code>false</code></td>
-                                    <td>
-                                        Use the ENTER key to trigger the confirm action and ESC key to trigger the cancel action.
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>container</td>
-                                    <td>String</td>
-                                    <td><code>'body'</code></td>
-                                    <td>
-                                        Specify where the generated HTML content for jconfirm should append. <br>
-                                        By default it appends in the document's &lt;body&gt;.
-                                    </td>
-                                </tr>
                             </table>
                         </div>
                     </div>
@@ -1067,7 +1181,7 @@ obj.close();
 // The dialog is closed/destroyed.
 </code></pre>
                     </div>
-                    
+
                     <div class="section">
                         <h4><kbd>obj.$b</kbd></h4>
                         <p>The $b object is a jQuery DOM reference to the dialog. You can access your Dialogs contents via this object.</p>
@@ -1081,7 +1195,7 @@ console.log(finding);
 // Yeah, this is awesome
 </code></pre>
                     </div>
-                    
+
                     <h3 id="methods">INSIDE CALLBACKS</h3>
                     <div class="section">
                         <h4>Getting the reference object inside callback functions</h4>
@@ -1127,7 +1241,7 @@ console.log(obj.content);
 });
 </code></pre>
                     </div>
-                    
+
                     <section class="text-right">
                         <div class="spacer15"></div>
                         <p>
@@ -1144,13 +1258,20 @@ console.log(obj.content);
         <script type="text/javascript" src="demo/demo.min.js"></script> 
 
         <script>
-          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+                            (function (i, s, o, g, r, a, m) {
+                                i['GoogleAnalyticsObject'] = r;
+                                i[r] = i[r] || function () {
+                                    (i[r].q = i[r].q || []).push(arguments)
+                                }, i[r].l = 1 * new Date();
+                                a = s.createElement(o),
+                                        m = s.getElementsByTagName(o)[0];
+                                a.async = 1;
+                                a.src = g;
+                                m.parentNode.insertBefore(a, m)
+                            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-          ga('create', 'UA-53264350-2', 'auto');
-          ga('send', 'pageview');
+                            ga('create', 'UA-53264350-2', 'auto');
+                            ga('send', 'pageview');
         </script>
         <!-- javascript for the demo page interface. -->
     </body>

@@ -1,6 +1,6 @@
 'use strict';
 /*!
- * jquery-confirm v1.5.1 (http://craftpip.github.io/jquery-confirm/)
+ * jquery-confirm v1.5.3 (http://craftpip.github.io/jquery-confirm/)
  * Author: Boniface Pereira
  * Website: www.craftpip.com
  * Contact: hey@craftpip.com
@@ -85,7 +85,9 @@ var jconfirm, Jconfirm;
             this.$el = $(this.template).appendTo(this.container).addClass(this.theme);
             this.$b = this.$el.find('.jconfirm-box').css({
                 '-webkit-transition-duration': this.animationSpeed / 1000 + 's',
-                'transition-duration': this.animationSpeed / 1000 + 's'
+                'transition-duration': this.animationSpeed / 1000 + 's',
+                '-webkjit-transition-timing-function': 'cubic-bezier(0.27, 1.12, 0.52, '+this.animationBounce+')',
+                'transition-timing-function': 'cubic-bezier(0.27, 1.12, 0.52, '+this.animationBounce+')',
             });
             
             this.$b.addClass(this.animation);
@@ -102,7 +104,11 @@ var jconfirm, Jconfirm;
             /*
              * setup html contents
              */
-            this.$el.find('div.title').html('<i class="' + this.icon + '"></i> ' + this.title);
+            if(this.title){
+                this.$el.find('div.title').html('<i class="' + this.icon + '"></i> ' + this.title);
+            }else{
+                this.$el.find('div.title').remove();
+            }
             var contentDiv = this.$el.find('div.content');
 
             /*
@@ -279,6 +285,9 @@ var jconfirm, Jconfirm;
             setTimeout(function () {
                 that.$el.remove();
             }, this.animationSpeed+30); // wait 30 miliseconds more, ensure everything is done.
+            
+            jconfirm.record.closed += 1; 
+            jconfirm.record.currentlyOpen -= 1;
         },
         open: function () {
             var that = this;
@@ -288,6 +297,8 @@ var jconfirm, Jconfirm;
              * Blur the focused elements, prevents re-execution with button press.
              */
             $('body :focus').trigger('blur');
+            jconfirm.record.opened += 1; 
+            jconfirm.record.currentlyOpen += 1;
         }
     };
 
@@ -303,6 +314,7 @@ var jconfirm, Jconfirm;
         theme: 'white',
         animation: 'scale',
         animationSpeed: 400,
+        animationBounce: 1.5,
         keyboardEnabled: false,
         container: 'body',
         confirm: function () {
@@ -312,5 +324,10 @@ var jconfirm, Jconfirm;
         backgroundDismiss: true,
         autoClose: false,
         closeIcon: true,
+    };
+    jconfirm.record = {
+        opened: 0,
+        closed: 0,
+        currentlyOpen: 0,
     };
 })(jQuery);

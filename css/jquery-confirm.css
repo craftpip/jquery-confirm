@@ -1,5 +1,5 @@
 /*!
- * jquery-confirm v1.5.1 (http://craftpip.github.io/jquery-confirm/)
+ * jquery-confirm v1.5.3 (http://craftpip.github.io/jquery-confirm/)
  * Author: boniface pereira
  * Website: www.craftpip.com
  * Contact: hey@craftpip.com
@@ -62,8 +62,8 @@ body.jconfirm-noscroll {
   height: 20px;
   width: 20px;
   position: absolute;
-  top: 20px;
-  right: 15px;
+  top: 12px;
+  right: 12px;
   cursor: pointer;
   opacity: .6;
   text-align: center;
@@ -254,16 +254,9 @@ body.jconfirm-noscroll {
           perspective: 400px;
 }
 .jconfirm .jconfirm-box {
-  /*visibility: visible;*/
   opacity: 1;
-  -webkit-transition-timing-function: ease;
-          transition-timing-function: ease;
-  /*transition-delay: 0s;*/
   -webkit-transition-property: -webkit-transform, opacity, box-shadow;
-          transition-property: transform, opacity, box-shadow
-  /*transition-property: all;*/
-  /*transition-duration: 2s;*/
-  /*transition: all 2s;*/
+          transition-property: transform, opacity, box-shadow;
 }
 .jconfirm .jconfirm-box.anim-top,
 .jconfirm .jconfirm-box.anim-left,
