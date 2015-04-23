@@ -1,6 +1,7 @@
 ### jquery-confirm
 *alerts, confirms and dialogs in* ***one.***
-VERSION 1.5.3
+
+v1.5.3
 
 A multipurpose plugin for alert, confirm & dialog, with Extended features.
 
@@ -16,11 +17,11 @@ View Detailed [Documentation & Examples](http://craftpip.github.io/jquery-confir
 ## Installation
 
 Download the latest release [here](https://github.com/craftpip/jquery-confirm/archive/master.zip) and use the files within `dist` folder.
-<br>
-via Bower:<br>
-`$ bower install craftpip/jquery-confirm`<br>
-via Npm:<br> 
-`$ npm install jquery-confirm`<br>
+
+via Bower:
+`$ bower install craftpip/jquery-confirm`
+via Npm:
+`$ npm install jquery-confirm`
 
 ##Basic Usage
 
