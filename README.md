@@ -1,18 +1,15 @@
 ### jquery-confirm
 *alerts, confirms and dialogs in* ***one.***
-VERSION 1.5.1
+
+v1.5.3
 
 A multipurpose plugin for alert, confirm & dialog, with Extended features.
 
-(New in 1.5.0)
-&bull; Keyboard actions (ENTER and ESC)
-&bull; Updated DOCUMENTATION
-&bull; Control over the dialog via `this`
-
-&bull; directly load content via Ajax
-&bull; Auto-close dialog after a specified time
-&bull; prevent Dialog close on background click
-&bull; callback function, and more
+* Keyboard actions. 
+* directly load content via Ajax 
+* Auto-close dialog after a specified time 
+* prevent Dialog close on background click 
+* callback function, and more
 
 
 View Detailed [Documentation & Examples](http://craftpip.github.io/jquery-confirm)
@@ -20,11 +17,11 @@ View Detailed [Documentation & Examples](http://craftpip.github.io/jquery-confir
 ## Installation
 
 Download the latest release [here](https://github.com/craftpip/jquery-confirm/archive/master.zip) and use the files within `dist` folder.
-<br>
-via Bower:<br>
-`$ bower install craftpip/jquery-confirm`<br>
-via Npm:<br> 
-`$ npm install jquery-confirm`<br>
+
+via Bower: <br>
+`$ bower install craftpip/jquery-confirm` <br>
+via Npm: <br>
+`$ npm install jquery-confirm` 
 
 ##Basic Usage
 
@@ -57,6 +54,39 @@ Please post issues and feature request here [Github issues](https://github.com/c
 The `$.alert()` , `$.confirm()` & `$.dialog()` are alias of `jconfirm();`.
 
 Checkout the [documentation](http://craftpip.github.io/jquery-confirm) for further information.
+
+## Version changes
+
+(New in 1.5.3)
+* Bounce Animation added (kind of elastic).
+* Hide title if false.
+* Keyboard action, SPACE key added to trigger confirm function.
+* Background now has fade animation (open & close).
+* Keep a record of opened, closed, currentlyOpened dialogs `jconfirm.record`.
+* Tweaks.
+
+(New in 1.5.1)
+* Bower added.
+
+(New in 1.5.0)
+* Keyboard support to control modal. (ENTER and ESC).
+* Control over the dialog via `this`.
+* Updated DOCUMENTATION.
+* Code optimized.
+
+(New in 1.1.3)
+* `$.dialog` alias added.
+* Refined animations.
+* Removed Blur animation (was buggy).
+* Animation speed fixed.
+* Ajax-content loading now waits and disabled buttons until loaded.
+* Modal center justified on screen.
+* Added close icon if buttons are disabled (dialog mode).
+* Disabled window scroll on modal open.
+* Fixed bugs.
+
+(New in 1.1.0)
+* Ajax content loading `content: 'url:loadfrom.html'`.
 
 ## Copyright and license
 
