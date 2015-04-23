@@ -4,11 +4,11 @@ VERSION 1.5.3
 
 A multipurpose plugin for alert, confirm & dialog, with Extended features.
 
-&bull; Keyboard actions. 
-&bull; directly load content via Ajax 
-&bull; Auto-close dialog after a specified time 
-&bull; prevent Dialog close on background click 
-&bull; callback function, and more
+* Keyboard actions. 
+* directly load content via Ajax 
+* Auto-close dialog after a specified time 
+* prevent Dialog close on background click 
+* callback function, and more
 
 
 View Detailed [Documentation & Examples](http://craftpip.github.io/jquery-confirm)
@@ -58,7 +58,11 @@ Checkout the [documentation](http://craftpip.github.io/jquery-confirm) for furth
 
 (New in 1.5.3)
 &bull; Bounce Animation added (kind of elastic).
-&bull; Hide modal elements (title, confirmbutton, cancelbutton)
+&bull; Hide title if false.
+&bull; Keyboard action, SPACE key added to trigger confirm function.
+&bull; Background now has fade animation (open & close).
+&bull; Keep a record of opened, closed, currentlyOpened dialogs `jconfirm.record`.
+&bull; Tweaks.
 
 (New in 1.5.1)
 &bull; Bower added.
