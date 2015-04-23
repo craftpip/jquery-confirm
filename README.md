@@ -18,10 +18,10 @@ View Detailed [Documentation & Examples](http://craftpip.github.io/jquery-confir
 
 Download the latest release [here](https://github.com/craftpip/jquery-confirm/archive/master.zip) and use the files within `dist` folder.
 
-via Bower:
-`$ bower install craftpip/jquery-confirm`
-via Npm:
-`$ npm install jquery-confirm`
+via Bower: <br>
+`$ bower install craftpip/jquery-confirm` <br>
+via Npm: <br>
+`$ npm install jquery-confirm` 
 
 ##Basic Usage
 
@@ -55,39 +55,38 @@ The `$.alert()` , `$.confirm()` & `$.dialog()` are alias of `jconfirm();`.
 
 Checkout the [documentation](http://craftpip.github.io/jquery-confirm) for further information.
 
-## version changes
+## Version changes
 
 (New in 1.5.3)
-&bull; Bounce Animation added (kind of elastic).
-&bull; Hide title if false.
-&bull; Keyboard action, SPACE key added to trigger confirm function.
-&bull; Background now has fade animation (open & close).
-&bull; Keep a record of opened, closed, currentlyOpened dialogs `jconfirm.record`.
-&bull; Tweaks.
+* Bounce Animation added (kind of elastic).
+* Hide title if false.
+* Keyboard action, SPACE key added to trigger confirm function.
+* Background now has fade animation (open & close).
+* Keep a record of opened, closed, currentlyOpened dialogs `jconfirm.record`.
+* Tweaks.
 
 (New in 1.5.1)
-&bull; Bower added.
+* Bower added.
 
 (New in 1.5.0)
-&bull; Keyboard support to control modal. (ENTER and ESC).
-&bull; Control over the dialog via `this`.
-&bull; Updated DOCUMENTATION.
-&bull; Code optimized.
+* Keyboard support to control modal. (ENTER and ESC).
+* Control over the dialog via `this`.
+* Updated DOCUMENTATION.
+* Code optimized.
 
 (New in 1.1.3)
-&bull; `$.dialog` alias added.
-&bull; Refined animations.
-&bull; Removed Blur animation (was buggy).
-&bull; Animation speed fixed.
-&bull; Ajax-content loading now waits and disabled buttons until loaded.
-&bull; Modal center justified on screen.
-&bull; Added close icon if buttons are disabled (dialog mode).
-&bull; Disabled window scroll on modal open.
-&bull; Fixed bugs.
-
+* `$.dialog` alias added.
+* Refined animations.
+* Removed Blur animation (was buggy).
+* Animation speed fixed.
+* Ajax-content loading now waits and disabled buttons until loaded.
+* Modal center justified on screen.
+* Added close icon if buttons are disabled (dialog mode).
+* Disabled window scroll on modal open.
+* Fixed bugs.
 
 (New in 1.1.0)
-&bull; Ajax content loading `content: 'url:loadfrom.html'`.
+* Ajax content loading `content: 'url:loadfrom.html'`.
 
 ## Copyright and license
 
