@@ -35,7 +35,7 @@
         <script src="demo/libs/bootstrap.min.js"></script>
         <script src="demo/libs/pretty.js"></script>
         <script>
-            var version = '1.5.1';
+            var version = '1.5.3';
         </script>
         <style type="text/css">
             .space10{
@@ -72,9 +72,23 @@
                             </div>
                             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                                 <ul class="nav navbar-nav">
-                                    <li class=""><a href="http://github.com/craftpip"><i class="fa fa-github fa-fw"></i> GITHUB HOME</a></li>
-                                    <li class=""><a href="http://github.com/craftpip/jquery-confirm">PROJECT PAGE</a></li>
-                                    <li class=""><a href="http://github.com/craftpip/jquery-confirm/issues/new">REQUEST FEATURE</a></li>
+                                    <li class=""><a href="http://github.com/craftpip/jquery-confirm"><i class="fa fa-github"></i> PROJECT HOME</a></li>
+                                    <li class=""><a href="http://github.com/craftpip/jquery-confirm/issues/new">SUGGEST FEATURE</a></li>
+                                </ul>
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li class="">
+                                        <a href="https://twitter.com/share" data-size="large" class="twitter-share-button"><i class="fa fa-twitter"></i>
+                                            Tweet
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a class="twitter-follow-button" data-show-count="false" data-size="large" href="https://twitter.com/craftpip" data-show-count="false" data-lang="en">
+                                            Follow @craftpip
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <div style="width: 10px;"></div>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -82,6 +96,7 @@
                 </div>
             </div>
         </div>
+        <script> window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script>
         <div style="height:50px"></div>
 
         <div class="container-fluid">
@@ -151,7 +166,7 @@
                                 Auto-close, Ajax-loading, background-dismiss, themes and more. <br>
                                 This plugin is actively developed, We would love you have your suggestions.
                             </p>
-                            <a href="https://github.com/craftpip/jquery-confirm/issues" target="empty" class="btn btn-success"><i class="fa fa-bug fa-fw"></i> Issues/Features here.</a>
+                            <a href="https://github.com/craftpip/jquery-confirm/issues" target="empty" class="btn btn-success"><i class="fa fa-bug fa-fw"></i> Post your Issues/Features here.</a>
                         </header>
                     </section>
                     <hr>
@@ -215,7 +230,7 @@
                     confirmButton: 'Proceed',
                     confirmButtonClass: 'btn-info',
                     icon: 'fa fa-question-circle',
-                    animation: 'top',
+                    animation: 'scale',
                     confirm: function () {
                         $.confirm({
                             title: 'A very critical action',
@@ -223,7 +238,7 @@
                             confirmButton: 'Hell, yes!',
                             icon: 'fa fa-warning',
                             confirmButtonClass: 'btn-warning',
-                            animation: 'top',
+                            animation: 'zoom',
                             confirm: function () {
                                 alert('A very critical action triggered!');
                             }
@@ -987,16 +1002,16 @@ $.confirm({
     theme: 'white',
     animation: 'scale',
     animationSpeed: 400,
+    animationBounce: 1.5,
+    keyboardEnabled: false,
+    container: 'body',
     confirm: function () {
-        // code here
     },
     cancel: function () {
-        // code here
     },
     backgroundDismiss: true,
     autoClose: false,
     closeIcon: true,
-    keyboardEnabled: true
 };
 </code></pre>
                     </div>
@@ -1069,7 +1084,7 @@ $.confirm({
                                     <td>
                                         Open &amp; Close animation for the dialog.<br>
                                         possible options are 'scale', 'top', 'bottom', 'left', 'right', 'zoom', 'opacity', 'none', 'rotate', 'rotatex', 'rotatey', 'scalex', 'scaley'.
-                                        <br><span class="text-info">The 'blur' animation was removed at v1.1.2</span>
+                                        <br><span class="text-info">The 'blur' animation was removed in v1.1.2</span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -1077,6 +1092,29 @@ $.confirm({
                                     <td>Number</td>
                                     <td><code>400</code></td>
                                     <td>Animation duration in miliseconds.</td>
+                                </tr>
+                                <tr>
+                                    <td>animationBounce</td>
+                                    <td>Float</td>
+                                    <td><code>1.5</code></td>
+                                    <td>Adds a Bounce open animation, <br>1 = No bounce</td>
+                                </tr>
+                                <tr>
+                                    <td>keyboardEnabled</td>
+                                    <td>Boolean</td>
+                                    <td><code>false</code></td>
+                                    <td>
+                                        Use the ENTER key to trigger the confirm action and ESC key to trigger the cancel action.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>container</td>
+                                    <td>String</td>
+                                    <td><code>'body'</code></td>
+                                    <td>
+                                        Specify where the generated HTML content for jconfirm should append. <br>
+                                        By default it appends in the document's &lt;body&gt;.
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>confirm</td>
@@ -1117,23 +1155,6 @@ $.confirm({
                                     <td>
                                         Close icon comes into picture if both the buttons are disabled, (dialog mode). <br>
                                         You may remove the close icon by settings this value to false.
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>keyboardEnabled</td>
-                                    <td>Boolean</td>
-                                    <td><code>false</code></td>
-                                    <td>
-                                        Use the ENTER key to trigger the confirm action and ESC key to trigger the cancel action.
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>container</td>
-                                    <td>String</td>
-                                    <td><code>'body'</code></td>
-                                    <td>
-                                        Specify where the generated HTML content for jconfirm should append. <br>
-                                        By default it appends in the document's &lt;body&gt;.
                                     </td>
                                 </tr>
                             </table>

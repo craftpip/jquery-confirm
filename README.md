@@ -1,17 +1,13 @@
 ### jquery-confirm
 *alerts, confirms and dialogs in* ***one.***
-VERSION 1.5.1
+VERSION 1.5.3
 
 A multipurpose plugin for alert, confirm & dialog, with Extended features.
 
-(New in 1.5.0)
-&bull; Keyboard actions (ENTER and ESC)
-&bull; Updated DOCUMENTATION
-&bull; Control over the dialog via `this`
-
-&bull; directly load content via Ajax
-&bull; Auto-close dialog after a specified time
-&bull; prevent Dialog close on background click
+&bull; Keyboard actions. 
+&bull; directly load content via Ajax 
+&bull; Auto-close dialog after a specified time 
+&bull; prevent Dialog close on background click 
 &bull; callback function, and more
 
 
@@ -57,6 +53,36 @@ Please post issues and feature request here [Github issues](https://github.com/c
 The `$.alert()` , `$.confirm()` & `$.dialog()` are alias of `jconfirm();`.
 
 Checkout the [documentation](http://craftpip.github.io/jquery-confirm) for further information.
+
+## version changes
+
+(New in 1.5.3)
+&bull; Bounce Animation added (kind of elastic).
+&bull; Hide modal elements (title, confirmbutton, cancelbutton)
+
+(New in 1.5.1)
+&bull; Bower added.
+
+(New in 1.5.0)
+&bull; Keyboard support to control modal. (ENTER and ESC).
+&bull; Control over the dialog via `this`.
+&bull; Updated DOCUMENTATION.
+&bull; Code optimized.
+
+(New in 1.1.3)
+&bull; `$.dialog` alias added.
+&bull; Refined animations.
+&bull; Removed Blur animation (was buggy).
+&bull; Animation speed fixed.
+&bull; Ajax-content loading now waits and disabled buttons until loaded.
+&bull; Modal center justified on screen.
+&bull; Added close icon if buttons are disabled (dialog mode).
+&bull; Disabled window scroll on modal open.
+&bull; Fixed bugs.
+
+
+(New in 1.1.0)
+&bull; Ajax content loading `content: 'url:loadfrom.html'`.
 
 ## Copyright and license
 
