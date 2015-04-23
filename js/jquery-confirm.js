@@ -85,7 +85,9 @@ var jconfirm, Jconfirm;
             this.$el = $(this.template).appendTo(this.container).addClass(this.theme);
             this.$b = this.$el.find('.jconfirm-box').css({
                 '-webkit-transition-duration': this.animationSpeed / 1000 + 's',
-                'transition-duration': this.animationSpeed / 1000 + 's'
+                'transition-duration': this.animationSpeed / 1000 + 's',
+                '-webkjit-transition-timing-function': 'cubic-bezier(0.27, 1.12, 0.52, '+this.animationBounce+')',
+                'transition-timing-function': 'cubic-bezier(0.27, 1.12, 0.52, '+this.animationBounce+')',
             });
             
             this.$b.addClass(this.animation);
@@ -102,7 +104,11 @@ var jconfirm, Jconfirm;
             /*
              * setup html contents
              */
-            this.$el.find('div.title').html('<i class="' + this.icon + '"></i> ' + this.title);
+            if(this.title){
+                this.$el.find('div.title').html('<i class="' + this.icon + '"></i> ' + this.title);
+            }else{
+                this.$el.find('div.title').remove();
+            }
             var contentDiv = this.$el.find('div.content');
 
             /*
@@ -303,6 +309,7 @@ var jconfirm, Jconfirm;
         theme: 'white',
         animation: 'scale',
         animationSpeed: 400,
+        animationBounce: 1.5,
         keyboardEnabled: false,
         container: 'body',
         confirm: function () {
