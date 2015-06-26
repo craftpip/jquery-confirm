@@ -186,7 +186,7 @@ var jconfirm, Jconfirm;
                         /*
                          * in the future.
                          */
-                        this.$btnc.find('button').removeAttr('disabled');
+                        that.$btnc.find('button').removeAttr('disabled');
                         that.setDialogCenter();
                     });
                 }
