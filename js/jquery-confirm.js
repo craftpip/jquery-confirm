@@ -141,6 +141,7 @@ var jconfirm, Jconfirm;
                     $.get(url, function (html) {
                         contentDiv.html(html);
                         $btnc.find('button').removeAttr('disabled');
+                        that.contentLoaded(that.$b);
                         that.setDialogCenter();
                     });
                 }, 1);
@@ -297,6 +298,7 @@ var jconfirm, Jconfirm;
              * Blur the focused elements, prevents re-execution with button press.
              */
             $('body :focus').trigger('blur');
+            this.$b.find('input[autofocus]:visible:first').focus();
             jconfirm.record.opened += 1; 
             jconfirm.record.currentlyOpen += 1;
         }
@@ -320,6 +322,8 @@ var jconfirm, Jconfirm;
         confirm: function () {
         },
         cancel: function () {
+        },
+        contentLoaded: function () {
         },
         backgroundDismiss: true,
         autoClose: false,
