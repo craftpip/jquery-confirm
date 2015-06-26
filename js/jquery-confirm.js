@@ -86,10 +86,10 @@ var jconfirm, Jconfirm;
             this.$b = this.$el.find('.jconfirm-box').css({
                 '-webkit-transition-duration': this.animationSpeed / 1000 + 's',
                 'transition-duration': this.animationSpeed / 1000 + 's',
-                '-webkjit-transition-timing-function': 'cubic-bezier(0.27, 1.12, 0.52, '+this.animationBounce+')',
-                'transition-timing-function': 'cubic-bezier(0.27, 1.12, 0.52, '+this.animationBounce+')',
+                '-webkjit-transition-timing-function': 'cubic-bezier(0.27, 1.12, 0.32, '+this.animationBounce+')',
+                'transition-timing-function': 'cubic-bezier(0.27, 1.12, 0.32, '+this.animationBounce+')',
             });
-            
+            // cubic-bezier(0.27, 1.12, 0.32, 1.4)
             this.$b.addClass(this.animation);
             
             var that = this;
@@ -155,7 +155,7 @@ var jconfirm, Jconfirm;
             if (/cancel/.test(opt[0]) && this.type === 'alert')
                 return false;
             if (/confirm|cancel/.test(opt[0])) {
-                this.$cd = $(' <span class="countdown"></span>').appendTo(this['$' + opt[0] + 'Button']);
+                this.$cd = $('<span class="countdown">').appendTo(this['$' + opt[0] + 'Button']);
                 var that = this;
                 that.$cd.parent().click();
                 var time = opt[1] / 1000;
@@ -303,7 +303,7 @@ var jconfirm, Jconfirm;
     };
 
     jconfirm.pluginDefaults = {
-        template: '<div class="jconfirm"><div class="jconfirm-bg"></div><div class="container"><div class="row"><div class="col-md-6 col-md-offset-3 span6 offset3"><div class="jconfirm-box"><div class="closeIcon"><span class="glyphicon glyphicon-remove"></span></div><div class="title"></div><div class="content"></div><div class="buttons pull-right"></div><div class="jquery-clear"></div></div></div></div></div></div>',
+        template: '<div class="jconfirm"><div class="jconfirm-bg"></div><div class="container"><div class="row"><div class="col-md-6 col-md-offset-3 span6 offset3"><div class="jconfirm-box"><div class="closeIcon"><span class="glyphicon glyphicon-remove"></span></div><div class="title"></div><div class="content"></div><div class="buttons"></div><div class="jquery-clear"></div></div></div></div></div></div>',
         title: 'Hello',
         content: 'Are you sure to continue?',
         icon: '',
