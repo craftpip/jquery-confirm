@@ -623,6 +623,16 @@ $.confirm({
     title: 'Title'
 }); 
 </code></pre>
+<!-- Added by David Kurlowich -->
+                        <p>It is also possible to initialize form fields in the loaded html file with existing data. To do this, use the <code>contentLoaded</code> option as follows:</p>
+						<pre class="prettyprint linenums"><code>$.confirm({
+    content: 'url:form.txt',
+    contentLoaded: function () {
+        $("#input-name").val("Jarvis");
+    }
+</code></pre>
+                        <p>Now when the dialog box is opened, the name "Jarvis" will be in the text box instead of the text box being empty.</p>
+<!-- end of section added by David Kurlowich -->
                     </div>
                     <h3 id="animation">ANIMATION!</h3>
                     <div class="section">
@@ -994,6 +1004,9 @@ $.confirm({
                         <pre class="prettyprint linenums"><code>jconfirm.defaults = {
     title: 'Hello',
     content: 'Are you sure to continue?',
+<!-- contentLoaded option Added by David Kurlowich -->
+    contentLoaded: function () {
+	},
     icon: '',
     confirmButton: 'Okay',
     cancelButton: 'Cancel',
@@ -1031,6 +1044,12 @@ $.confirm({
                                     <td>String</td>
                                     <td><code>'Hello'</code></td>
                                     <td>Title of the dialog.</td>
+                                </tr>
+                                <tr>
+                                    <td>content</td>
+                                    <td>String</td>
+                                    <td><code>'Are you sure to continue?'</code></td>
+                                    <td>Content for the dialog.</td>
                                 </tr>
                                 <tr>
                                     <td>content</td>
