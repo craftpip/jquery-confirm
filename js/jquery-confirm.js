@@ -73,12 +73,14 @@ var jconfirm, Jconfirm;
         animations: ['anim-scale', 'anim-top', 'anim-bottom', 'anim-left', 'anim-right', 'anim-zoom', 'anim-opacity', 'anim-none', 'anim-rotate', 'anim-rotatex', 'anim-rotatey', 'anim-scalex', 'anim-scaley'],
         _buildHTML: function () {
             var that = this;
+
             /*
              * Cleaning animations.
              */
             this.animation = 'anim-' + this.animation.toLowerCase();
             if (this.animation === 'none')
                 this.animationSpeed = 0;
+
             /*
              * Append html to body.
              */
@@ -86,76 +88,120 @@ var jconfirm, Jconfirm;
             this.$b = this.$el.find('.jconfirm-box').css({
                 '-webkit-transition-duration': this.animationSpeed / 1000 + 's',
                 'transition-duration': this.animationSpeed / 1000 + 's',
-                '-webkjit-transition-timing-function': 'cubic-bezier(0.27, 1.12, 0.32, '+this.animationBounce+')',
-                'transition-timing-function': 'cubic-bezier(0.27, 1.12, 0.32, '+this.animationBounce+')',
+                '-webkjit-transition-timing-function': 'cubic-bezier(0.27, 1.12, 0.32, ' + this.animationBounce + ')',
+                'transition-timing-function': 'cubic-bezier(0.27, 1.12, 0.32, ' + this.animationBounce + ')',
             });
-            // cubic-bezier(0.27, 1.12, 0.32, 1.4)
             this.$b.addClass(this.animation);
-            
+
             var that = this;
+
             /*
-             * timeout needed for DOM render time. or it never animates.
+             * Timeout needed for DOM render time. or it never animates.
              */
-            setTimeout(function(){
+            setTimeout(function () {
                 that.$el.find('.jconfirm-bg').animate({
                     opacity: 1
-                }, that.animationSpeed/2);
+                }, that.animationSpeed / 2);
             }, 1);
+
             /*
-             * setup html contents
+             * Setup title contents
              */
-            if(this.title){
+            if (this.title) {
                 this.$el.find('div.title').html('<i class="' + this.icon + '"></i> ' + this.title);
-            }else{
+            } else {
                 this.$el.find('div.title').remove();
             }
-            var contentDiv = this.$el.find('div.content');
+
+            this.contentDiv = this.$el.find('div.content');
 
             /*
              * Settings up buttons
              */
-            var $btnc = this.$el.find('.buttons');
+            this.$btnc = this.$el.find('.buttons');
             if (this.confirmButton && this.confirmButton.trim() !== '') {
-                this.$confirmButton = $('<button class="btn">' + this.confirmButton + '</button>').appendTo($btnc);
-                this.$confirmButton.addClass(this.confirmButtonClass);
+                this.$confirmButton = $('<button class="btn">' + this.confirmButton + '</button>')
+                        .appendTo(this.$btnc)
+                        .addClass(this.confirmButtonClass);
             }
             if (this.cancelButton && this.cancelButton.trim() !== '') {
-                this.$cancelButton = $('<button class="btn">' + this.cancelButton + '</button>').appendTo($btnc);
-                this.$cancelButton.addClass(this.cancelButtonClass);
+                this.$cancelButton = $('<button class="btn">' + this.cancelButton + '</button>')
+                        .appendTo(this.$btnc)
+                        .addClass(this.cancelButtonClass);
             }
             if (!this.confirmButton && !this.cancelButton) {
-                $btnc.remove();
+                this.$btnc.remove();
+
                 if (this.closeIcon)
                     this.$closeButton = this.$b.find('.closeIcon').show();
             }
 
-            /*
-             * If user provides a Url to load the content from.
-             * Check if it has HTTP protocol.
-             */
-            if (this.content.substr(0, 4).toLowerCase() === 'url:') {
-                contentDiv.html('');
-                $btnc.find('button').attr('disabled', 'disabled');
-                var url = this.content.substring(4, this.content.length);
-                setTimeout(function () {
-                    $.get(url, function (html) {
-                        contentDiv.html(html);
-                        $btnc.find('button').removeAttr('disabled');
-                        that.contentLoaded(that.$b);
-                        that.setDialogCenter();
-                    });
-                }, 1);
-            } else {
-                contentDiv.html(this.content);
-            }
+            this.setContent();
+
             if (this.autoClose)
                 this._startCountDown();
         },
+        setContent: function (string) {
+            var that = this;
+
+            /*
+             * Set content.
+             */
+            if (typeof string !== undefined && typeof string === 'string') {
+                this.content = string;
+                this.setContent();
+            } else if (typeof this.content === 'boolean') {
+                if (!this.content)
+                    this.contentDiv.remove();
+                else
+                    console.error('Invalid option for property content: passed TRUE');
+            } else if (typeof this.content === 'string') {
+
+                if (this.content.substr(0, 4).toLowerCase() === 'url:') {
+                    this.contentDiv.html('');
+                    this.$btnc.find('button').attr('disabled', 'disabled');
+                    var url = this.content.substring(4, this.content.length);
+                    $.get(url).done(function (html) {
+                        that.contentDiv.html(html);
+                    }).always(function () {
+                        that.$btnc.find('button').removeAttr('disabled');
+                        that.setDialogCenter();
+                    });
+                } else {
+                    this.contentDiv.html(this.content);
+                }
+
+            } else if (typeof this.content === 'function') {
+
+                this.contentDiv.html('');
+                this.$btnc.find('button').attr('disabled', 'disabled');
+
+                var promise = this.content(this);
+                if (typeof promise !== 'object') {
+                    console.error('The content function must return jquery promise.');
+                } else if (typeof promise.always !== 'function') {
+                    console.error('The object returned is not a jquery promise.');
+                } else {
+                    promise.always(function () {
+                        /*
+                         * in the future.
+                         */
+                        this.$btnc.find('button').removeAttr('disabled');
+                        that.setDialogCenter();
+                    });
+                }
+
+            } else {
+                console.error('Invalid option for property content, passed: ' + typeof this.content);
+            }
+
+            this.setDialogCenter();
+        },
         _startCountDown: function () {
             var opt = this.autoClose.split('|');
-            if (/cancel/.test(opt[0]) && this.type === 'alert')
+            if (/cancel/.test(opt[0]) && this.type === 'alert'){
                 return false;
-            if (/confirm|cancel/.test(opt[0])) {
+            }else if (/confirm|cancel/.test(opt[0])) {
                 this.$cd = $('<span class="countdown">').appendTo(this['$' + opt[0] + 'Button']);
                 var that = this;
                 that.$cd.parent().click();
@@ -167,6 +213,8 @@ var jconfirm, Jconfirm;
                         clearInterval(that.interval);
                     }
                 }, 1000);
+            }else{
+                console.error('Invalid option '+opt[0]+', must be confirm/cancel');
             }
         },
         _bindEvents: function () {
@@ -271,27 +319,31 @@ var jconfirm, Jconfirm;
         },
         close: function () {
             var that = this;
+
             /*
              unbind the window resize & keyup event.
              */
             $(window).unbind('resize.' + this._rand);
             if (this.keyboardEnabled)
                 $(window).unbind('keyup.' + this._rand);
-            
+
             this.$el.find('.jconfirm-bg').animate({
                 opacity: 0
-            }, this.animationSpeed/2);
+            }, this.animationSpeed / 2);
             this.$b.addClass(this.animation);
             $('body').removeClass('jconfirm-noscroll');
             setTimeout(function () {
                 that.$el.remove();
-            }, this.animationSpeed+30); // wait 30 miliseconds more, ensure everything is done.
-            
-            jconfirm.record.closed += 1; 
+            }, this.animationSpeed + 30); // wait 30 miliseconds more, ensure everything is done.
+
+            jconfirm.record.closed += 1;
             jconfirm.record.currentlyOpen -= 1;
         },
         open: function () {
             var that = this;
+            if (this.isClosed())
+                return false;
+
             $('body').addClass('jconfirm-noscroll');
             this.$b.removeClass(this.animations.join(' '));
             /**
@@ -299,8 +351,12 @@ var jconfirm, Jconfirm;
              */
             $('body :focus').trigger('blur');
             this.$b.find('input[autofocus]:visible:first').focus();
-            jconfirm.record.opened += 1; 
+            jconfirm.record.opened += 1;
             jconfirm.record.currentlyOpen += 1;
+            return true;
+        },
+        isClosed: function () {
+            return (this.$el.css('display') === '') ? true : false;
         }
     };
 
