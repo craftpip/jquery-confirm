@@ -125,6 +125,9 @@ body.jconfirm-noscroll {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
 }
+.jconfirm.white .jconfirm-box .buttons {
+  float: right;
+}
 .jconfirm.white .jconfirm-box .buttons button {
   border: none;
   background-image: none;
@@ -151,6 +154,9 @@ body.jconfirm-noscroll {
   background: #444;
   border-radius: 5px;
   color: white;
+}
+.jconfirm.black .jconfirm-box .buttons {
+  float: right;
 }
 .jconfirm.black .jconfirm-box .buttons button {
   border: none;
@@ -342,4 +348,33 @@ body.jconfirm-noscroll {
 }
 .jconfirm .jconfirm-box.anim-none {
   display: none;
+}
+.jconfirm.supervan .jconfirm-bg {
+  background-color: rgba(54, 70, 93, 0.95);
+}
+.jconfirm.supervan .jconfirm-box {
+  background-color: transparent;
+}
+.jconfirm.supervan .jconfirm-box div.title {
+  text-align: center;
+  color: white;
+  font-size: 28px;
+  font-weight: normal;
+}
+.jconfirm.supervan .jconfirm-box div.content {
+  text-align: center;
+  color: white;
+}
+.jconfirm.supervan .jconfirm-box .buttons {
+  text-align: center;
+}
+.jconfirm.supervan .jconfirm-box .buttons button {
+  font-size: 16px;
+  border-radius: 2px;
+  background: #303f53;
+  text-shadow: none;
+  border: none;
+  color: white;
+  width: 25%;
+  padding: 10px;
 }

@@ -125,6 +125,7 @@ body.jconfirm-noscroll{
             border-radius: 5px;
 
             .buttons{
+                float: right;
 
                 button{
                     border: none;
@@ -161,6 +162,8 @@ body.jconfirm-noscroll{
             color: white;
 
             .buttons{
+                float: right;
+
                 button{
                     border: none;
                     background-image: none;
@@ -335,6 +338,61 @@ body.jconfirm-noscroll{
         }
         &.anim-none{
             display:none;
+        }
+    }
+}
+
+
+.jconfirm.supervan{
+
+    .jconfirm-bg{
+        background-color: rgba(54,70,93,.95);
+    }
+
+    .jconfirm-box{
+        background-color: transparent;
+
+        div.closeIcon{
+
+        }
+        div.title{
+            text-align: center;
+            color: white;
+            font-size: 28px;
+            font-weight: normal;
+        }
+        div.content{
+            text-align: center;
+            color: white;
+            
+            &:empty{
+                &:before{
+
+                }
+                &:after{
+
+                }
+            }
+        }
+        .buttons{
+            text-align: center;
+
+            button{
+                font-size: 16px;
+                border-radius: 2px;
+                background: darken(#36465D, 3%);
+                text-shadow: none;
+                border: none;
+                color: white;
+                width: 25%;
+                padding: 10px;
+            }
+            button + button{
+                
+            }
+        }
+        &.hilight{
+            
         }
     }
 }
