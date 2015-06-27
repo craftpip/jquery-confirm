@@ -35,7 +35,7 @@
         <script src="demo/libs/bootstrap.min.js"></script>
         <script src="demo/libs/pretty.js"></script>
         <script>
-            var version = '1.5.3';
+            var version = '1.6.0';
         </script>
         <style type="text/css">
             .space10{
@@ -568,11 +568,13 @@
                     </div>
                     <h3 id="theme">THEME</h3>
                     <div class="section">
-                        <p>The <u>light</u> &amp; <u>dark</u> themes that suit any website design, <br>
-                        <u>HoloLight</u> and <u>HoloDark</u> themes for android web apps.
+                        <p>
+                            The Light &amp; Dark themes that suit any website design, <br>
                         </p>
+                        
+                        <button class="btn btn-primary example5-3">Supervan</button>
                         <button class="btn btn-primary example4">Light theme</button> 
-                        <button class="btn btn-primary example5">Dark theme</button> 
+                        <button class="btn btn-primary example5">Dark theme</button>
                         <button class="btn btn-primary example5-1">HoloLight theme</button> 
                         <button class="btn btn-primary example5-2">HoloDark theme</button>
                         <div class="space10"></div>
@@ -597,6 +599,11 @@
                                     theme: 'holodark'
                                 });
                             });
+                            $('.example5-3').on('click', function () {
+                                $.confirm({
+                                    theme: 'supervan'
+                                });
+                            });
                         </script>
                         <pre class="prettyprint linenums"><code>$.confirm({
     theme: 'white'
@@ -609,6 +616,9 @@ $.confirm({
 });
 $.confirm({
     theme: 'holodark'
+});
+$.confirm({
+    theme: 'supervan'
 });
 </code></pre>
                     </div>
@@ -651,6 +661,7 @@ $.confirm({
                         </p>
                         <button class="btn btn-primary example18-2">Load from bower.json</button>
                         <button class="btn btn-primary example18-3">Error it my way</button>
+                        <a class="btn btn-default" href="bower.json" target="new"><i class="fa fa-external-link"></i> view bower.json</a>
                         <div class="space10"></div>
                         <script type="text/javascript">
                             $('.example18-2').on('click', function () {

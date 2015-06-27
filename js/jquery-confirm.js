@@ -1,6 +1,5 @@
-'use strict';
 /*!
- * jquery-confirm v1.5.3 (http://craftpip.github.io/jquery-confirm/)
+ * jquery-confirm v1.6 (http://craftpip.github.io/jquery-confirm/)
  * Author: Boniface Pereira
  * Website: www.craftpip.com
  * Contact: hey@craftpip.com
@@ -15,6 +14,7 @@ if (typeof jQuery === 'undefined') {
 
 var jconfirm, Jconfirm;
 (function ($) {
+    
     $.confirm = function (options) {
         /*
          *  Alias of jconfirm 

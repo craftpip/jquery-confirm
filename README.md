@@ -1,7 +1,7 @@
 ### jquery-confirm
 *alerts, confirms and dialogs in* ***one.***
 
-v1.5.3
+v1.6.0
 
 A multipurpose plugin for alert, confirm & dialog, with Extended features.
 
@@ -56,6 +56,12 @@ The `$.alert()` , `$.confirm()` & `$.dialog()` are alias of `jconfirm();`.
 Checkout the [documentation](http://craftpip.github.io/jquery-confirm) for further information.
 
 ## Version changes
+
+(New in 1.6.0)
+* Theme 'supervan' added
+* Load via URL advanced added. now get control over your ajax calls & callbacks.
+* methods setContent, isClosed added
+* Improved documentation
 
 (New in 1.5.3)
 * Bounce Animation added (kind of elastic).
