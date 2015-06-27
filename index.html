@@ -1132,9 +1132,20 @@ $.confirm({
                                 </tr>
                                 <tr>
                                     <td>content</td>
-                                    <td>String</td>
+                                    <td>String, Function</td>
                                     <td><code>'Are you sure to continue?'</code></td>
-                                    <td>Content for the dialog.</td>
+                                    <td>
+                                        Content for the dialog. <br>
+                                        Or use a function that returns Ajax promise.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>contentLoaded</td>
+                                    <td>function</td>
+                                    <td><code>function(){}</code></td>
+                                    <td>
+                                        (optionally available) If you load content via URL using 'url:http://abc.com/xyz', contentLoaded will be the callback.
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>icon</td>
