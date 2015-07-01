@@ -14,7 +14,7 @@ if (typeof jQuery === 'undefined') {
 
 var jconfirm, Jconfirm;
 (function ($) {
-    
+
     $.confirm = function (options) {
         /*
          *  Alias of jconfirm 
@@ -85,6 +85,7 @@ var jconfirm, Jconfirm;
              * Append html to body.
              */
             this.$el = $(this.template).appendTo(this.container).addClass(this.theme);
+            this.$el.find('.jconfirm-box-container').addClass(this.columnClass);
             this.$b = this.$el.find('.jconfirm-box').css({
                 '-webkit-transition-duration': this.animationSpeed / 1000 + 's',
                 'transition-duration': this.animationSpeed / 1000 + 's',
@@ -164,7 +165,7 @@ var jconfirm, Jconfirm;
                     $.get(url).done(function (html) {
                         that.contentDiv.html(html);
                     }).always(function () {
-                        if(typeof that.contentLoaded === 'function')
+                        if (typeof that.contentLoaded === 'function')
                             that.contentLoaded(that.$b);
                         that.$btnc.find('button').removeAttr('disabled');
                         that.setDialogCenter();
@@ -201,9 +202,9 @@ var jconfirm, Jconfirm;
         },
         _startCountDown: function () {
             var opt = this.autoClose.split('|');
-            if (/cancel/.test(opt[0]) && this.type === 'alert'){
+            if (/cancel/.test(opt[0]) && this.type === 'alert') {
                 return false;
-            }else if (/confirm|cancel/.test(opt[0])) {
+            } else if (/confirm|cancel/.test(opt[0])) {
                 this.$cd = $('<span class="countdown">').appendTo(this['$' + opt[0] + 'Button']);
                 var that = this;
                 that.$cd.parent().click();
@@ -215,8 +216,8 @@ var jconfirm, Jconfirm;
                         clearInterval(that.interval);
                     }
                 }, 1000);
-            }else{
-                console.error('Invalid option '+opt[0]+', must be confirm/cancel');
+            } else {
+                console.error('Invalid option ' + opt[0] + ', must be confirm/cancel');
             }
         },
         _bindEvents: function () {
@@ -363,7 +364,7 @@ var jconfirm, Jconfirm;
     };
 
     jconfirm.pluginDefaults = {
-        template: '<div class="jconfirm"><div class="jconfirm-bg"></div><div class="container"><div class="row"><div class="col-md-6 col-md-offset-3 span6 offset3"><div class="jconfirm-box"><div class="closeIcon"><span class="glyphicon glyphicon-remove"></span></div><div class="title"></div><div class="content"></div><div class="buttons"></div><div class="jquery-clear"></div></div></div></div></div></div>',
+        template: '<div class="jconfirm"><div class="jconfirm-bg"></div><div class="container"><div class="row"><div class="jconfirm-box-container span6 offset3"><div class="jconfirm-box"><div class="closeIcon"><span class="glyphicon glyphicon-remove"></span></div><div class="title"></div><div class="content"></div><div class="buttons"></div><div class="jquery-clear"></div></div></div></div></div></div>',
         title: 'Hello',
         content: 'Are you sure to continue?',
         contentLoaded: function () {
@@ -386,6 +387,7 @@ var jconfirm, Jconfirm;
         backgroundDismiss: true,
         autoClose: false,
         closeIcon: true,
+        columnClass: 'col-md-6 col-md-offset-3',
     };
     jconfirm.record = {
         opened: 0,
