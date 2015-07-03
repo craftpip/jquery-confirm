@@ -94,17 +94,6 @@ var jconfirm, Jconfirm;
             });
             this.$b.addClass(this.animation);
 
-            var that = this;
-
-            /*
-             * Timeout needed for DOM render time. or it never animates.
-             */
-            setTimeout(function () {
-                that.$el.find('.jconfirm-bg').animate({
-                    opacity: 1
-                }, that.animationSpeed / 2);
-            }, 1);
-
             /*
              * Setup title contents
              */
@@ -160,14 +149,15 @@ var jconfirm, Jconfirm;
 
                 if (this.content.substr(0, 4).toLowerCase() === 'url:') {
                     this.contentDiv.html('');
-                    this.$btnc.find('button').attr('disabled', 'disabled');
+                    this.$btnc.find('button').prop('disabled', true);
                     var url = this.content.substring(4, this.content.length);
                     $.get(url).done(function (html) {
                         that.contentDiv.html(html);
-                    }).always(function () {
+                    }).always(function (html, response) {
                         if (typeof that.contentLoaded === 'function')
-                            that.contentLoaded(that.$b);
-                        that.$btnc.find('button').removeAttr('disabled');
+                            that.contentLoaded(that.$b, html, response);
+
+                        that.$btnc.find('button').prop('disabled', false);
                         that.setDialogCenter();
                     });
                 } else {
@@ -186,9 +176,6 @@ var jconfirm, Jconfirm;
                     console.error('The object returned is not a jquery promise.');
                 } else {
                     promise.always(function () {
-                        /*
-                         * in the future.
-                         */
                         that.$btnc.find('button').removeAttr('disabled');
                         that.setDialogCenter();
                     });
@@ -222,7 +209,8 @@ var jconfirm, Jconfirm;
         },
         _bindEvents: function () {
             var that = this;
-            this.$el.find('.jconfirm-bg').click(function (e) {
+            
+            this.$el.find('.jconfirm-scrollpane').click(function (e) {
                 if (that.backgroundDismiss) {
                     that.cancel();
                     that.close();
@@ -233,6 +221,11 @@ var jconfirm, Jconfirm;
                     }, 400);
                 }
             });
+            
+            this.$el.find('.jconfirm-box').click(function (e) {
+                e.stopPropagation();
+            });
+            
             if (this.$confirmButton) {
                 this.$confirmButton.click(function (e) {
                     e.preventDefault();
@@ -265,12 +258,12 @@ var jconfirm, Jconfirm;
             }
 
             $(window).on('resize.' + this._rand, function () {
-                that.setDialogCenter();
+                that.setDialogCenter(true);
             });
 
-            this.setDialogCenter();
         },
         reactOnKey: function key(e) {
+            
             /*
              * prevent keyup event if the dialog is not last! 
              */
@@ -279,7 +272,6 @@ var jconfirm, Jconfirm;
                 return false;
 
             var key = e.which;
-            console.log(key);
             if (key === 27) {
                 /*
                  * if ESC key
@@ -309,16 +301,29 @@ var jconfirm, Jconfirm;
                 }
             }
         },
-        setDialogCenter: function () {
-            var h = $(window).height(),
-                    h2 = this.$b.height(),
-                    mar = (h - h2) / 2;
-            this.$b.find('.content').css({
-                'max-height': h - 200 + 'px'
-            });
-            this.$b.css({
-                'margin-top': mar
-            });
+        setDialogCenter: function (animate) {
+            var windowHeight = $(window).height();
+            var boxHeight = this.$b.outerHeight();
+            var topMargin = (windowHeight - boxHeight) / 2;
+            var minMargin = 100;
+            if (boxHeight > (windowHeight - minMargin)) {
+                var style = {
+                    'margin-top': minMargin / 2,
+                    'margin-bottom': minMargin / 2,
+                }
+            } else {
+                var style = {
+                    'margin-top': topMargin,
+                }
+            }
+            if (animate) {
+                this.$b.animate(style, {
+                    duration: (animate) ? this.animationSpeed : 0,
+                    queue: false
+                });
+            } else {
+                this.$b.css(style);
+            }
         },
         close: function () {
             var that = this;
@@ -332,7 +337,7 @@ var jconfirm, Jconfirm;
 
             this.$el.find('.jconfirm-bg').animate({
                 opacity: 0
-            }, this.animationSpeed / 2);
+            }, this.animationSpeed / 3);
             this.$b.addClass(this.animation);
             $('body').removeClass('jconfirm-noscroll');
             setTimeout(function () {
@@ -346,6 +351,16 @@ var jconfirm, Jconfirm;
             var that = this;
             if (this.isClosed())
                 return false;
+
+            /*
+             * Timeout needed for DOM render time. or it never animates.
+             */
+            
+            setTimeout(function () {
+                that.$el.find('.jconfirm-bg').animate({
+                    opacity: 1
+                }, that.animationSpeed / 3);
+            }, 1);
 
             $('body').addClass('jconfirm-noscroll');
             this.$b.removeClass(this.animations.join(' '));
@@ -364,7 +379,7 @@ var jconfirm, Jconfirm;
     };
 
     jconfirm.pluginDefaults = {
-        template: '<div class="jconfirm"><div class="jconfirm-bg"></div><div class="container"><div class="row"><div class="jconfirm-box-container span6 offset3"><div class="jconfirm-box"><div class="closeIcon"><span class="glyphicon glyphicon-remove"></span></div><div class="title"></div><div class="content"></div><div class="buttons"></div><div class="jquery-clear"></div></div></div></div></div></div>',
+        template: '<div class="jconfirm"><div class="jconfirm-bg"></div><div class="jconfirm-scrollpane"><div class="container"><div class="row"><div class="jconfirm-box-container span6 offset3"><div class="jconfirm-box"><div class="closeIcon"><span class="glyphicon glyphicon-remove"></span></div><div class="title"></div><div class="content"></div><div class="buttons"></div><div class="jquery-clear"></div></div></div></div></div></div></div>',
         title: 'Hello',
         content: 'Are you sure to continue?',
         contentLoaded: function () {
