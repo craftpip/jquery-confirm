@@ -28,10 +28,10 @@ body.jconfirm-noscroll{
     bottom: 0;
     z-index: 99999999;
     font-family: inherit;
-    overflow-y: auto;
+    overflow: hidden;
 
     .jconfirm-bg{
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
         right: 0;
@@ -43,7 +43,14 @@ body.jconfirm-noscroll{
             opacity: 1;
         }
     }
-
+    .jconfirm-scrollpane{
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow-y: auto;
+    }
     .jconfirm-box{
         background: white;
         border-radius: 4px;
@@ -73,9 +80,9 @@ body.jconfirm-noscroll{
         div.content{
             padding-top: 10px;
             padding: 10px 15px 10px;
-            max-height: 350px;
-            overflow: hidden;
-            overflow-y: auto;
+            /*max-height: 350px;*/
+            /*overflow: scroll;*/
+            /*overflow-y: auto;*/
 
             &:empty{
                 height: 40px;
