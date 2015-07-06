@@ -1,5 +1,5 @@
 /*!
- * jquery-confirm v1.6 (http://craftpip.github.io/jquery-confirm/)
+ * jquery-confirm v1.7.0 (http://craftpip.github.io/jquery-confirm/)
  * Author: Boniface Pereira
  * Website: www.craftpip.com
  * Contact: hey@craftpip.com
@@ -14,7 +14,7 @@ if (typeof jQuery === 'undefined') {
 
 var jconfirm, Jconfirm;
 (function ($) {
-
+    "use strict";
     $.confirm = function (options) {
         /*
          *  Alias of jconfirm 
@@ -153,9 +153,10 @@ var jconfirm, Jconfirm;
                     var url = this.content.substring(4, this.content.length);
                     $.get(url).done(function (html) {
                         that.contentDiv.html(html);
-                    }).always(function (html, response) {
+                    }).always(function (data, status, xhr) {
+                        
                         if (typeof that.contentLoaded === 'function')
-                            that.contentLoaded(that.$b, html, response);
+                            that.contentLoaded(data, status, xhr);
 
                         that.$btnc.find('button').prop('disabled', false);
                         that.setDialogCenter();
