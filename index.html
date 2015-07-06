@@ -695,6 +695,7 @@ $.confirm({
                                 $.confirm({
                                     title: 'Title',
                                     content: 'url:text.txt',
+                                    animation: 'top',
                                 });
                             });
                             $('.example18-1-1').on('click', function () {
@@ -703,7 +704,8 @@ $.confirm({
                                     content: 'url:text.txt',
                                     contentLoaded: function(data, status, xhr){
                                         alert('Content loaded '+status);
-                                    }
+                                    },
+                                    animation: 'top',
                                 });
                             });
                         </script>
