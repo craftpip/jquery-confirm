@@ -35,7 +35,7 @@
         <script src="demo/libs/bootstrap.min.js"></script>
         <script src="demo/libs/pretty.js"></script>
         <script>
-            var version = '1.6.0';
+            var version = '1.7.0';
         </script>
         <style type="text/css">
             .space10{
@@ -137,6 +137,7 @@
                                     <a class="list-group-item gotoSmooth" href="#buttonstyle"> Button style</a>
                                     <a class="list-group-item gotoSmooth" href="#hide-elements"> Hide elements</a>
                                     <a class="list-group-item gotoSmooth" href="#theme"> Theme</a>
+                                    <a class="list-group-item gotoSmooth" href="#custom-width"> Custom width</a>
                                     <a class="list-group-item gotoSmooth" href="#loadfromurl"> Load via URL</a>
                                     <a class="list-group-item gotoSmooth" href="#animation"> Animation</a>
                                     <a class="list-group-item gotoSmooth" href="#animationbounce"> Animation Bounce</a>
@@ -278,6 +279,7 @@
                                 $.confirm({
                                     title: 'Getting data from html file',
                                     content: 'url:table.html',
+                                    animation: 'top'
                                 });
                             });
                             $('.example-p-6').on('click', function () {
@@ -624,7 +626,7 @@ $.confirm({
                     </div>
                     
                     
-                    <h3 id="theme">CUSTOM WIDTH</h3>
+                    <h3 id="custom-width">CUSTOM WIDTH</h3>
                     <div class="section">
                         <p>
                             Jquery-confirm uses bootstrap's grid system for its layout. <br>
@@ -685,13 +687,23 @@ $.confirm({
                         <p class="text-info"><i class="fa fa-info fa-fw"></i> The confirm/cancel buttons are disabled until the content is fetched from the URL.</p>
                         <p class="text-warning"><i class="fa fa-star fa-fw"></i> You can also load HTML contents to the modal with ease.</p>
                         <button class="btn btn-primary example18-1">Load from text.txt</button>
+                        <button class="btn btn-primary example18-1-1">Using contentLoaded (optional)</button>
                         <a class="btn btn-default" href="text.txt" target="new"><i class="fa fa-external-link"></i> view text.txt</a>
                         <div class="space10"></div>
                         <script type="text/javascript">
                             $('.example18-1').on('click', function () {
                                 $.confirm({
                                     title: 'Title',
-                                    content: 'url:text.txt'
+                                    content: 'url:text.txt',
+                                });
+                            });
+                            $('.example18-1-1').on('click', function () {
+                                $.confirm({
+                                    title: 'Title',
+                                    content: 'url:text.txt',
+                                    contentLoaded: function(data, status, xhr){
+                                        alert('Content loaded '+status);
+                                    }
                                 });
                             });
                         </script>
@@ -699,7 +711,20 @@ $.confirm({
     content: 'url:text.txt',
     title: 'Title'
 }); 
+
+// Using contentLoaded callback.
+$.confirm({
+    content: 'url:text.txt',
+    title: 'Title',
+    contentLoaded: function(data, status, xhr){
+        alert('Content loaded '+status);
+    }
+}); 
 </code></pre>
+                        <p class="text-info">
+                            <i class="fa fa-info"></i> contentLoaded is called regardless of success or error. <br>
+                            
+                        </p>
                     </div>
 
                     <h3 id="loadfromurl-advanced">LOAD VIA URL (Advanced Option)</h3>
@@ -1164,6 +1189,7 @@ $.confirm({
     backgroundDismiss: true,
     autoClose: false,
     closeIcon: true,
+    columnClass: 'col-md-6 col-md-offset-3',
 };
 </code></pre>
                     </div>
@@ -1318,6 +1344,15 @@ $.confirm({
                                     <td>
                                         Close icon comes into picture if both the buttons are disabled, (dialog mode). <br>
                                         You may remove the close icon by settings this value to false.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>columnClass</td>
+                                    <td>String</td>
+                                    <td><code>'col-md-6 col-md-offset-3'</code></td>
+                                    <td>
+                                        Provides a better way to set Custom width to Jquery-onfirm.<br>
+                                        You can also set custom widths for different display sizes using the Bootstraps grid.
                                     </td>
                                 </tr>
                             </table>
