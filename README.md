@@ -1,9 +1,9 @@
 ### jquery-confirm
 *alerts, confirms and dialogs in* ***one.***
 
-v1.6.0
+v1.7.0
 
-A multipurpose plugin for alert, confirm & dialog, with Extended features.
+A multipurpose plugin for alert, confirm & dialog, with Super powers.
 
 * Keyboard actions. 
 * directly load content via Ajax 
@@ -20,8 +20,6 @@ Download the latest release [here](https://github.com/craftpip/jquery-confirm/ar
 
 via Bower: <br>
 `$ bower install craftpip/jquery-confirm` <br>
-via Npm: <br>
-`$ npm install jquery-confirm` 
 
 ##Basic Usage
 
@@ -56,6 +54,11 @@ The `$.alert()` , `$.confirm()` & `$.dialog()` are alias of `jconfirm();`.
 Checkout the [documentation](http://craftpip.github.io/jquery-confirm) for further information.
 
 ## Version changes
+
+(New in 1.7.0)
+* Option for custom width added (using bootstrap grid)
+* Text overflow logic changed, #13
+* Documentation & improvements to contentLoaded callback.
 
 (New in 1.6.0)
 * Theme 'supervan' added
