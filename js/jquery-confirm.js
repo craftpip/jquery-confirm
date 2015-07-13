@@ -97,12 +97,7 @@ var jconfirm, Jconfirm;
             /*
              * Setup title contents
              */
-            if (this.title) {
-                this.$el.find('div.title').html('<i class="' + this.icon + '"></i> ' + this.title);
-            } else {
-                this.$el.find('div.title').remove();
-            }
-
+            this.setTitle();
             this.contentDiv = this.$el.find('div.content');
 
             /*
@@ -119,17 +114,32 @@ var jconfirm, Jconfirm;
                         .appendTo(this.$btnc)
                         .addClass(this.cancelButtonClass);
             }
+
             if (!this.confirmButton && !this.cancelButton) {
                 this.$btnc.remove();
+            }
 
-                if (this.closeIcon)
-                    this.$closeButton = this.$b.find('.closeIcon').show();
+            if(!this.confirmButton && !this.cancelButton && this.closeIcon == null){
+                this.$closeButton = this.$b.find('.closeIcon').show();
+            }
+
+            if (this.closeIcon === true){
+                this.$closeButton = this.$b.find('.closeIcon').show();
             }
 
             this.setContent();
 
             if (this.autoClose)
                 this._startCountDown();
+        },
+        setTitle: function(string){
+            this.title = (typeof string !== 'undefined') ? string : this.title;
+
+            if (this.title) {
+                this.$el.find('div.title').html('<i class="' + this.icon + '"></i> ' + this.title);
+            } else {
+                this.$el.find('div.title').remove();
+            }
         },
         setContent: function (string) {
             var that = this;
@@ -402,7 +412,7 @@ var jconfirm, Jconfirm;
         },
         backgroundDismiss: true,
         autoClose: false,
-        closeIcon: true,
+        closeIcon: null,
         columnClass: 'col-md-6 col-md-offset-3',
     };
     jconfirm.record = {
