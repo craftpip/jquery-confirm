@@ -350,9 +350,10 @@ var jconfirm, Jconfirm;
                 $(window).unbind('keyup.' + this._rand);
 
             that.$el.find('.jconfirm-bg').removeClass('seen');
-
             this.$b.addClass(this.animation);
-            $('body').removeClass('jconfirm-noscroll');
+
+            if(!jconfirm.record.currentlyOpen)
+                $('body').removeClass('jconfirm-noscroll');
 
             setTimeout(function () {
                 that.$el.remove();
@@ -410,7 +411,7 @@ var jconfirm, Jconfirm;
         closeIcon: null,
         columnClass: 'col-md-6 col-md-offset-3',
     };
-    
+
     jconfirm.record = {
         opened: 0,
         closed: 0,
