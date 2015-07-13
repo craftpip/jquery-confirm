@@ -86,13 +86,16 @@ var jconfirm, Jconfirm;
              */
             this.$el = $(this.template).appendTo(this.container).addClass(this.theme);
             this.$el.find('.jconfirm-box-container').addClass(this.columnClass);
-            this.$b = this.$el.find('.jconfirm-box').css({
+
+            this.CSS = {
                 '-webkit-transition-duration': this.animationSpeed / 1000 + 's',
                 'transition-duration': this.animationSpeed / 1000 + 's',
                 '-webkjit-transition-timing-function': 'cubic-bezier(0.27, 1.12, 0.32, ' + this.animationBounce + ')',
                 'transition-timing-function': 'cubic-bezier(0.27, 1.12, 0.32, ' + this.animationBounce + ')',
-            });
-            this.$b.addClass(this.animation);
+            };
+
+            this.$el.find('.jconfirm-bg').css(this.CSS);
+            this.$b = this.$el.find('.jconfirm-box').css(this.CSS).addClass(this.animation);
 
             /*
              * Setup title contents
@@ -346,11 +349,11 @@ var jconfirm, Jconfirm;
             if (this.keyboardEnabled)
                 $(window).unbind('keyup.' + this._rand);
 
-            this.$el.find('.jconfirm-bg').animate({
-                opacity: 0
-            }, this.animationSpeed / 3);
+            that.$el.find('.jconfirm-bg').removeClass('seen');
+
             this.$b.addClass(this.animation);
             $('body').removeClass('jconfirm-noscroll');
+
             setTimeout(function () {
                 that.$el.remove();
             }, this.animationSpeed + 30); // wait 30 miliseconds more, ensure everything is done.
@@ -363,15 +366,7 @@ var jconfirm, Jconfirm;
             if (this.isClosed())
                 return false;
 
-            /*
-             * Timeout needed for DOM render time. or it never animates.
-             */
-            
-            setTimeout(function () {
-                that.$el.find('.jconfirm-bg').animate({
-                    opacity: 1
-                }, that.animationSpeed / 3);
-            }, 1);
+            that.$el.find('.jconfirm-bg').addClass('seen');
 
             $('body').addClass('jconfirm-noscroll');
             this.$b.removeClass(this.animations.join(' '));
@@ -415,6 +410,7 @@ var jconfirm, Jconfirm;
         closeIcon: null,
         columnClass: 'col-md-6 col-md-offset-3',
     };
+    
     jconfirm.record = {
         opened: 0,
         closed: 0,
