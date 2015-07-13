@@ -302,7 +302,7 @@
                                 $.confirm({
                                     title: 'Keyboard Enabled!',
                                     keyboardEnabled: true,
-                                    content: 'Press ENTER to confirm, ESC to cancel.<br> Use <kbd>keyboardEnabled:true</kbd> to turn it on.',
+                                    content: 'Press ENTER to confirm, ESC to cancel.<br> Use <code>keyboardEnabled:true</code> to turn it on.',
                                     confirm: function () {
                                         alert('confirm triggered!');
                                     },
@@ -604,7 +604,7 @@
                             });
                             $('.example5-3').on('click', function () {
                                 $.confirm({
-                                    theme: 'supervan'
+                                    theme: 'supervan',
                                 });
                             });
                         </script>
@@ -704,7 +704,10 @@ $.confirm({
                                     title: 'Title',
                                     content: 'url:text.txt',
                                     contentLoaded: function(data, status, xhr){
-                                        alert('Content loaded '+status);
+                                        var that = this;
+                                        setTimeout(function(){
+                                            that.setContent('Amazing huh?: '+status);
+                                        }, 1000);
                                     },
                                     animation: 'top',
                                 });
@@ -720,7 +723,10 @@ $.confirm({
     content: 'url:text.txt',
     title: 'Title',
     contentLoaded: function(data, status, xhr){
-        alert('Content loaded '+status);
+        var that = this;
+        setTimeout(function(){
+            that.setContent('Amazing huh?: '+status);
+        }, 1000);
     }
 }); 
 </code></pre>
@@ -752,7 +758,7 @@ $.confirm({
                                             url: 'bower.json',
                                             dataType: 'json',
                                             success: function (data) {
-                                                $obj.contentDiv.html(data.description);
+                                                $obj.setContent('Plugin description: '+data.description);
                                                 // ohh success!
                                             },
                                             error: function () {
@@ -760,6 +766,11 @@ $.confirm({
                                                 // Handle it your way
                                             }
                                         });
+                                    },
+                                    confirm: function(){
+                                        // here this.content is the current content overwritten everytime new content is set.
+                                        this.setContent(this.content+'<h4>Adding a new sentence.</h4>');
+                                        return false;
                                     }
                                 });
                             });
@@ -771,7 +782,7 @@ $.confirm({
                                             url: 'notexist.json',
                                             dataType: 'json',
                                             success: function (data) {
-                                                $obj.contentDiv.html(data.description);
+                                                $obj.setContent(data.description);
                                                 // ohh success!
                                             },
                                             error: function () {
@@ -789,7 +800,7 @@ $.confirm({
             url: 'bower.json',
             dataType: 'json',
             success: function (data) {
-                $obj.setContent(data.description); // sets the content and centers the dialog on screen.
+                $obj.setContent('Plugin description: '+data.description); // sets the content and centers the dialog on screen.
                 // Ahh, success!
             },
             error: function () {
@@ -797,6 +808,11 @@ $.confirm({
                 // Handle it your way
             }
         });
+    },
+    confirm: function(){
+        // here this.content is the current content overwritten everytime new content is set.
+        this.setContent(this.content+'&lt;h4&gt;Adding a new sentence.&lt;/h4&gt;');
+        return false;
     }
 });
 </code></pre>

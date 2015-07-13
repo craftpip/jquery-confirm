@@ -234,9 +234,7 @@ body.jconfirm-noscroll{
                     border-left: solid 2px #E7E7E7;
                 }
             }
-
         }
-
     }
     &.holodark{
         .jconfirm-bg{
@@ -280,11 +278,8 @@ body.jconfirm-noscroll{
                     border-left: solid 2px rgba(255,255,255,.2);
                 }
             }
-
         }
-
     }
-
     .jconfirm-box.hilight{
         box-shadow: 0 0 20px red;
     }
@@ -300,7 +295,6 @@ body.jconfirm-noscroll{
         transition-property: transform, opacity, box-shadow;
         
         &.anim-top,&.anim-left,&.anim-right,&.anim-bottom,&.anim-opacity,&.anim-zoom,&.anim-scale,&.anim-none,&.anim-rotate,&.anim-rotatex,&.anim-rotatey, &.anim-scaley, &.anim-scalex{
-            /*visibility: hidden;*/
             opacity: 0;
         }
         &.anim-rotate{
@@ -308,19 +302,19 @@ body.jconfirm-noscroll{
         }
         &.anim-rotatex{
             transform: rotateX(90deg);
-            transform-origin: top;
+            transform-origin: center;
         }
         &.anim-rotatey{
             transform: rotatey(90deg);
-            transform-origin: top;
+            transform-origin: center;
         }
         &.anim-scaley{
             transform: scaley(1.5);
-            transform-origin: top;
+            transform-origin: center;
         }
         &.anim-scalex{
             transform: scalex(1.5);
-            transform-origin: top;
+            transform-origin: center;
         }
         &.anim-top{
             transform: translate(0px, -100px);
@@ -350,17 +344,16 @@ body.jconfirm-noscroll{
 }
 
 .jconfirm.supervan{
-    
     .jconfirm-bg{
         background-color: rgba(54,70,93,.95);
     }
-
     .jconfirm-box{
         background-color: transparent;
 
         div.closeIcon{
-
+            color: white;
         }
+
         div.title{
             text-align: center;
             color: white;

@@ -146,14 +146,13 @@ var jconfirm, Jconfirm;
         },
         setContent: function (string) {
             var that = this;
+            this.content = (string) ? string : this.content;
+            var animate = (string) ? true : false;
 
             /*
              * Set content.
              */
-            if (typeof string !== undefined && typeof string === 'string') {
-                this.content = string;
-                this.setContent();
-            } else if (typeof this.content === 'boolean') {
+            if (typeof this.content === 'boolean') {
                 if (!this.content)
                     this.contentDiv.remove();
                 else
@@ -167,7 +166,6 @@ var jconfirm, Jconfirm;
                     $.get(url).done(function (html) {
                         that.contentDiv.html(html);
                     }).always(function (data, status, xhr) {
-                        
                         if (typeof that.contentLoaded === 'function')
                             that.contentLoaded(data, status, xhr);
 
@@ -189,7 +187,7 @@ var jconfirm, Jconfirm;
                 } else if (typeof promise.always !== 'function') {
                     console.error('The object returned is not a jquery promise.');
                 } else {
-                    promise.always(function () {
+                    promise.always(function (data, status) {
                         that.$btnc.find('button').removeAttr('disabled');
                         that.setDialogCenter();
                     });
@@ -199,7 +197,7 @@ var jconfirm, Jconfirm;
                 console.error('Invalid option for property content, passed: ' + typeof this.content);
             }
 
-            this.setDialogCenter();
+            this.setDialogCenter(animate);
         },
         _startCountDown: function () {
             var opt = this.autoClose.split('|');
@@ -332,7 +330,7 @@ var jconfirm, Jconfirm;
             }
             if (animate) {
                 this.$b.animate(style, {
-                    duration: (animate) ? this.animationSpeed : 0,
+                    duration: this.animationSpeed,
                     queue: false
                 });
             } else {
@@ -352,15 +350,15 @@ var jconfirm, Jconfirm;
             that.$el.find('.jconfirm-bg').removeClass('seen');
             this.$b.addClass(this.animation);
 
-            if(!jconfirm.record.currentlyOpen)
-                $('body').removeClass('jconfirm-noscroll');
-
             setTimeout(function () {
                 that.$el.remove();
-            }, this.animationSpeed + 30); // wait 30 miliseconds more, ensure everything is done.
+            }, this.animationSpeed + 10); // wait 10 miliseconds more, ensure everything is done.
 
             jconfirm.record.closed += 1;
             jconfirm.record.currentlyOpen -= 1;
+
+            if(jconfirm.record.currentlyOpen < 1)
+                $('body').removeClass('jconfirm-noscroll');
         },
         open: function () {
             var that = this;
