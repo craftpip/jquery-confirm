@@ -35,7 +35,7 @@
         <script src="demo/libs/bootstrap.min.js"></script>
         <script src="demo/libs/pretty.js"></script>
         <script>
-            var version = '1.7.0';
+            var version = '1.7.3';
         </script>
         <style type="text/css">
             .space10{
@@ -302,7 +302,7 @@
                                 $.confirm({
                                     title: 'Keyboard Enabled!',
                                     keyboardEnabled: true,
-                                    content: 'Press ENTER to confirm, ESC to cancel.<br> Use <kbd>keyboardEnabled:true</kbd> to turn it on.',
+                                    content: 'Press ENTER to confirm, ESC to cancel.<br> Use <code>keyboardEnabled:true</code> to turn it on.',
                                     confirm: function () {
                                         alert('confirm triggered!');
                                     },
@@ -564,7 +564,8 @@
                         <i class="fa fa-info-circle fa-fw"></i> <strong>NOTE:</strong>
                         <br>
                         <p>
-                            The closeIcon is only visible if both confirm & cancel buttons are hidden. (dialog mode).<br>
+                            By default the closeIcon is visible if both confirm &amp; cancel buttons are hidden. (dialog mode).<br>
+                            To explicitly show or hide closeIcon set <code>closeIcon: true</code> or <code>closeIcon: false</code>.<br>
                             Shorthand to hide both buttons is to use <code>$.dialog()</code>.
                         </p>
                     </div>
@@ -603,7 +604,7 @@
                             });
                             $('.example5-3').on('click', function () {
                                 $.confirm({
-                                    theme: 'supervan'
+                                    theme: 'supervan',
                                 });
                             });
                         </script>
@@ -703,7 +704,10 @@ $.confirm({
                                     title: 'Title',
                                     content: 'url:text.txt',
                                     contentLoaded: function(data, status, xhr){
-                                        alert('Content loaded '+status);
+                                        var that = this;
+                                        setTimeout(function(){
+                                            that.setContent('Amazing huh?: '+status);
+                                        }, 1000);
                                     },
                                     animation: 'top',
                                 });
@@ -719,7 +723,10 @@ $.confirm({
     content: 'url:text.txt',
     title: 'Title',
     contentLoaded: function(data, status, xhr){
-        alert('Content loaded '+status);
+        var that = this;
+        setTimeout(function(){
+            that.setContent('Amazing huh?: '+status);
+        }, 1000);
     }
 }); 
 </code></pre>
@@ -751,7 +758,7 @@ $.confirm({
                                             url: 'bower.json',
                                             dataType: 'json',
                                             success: function (data) {
-                                                $obj.contentDiv.html(data.description);
+                                                $obj.setContent('Plugin description: '+data.description);
                                                 // ohh success!
                                             },
                                             error: function () {
@@ -759,6 +766,11 @@ $.confirm({
                                                 // Handle it your way
                                             }
                                         });
+                                    },
+                                    confirm: function(){
+                                        // here this.content is the current content overwritten everytime new content is set.
+                                        this.setContent(this.content+'<h4>Adding a new sentence.</h4>');
+                                        return false;
                                     }
                                 });
                             });
@@ -770,7 +782,7 @@ $.confirm({
                                             url: 'notexist.json',
                                             dataType: 'json',
                                             success: function (data) {
-                                                $obj.contentDiv.html(data.description);
+                                                $obj.setContent(data.description);
                                                 // ohh success!
                                             },
                                             error: function () {
@@ -788,7 +800,7 @@ $.confirm({
             url: 'bower.json',
             dataType: 'json',
             success: function (data) {
-                $obj.setContent(data.description); // sets the content and centers the dialog on screen.
+                $obj.setContent('Plugin description: '+data.description); // sets the content and centers the dialog on screen.
                 // Ahh, success!
             },
             error: function () {
@@ -796,6 +808,11 @@ $.confirm({
                 // Handle it your way
             }
         });
+    },
+    confirm: function(){
+        // here this.content is the current content overwritten everytime new content is set.
+        this.setContent(this.content+'&lt;h4&gt;Adding a new sentence.&lt;/h4&gt;');
+        return false;
     }
 });
 </code></pre>
@@ -1190,7 +1207,7 @@ $.confirm({
     },
     backgroundDismiss: true,
     autoClose: false,
-    closeIcon: true,
+    closeIcon: null,
     columnClass: 'col-md-6 col-md-offset-3',
 };
 </code></pre>
@@ -1342,10 +1359,10 @@ $.confirm({
                                 <tr>
                                     <td>closeIcon</td>
                                     <td>Boolean</td>
-                                    <td><code>true</code></td>
+                                    <td><code>null</code></td>
                                     <td>
-                                        Close icon comes into picture if both the buttons are disabled, (dialog mode). <br>
-                                        You may remove the close icon by settings this value to false.
+                                        By default closeIcon is visible if both buttons are false. (dialog mode). <br>
+                                        closeIcon can be shown by setting this value to a Boolean value.
                                     </td>
                                 </tr>
                                 <tr>
@@ -1422,7 +1439,7 @@ obj.close();
                     <h3 id="insidecallbacks">INSIDE CALLBACKS</h3>
                     <div class="section">
                         <h4>Getting the reference object inside callback functions</h4>
-                        <p>You may need the retured reference obj inside the callback function, <code>this</code> is what you need.</p>
+                        <p>You may need the returned reference obj inside the callback function, <code>this</code> is what you need.</p>
                         <pre class="prettyprint lineums"><code>var obj = $.confirm({
     title: 'awesome',
     content: 'Get me yeah.',

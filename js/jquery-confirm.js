@@ -1,5 +1,5 @@
 /*!
- * jquery-confirm v1.7.0 (http://craftpip.github.io/jquery-confirm/)
+ * jquery-confirm v1.7.3 (http://craftpip.github.io/jquery-confirm/)
  * Author: Boniface Pereira
  * Website: www.craftpip.com
  * Contact: hey@craftpip.com
@@ -86,23 +86,21 @@ var jconfirm, Jconfirm;
              */
             this.$el = $(this.template).appendTo(this.container).addClass(this.theme);
             this.$el.find('.jconfirm-box-container').addClass(this.columnClass);
-            this.$b = this.$el.find('.jconfirm-box').css({
+
+            this.CSS = {
                 '-webkit-transition-duration': this.animationSpeed / 1000 + 's',
                 'transition-duration': this.animationSpeed / 1000 + 's',
                 '-webkjit-transition-timing-function': 'cubic-bezier(0.27, 1.12, 0.32, ' + this.animationBounce + ')',
                 'transition-timing-function': 'cubic-bezier(0.27, 1.12, 0.32, ' + this.animationBounce + ')',
-            });
-            this.$b.addClass(this.animation);
+            };
+
+            this.$el.find('.jconfirm-bg').css(this.CSS);
+            this.$b = this.$el.find('.jconfirm-box').css(this.CSS).addClass(this.animation);
 
             /*
              * Setup title contents
              */
-            if (this.title) {
-                this.$el.find('div.title').html('<i class="' + this.icon + '"></i> ' + this.title);
-            } else {
-                this.$el.find('div.title').remove();
-            }
-
+            this.setTitle();
             this.contentDiv = this.$el.find('div.content');
 
             /*
@@ -119,11 +117,17 @@ var jconfirm, Jconfirm;
                         .appendTo(this.$btnc)
                         .addClass(this.cancelButtonClass);
             }
+
             if (!this.confirmButton && !this.cancelButton) {
                 this.$btnc.remove();
+            }
 
-                if (this.closeIcon)
-                    this.$closeButton = this.$b.find('.closeIcon').show();
+            if(!this.confirmButton && !this.cancelButton && this.closeIcon == null){
+                this.$closeButton = this.$b.find('.closeIcon').show();
+            }
+
+            if (this.closeIcon === true){
+                this.$closeButton = this.$b.find('.closeIcon').show();
             }
 
             this.setContent();
@@ -131,16 +135,24 @@ var jconfirm, Jconfirm;
             if (this.autoClose)
                 this._startCountDown();
         },
+        setTitle: function(string){
+            this.title = (typeof string !== 'undefined') ? string : this.title;
+
+            if (this.title) {
+                this.$el.find('div.title').html('<i class="' + this.icon + '"></i> ' + this.title);
+            } else {
+                this.$el.find('div.title').remove();
+            }
+        },
         setContent: function (string) {
             var that = this;
+            this.content = (string) ? string : this.content;
+            var animate = (string) ? true : false;
 
             /*
              * Set content.
              */
-            if (typeof string !== undefined && typeof string === 'string') {
-                this.content = string;
-                this.setContent();
-            } else if (typeof this.content === 'boolean') {
+            if (typeof this.content === 'boolean') {
                 if (!this.content)
                     this.contentDiv.remove();
                 else
@@ -154,7 +166,6 @@ var jconfirm, Jconfirm;
                     $.get(url).done(function (html) {
                         that.contentDiv.html(html);
                     }).always(function (data, status, xhr) {
-                        
                         if (typeof that.contentLoaded === 'function')
                             that.contentLoaded(data, status, xhr);
 
@@ -176,7 +187,7 @@ var jconfirm, Jconfirm;
                 } else if (typeof promise.always !== 'function') {
                     console.error('The object returned is not a jquery promise.');
                 } else {
-                    promise.always(function () {
+                    promise.always(function (data, status) {
                         that.$btnc.find('button').removeAttr('disabled');
                         that.setDialogCenter();
                     });
@@ -186,7 +197,7 @@ var jconfirm, Jconfirm;
                 console.error('Invalid option for property content, passed: ' + typeof this.content);
             }
 
-            this.setDialogCenter();
+            this.setDialogCenter(animate);
         },
         _startCountDown: function () {
             var opt = this.autoClose.split('|');
@@ -319,7 +330,7 @@ var jconfirm, Jconfirm;
             }
             if (animate) {
                 this.$b.animate(style, {
-                    duration: (animate) ? this.animationSpeed : 0,
+                    duration: this.animationSpeed,
                     queue: false
                 });
             } else {
@@ -336,32 +347,25 @@ var jconfirm, Jconfirm;
             if (this.keyboardEnabled)
                 $(window).unbind('keyup.' + this._rand);
 
-            this.$el.find('.jconfirm-bg').animate({
-                opacity: 0
-            }, this.animationSpeed / 3);
+            that.$el.find('.jconfirm-bg').removeClass('seen');
             this.$b.addClass(this.animation);
-            $('body').removeClass('jconfirm-noscroll');
+
             setTimeout(function () {
                 that.$el.remove();
-            }, this.animationSpeed + 30); // wait 30 miliseconds more, ensure everything is done.
+            }, this.animationSpeed + 10); // wait 10 miliseconds more, ensure everything is done.
 
             jconfirm.record.closed += 1;
             jconfirm.record.currentlyOpen -= 1;
+
+            if(jconfirm.record.currentlyOpen < 1)
+                $('body').removeClass('jconfirm-noscroll');
         },
         open: function () {
             var that = this;
             if (this.isClosed())
                 return false;
 
-            /*
-             * Timeout needed for DOM render time. or it never animates.
-             */
-            
-            setTimeout(function () {
-                that.$el.find('.jconfirm-bg').animate({
-                    opacity: 1
-                }, that.animationSpeed / 3);
-            }, 1);
+            that.$el.find('.jconfirm-bg').addClass('seen');
 
             $('body').addClass('jconfirm-noscroll');
             this.$b.removeClass(this.animations.join(' '));
@@ -402,9 +406,10 @@ var jconfirm, Jconfirm;
         },
         backgroundDismiss: true,
         autoClose: false,
-        closeIcon: true,
+        closeIcon: null,
         columnClass: 'col-md-6 col-md-offset-3',
     };
+
     jconfirm.record = {
         opened: 0,
         closed: 0,
