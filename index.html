@@ -1207,7 +1207,7 @@ $.confirm({
     },
     backgroundDismiss: true,
     autoClose: false,
-    closeIcon: true,
+    closeIcon: null,
     columnClass: 'col-md-6 col-md-offset-3',
 };
 </code></pre>
@@ -1359,10 +1359,10 @@ $.confirm({
                                 <tr>
                                     <td>closeIcon</td>
                                     <td>Boolean</td>
-                                    <td><code>true</code></td>
+                                    <td><code>null</code></td>
                                     <td>
-                                        Close icon comes into picture if both the buttons are disabled, (dialog mode). <br>
-                                        You may remove the close icon by settings this value to false.
+                                        By default closeIcon is visible if both buttons are false. (dialog mode). <br>
+                                        closeIcon can be shown by setting this value to a Boolean value.
                                     </td>
                                 </tr>
                                 <tr>
