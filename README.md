@@ -1,7 +1,7 @@
 ### jquery-confirm
 *alerts, confirms and dialogs in* ***one.***
 
-v1.7.0
+v1.7.3
 
 A multipurpose plugin for alert, confirm & dialog, with Super powers.
 
@@ -10,7 +10,6 @@ A multipurpose plugin for alert, confirm & dialog, with Super powers.
 * Auto-close dialog after a specified time 
 * prevent Dialog close on background click 
 * callback function, and more
-
 
 View Detailed [Documentation & Examples](http://craftpip.github.io/jquery-confirm)
 
@@ -54,6 +53,12 @@ The `$.alert()` , `$.confirm()` & `$.dialog()` are alias of `jconfirm();`.
 Checkout the [documentation](http://craftpip.github.io/jquery-confirm) for further information.
 
 ## Version changes
+
+(New in 1.7.3)
+* Fix show and hide for closeIcon
+* Improved animations, more CSS
+* setContent method improved.
+* setTitle method added.
 
 (New in 1.7.0)
 * Option for custom width added (using bootstrap grid)
