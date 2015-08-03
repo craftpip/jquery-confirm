@@ -1,7 +1,7 @@
 ### jquery-confirm
 *alerts, confirms and dialogs in* ***one.***
 
-v1.7.3
+v1.7.5
 
 A multipurpose plugin for alert, confirm & dialog, with Super powers.
 
@@ -53,6 +53,10 @@ The `$.alert()` , `$.confirm()` & `$.dialog()` are alias of `jconfirm();`.
 Checkout the [documentation](http://craftpip.github.io/jquery-confirm) for further information.
 
 ## Version changes
+
+(New in 1.7.5)
+* Callbacks added, onOpen, onClose, onAction
+* Improved docs.
 
 (New in 1.7.3)
 * Fix show and hide for closeIcon
