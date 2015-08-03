@@ -5,6 +5,6 @@
 </p>
 <div class="form-group">
     <label>Your name</label>
-    <input type="text" id="input-name" placeholder="name" class="form-control">
+    <input autofocus type="text" id="input-name" placeholder="Lets greet Ourselves." class="form-control">
 </div>
 <p class="text-danger" style="display:none">The modal is prevented to close until the input is valid!</p>

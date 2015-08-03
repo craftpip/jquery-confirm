@@ -242,6 +242,8 @@ var jconfirm, Jconfirm;
                 this.$confirmButton.click(function (e) {
                     e.preventDefault();
                     var r = that.confirm(that.$b);
+                    that.onAction();
+
                     if (typeof r === 'undefined' || r)
                         that.close();
                 });
@@ -250,6 +252,8 @@ var jconfirm, Jconfirm;
                 this.$cancelButton.click(function (e) {
                     e.preventDefault();
                     var r = that.cancel(that.$b);
+                    that.onAction();
+
                     if (typeof r === 'undefined' || r)
                         that.close();
                 });
@@ -258,6 +262,7 @@ var jconfirm, Jconfirm;
                 this.$closeButton.click(function (e) {
                     e.preventDefault();
                     that.cancel();
+                    that.onAction();
                     that.close();
                 });
             }
@@ -340,6 +345,11 @@ var jconfirm, Jconfirm;
         close: function () {
             var that = this;
 
+            if(this.isClosed())
+                return false;
+
+            if(typeof this.onClose === 'function')
+                this.onClose();
             /*
              unbind the window resize & keyup event.
              */
@@ -359,6 +369,8 @@ var jconfirm, Jconfirm;
 
             if(jconfirm.record.currentlyOpen < 1)
                 $('body').removeClass('jconfirm-noscroll');
+
+            return true;
         },
         open: function () {
             var that = this;
@@ -376,6 +388,8 @@ var jconfirm, Jconfirm;
             this.$b.find('input[autofocus]:visible:first').focus();
             jconfirm.record.opened += 1;
             jconfirm.record.currentlyOpen += 1;
+            if(typeof this.onOpen === 'function')
+                this.onOpen();
             return true;
         },
         isClosed: function () {
@@ -408,6 +422,12 @@ var jconfirm, Jconfirm;
         autoClose: false,
         closeIcon: null,
         columnClass: 'col-md-6 col-md-offset-3',
+        onOpen: function(){
+        },
+        onClose: function(){
+        },
+        onAction: function(){
+        }
     };
 
     jconfirm.record = {

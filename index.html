@@ -146,6 +146,7 @@
                                     <a class="list-group-item gotoSmooth" href="#icons"> Icons</a>
                                     <a class="list-group-item gotoSmooth" href="#backgrounddismiss"> Background dismiss</a>
                                     <a class="list-group-item gotoSmooth" href="#keyboardactions"> Keyboard Actions</a>
+                                    <a class="list-group-item gotoSmooth" href="#callbacks"> Callbacks</a>
                                     <a class="list-group-item gotoSmooth" href="#globaldefaults"> Global defaults</a>
                                     <a class="list-group-item gotoSmooth" href="#options"> Options</a>
                                     <a class="list-group-item gotoSmooth" href="#methods"> Methods</a>
@@ -175,7 +176,7 @@
                                 Auto-close, Ajax-loading, background-dismiss, themes and more. <br>
                                 This plugin is actively developed, We would love you have your suggestions.
                             </p>
-                            <a href="https://github.com/craftpip/jquery-confirm/issues" target="empty" class="btn btn-success"><i class="fa fa-bug fa-fw"></i> Post your Issues/Features here.</a>
+                            <a href="https://github.com/craftpip/jquery-confirm/issues" target="empty" class="btn btn-success"><i class="fa fa-bug fa-fw"></i> Please post your Suggestions here.</a>
                         </header>
                     </section>
                     <hr>
@@ -442,10 +443,8 @@
                             </div>
                         </div>
                     </section>
-
-
+                    
                     <section id="examples">
-
                         <h1>Examples</h1>
                         <div class="alert alert-info">
                             <p>
@@ -454,8 +453,11 @@
                                 <i class="fa fa-fw"></i> All three methods indirectly call the jconfirm base function altering the provided options.
                             </p>
                         </div>
-
-
+                        <div class="alert alert-warning">
+                            <p>
+                                <i class="fa fa-info fa-fw"></i> <strong>ADVANCED: </strong> <code>this.$b</code> is the body div for jquery-confirm. You can find and alter any element at run time.
+                            </p>
+                        </div>
 
                         <h3 id="buttontext">BUTTON TEXT</h3>
                         <div class="section">
@@ -1179,6 +1181,57 @@ $.confirm({
 });
 </code></pre>
                     </div>
+                    <h3 id="callbacks">CALLBACKS</h3>
+                    <div class="section">
+                        <p>
+                            If you have a form inside your modal, you'll probably need to attach events to it.
+                            <p class="text-info">
+                                <i class="fa fa-info fa-fw"></i> 
+                                Most used to interact with the elements inside the modal.
+                            </p>
+                        </p>
+                        <button class="btn btn-primary example22-1-1">With Callbacks</button>
+                        <script type="text/javascript">
+                            $('.example22-1-1').on('click', function () {
+                                $.confirm({
+                                    content: 'Imagine this is a complex form and you have to attach events all over the form or any element <br><button type="button" class="examplebutton">I\'m alive!</button>',
+                                    onOpen: function(){
+                                        alert('after the modal is opened');
+                                        // find the input element and attach events to it.
+                                        // NOTE: `this.$b` is the jquery-confirm's content DIV.
+                                        this.$b.find('button.examplebutton').click(function(){
+                                            alert('You clicked on me!');
+                                        });
+                                    },
+                                    onClose: function(){
+                                        alert('before the modal is closed');
+                                    },
+                                    onAction: function(){
+                                        alert('Any of confirm or cancel was clicked');
+                                    }
+                                });
+                            });
+                        </script>
+                        <div class="space10"></div>
+                        <pre class="prettyprint linenums"><code>$.confirm({
+    content: 'Imagine this is a complex form and you have to attach events all over the form or any element &lt;br&gt;&lt;button type="button" class="examplebutton"&gt;I\'m alive!&lt;/button&gt;',
+    onOpen: function(){
+        alert('after the modal is opened');
+        // find the input element and attach events to it.
+        // NOTE: `this.$b` is the jquery-confirm's content DIV.
+        this.$b.find('button.examplebutton').click(function(){
+            alert('You clicked on me!');
+        });
+    },
+    onClose: function(){
+        alert('before the modal is closed');
+    },
+    onAction: function(){
+        alert('Any of confirm or cancel was clicked');
+    }
+});
+</code></pre>
+                    </div>
                     <h3 id="globaldefaults">GLOBAL DEFAULTS</h3>
                     <div class="section">
                         <p>
@@ -1209,6 +1262,12 @@ $.confirm({
     autoClose: false,
     closeIcon: null,
     columnClass: 'col-md-6 col-md-offset-3',
+    onOpen: function(){
+    },
+    onClose: function(){
+    },
+    onAction: function(){
+    }
 };
 </code></pre>
                     </div>
@@ -1372,6 +1431,31 @@ $.confirm({
                                     <td>
                                         Provides a better way to set Custom width to Jquery-onfirm.<br>
                                         You can also set custom widths for different display sizes using the Bootstraps grid.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>onOpen</td>
+                                    <td>Function</td>
+                                    <td><code>function(){}</code></td>
+                                    <td>
+                                        This function is triggered when the jquery-confirm element is rendered.
+                                        (After the popup is displayed)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>onClose</td>
+                                    <td>Function</td>
+                                    <td><code>function(){}</code></td>
+                                    <td>
+                                        This function is triggered when the modal is closed.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>onAction</td>
+                                    <td>Function</td>
+                                    <td><code>function(){}</code></td>
+                                    <td>
+                                        This function is triggered when any of the action performed, ie. confirm/cancel/closeicon click.
                                     </td>
                                 </tr>
                             </table>
