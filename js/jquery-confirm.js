@@ -221,21 +221,27 @@ var jconfirm, Jconfirm;
         },
         _bindEvents: function () {
             var that = this;
+            var boxClicked = false;
             
             this.$el.find('.jconfirm-scrollpane').click(function (e) {
-                if (that.backgroundDismiss) {
-                    that.cancel();
-                    that.close();
-                } else {
-                    that.$b.addClass('hilight');
-                    setTimeout(function () {
-                        that.$b.removeClass('hilight');
-                    }, 400);
+                // ignore propagated clicks
+            	if (!boxClicked) {
+                    // background clicked
+                    if (that.backgroundDismiss) {
+                        that.cancel();
+                        that.close();
+                    } else {
+                        that.$b.addClass('hilight');
+                        setTimeout(function () {
+                            that.$b.removeClass('hilight');
+                        }, 400);
+                    }
                 }
+                boxClicked = false;
             });
             
             this.$el.find('.jconfirm-box').click(function (e) {
-                e.stopPropagation();
+                boxClicked = true;
             });
             
             if (this.$confirmButton) {
