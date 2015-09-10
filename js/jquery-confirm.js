@@ -96,6 +96,12 @@ var jconfirm, Jconfirm;
 
             this.$el.find('.jconfirm-bg').css(this.CSS);
             this.$b = this.$el.find('.jconfirm-box').css(this.CSS).addClass(this.animation);
+            
+            /*
+            * Add rtl class if rtl option has selected
+            */
+            if (this.rtl)
+                this.$el.addClass("rtl");
 
             /*
              * Setup title contents
@@ -419,6 +425,7 @@ var jconfirm, Jconfirm;
         animationSpeed: 400,
         animationBounce: 1.5,
         keyboardEnabled: false,
+        rtl: false,
         container: 'body',
         confirm: function () {
         },

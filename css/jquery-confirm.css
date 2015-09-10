@@ -50,6 +50,15 @@ body.jconfirm-noscroll {
   -webkit-transition: all .4s;
           transition: all .4s;
 }
+
+.jconfirm.rtl {
+	direction:rtl;	
+}
+
+.jconfirm.rtl .jconfirm-box div.title{
+	padding-right:5px;
+}
+
 .jconfirm .jconfirm-bg.seen {
   opacity: 1;
 }
