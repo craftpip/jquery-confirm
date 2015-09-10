@@ -230,7 +230,6 @@ var jconfirm, Jconfirm;
             var boxClicked = false;
             
             this.$el.find('.jconfirm-scrollpane').click(function (e) {
-                    that.cancel();
                 // ignore propagated clicks
             	if (!boxClicked) {
                     // background clicked
