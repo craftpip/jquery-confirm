@@ -34,6 +34,7 @@ var jconfirm, Jconfirm;
          */
         options.cancelButton = false;
         options.confirmButton = false;
+        options.confirmKeys = [13];
         return jconfirm(options);
     };
     jconfirm = function (options) {
@@ -295,9 +296,9 @@ var jconfirm, Jconfirm;
                 return false;
 
             var key = e.which;
-            if (key === 27) {
+            if ($.inArray(key, this.cancelKeys) !== -1) {
                 /*
-                 * if ESC key
+                 * Cancel key pressed.
                  */
                 if (!this.backgroundDismiss) {
                     /*
@@ -313,9 +314,9 @@ var jconfirm, Jconfirm;
                     this.close();
                 }
             }
-            if (key === 13 || key == 32) {
+            if ($.inArray(key, this.confirmKeys) !== -1) {
                 /*
-                 * if ENTER or SPACE key
+                 * Confirm key pressed.
                  */
                 if (this.$confirmButton) {
                     this.$confirmButton.click();
@@ -419,6 +420,8 @@ var jconfirm, Jconfirm;
         animationSpeed: 400,
         animationBounce: 1.5,
         keyboardEnabled: false,
+        confirmKeys: [13, 32], // ENTER or SPACE key
+        cancelKeys: [27], // ESC key
         container: 'body',
         confirm: function () {
         },
