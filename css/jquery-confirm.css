@@ -40,6 +40,13 @@ body.jconfirm-noscroll {
   font-family: inherit;
   overflow: hidden;
 }
+.jconfirm.rtl {
+	direction:rtl;	
+}
+
+.jconfirm.rtl .jconfirm-box div.title{
+	padding-right:5px;
+}
 .jconfirm .jconfirm-bg {
   position: fixed;
   top: 0;
