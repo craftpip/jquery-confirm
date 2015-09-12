@@ -99,6 +99,12 @@ var jconfirm, Jconfirm;
             this.$b = this.$el.find('.jconfirm-box').css(this.CSS).addClass(this.animation);
 
             /*
+            * Add rtl class if rtl option has selected
+            */
+            if (this.rtl)
+                this.$el.addClass("rtl");
+                
+            /*
              * Setup title contents
              */
             this.setTitle();
