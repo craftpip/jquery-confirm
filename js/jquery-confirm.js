@@ -420,6 +420,7 @@ var jconfirm, Jconfirm;
         animationSpeed: 400,
         animationBounce: 1.5,
         keyboardEnabled: false,
+        rtl: false,
         confirmKeys: [13, 32], // ENTER or SPACE key
         cancelKeys: [27], // ESC key
         container: 'body',
