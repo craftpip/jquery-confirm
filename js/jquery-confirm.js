@@ -99,6 +99,12 @@ var jconfirm, Jconfirm;
             this.$b = this.$el.find('.jconfirm-box').css(this.CSS).addClass(this.animation);
 
             /*
+            * Add rtl class if rtl option has selected
+            */
+            if (this.rtl)
+                this.$el.addClass("rtl");
+                
+            /*
              * Setup title contents
              */
             this.setTitle();
@@ -420,6 +426,7 @@ var jconfirm, Jconfirm;
         animationSpeed: 400,
         animationBounce: 1.5,
         keyboardEnabled: false,
+        rtl: false,
         confirmKeys: [13, 32], // ENTER or SPACE key
         cancelKeys: [27], // ESC key
         container: 'body',

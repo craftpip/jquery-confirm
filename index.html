@@ -148,6 +148,7 @@
                                     <a class="list-group-item gotoSmooth" href="#keyboardactions"> Keyboard Actions</a>
                                     <a class="list-group-item gotoSmooth" href="#callbacks"> Callbacks</a>
                                     <a class="list-group-item gotoSmooth" href="#globaldefaults"> Global defaults</a>
+                                    <a class="list-group-item gotoSmooth" href="#rtl"> RTL Support</a>
                                     <a class="list-group-item gotoSmooth" href="#options"> Options</a>
                                     <a class="list-group-item gotoSmooth" href="#methods"> Methods</a>
                                 </div>
@@ -1271,6 +1272,42 @@ $.confirm({
 };
 </code></pre>
                     </div>
+                    <h3 id="rtl">RTL Support</h3>
+
+                <div class="section">
+                    <p>
+                        If you need to show the confirm box in rtl then you should set the rtl option to true.
+                    </p>
+                    <button class="btn btn-primary example23-1-1">Try RTL</button>
+                    <script type="text/javascript">
+                        $('.example23-1-1').on('click', function() {
+                                    $.alert({
+                                        title: 'پیغام',
+                                        content: 'این یک متن به زبان شیرین فارسی است',
+                                        confirmButton: 'تایید',
+                                        cancelButton: 'انصراف',
+                                        confirmButtonClass: 'btn-primary',
+                                        rtl: true,
+                                        confirm: function() {
+                                            alert('تایید شد.');
+                                        }
+                                    });
+                            });
+                    </script>
+                    <div class="space10"></div>
+                    <pre class="prettyprint linenums">
+<code>$.alert({
+    title: 'پیغام',
+    content: 'این یک متن به زبان شیرین فارسی است',
+    confirmButton: 'تایید',
+    cancelButton: 'انصراف',
+    confirmButtonClass: 'btn-primary',                              
+    rtl: true,
+    confirm: function () {
+        alert('تایید شد.');
+    }
+});</code></pre>
+                </div>
                     <h3 id="options">OPTIONS</h3>
                     <div class="section">
                         <p>Options, their defaults and possibilities.</p>
