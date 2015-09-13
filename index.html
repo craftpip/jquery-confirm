@@ -1288,6 +1288,7 @@ $.confirm({
                                         cancelButton: 'انصراف',
                                         confirmButtonClass: 'btn-primary',
                                         rtl: true,
+                                        closeIcon: true,
                                         confirm: function() {
                                             alert('تایید شد.');
                                         }
@@ -1301,7 +1302,8 @@ $.confirm({
     content: 'این یک متن به زبان شیرین فارسی است',
     confirmButton: 'تایید',
     cancelButton: 'انصراف',
-    confirmButtonClass: 'btn-primary',                              
+    confirmButtonClass: 'btn-primary',
+    closeIcon: true, // close icon will be moved to left if RTL is set to true.
     rtl: true,
     confirm: function () {
         alert('تایید شد.');
