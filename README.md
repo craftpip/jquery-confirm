@@ -1,4 +1,4 @@
-### jquery-confirm
+### ![jquery-confirm](https://raw.githubusercontent.com/craftpip/jquery-confirm/master/jquery-confirm.png "jquery-confirm")
 *alerts, confirms and dialogs in* ***one.***
 
 v1.7.8
