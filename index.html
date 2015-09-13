@@ -35,7 +35,7 @@
         <script src="demo/libs/bootstrap.min.js"></script>
         <script src="demo/libs/pretty.js"></script>
         <script>
-            var version = '1.7.5';
+            var version = '1.7.8';
         </script>
         <style type="text/css">
             .space10{
@@ -165,7 +165,7 @@
                     <section id="introduction">
                         <header>
                             <h1 style="margin-top: 0px;" class="text-center">
-                                JQUERY-CONFIRM
+                                <img style="width: 400px;" src="jquery-confirm.png" alt="JQUERY-CONFIRM"/>
                             </h1>
                             <p style="font-size: 18px" class="text-center">
                                 <em>alerts</em>, <em>confirms</em> and <em>dialogs</em> in <strong>one</strong>.
@@ -274,7 +274,7 @@
                                     content: 'Need a popup modal?, no problem<br>disable the buttons, and get a full functional modal. <br><h3>HTML in modals</h3><h4><strong>centered in the screen</strong></h4><h5><em>Like a boss</em></h5>',
                                     confirmButton: false,
                                     cancelButton: false,
-                                    animation: 'scale',
+                                    animation: 'scale'
                                 });
                             });
                             $('.example-p-5').on('click', function () {
@@ -310,7 +310,7 @@
                                     },
                                     cancel: function () {
                                         alert('cancel triggered!');
-                                    },
+                                    }
                                 });
                             });
                             $('.example-p-7-1').on('click', function () {
@@ -431,7 +431,7 @@
                                     $('.example2-1').on('click', function () {
                                         $.dialog({
                                             title: 'Text content!',
-                                            content: 'Simple modal!',
+                                            content: 'Simple modal!'
                                         });
                                     });
                                 </script>
@@ -537,7 +537,7 @@
                                     title: false,
                                     content: 'Hide both the buttons &amp; title.',
                                     cancelButton: false,
-                                    confirmButton: false,
+                                    confirmButton: false
                                 });
                             });
                             $('.example-hide-4').on('click', function () {
@@ -546,7 +546,7 @@
                                     content: 'Hide both the buttons, title &amp; close icon.',
                                     cancelButton: false,
                                     confirmButton: false,
-                                    closeIcon: false,
+                                    closeIcon: false
                                 });
                             });
                             $('.example-hide-5').on('click', function () {
@@ -607,7 +607,7 @@
                             });
                             $('.example5-3').on('click', function () {
                                 $.confirm({
-                                    theme: 'supervan',
+                                    theme: 'supervan'
                                 });
                             });
                         </script>
@@ -699,7 +699,7 @@ $.confirm({
                                 $.confirm({
                                     title: 'Title',
                                     content: 'url:text.txt',
-                                    animation: 'top',
+                                    animation: 'top'
                                 });
                             });
                             $('.example18-1-1').on('click', function () {
@@ -712,7 +712,7 @@ $.confirm({
                                             that.setContent('Amazing huh?: '+status);
                                         }, 1000);
                                     },
-                                    animation: 'top',
+                                    animation: 'top'
                                 });
                             });
                         </script>
@@ -950,22 +950,22 @@ $.confirm({
                         <script type="text/javascript">
                             $('.example-bounce-1').on('click', function () {
                                 $.confirm({
-                                    animationBounce: 1,
+                                    animationBounce: 1
                                 });
                             });
                             $('.example-bounce-2').on('click', function () {
                                 $.confirm({
-                                    animationBounce: 1.5,
+                                    animationBounce: 1.5
                                 });
                             });
                             $('.example-bounce-3').on('click', function () {
                                 $.confirm({
-                                    animationBounce: 2,
+                                    animationBounce: 2
                                 });
                             });
                             $('.example-bounce-4').on('click', function () {
                                 $.confirm({
-                                    animationBounce: 2.5,
+                                    animationBounce: 2.5
                                 });
                             });
                         </script>
@@ -1281,19 +1281,19 @@ $.confirm({
                     <button class="btn btn-primary example23-1-1">Try RTL</button>
                     <script type="text/javascript">
                         $('.example23-1-1').on('click', function() {
-                                    $.alert({
-                                        title: 'پیغام',
-                                        content: 'این یک متن به زبان شیرین فارسی است',
-                                        confirmButton: 'تایید',
-                                        cancelButton: 'انصراف',
-                                        confirmButtonClass: 'btn-primary',
-                                        rtl: true,
-                                        closeIcon: true,
-                                        confirm: function() {
-                                            alert('تایید شد.');
-                                        }
-                                    });
+                            $.alert({
+                                title: 'پیغام',
+                                content: 'این یک متن به زبان شیرین فارسی است',
+                                confirmButton: 'تایید',
+                                cancelButton: 'انصراف',
+                                confirmButtonClass: 'btn-primary',
+                                rtl: true,
+                                closeIcon: true,
+                                confirm: function() {
+                                    alert('تایید شد.');
+                                }
                             });
+                        });
                     </script>
                     <div class="space10"></div>
                     <pre class="prettyprint linenums">

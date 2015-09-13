@@ -1,14 +1,14 @@
 ### jquery-confirm
 *alerts, confirms and dialogs in* ***one.***
 
-v1.7.5
+v1.7.8
 
 A multipurpose plugin for alert, confirm & dialog, with Super powers.
 
 * Keyboard actions. 
 * directly load content via Ajax 
 * Auto-close dialog after a specified time 
-* prevent Dialog close on background click 
+* prevent Dialog close on background click
 * callback function, and more
 
 View Detailed [Documentation & Examples](http://craftpip.github.io/jquery-confirm)
@@ -53,6 +53,10 @@ The `$.alert()` , `$.confirm()` & `$.dialog()` are alias of `jconfirm();`.
 Checkout the [documentation](http://craftpip.github.io/jquery-confirm) for further information.
 
 ## Version changes
+
+(New in 1.7.8)
+* RTL support
+* Option to select keyboard keys
 
 (New in 1.7.5)
 * Callbacks added, onOpen, onClose, onAction
