@@ -1,5 +1,5 @@
 /*!
- * jquery-confirm v1.7.8 (http://craftpip.github.io/jquery-confirm/)
+ * jquery-confirm v1.7.9 (http://craftpip.github.io/jquery-confirm/)
  * Author: Boniface Pereira
  * Website: www.craftpip.com
  * Contact: hey@craftpip.com
@@ -17,20 +17,20 @@ var jconfirm, Jconfirm;
     "use strict";
     $.confirm = function (options) {
         /*
-         *  Alias of jconfirm 
+         *  Alias of jconfirm
          */
         return jconfirm(options);
     };
     $.alert = function (options) {
         /*
-         *  Alias of jconfirm 
+         *  Alias of jconfirm
          */
         options.cancelButton = false;
         return jconfirm(options);
     };
     $.dialog = function (options) {
         /*
-         *  Alias of jconfirm 
+         *  Alias of jconfirm
          */
         options.cancelButton = false;
         options.confirmButton = false;
@@ -92,18 +92,18 @@ var jconfirm, Jconfirm;
                 '-webkit-transition-duration': this.animationSpeed / 1000 + 's',
                 'transition-duration': this.animationSpeed / 1000 + 's',
                 '-webkjit-transition-timing-function': 'cubic-bezier(0.27, 1.12, 0.32, ' + this.animationBounce + ')',
-                'transition-timing-function': 'cubic-bezier(0.27, 1.12, 0.32, ' + this.animationBounce + ')',
+                'transition-timing-function': 'cubic-bezier(0.27, 1.12, 0.32, ' + this.animationBounce + ')'
             };
 
             this.$el.find('.jconfirm-bg').css(this.CSS);
             this.$b = this.$el.find('.jconfirm-box').css(this.CSS).addClass(this.animation);
 
             /*
-            * Add rtl class if rtl option has selected
-            */
+             * Add rtl class if rtl option has selected
+             */
             if (this.rtl)
                 this.$el.addClass("rtl");
-                
+
             /*
              * Setup title contents
              */
@@ -115,25 +115,21 @@ var jconfirm, Jconfirm;
              */
             this.$btnc = this.$el.find('.buttons');
             if (this.confirmButton && this.confirmButton.trim() !== '') {
-                this.$confirmButton = $('<button class="btn">' + this.confirmButton + '</button>')
-                        .appendTo(this.$btnc)
-                        .addClass(this.confirmButtonClass);
+                this.$confirmButton = $('<button class="btn">' + this.confirmButton + '</button>').appendTo(this.$btnc).addClass(this.confirmButtonClass);
             }
             if (this.cancelButton && this.cancelButton.trim() !== '') {
-                this.$cancelButton = $('<button class="btn">' + this.cancelButton + '</button>')
-                        .appendTo(this.$btnc)
-                        .addClass(this.cancelButtonClass);
+                this.$cancelButton = $('<button class="btn">' + this.cancelButton + '</button>').appendTo(this.$btnc).addClass(this.cancelButtonClass);
             }
 
             if (!this.confirmButton && !this.cancelButton) {
                 this.$btnc.remove();
             }
 
-            if(!this.confirmButton && !this.cancelButton && this.closeIcon == null){
+            if (!this.confirmButton && !this.cancelButton && this.closeIcon == null) {
                 this.$closeButton = this.$b.find('.closeIcon').show();
             }
 
-            if (this.closeIcon === true){
+            if (this.closeIcon === true) {
                 this.$closeButton = this.$b.find('.closeIcon').show();
             }
 
@@ -142,7 +138,7 @@ var jconfirm, Jconfirm;
             if (this.autoClose)
                 this._startCountDown();
         },
-        setTitle: function(string){
+        setTitle: function (string) {
             this.title = (typeof string !== 'undefined') ? string : this.title;
 
             if (this.title) {
@@ -161,8 +157,7 @@ var jconfirm, Jconfirm;
              */
             if (typeof this.content === 'boolean') {
                 if (!this.content)
-                    this.contentDiv.remove();
-                else
+                    this.contentDiv.remove(); else
                     console.error('Invalid option for property content: passed TRUE');
             } else if (typeof this.content === 'string') {
 
@@ -229,10 +224,10 @@ var jconfirm, Jconfirm;
         _bindEvents: function () {
             var that = this;
             var boxClicked = false;
-            
+
             this.$el.find('.jconfirm-scrollpane').click(function (e) {
                 // ignore propagated clicks
-            	if (!boxClicked) {
+                if (!boxClicked) {
                     // background clicked
                     if (that.backgroundDismiss) {
                         that.cancel();
@@ -246,11 +241,11 @@ var jconfirm, Jconfirm;
                 }
                 boxClicked = false;
             });
-            
+
             this.$el.find('.jconfirm-box').click(function (e) {
                 boxClicked = true;
             });
-            
+
             if (this.$confirmButton) {
                 this.$confirmButton.click(function (e) {
                     e.preventDefault();
@@ -293,15 +288,19 @@ var jconfirm, Jconfirm;
 
         },
         reactOnKey: function key(e) {
-            
+
             /*
-             * prevent keyup event if the dialog is not last! 
+             * prevent keyup event if the dialog is not last!
              */
             var a = $('.jconfirm');
             if (a.eq(a.length - 1)[0] !== this.$el[0])
                 return false;
 
             var key = e.which;
+            // Do not react if Enter/Space is pressed on input elements
+            if (this.$b.find(':input').is(':focus') && /13|32/.test(key))
+                return false;
+
             if ($.inArray(key, this.cancelKeys) !== -1) {
                 /*
                  * Cancel key pressed.
@@ -326,8 +325,6 @@ var jconfirm, Jconfirm;
                  */
                 if (this.$confirmButton) {
                     this.$confirmButton.click();
-                } else {
-
                 }
             }
         },
@@ -339,11 +336,11 @@ var jconfirm, Jconfirm;
             if (boxHeight > (windowHeight - minMargin)) {
                 var style = {
                     'margin-top': minMargin / 2,
-                    'margin-bottom': minMargin / 2,
+                    'margin-bottom': minMargin / 2
                 }
             } else {
                 var style = {
-                    'margin-top': topMargin,
+                    'margin-top': topMargin
                 }
             }
             if (animate) {
@@ -358,10 +355,10 @@ var jconfirm, Jconfirm;
         close: function () {
             var that = this;
 
-            if(this.isClosed())
+            if (this.isClosed())
                 return false;
 
-            if(typeof this.onClose === 'function')
+            if (typeof this.onClose === 'function')
                 this.onClose();
             /*
              unbind the window resize & keyup event.
@@ -380,7 +377,7 @@ var jconfirm, Jconfirm;
             jconfirm.record.closed += 1;
             jconfirm.record.currentlyOpen -= 1;
 
-            if(jconfirm.record.currentlyOpen < 1)
+            if (jconfirm.record.currentlyOpen < 1)
                 $('body').removeClass('jconfirm-noscroll');
 
             return true;
@@ -401,7 +398,7 @@ var jconfirm, Jconfirm;
             this.$b.find('input[autofocus]:visible:first').focus();
             jconfirm.record.opened += 1;
             jconfirm.record.currentlyOpen += 1;
-            if(typeof this.onOpen === 'function')
+            if (typeof this.onOpen === 'function')
                 this.onOpen();
             return true;
         },
@@ -438,17 +435,17 @@ var jconfirm, Jconfirm;
         autoClose: false,
         closeIcon: null,
         columnClass: 'col-md-6 col-md-offset-3',
-        onOpen: function(){
+        onOpen: function () {
         },
-        onClose: function(){
+        onClose: function () {
         },
-        onAction: function(){
+        onAction: function () {
         }
     };
 
     jconfirm.record = {
         opened: 0,
         closed: 0,
-        currentlyOpen: 0,
+        currentlyOpen: 0
     };
 })(jQuery);
