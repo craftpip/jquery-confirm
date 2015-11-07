@@ -1,5 +1,5 @@
 /*!
- * jquery-confirm v1.7.9 (http://craftpip.github.io/jquery-confirm/)
+ * jquery-confirm v1.8.0 (http://craftpip.github.io/jquery-confirm/)
  * Author: Boniface Pereira
  * Website: www.craftpip.com
  * Contact: hey@craftpip.com
@@ -73,8 +73,6 @@ var jconfirm, Jconfirm;
         },
         animations: ['anim-scale', 'anim-top', 'anim-bottom', 'anim-left', 'anim-right', 'anim-zoom', 'anim-opacity', 'anim-none', 'anim-rotate', 'anim-rotatex', 'anim-rotatey', 'anim-scalex', 'anim-scaley'],
         _buildHTML: function () {
-            var that = this;
-
             /*
              * Cleaning animations.
              */
@@ -91,12 +89,13 @@ var jconfirm, Jconfirm;
             this.CSS = {
                 '-webkit-transition-duration': this.animationSpeed / 1000 + 's',
                 'transition-duration': this.animationSpeed / 1000 + 's',
-                '-webkjit-transition-timing-function': 'cubic-bezier(0.27, 1.12, 0.32, ' + this.animationBounce + ')',
+                '-webkit-transition-timing-function': 'cubic-bezier(0.27, 1.12, 0.32, ' + this.animationBounce + ')',
                 'transition-timing-function': 'cubic-bezier(0.27, 1.12, 0.32, ' + this.animationBounce + ')'
             };
 
             this.$el.find('.jconfirm-bg').css(this.CSS);
             this.$b = this.$el.find('.jconfirm-box').css(this.CSS).addClass(this.animation);
+            this.$body = this.$b; // alias
 
             /*
              * Add rtl class if rtl option has selected
@@ -109,7 +108,8 @@ var jconfirm, Jconfirm;
              */
             this.setTitle();
             this.contentDiv = this.$el.find('div.content');
-
+            this.$content = this.contentDiv; // alias
+            
             /*
              * Settings up buttons
              */
@@ -117,6 +117,7 @@ var jconfirm, Jconfirm;
             if (this.confirmButton && this.confirmButton.trim() !== '') {
                 this.$confirmButton = $('<button class="btn">' + this.confirmButton + '</button>').appendTo(this.$btnc).addClass(this.confirmButtonClass);
             }
+            
             if (this.cancelButton && this.cancelButton.trim() !== '') {
                 this.$cancelButton = $('<button class="btn">' + this.cancelButton + '</button>').appendTo(this.$btnc).addClass(this.cancelButtonClass);
             }
@@ -125,7 +126,7 @@ var jconfirm, Jconfirm;
                 this.$btnc.remove();
             }
 
-            if (!this.confirmButton && !this.cancelButton && this.closeIcon == null) {
+            if (!this.confirmButton && !this.cancelButton && this.closeIcon === null) {
                 this.$closeButton = this.$b.find('.closeIcon').show();
             }
 
@@ -298,7 +299,7 @@ var jconfirm, Jconfirm;
 
             var key = e.which;
             // Do not react if Enter/Space is pressed on input elements
-            if (this.$b.find(':input').is(':focus') && /13|32/.test(key))
+            if (this.contentDiv.find(':input').is(':focus') && /13|32/.test(key))
                 return false;
 
             if ($.inArray(key, this.cancelKeys) !== -1) {
