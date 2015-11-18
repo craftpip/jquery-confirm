@@ -65,6 +65,7 @@ body.jconfirm-noscroll {
   background: white;
   border-radius: 4px;
   position: relative;
+  outline: none;
 }
 .jconfirm .jconfirm-box div.closeIcon {
   height: 20px;
@@ -263,7 +264,56 @@ body.jconfirm-noscroll {
   border-left: solid 2px rgba(255, 255, 255, 0.2);
 }
 .jconfirm .jconfirm-box.hilight {
-  box-shadow: 0 0 20px red;
+  -webkit-animation: hilight 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+          animation: hilight 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+@-webkit-keyframes hilight {
+  10%,
+  90% {
+    -webkit-transform: translate3d(-2px, 0, 0);
+            transform: translate3d(-2px, 0, 0);
+  }
+  20%,
+  80% {
+    -webkit-transform: translate3d(4px, 0, 0);
+            transform: translate3d(4px, 0, 0);
+  }
+  30%,
+  50%,
+  70% {
+    -webkit-transform: translate3d(-8px, 0, 0);
+            transform: translate3d(-8px, 0, 0);
+  }
+  40%,
+  60% {
+    -webkit-transform: translate3d(8px, 0, 0);
+            transform: translate3d(8px, 0, 0);
+  }
+}
+@keyframes hilight {
+  10%,
+  90% {
+    -webkit-transform: translate3d(-2px, 0, 0);
+            transform: translate3d(-2px, 0, 0);
+  }
+  20%,
+  80% {
+    -webkit-transform: translate3d(4px, 0, 0);
+            transform: translate3d(4px, 0, 0);
+  }
+  30%,
+  50%,
+  70% {
+    -webkit-transform: translate3d(-8px, 0, 0);
+            transform: translate3d(-8px, 0, 0);
+  }
+  40%,
+  60% {
+    -webkit-transform: translate3d(8px, 0, 0);
+            transform: translate3d(8px, 0, 0);
+  }
 }
 /*Transition rules*/
 .jconfirm {
@@ -352,9 +402,9 @@ body.jconfirm-noscroll {
           transform: scale(1.2);
 }
 .jconfirm .jconfirm-box.anim-scale {
-  -webkit-transform: scale(0.8);
-      -ms-transform: scale(0.8);
-          transform: scale(0.8);
+  -webkit-transform: scale(0.5);
+      -ms-transform: scale(0.5);
+          transform: scale(0.5);
 }
 .jconfirm .jconfirm-box.anim-none {
   display: none;

@@ -15,6 +15,22 @@ if (typeof jQuery === 'undefined') {
 var jconfirm, Jconfirm;
 (function ($) {
     "use strict";
+    $.fn.confirm = function (options) {
+        if(typeof options === 'undefined') options = {};
+        /*
+         *  Alias of jconfirm to emulate native confirm
+         */
+        var $this = $(this);
+        $this.on('click', function (e) {
+            e.preventDefault();
+            if ($this.attr('href'))
+                options['confirm'] = function () {
+                    location.href = $this.attr('href');
+                };
+            $.confirm(options);
+        });
+        return $this;
+    };
     $.confirm = function (options) {
         /*
          *  Alias of jconfirm
@@ -38,6 +54,8 @@ var jconfirm, Jconfirm;
         return jconfirm(options);
     };
     jconfirm = function (options) {
+        if (typeof options === 'undefined')
+            options = {};
         /*
          * initial function for calling.
          */
@@ -77,6 +95,7 @@ var jconfirm, Jconfirm;
              * Cleaning animations.
              */
             this.animation = 'anim-' + this.animation.toLowerCase();
+            this.closeAnimation = 'anim-' + this.closeAnimation.toLowerCase();
             if (this.animation === 'none')
                 this.animationSpeed = 0;
 
@@ -89,10 +108,10 @@ var jconfirm, Jconfirm;
             this.CSS = {
                 '-webkit-transition-duration': this.animationSpeed / 1000 + 's',
                 'transition-duration': this.animationSpeed / 1000 + 's',
-                '-webkit-transition-timing-function': 'cubic-bezier(0.27, 1.12, 0.32, ' + this.animationBounce + ')',
-                'transition-timing-function': 'cubic-bezier(0.27, 1.12, 0.32, ' + this.animationBounce + ')'
+                '-webkit-transition-timing-function': 'cubic-bezier(.38,1.28,.2, ' + this.animationBounce + ')',
+                'transition-timing-function': 'cubic-bezier(.38,1.28,.2, ' + this.animationBounce + ')'
             };
-
+            //0.27, 1.12, 0.32
             this.$el.find('.jconfirm-bg').css(this.CSS);
             this.$b = this.$el.find('.jconfirm-box').css(this.CSS).addClass(this.animation);
             this.$body = this.$b; // alias
@@ -106,10 +125,11 @@ var jconfirm, Jconfirm;
             /*
              * Setup title contents
              */
+            this.$title = this.$el.find('div.title');
             this.setTitle();
             this.contentDiv = this.$el.find('div.content');
             this.$content = this.contentDiv; // alias
-            
+
             /*
              * Settings up buttons
              */
@@ -117,7 +137,7 @@ var jconfirm, Jconfirm;
             if (this.confirmButton && this.confirmButton.trim() !== '') {
                 this.$confirmButton = $('<button class="btn">' + this.confirmButton + '</button>').appendTo(this.$btnc).addClass(this.confirmButtonClass);
             }
-            
+
             if (this.cancelButton && this.cancelButton.trim() !== '') {
                 this.$cancelButton = $('<button class="btn">' + this.cancelButton + '</button>').appendTo(this.$btnc).addClass(this.cancelButtonClass);
             }
@@ -142,10 +162,10 @@ var jconfirm, Jconfirm;
         setTitle: function (string) {
             this.title = (typeof string !== 'undefined') ? string : this.title;
 
-            if (this.title) {
-                this.$el.find('div.title').html('<i class="' + this.icon + '"></i> ' + this.title);
+            if (this.title && this.$title) {
+                this.$title.html('<i class="' + this.icon + '"></i> ' + this.title);
             } else {
-                this.$el.find('div.title').remove();
+                this.$title.remove();
             }
         },
         setContent: function (string) {
@@ -251,7 +271,7 @@ var jconfirm, Jconfirm;
                 this.$confirmButton.click(function (e) {
                     e.preventDefault();
                     var r = that.confirm(that.$b);
-                    that.onAction();
+                    that.onAction('confirm');
 
                     if (typeof r === 'undefined' || r)
                         that.close();
@@ -261,7 +281,7 @@ var jconfirm, Jconfirm;
                 this.$cancelButton.click(function (e) {
                     e.preventDefault();
                     var r = that.cancel(that.$b);
-                    that.onAction();
+                    that.onAction('cancel');
 
                     if (typeof r === 'undefined' || r)
                         that.close();
@@ -271,7 +291,7 @@ var jconfirm, Jconfirm;
                 this.$closeButton.click(function (e) {
                     e.preventDefault();
                     that.cancel();
-                    that.onAction();
+                    that.onAction('close');
                     that.close();
                 });
             }
@@ -286,7 +306,6 @@ var jconfirm, Jconfirm;
             $(window).on('resize.' + this._rand, function () {
                 that.setDialogCenter(true);
             });
-
         },
         reactOnKey: function key(e) {
 
@@ -369,11 +388,11 @@ var jconfirm, Jconfirm;
                 $(window).unbind('keyup.' + this._rand);
 
             that.$el.find('.jconfirm-bg').removeClass('seen');
-            this.$b.addClass(this.animation);
+            this.$b.addClass(this.closeAnimation);
 
             setTimeout(function () {
                 that.$el.remove();
-            }, this.animationSpeed + 10); // wait 10 miliseconds more, ensure everything is done.
+            }, this.animationSpeed + 100); // wait 10 miliseconds more, ensure everything is done.
 
             jconfirm.record.closed += 1;
             jconfirm.record.currentlyOpen -= 1;
@@ -392,24 +411,27 @@ var jconfirm, Jconfirm;
 
             $('body').addClass('jconfirm-noscroll');
             this.$b.removeClass(this.animations.join(' '));
-            /**
-             * Blur the focused elements, prevents re-execution with button press.
-             */
-            $('body :focus').trigger('blur');
             this.$b.find('input[autofocus]:visible:first').focus();
             jconfirm.record.opened += 1;
             jconfirm.record.currentlyOpen += 1;
             if (typeof this.onOpen === 'function')
                 this.onOpen();
+
+            var jcr = 'jconfirm-box' + this._rand;
+            this.$b.attr('aria-labelledby', jcr).attr('tabindex', -1).focus();
+            if (this.$title)
+                this.$title.attr('id', jcr); else if (this.$content)
+                this.$content.attr('id', jcr);
+
             return true;
         },
         isClosed: function () {
-            return (this.$el.css('display') === '') ? true : false;
+            return this.$el.css('display') === '';
         }
     };
 
     jconfirm.pluginDefaults = {
-        template: '<div class="jconfirm"><div class="jconfirm-bg"></div><div class="jconfirm-scrollpane"><div class="container"><div class="row"><div class="jconfirm-box-container span6 offset3"><div class="jconfirm-box"><div class="closeIcon"><span class="glyphicon glyphicon-remove"></span></div><div class="title"></div><div class="content"></div><div class="buttons"></div><div class="jquery-clear"></div></div></div></div></div></div></div>',
+        template: '<div class="jconfirm"><div class="jconfirm-bg"></div><div class="jconfirm-scrollpane"><div class="container"><div class="row"><div class="jconfirm-box-container span6 offset3"><div class="jconfirm-box" role="dialog" aria-labelledby="labelled" tabindex="-1"><div class="closeIcon"><span class="glyphicon glyphicon-remove"></span></div><div class="title"></div><div class="content"></div><div class="buttons"></div><div class="jquery-clear"></div></div></div></div></div></div></div>',
         title: 'Hello',
         content: 'Are you sure to continue?',
         contentLoaded: function () {
@@ -420,9 +442,10 @@ var jconfirm, Jconfirm;
         confirmButtonClass: 'btn-default',
         cancelButtonClass: 'btn-default',
         theme: 'white',
-        animation: 'scale',
-        animationSpeed: 400,
-        animationBounce: 1.5,
+        animation: 'zoom',
+        closeAnimation: 'scale',
+        animationSpeed: 500,
+        animationBounce: 1.2,
         keyboardEnabled: false,
         rtl: false,
         confirmKeys: [13, 32], // ENTER or SPACE key
@@ -435,7 +458,7 @@ var jconfirm, Jconfirm;
         backgroundDismiss: true,
         autoClose: false,
         closeIcon: null,
-        columnClass: 'col-md-6 col-md-offset-3',
+        columnClass: 'col-md-4 col-md-offset-4',
         onOpen: function () {
         },
         onClose: function () {

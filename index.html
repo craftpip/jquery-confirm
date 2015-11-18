@@ -259,8 +259,8 @@
                             });
                             $('.example-p-3').on('click', function () {
                                 $.alert({
-                                    title: 'No backroundDismiss!',
-                                    content: 'This feature hi-lights the dialog if the user clicks outside the dialog. <br> Else if backgroundDismiss is set to <code>TRUE</code> a cancel action is fired.',
+                                    title: 'No Background dismiss',
+                                    content: 'This feature does not close the dialog when user clicks out of the modal. <br>else, if backgroundDismiss is set to <code>TRUE</code>, the cancel action is fired.',
                                     confirmButton: 'okay',
                                     confirmButtonClass: 'btn-info',
                                     animation: 'bottom',
@@ -363,7 +363,7 @@
                             <div class="col-md-12">
                                 <p>
                                     Show an <strong>alert dialog</strong>
-                                    <br> 
+                                    <br>
                                     <i class="fa fa-info-circle"></i> <code>$.alert()</code> Has only confirm button.
                                 </p>
                                 <button class="example1 btn btn-primary">example alert</button>
@@ -390,9 +390,11 @@
                             </div>
                             <div class="col-md-12">
                                 <p>Show an <strong>confirm dialog</strong>
-                                    <br> 
+                                    <br>
                                     <i class="fa fa-info-circle"></i> <code>$.confirm()</code> Has both confirm &amp; cancel buttons.
                                 </p>
+                            </div>
+                            <div class="col-md-6">
                                 <button class="example2 btn btn-primary">example confirm</button>
                                 <script type="text/javascript">
                                     $('.example2').on('click', function () {
@@ -421,9 +423,25 @@
 });
 </code></pre>
                             </div>
+                            <div class="col-md-6">
+                                        <p>
+                                            <a class="example2-1-1 btn btn-primary" href="http://twitter.com/craftpip">Goto twitter</a>
+                                        </p>
+                                        <script>
+                                            $('.example2-1-1').confirm();
+                                        </script>
+                                <pre class="prettyprint linenums"><code class="js">// binding to an element
+$('a.twitter').confirm();
+// or
+$('a.twitter').confirm({ ... });
+/*
+NOTE: When binded to a Anchor tag as above, by default the confirm button will open the href link.
+*/
+</code></pre>
+                            </div>
                             <div class="col-md-12">
                                 <p>Show an <strong>modal dialog</strong>
-                                    <br> 
+                                    <br>
                                     <i class="fa fa-info-circle"></i> <code>$.dialog()</code> Hides both confirm &amp; cancel buttons. (Shows close [x] button)
                                 </p>
                                 <button class="example2-1 btn btn-primary">example dialog</button>
@@ -444,7 +462,7 @@
                             </div>
                         </div>
                     </section>
-                    
+
                     <section id="examples">
                         <h1>Examples</h1>
                         <div class="alert alert-info">
@@ -577,11 +595,11 @@
                         <p>
                             The Light &amp; Dark themes that suit any website design, <br>
                         </p>
-                        
+
                         <button class="btn btn-primary example5-3">Supervan</button>
-                        <button class="btn btn-primary example4">Light theme</button> 
+                        <button class="btn btn-primary example4">Light theme</button>
                         <button class="btn btn-primary example5">Dark theme</button>
-                        <button class="btn btn-primary example5-1">HoloLight theme</button> 
+                        <button class="btn btn-primary example5-1">HoloLight theme</button>
                         <button class="btn btn-primary example5-2">HoloDark theme</button>
                         <div class="space10"></div>
                         <script type="text/javascript">
@@ -628,26 +646,28 @@ $.confirm({
 });
 </code></pre>
                     </div>
-                    
-                    
+
+
                     <h3 id="custom-width">CUSTOM WIDTH</h3>
                     <div class="section">
                         <p>
                             Jquery-confirm uses bootstrap's grid system for its layout. <br>
                             You can simply provide column classes to adjust the modal's width.
                         </p>
-                        
+
                         <p class="text-info"> <i class="fa fa-magic fa-fw"></i> You can also set responsive layouts. <a href="http://getbootstrap.com/examples/grid/" target="_empty">Bootstrap grid docs</a> </p>
-                        
-                        <button class="btn btn-primary grid-1">col-md-6 col-md-offset-3 (default)</button>
-                        <button class="btn btn-primary grid-2">col-md-4 col-md-offset-4</button>
+
+                        <button class="btn btn-primary grid-1">col-md-6 col-md-offset-3</button>
+                        <button class="btn btn-primary grid-2">col-md-4 col-md-offset-4 (default)</button>
                         <button class="btn btn-primary grid-3">col-md-4 </button>
                         <button class="btn btn-primary grid-4">col-md-4 col-md-offset-8</button>
                         <button class="btn btn-primary grid-5">col-md-12</button>
                         <div class="space10"></div>
                         <script type="text/javascript">
                             $('.grid-1').on('click', function () {
-                                $.confirm({}); // empty because its default.
+                                $.confirm({
+                                    columnClass: 'col-md-6 col-md-offset-3'
+                                }); // empty because its default.
                             });
                             $('.grid-2').on('click', function () {
                                 $.confirm({
@@ -719,7 +739,7 @@ $.confirm({
                         <pre class="prettyprint linenums"><code>$.confirm({
     content: 'url:text.txt',
     title: 'Title'
-}); 
+});
 
 // Using contentLoaded callback.
 $.confirm({
@@ -731,11 +751,11 @@ $.confirm({
             that.setContent('Amazing huh?: '+status);
         }, 1000);
     }
-}); 
+});
 </code></pre>
                         <p class="text-info">
                             <i class="fa fa-info"></i> contentLoaded is called regardless of success or error. <br>
-                            
+
                         </p>
                     </div>
 
@@ -971,7 +991,7 @@ $.confirm({
                         </script>
                         <div class="space10"></div>
                         <pre  class="prettyprint linenums"><code class="html">$.confirm({
-    animationBounce: 1.5, // default is 1.5 whereas 1 is no bounce.
+    animationBounce: 1.5, // default is 1.2 whereas 1 is no bounce.
 });
 </code></pre>
                     </div>
@@ -999,7 +1019,7 @@ $.confirm({
 });
 $.confirm({
     animationSpeed: 200 // 0.2 seconds
-}); 
+});
 </code></pre>
                     </div>
 
@@ -1187,7 +1207,7 @@ $.confirm({
                         <p>
                             If you have a form inside your modal, you'll probably need to attach events to it.
                             <p class="text-info">
-                                <i class="fa fa-info fa-fw"></i> 
+                                <i class="fa fa-info fa-fw"></i>
                                 Most used to interact with the elements inside the modal.
                             </p>
                         </p>
@@ -1207,8 +1227,8 @@ $.confirm({
                                     onClose: function(){
                                         alert('before the modal is closed');
                                     },
-                                    onAction: function(){
-                                        alert('Any of confirm or cancel was clicked');
+                                    onAction: function(action){
+                                        alert(action + ' was clicked');
                                     }
                                 });
                             });
@@ -1227,8 +1247,8 @@ $.confirm({
     onClose: function(){
         alert('before the modal is closed');
     },
-    onAction: function(){
-        alert('Any of confirm or cancel was clicked');
+    onAction: function(action){
+        alert(action + ' was clicked');
     }
 });
 </code></pre>
@@ -1250,10 +1270,14 @@ $.confirm({
     confirmButtonClass: 'btn-default',
     cancelButtonClass: 'btn-default',
     theme: 'white',
-    animation: 'scale',
+    animation: 'zoom',
+    closeAnimation: 'scale',
     animationSpeed: 400,
-    animationBounce: 1.5,
+    animationBounce: 1.2,
     keyboardEnabled: false,
+    rtl: false,
+    confirmKeys: [13, 32], // ENTER or SPACE key
+    cancelKeys: [27], // ESC key
     container: 'body',
     confirm: function () {
     },
@@ -1386,11 +1410,19 @@ $.confirm({
                                 <tr>
                                     <td>animation</td>
                                     <td>String</td>
-                                    <td><code>'scale'</code></td>
+                                    <td><code>'zoom'</code></td>
                                     <td>
-                                        Open &amp; Close animation for the dialog.<br>
+                                        The Open animation for the dialog.<br>
                                         possible options are 'scale', 'top', 'bottom', 'left', 'right', 'zoom', 'opacity', 'none', 'rotate', 'rotatex', 'rotatey', 'scalex', 'scaley'.
                                         <br><span class="text-info">The 'blur' animation was removed in v1.1.2</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>closeAnimation</td>
+                                    <td>String</td>
+                                    <td><code>'scale'</code></td>
+                                    <td>
+                                        The close animation for the dialog.
                                     </td>
                                 </tr>
                                 <tr>
@@ -1411,6 +1443,30 @@ $.confirm({
                                     <td><code>false</code></td>
                                     <td>
                                         Use the ENTER key to trigger the confirm action and ESC key to trigger the cancel action.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>confirmKeys</td>
+                                    <td>Array</td>
+                                    <td><code>[13, 32]</code></td>
+                                    <td>
+                                        When using `keyboardEnabled`, an array of keys that should trigger confirm. Default 13,32 // Enter & Space keys respectively.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>cancelKeys</td>
+                                    <td>Array</td>
+                                    <td><code>[27]</code></td>
+                                    <td>
+                                        When using `keyboardEnabled`, an array of keys that should trigger cancel. Default 27 // Esc key.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>rtl</td>
+                                    <td>Boolean</td>
+                                    <td><code>false</code></td>
+                                    <td>
+                                        Use the Right to left text layout.
                                     </td>
                                 </tr>
                                 <tr>
@@ -1508,7 +1564,7 @@ $.confirm({
                     <h4>
                         <code>var obj = $.confirm({title: 'awesome'}); // initial execution</code>
                     </h4>
-                    
+
                     <div class="section">
                         <h4><kbd>obj.$b</kbd> & <kbd>obj.contentDiv</kbd></h4>
                         <p>The $b object is a jQuery DOM reference to the dialog. You can access your Dialogs contents via this object.</p>
@@ -1526,7 +1582,7 @@ console.log(contentBlock);
 // &lt;span class="styled"&gt;Yeah, this is awesome&lt;/span&gt;
 </code></pre>
                     </div>
-                    
+
                     <div class="section">
                         <h4><kbd>obj.close()</kbd></h4>
                         <p>The close method closes/destroys the dialog.</p>
@@ -1539,7 +1595,7 @@ obj.close();
 // The dialog is closed/destroyed.
 </code></pre>
                     </div>
-                    
+
                     <div class="section">
                         <h4><kbd>obj.isClosed()</kbd></h4>
                         <p>Tells if the dialog is closed or not.
@@ -1547,7 +1603,7 @@ obj.close();
                             Returns TRUE if closed else returns FALSE,
                         </p>
                     </div>
-                    
+
                     <div class="section">
                         <h4><kbd>obj.setContent('text to set')</kbd></h4>
                         <p>Overwrites the content in the dialog and centers the dialog on screen.</p>
@@ -1575,7 +1631,7 @@ obj.close();
 console.log(obj.content);
 // Get me yeah.
 
-// Moral, this within the callback function is the returned object on execution.
+// Moral, `this` within the callback function is the returned object on execution.
 </code></pre>
                     </div>
                     <div class="section">
@@ -1618,7 +1674,7 @@ console.log(obj.content);
                 </div>
             </div>
         </div>
-        <script type="text/javascript" src="demo/demo.min.js"></script> 
+        <script type="text/javascript" src="demo/demo.min.js"></script>
 
         <script>
                             (function (i, s, o, g, r, a, m) {
