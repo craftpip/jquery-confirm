@@ -281,7 +281,9 @@
                                 $.confirm({
                                     title: 'Getting data from html file',
                                     content: 'url:table.html',
-                                    animation: 'top'
+                                    animation: 'top',
+                                    columnClass: 'col-md-6 col-md-offset-3',
+                                    closeAnimation: 'bottom'
                                 });
                             });
                             $('.example-p-6').on('click', function () {
@@ -291,7 +293,7 @@
                                     autoClose: 'cancel|6000',
                                     confirmButton: 'Yes please!',
                                     confirmButtonClass: 'btn-info',
-                                    cancelButton: 'I dont need vacations',
+                                    cancelButton: 'Nevermind!',
                                     confirm: function () {
                                         alert('Vacation time!');
                                     },
@@ -719,7 +721,9 @@ $.confirm({
                                 $.confirm({
                                     title: 'Title',
                                     content: 'url:text.txt',
-                                    animation: 'top'
+                                    animation: 'top',
+                                    columnClass:'col-md-6 col-md-offset-3',
+                                    closeAnimation: 'top'
                                 });
                             });
                             $('.example18-1-1').on('click', function () {
@@ -729,10 +733,12 @@ $.confirm({
                                     contentLoaded: function(data, status, xhr){
                                         var that = this;
                                         setTimeout(function(){
-                                            that.setContent('Amazing huh?: '+status);
+                                            that.setContent('Changed content after timeout: '+status);
                                         }, 1000);
                                     },
-                                    animation: 'top'
+                                    animation: 'top',
+                                    columnClass:'col-md-6 col-md-offset-3',
+                                    closeAnimation: 'top'
                                 });
                             });
                         </script>
@@ -748,7 +754,7 @@ $.confirm({
     contentLoaded: function(data, status, xhr){
         var that = this;
         setTimeout(function(){
-            that.setContent('Amazing huh?: '+status);
+            that.setContent('Changed content after timeout: '+status);
         }, 1000);
     }
 });
@@ -955,7 +961,8 @@ $.confirm({
                         </script>
                         <div class="space10"></div>
                         <pre class="prettyprint linenums"><code>$.confirm({
-    animation: 'zoom'
+    animation: 'zoom',
+    closeAnimation: 'scale'
 });</code></pre>
                         <p><i class="fa fa-info fa-fw"></i> see <a class="gotoSmooth" href="#options">options</a> for list of options you can apply.</p>
                     </div>
