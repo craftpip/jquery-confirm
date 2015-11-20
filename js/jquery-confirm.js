@@ -96,8 +96,6 @@ var jconfirm, Jconfirm;
              */
             this.animation = 'anim-' + this.animation.toLowerCase();
             this.closeAnimation = 'anim-' + this.closeAnimation.toLowerCase();
-            if (this.animation === 'none')
-                this.animationSpeed = 0;
 
             /*
              * Append html to body.
@@ -389,10 +387,10 @@ var jconfirm, Jconfirm;
 
             that.$el.find('.jconfirm-bg').removeClass('seen');
             this.$b.addClass(this.closeAnimation);
-
+            var closeTimer = (this.closeAnimation == 'anim-none') ? 0 : this.animationSpeed;
             setTimeout(function () {
                 that.$el.remove();
-            }, this.animationSpeed + 100); // wait 10 miliseconds more, ensure everything is done.
+            }, closeTimer + 50); // wait 50 miliseconds more, for the animation to end gracefully.
 
             jconfirm.record.closed += 1;
             jconfirm.record.currentlyOpen -= 1;
