@@ -7,9 +7,6 @@
  * Copyright 2013-2015 jquery-confirm
  * Licensed under MIT (https://github.com/craftpip/jquery-confirm/blob/master/LICENSE)
  */
-body.jconfirm-noscroll {
-  overflow: hidden !important;
-}
 @-webkit-keyframes jconfirm-rotate {
   from {
     -webkit-transform: rotate(0deg);
@@ -66,56 +63,106 @@ body.jconfirm-noscroll {
   border-radius: 4px;
   position: relative;
   outline: none;
+  padding: 15px 15px 0;
 }
 .jconfirm .jconfirm-box div.closeIcon {
   height: 20px;
   width: 20px;
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 5px;
+  right: 5px;
   cursor: pointer;
   opacity: .6;
   text-align: center;
+  -webkit-transition: opacity 0.1s ease-in;
+          transition: opacity 0.1s ease-in;
   display: none;
+  font-size: 27px;
+  line-height: 14px;
 }
 .jconfirm .jconfirm-box div.closeIcon:hover {
   opacity: 1;
 }
-.jconfirm .jconfirm-box div.title {
-  font-size: 24px;
-  font-weight: bold;
+.jconfirm .jconfirm-box div.title-c {
+  display: block;
+  font-size: 22px;
+  line-height: 20px;
+}
+.jconfirm .jconfirm-box div.title-c .icon-c {
+  font-size: inherit;
+  padding-bottom: 15px;
+  display: inline-block;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+.jconfirm .jconfirm-box div.title-c .icon-c i {
+  vertical-align: middle;
+}
+.jconfirm .jconfirm-box div.title-c .icon-c:empty {
+  display: none;
+}
+.jconfirm .jconfirm-box div.title-c .title {
+  font-size: inherit;
   font-family: inherit;
-  padding: 10px 15px 5px;
+  display: inline-block;
+  vertical-align: middle;
+  padding-bottom: 15px;
 }
-.jconfirm .jconfirm-box div.content {
-  padding-top: 10px;
-  padding: 10px 15px 10px;
+.jconfirm .jconfirm-box div.title-c .title:empty {
+  display: none;
 }
-.jconfirm .jconfirm-box div.content:empty {
+.jconfirm .jconfirm-box div.content-pane {
+  margin-bottom: 15px;
+  height: auto;
+  overflow: hidden;
+  -webkit-transition: height 0.4s ease-in;
+          transition: height 0.4s ease-in;
+  display: inline-block;
+  width: 100%;
+  position: relative;
+}
+.jconfirm .jconfirm-box div.content-pane .content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.jconfirm .jconfirm-box div.content-pane .content img {
+  width: 100%;
+  height: auto;
+}
+.jconfirm .jconfirm-box div.content-pane .content:empty {
+  display: none;
+}
+.jconfirm .jconfirm-box div.content-pane .content:empty.loading {
   height: 40px;
   position: relative;
   opacity: 0.6;
+  display: block;
 }
-.jconfirm .jconfirm-box div.content:empty:before {
+.jconfirm .jconfirm-box div.content-pane .content:empty.loading:before {
   content: '';
   height: 20px;
   width: 20px;
-  border: solid 2px #aaa;
+  border: solid 2px transparent;
   position: absolute;
   left: 50%;
-  margin-left: -45px;
-  border-radius: 20%;
-  -webkit-animation: jconfirm-rotate 1s infinite;
-          animation: jconfirm-rotate 1s infinite;
+  margin-left: -10px;
+  border-radius: 50%;
+  -webkit-animation: jconfirm-rotate 1s infinite linear;
+          animation: jconfirm-rotate 1s infinite linear;
+  border-bottom-color: #aaa;
+  top: 50%;
+  margin-top: -10px;
 }
-.jconfirm .jconfirm-box div.content:empty:after {
-  content: 'loading..';
+.jconfirm .jconfirm-box div.content-pane .content:empty.loading:after {
+  content: '';
   position: absolute;
   left: 50%;
   margin-left: -15px;
 }
 .jconfirm .jconfirm-box .buttons {
-  padding: 10px 15px;
+  padding-bottom: 15px;
 }
 .jconfirm .jconfirm-box .buttons button + button {
   margin-left: 5px;
@@ -188,80 +235,6 @@ body.jconfirm-noscroll {
 }
 .jconfirm.black .jconfirm-box .buttons button.btn-default:hover {
   background: #666;
-}
-.jconfirm.hololight .jconfirm-bg {
-  background-color: rgba(0, 0, 0, 0.5);
-}
-.jconfirm.hololight .jconfirm-box {
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-  border-radius: 2px;
-  overflow: hidden;
-}
-.jconfirm.hololight .jconfirm-box div.title {
-  font-weight: inherit;
-  border-bottom: solid 2px #76CFDF;
-  color: #76CFDF;
-}
-.jconfirm.hololight .jconfirm-box .buttons {
-  border-top: solid 2px #E7E7E7;
-  width: 100%;
-  float: none;
-  padding: 0;
-}
-.jconfirm.hololight .jconfirm-box .buttons button {
-  margin: 0;
-  border: none;
-  background: #fff;
-  border-radius: 0px;
-  width: 50%;
-  padding: 13px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #666;
-}
-.jconfirm.hololight .jconfirm-box .buttons button + button {
-  border-left: solid 2px #E7E7E7;
-}
-.jconfirm.holodark .jconfirm-bg {
-  background-color: rgba(0, 0, 0, 0.5);
-}
-.jconfirm.holodark .jconfirm-box {
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-  border-radius: 2px;
-  background: #333;
-  overflow: hidden;
-}
-.jconfirm.holodark .jconfirm-box div.closeIcon {
-  color: white;
-}
-.jconfirm.holodark .jconfirm-box div.title {
-  font-weight: inherit;
-  border-bottom: solid 2px #76CFDF;
-  color: #76CFDF;
-}
-.jconfirm.holodark .jconfirm-box div.content {
-  color: white;
-}
-.jconfirm.holodark .jconfirm-box .buttons {
-  border-top: solid 2px rgba(255, 255, 255, 0.2);
-  width: 100%;
-  float: none;
-  padding: 0;
-}
-.jconfirm.holodark .jconfirm-box .buttons button {
-  margin: 0;
-  border: none;
-  background: #333;
-  border-radius: 0px;
-  width: 50%;
-  padding: 13px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #fff;
-  text-shadow: none;
-}
-.jconfirm.holodark .jconfirm-box .buttons button + button {
-  border-left: solid 2px rgba(255, 255, 255, 0.2);
 }
 .jconfirm .jconfirm-box.hilight {
   -webkit-animation: hilight 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;

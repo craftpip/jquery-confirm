@@ -26,14 +26,16 @@
         <meta property="og:url" content="https://craftpip.github.io/jquery-confirm" />
         <meta property="og:description" content="A multipurpose alert & confirm plugin, alternative to the native alert() and confirm() functions. Supports features like auto-close, themes, animations, and more." />
         <meta property="og:site_name" content="craftpip.github.io" />
-        <link rel="stylesheet" href="demo/libs/bootstrap.min.css">
-        <link rel="stylesheet" href="demo/libs/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="demo/libs/font-awesome.min.css">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.sticky/1.0.3/jquery.sticky.min.js"></script>
         <link rel="stylesheet" href="demo/libs/default.min.css">
-        <link rel="stylesheet" href="demo/demo.min.css">
-        <script src="demo/libs/jquery.min.js"></script>
-        <script src="demo/libs/bootstrap.min.js"></script>
         <script src="demo/libs/pretty.js"></script>
+
+        <link rel="stylesheet" href="demo/demo.min.css">
         <script>
             var version = '2.0.0';
         </script>
@@ -43,6 +45,7 @@
             }
             body{
                 font-family: Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif;
+                position: relative;
             }
         </style>
         <!-- Add the minified version of files from the /dist/ folder. -->
@@ -51,138 +54,158 @@
         <script type="text/javascript" src="js/jquery-confirm.js"></script>
         <!--END jquery-confirm files-->
     </head>
-    <body>
-        <div style="height: 15px"></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="logo-wrapper-project">
-                        <div class="logo-wrapper-project"></div>
-                    </div>
-                    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-                        <div class="container-fluid">
-                            <div class="navbar-header">
-                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                                    <span class="sr-only">Toggle navigation</span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </button>
-                                <a class="navbar-brand" href="http://craftpip.github.io"><span class="craftpip-logo"></span></a>
-                            </div>
-                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                                <ul class="nav navbar-nav">
-                                    <li class=""><a href="http://github.com/craftpip/jquery-confirm"><i class="fa fa-github"></i> PROJECT HOME</a></li>
-                                    <li class=""><a href="http://github.com/craftpip/jquery-confirm/issues/new">SUGGEST FEATURE</a></li>
-                                </ul>
-                                <ul class="nav navbar-nav navbar-right">
-                                    <li class="">
-                                        <a class="twitter-follow-button" data-show-count="false" data-size="large" href="https://twitter.com/craftpip" data-show-count="false" data-lang="en">
-                                            Follow @craftpip
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <div style="width: 10px;"></div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>
+    <body data-spy="scroll" data-target=".navbar">
+        <header class="navbar navbar-static-top navbar-default navheader">
+            <div class="container">
+                <div class="navbar-header">
+                    <button class="navbar-toggle collapsed"
+                            type="button"
+                            data-toggle="collapse"
+                            data-target="#bs-navbar"
+                            aria-controls="bs-navbar"
+                            aria-expanded="false"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button>
+                    <a href="/"
+                       class="navbar-brand">Jquery-confirm</a>
+                    <!--<a class="navbar-brand" href="http://craftpip.github.io"><span class="craftpip-logo"></span></a>-->
                 </div>
+                <nav id="bs-navbar"
+                     class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class=""><a href="http://github.com/craftpip/jquery-confirm"><i class="fa fa-github"></i> PROJECT HOME</a></li>
+                        <li class=""><a href="http://github.com/craftpip/jquery-confirm/issues/new">SUGGEST FEATURE</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a class="twitter-follow-button" data-show-count="false" data-size="large" href="https://twitter.com/craftpip" data-show-count="false" data-lang="en">
+                                Follow @craftpip
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <div class="header"
+             id="content"
+             tabindex="-1">
+            <div class="container">
+
+                <h1 style="margin-top: 7px;" class="text-center">
+                    <img style="width: 400px;" src="jquery-confirm.png" alt="JQUERY-CONFIRM"/>
+                </h1>
+                <p>
+                    <em>alerts</em>, <em>confirms</em> and <em>dialogs</em> in <strong>one</strong>.
+                </p>
             </div>
         </div>
-        <script> window.twttr = (function (d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0], t = window.twttr || {};
-                if (d.getElementById(id))
-                    return t;
-                js = d.createElement(s);
-                js.id = id;
-                js.src = "https://platform.twitter.com/widgets.js";
-                fjs.parentNode.insertBefore(js, fjs);
-                t._e = [];
-                t.ready = function (f) {
-                    t._e.push(f);
-                };
-                return t;
-            }(document, "script", "twitter-wjs"));</script>
-        <div style="height:50px"></div>
-
-        <div class="container-fluid">
+        <!--<div style="height:50px"></div>-->
+        <div class="container">
             <div class="row">
                 <div class="col-md-3 col-sm-4">
-                    <div class="row">
-                        <div class="col-md-3 col-sm-4" id="demo-mainsidebar" style="position:fixed">
+                    <div class="space10"></div>
+                    <div class="space10"></div>
+                    <p>
+                        <strong>jquery-confirm v<span class="version"></span> docs</strong><br>
+                        <a href="https://github.com/craftpip/jquery-confirm">
+                            view on <i class="fa fa-github"></i> Github
+                        </a>
+                    </p>
+                    <a href="https://github.com/craftpip/jquery-confirm/zipball/master" class="btn btn-download btn-lg btn-block">
+                        Download latest
+                    </a>
+                    <a href="https://github.com/craftpip/jquery-confirm/releases" class="btn btn-download btn-block">
+                        View all releases
+                    </a>
+                    <div class="spacer15"></div>
+                    <p class="text-right">
+                        <code>version <span class="version"></span></code>
+                    </p>
+                    <div class="spacer15"></div>
+                    <div id="my-nav">
+                        <ul class="nav nav-list">
+                            <li>
+                                <a href="#introduction"> Introduction</a>
+                            </li>
+                            <li>
+                                <a href="#usage"> Quick Use</a>
+                                <ul class="nav nav-list">
+                                    <li>
+                                        <a href="#buttontext"> Button text</a>
+                                    </li>
+                                    <li>
+                                        <a href="#buttonstyle"> Button style</a>
+                                    </li>
+                                    <li>
+                                        <a href="#hide-elements"> Hide elements</a>
+                                    </li>
+                                </ul>
+                            </li>
 
-                            <p>
-                                <strong>jquery-confirm v<span class="version"></span> docs</strong><br>
-                                <a href="https://github.com/craftpip/jquery-confirm">
-                                    view on <i class="fa fa-github"></i> Github
-                                </a>
-                            </p>
-
-                            <a href="https://github.com/craftpip/jquery-confirm/zipball/master" class="btn btn-download btn-lg btn-block">
-                                Download latest
-                            </a>
-                            <a href="https://github.com/craftpip/jquery-confirm/releases" class="btn btn-download btn-block">
-                                View all releases
-                            </a>
-
-                            <div class="spacer15"></div>
-
-                            <div class="panel panel-default demo-sidebar" style="margin-bottom: 10px; height: 300px; overflow-y:auto">
-                                <div class="list-group">
-                                    <a class="list-group-item gotoSmooth" href="#introduction"> Introduction</a>
-                                    <a class="list-group-item gotoSmooth" href="#usage"> Quick Use</a>
-                                    <a class="list-group-item gotoSmooth" href="#buttontext"> Button text</a>
-                                    <a class="list-group-item gotoSmooth" href="#buttonstyle"> Button style</a>
-                                    <a class="list-group-item gotoSmooth" href="#hide-elements"> Hide elements</a>
-                                    <a class="list-group-item gotoSmooth" href="#theme"> Theme</a>
-                                    <a class="list-group-item gotoSmooth" href="#custom-width"> Custom width</a>
-                                    <a class="list-group-item gotoSmooth" href="#loadfromurl"> Load via URL</a>
-                                    <a class="list-group-item gotoSmooth" href="#animation"> Animation</a>
-                                    <a class="list-group-item gotoSmooth" href="#animationbounce"> Animation Bounce</a>
-                                    <a class="list-group-item gotoSmooth" href="#animationspeed"> Animation Speed</a>
-                                    <a class="list-group-item gotoSmooth" href="#autoclose"> Auto close</a>
-                                    <a class="list-group-item gotoSmooth" href="#icons"> Icons</a>
-                                    <a class="list-group-item gotoSmooth" href="#backgrounddismiss"> Background dismiss</a>
-                                    <a class="list-group-item gotoSmooth" href="#keyboardactions"> Keyboard Actions</a>
-                                    <a class="list-group-item gotoSmooth" href="#callbacks"> Callbacks</a>
-                                    <a class="list-group-item gotoSmooth" href="#globaldefaults"> Global defaults</a>
-                                    <a class="list-group-item gotoSmooth" href="#rtl"> RTL Support</a>
-                                    <a class="list-group-item gotoSmooth" href="#options"> Options</a>
-                                    <a class="list-group-item gotoSmooth" href="#methods"> Methods</a>
-                                </div>
-                            </div>
-
-                            <p class="text-right">
-                                <code>version <span class="version"></span></code>
-                            </p>
-                        </div>
+                            <li>
+                                <a href="#theme"> Theme</a>
+                            </li>
+                            <li>
+                                <a href="#custom-width"> Custom width</a>
+                            </li>
+                            <li>
+                                <a href="#loadfromurl"> Load via URL</a>
+                            </li>
+                            <li>
+                                <a href="#animation"> Animation</a>
+                            </li>
+                            <li>
+                                <a href="#animationbounce"> Animation Bounce</a>
+                            </li>
+                            <li>
+                                <a href="#animationspeed"> Animation Speed</a>
+                            </li>
+                            <li>
+                                <a href="#autoclose"> Auto close</a>
+                            </li>
+                            <li>
+                                <a href="#icons"> Icons</a>
+                            </li>
+                            <li>
+                                <a href="#backgrounddismiss"> Background dismiss</a>
+                            </li>
+                            <li>
+                                <a href="#keyboardactions"> Keyboard Actions</a>
+                            </li>
+                            <li>
+                                <a href="#callbacks"> Callbacks</a>
+                            </li>
+                            <li>
+                                <a href="#globaldefaults"> Global defaults</a>
+                            </li>
+                            <li>
+                                <a href="#rtl"> RTL Support</a>
+                            </li>
+                            <li>
+                                <a href="#options"> Options</a>
+                            </li>
+                            <li>
+                                <a href="#methods"> Methods</a>
+                            </li>
+                        </ul>
                     </div>
+
                 </div>
                 <div class="col-md-9 col-sm-8">
                     <!-- introduction -->
                     <section id="introduction">
                         <header>
-                            <h1 style="margin-top: 0px;" class="text-center">
-                                <img style="width: 400px;" src="jquery-confirm.png" alt="JQUERY-CONFIRM"/>
-                            </h1>
-                            <p style="font-size: 18px" class="text-center">
-                                <em>alerts</em>, <em>confirms</em> and <em>dialogs</em> in <strong>one</strong>.
-                            </p>
-                            <br>
                             <h3>Welcome to jquery-confirm!</h3>
                             <p>
+                                Easy to use and highly flexible! <br/>
                                 A jQuery plugin that provides great set of features like,
-                                Auto-close, Ajax-loading, background-dismiss, themes and more. <br>
-                                This plugin is actively developed, We would love you have your suggestions.
+                                Auto-close, Ajax-loading, Themes, Animations and more. <br>
+                                This plugin is actively developed, I would love you have your suggestions.
                             </p>
                             <a href="https://github.com/craftpip/jquery-confirm/issues" target="empty" class="btn btn-success"><i class="fa fa-bug fa-fw"></i> Please post your Suggestions here.</a>
                         </header>
                     </section>
                     <hr>
                     <section id="practicaluses">
-                        <h1>Practical Uses</h1>
+                        <h1>Quick features</h1>
                         <p>These features can practically be used like so.</p>
                         <div class="row">
                             <div class="col-md-3">
@@ -194,64 +217,121 @@
                                 <p class="text-success">Stacked Confirmations</p>
                             </div>
                             <div class="col-md-3">
-                                <button class="btn btn-primary btn-block example-p-3">Must read</button>
-                                <p class="text-success">Important modal</p>
-                            </div>
-                            <div class="col-md-3">
                                 <button class="btn btn-primary btn-block example-p-7-1">Act like Prompt</button>
                                 <p class="text-success">Need input?</p>
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-primary btn-block example-p-3">Must read</button>
+                                <p class="text-success">Important modal</p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-3">
-                                <button class="btn btn-primary btn-block example-p-4">Need Modals?</button>
+                                <button class="btn btn-primary btn-block example-p-4">Using as dialogs/modals</button>
                                 <p class="text-success">Its also a Dialog.</p>
                             </div>
                             <div class="col-md-3">
-                                <button class="btn btn-primary btn-block example-p-5">Getting data from API</button>
-                                <p class="text-success">Something huge?</p>
+                                <button class="btn btn-primary btn-block example-p-5">Asynchronous content</button>
+                                <p class="text-success">Loading from remote places</p>
                             </div>
                             <div class="col-md-3">
                                 <button class="btn btn-primary btn-block example-p-6">Auto-close</button>
-                                <p class="text-success">User friendly?</p>
+                                <p class="text-success">Some actions maybe critical</p>
                             </div>
                             <div class="col-md-3">
-                                <button class="btn btn-primary btn-block example-p-7">Hit the keys</button>
+                                <button class="btn btn-primary btn-block example-p-7">Keystrokes</button>
                                 <p class="text-success">Keyboard actions?</p>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <button class="btn btn-primary btn-block example-pc-1">Alignment</button>
+                                <p class="text-success">Automatically centered</p>
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-primary btn-block example-pc-2">Images</button>
+                                <p class="text-success">Loading images</p>
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-primary btn-block example-pc-3">Animations</button>
+                                <p class="text-success">Clean animations</p>
+                            </div>
+                        </div>
                         <script type="text/javascript">
+                            $('.example-pc-3').on('click', function () {
+                                $.alert({
+                                    title: 'Animations',
+                                    content: 'jquery-confirm provides 12 animations to choose from.',
+                                    animation: 'rotate',
+                                    closeAnimation: 'right',
+                                });
+                            });
+                            $('.example-pc-1').on('click', function () {
+                                $.confirm({
+                                    title: 'This is smoooth',
+                                    content: '<p>You can add content and not worry about the alignment. The goal is to make a Interactive dialog!.</p>' +
+                                    '<button type="button">Click me to add content</button> <span> <br></span> ',
+                                    confirmButtonClass: 'btn-primary',
+                                    animation: 'zoom',
+                                    onOpen: function(){
+                                        var that = this;
+                                        this.$content.find('button').click(function(){
+                                            that.$content.find('span').append('<br>This is awesome!!!!');
+                                        });
+                                    },
+                                    confirmButton: 'Add "Wowww"',
+                                    confirm: function () {
+                                        this.$content.find('span').append('<br>Wowww');
+                                        return false; // prevent dialog from closing.
+                                    }
+                                });
+                            });
+                            $('.example-pc-2').on('click', function () {
+                                window.b = $.confirm({
+                                    title: 'Adding images',
+                                    content: 'Images from flickr <br><img src="https://c2.staticflickr.com/4/3891/14354989289_2eec0ba724_b.jpg">',
+                                    confirmButtonClass: 'btn-primary',
+                                    animation: 'zoom',
+                                    animationClose: 'top',
+                                    confirmButton: 'Add more',
+                                    confirm: function () {
+                                        this.$content.append('<img src="https://c2.staticflickr.com/6/5248/5240523362_8d6d315391_b.jpg">');
+                                        return false; // prevent dialog from closing.
+                                    }
+                                });
+                            });
                             $('.example-p-1').on('click', function () {
                                 $.alert({
-                                    title: 'Attention',
-                                    content: 'This is some alert to the user. <br> with some <strong>HTML</strong> <em>contents</em>',
+                                    title: 'Hey!',
+                                    content: 'This is a simple alert to the user. <br> with some <strong>HTML</strong> <em>contents</em>',
                                     confirmButton: 'Okay',
                                     confirmButtonClass: 'btn-primary',
                                     icon: 'fa fa-info',
                                     animation: 'zoom',
                                     confirm: function () {
-                                        alert('Okay action clicked.');
+                                        $.alert('Okay action clicked.');
                                     }
                                 });
                             });
                             $('.example-p-2').on('click', function () {
                                 $.confirm({
-                                    title: 'A critical action',
-                                    content: 'You can queue confirms, you\'ll be asked again for a confirmation.',
+                                    title: 'A secure action',
+                                    content: 'Its smooth to do multiple confirms at a time. <br> Click proceed for another modal',
                                     confirmButton: 'Proceed',
                                     confirmButtonClass: 'btn-info',
                                     icon: 'fa fa-question-circle',
                                     animation: 'scale',
+                                    animationClose: 'top',
                                     confirm: function () {
                                         $.confirm({
-                                            title: 'A very critical action',
-                                            content: 'Are you sure you want to proceed?',
-                                            confirmButton: 'Hell, yes!',
+                                            title: 'This maybe critical',
+                                            content: 'Critical actions can have multiple confirmations like this one.',
+                                            confirmButton: 'Yes, sure!',
                                             icon: 'fa fa-warning',
                                             confirmButtonClass: 'btn-warning',
                                             animation: 'zoom',
                                             confirm: function () {
-                                                alert('A very critical action triggered!');
+                                                $.alert('A very critical action triggered!');
                                             }
                                         });
                                     }
@@ -259,65 +339,74 @@
                             });
                             $('.example-p-3').on('click', function () {
                                 $.alert({
-                                    title: 'No Background dismiss',
-                                    content: 'This feature does not close the dialog when user clicks out of the modal. <br>else, if backgroundDismiss is set to <code>TRUE</code>, the cancel action is fired.',
+                                    title: 'Background dismiss',
+                                    content: 'By default the user is not allowed to click outside the modal. <br> this feature will let the user click outside to close the Modal.',
                                     confirmButton: 'okay',
                                     confirmButtonClass: 'btn-info',
                                     animation: 'bottom',
                                     icon: 'fa fa-check',
-                                    backgroundDismiss: false
+                                    backgroundDismiss: true
                                 });
                             });
                             $('.example-p-4').on('click', function () {
                                 $.confirm({
-                                    title: 'This is a model title',
-                                    content: 'Need a popup modal?, no problem<br>disable the buttons, and get a full functional modal. <br><h3>HTML in modals</h3><h4><strong>centered in the screen</strong></h4><h5><em>Like a boss</em></h5>',
+                                    title: 'Title here',
+                                    content: 'Need a popup modal?, no problem!<br>disable the buttons, and get a full functional modal. <br><h3>HTML inside modals</h3><h4><strong>centered on the screen</strong></h4><h5><em>Like a boss</em></h5>' +
+                                    '<button type="button">Interactive too</button>',
                                     confirmButton: false,
                                     cancelButton: false,
-                                    animation: 'scale'
+                                    animation: 'scale',
+                                    onOpen: function(){
+                                        var that = this;
+                                        this.$content.find('button').click(function(){
+                                            that.$content.html('As simple as that !');
+                                        })
+                                    }
                                 });
                             });
                             $('.example-p-5').on('click', function () {
                                 $.confirm({
-                                    title: 'Getting data from html file',
+                                    title: 'Asynchronous content',
                                     content: 'url:table.html',
                                     animation: 'top',
                                     columnClass: 'col-md-6 col-md-offset-3',
-                                    closeAnimation: 'bottom'
+                                    closeAnimation: 'bottom',
+                                    backgroundDismiss: true,
                                 });
                             });
                             $('.example-p-6').on('click', function () {
                                 $.confirm({
-                                    title: 'Need a vacation?',
-                                    content: 'You have 6 seconds to make a choice',
-                                    autoClose: 'cancel|6000',
-                                    confirmButton: 'Yes please!',
-                                    confirmButtonClass: 'btn-info',
-                                    cancelButton: 'Nevermind!',
+                                    title: 'Auto close',
+                                    content: 'Some actions maybe critical, prevent it with the Auto close feature. This dialog will automatically trigger cancel after the timer runs out.',
+                                    autoClose: 'cancel|10000',
+                                    confirmButtonClass: 'btn-danger',
+                                    confirmButton: 'Delete Ben\'s account',
+                                    cancelButton: 'Close',
                                     confirm: function () {
-                                        alert('Vacation time!');
+                                        $.alert('You deleted Ben\'s account!');
                                     },
                                     cancel: function () {
-                                        alert('Vacation cancelled!');
+                                        $.alert('Ben just got saved!');
                                     }
                                 });
                             });
                             $('.example-p-7').on('click', function () {
                                 $.confirm({
-                                    title: 'Keyboard Enabled!',
+                                    title: 'Keystrokes Enabled!',
                                     keyboardEnabled: true,
                                     content: 'Press ENTER to confirm, ESC to cancel.<br> Use <code>keyboardEnabled:true</code> to turn it on.',
+                                    backgroundDismiss: true,
                                     confirm: function () {
-                                        alert('confirm triggered!');
+                                        $.alert('confirm triggered!');
                                     },
                                     cancel: function () {
-                                        alert('cancel triggered!');
+                                        $.alert('cancel triggered!');
                                     }
                                 });
                             });
                             $('.example-p-7-1').on('click', function () {
                                 $.confirm({
-                                    title: 'Fill this form!',
+                                    title: 'A simple form',
                                     content: 'url:form.txt',
                                     confirm: function () {
                                         var input = this.$b.find('input#input-name');
@@ -326,7 +415,7 @@
                                             errorText.show();
                                             return false;
                                         } else {
-                                            alert('Hello ' + input.val());
+                                            $.alert('Hello ' + input.val());
                                         }
                                     }
                                 });
@@ -375,7 +464,7 @@
                                             title: 'Alert!',
                                             content: 'Simple alert!',
                                             confirm: function () {
-                                                alert('Confirmed!');
+                                                $.alert('Confirmed!');
                                             }
                                         });
                                     });
@@ -385,7 +474,7 @@
     title: 'Alert!',
     content: 'Simple alert!',
     confirm: function(){
-        alert('Confirmed!');
+        $.alert('Confirmed!'); // shorthand.
     }
 });
 </code></pre>
@@ -404,10 +493,10 @@
                                             title: 'Confirm!',
                                             content: 'Simple confirm!',
                                             confirm: function () {
-                                                alert('Confirmed!');
+                                                $.alert('Confirmed!');
                                             },
                                             cancel: function () {
-                                                alert('Canceled!')
+                                                $.alert('Canceled!');
                                             }
                                         });
                                     });
@@ -417,29 +506,31 @@
     title: 'Confirm!',
     content: 'Simple confirm!',
     confirm: function(){
-        alert('Confirmed!');
+        $.alert('Confirmed!');
     },
     cancel: function(){
-        alert('Canceled!')
+        $.alert('Canceled!')
     }
 });
 </code></pre>
                             </div>
                             <div class="col-md-6">
                                         <p>
-                                            <a class="example2-1-1 btn btn-primary" href="http://twitter.com/craftpip">Goto twitter</a>
+                                            <a class="example2-1-1 btn btn-primary" data-title="Goto twitter?" href="http://twitter.com/craftpip">Goto twitter</a>
                                         </p>
                                         <script>
-                                            $('.example2-1-1').confirm();
+                                            $('.example2-1-1').confirm({
+                                                content: "This will take you to my twitter <br> You can access the clicked element by <code>this.$target</code>",
+                                            });
                                         </script>
-                                <pre class="prettyprint linenums"><code class="js">// binding to an element
-$('a.twitter').confirm();
-// or
-$('a.twitter').confirm({ ... });
-/*
-NOTE: When binded to a Anchor tag as above, by default the confirm button will open the href link.
-*/
+                                <span>HTML</span>
+                                <pre class="prettyprint linenums"><code class="html">&lt;a class="twitter" data-title="Goto twitter?" href="http://twitter.com/craftpip"&gt;Goto twitter&lt;/a&gt;
 </code></pre>
+                                <span>Javascript</span>
+                                <pre class="prettyprint linenums"><code class="js">$('a.twitter').confirm(options);
+</code></pre>
+                                <p>The alias $.confirm was made to emulate the native confirm(). <br/>
+                                <i class="fa fa-info"></i> By default on "confirm" the window will be redirected to the href provided, but if the `options` has the confirm callback, it will be called instead.</p>
                             </div>
                             <div class="col-md-12">
                                 <p>Show an <strong>modal dialog</strong>
@@ -787,13 +878,17 @@ $.confirm({
                                             url: 'bower.json',
                                             dataType: 'json',
                                             success: function (data) {
-                                                $obj.setContent('Plugin description: '+data.description);
+//                                                $obj.content = 'Plugin description: '+data.description;
+//                                                $obj.setContent('Plugin description: '+data.description);
+
                                                 // ohh success!
                                             },
                                             error: function () {
                                                 $obj.contentDiv.html("Something went wrong, please try again later.");
                                                 // Handle it your way
                                             }
+                                        }).done(function(data){
+                                            $obj.content = 'Plugin description: '+data.description;
                                         });
                                     },
                                     confirm: function(){
@@ -811,12 +906,10 @@ $.confirm({
                                             url: 'notexist.json',
                                             dataType: 'json',
                                             success: function (data) {
-                                                $obj.setContent(data.description);
-                                                // ohh success!
+                                                $obj.content = data;
                                             },
                                             error: function () {
-                                                $obj.contentDiv.html("Something went wrong, please try again later.");
-                                                // Handle it your way
+                                                $obj.content = "Something went wrong, please try again later.";
                                             }
                                         });
                                     }
@@ -1051,6 +1144,7 @@ $.confirm({
                                     autoClose: 'cancel|6000',
                                     confirm: function () {
                                         alert('confirmed');
+                                        return false;
                                     },
                                     cancel: function () {
                                         alert('canceled');
@@ -1670,38 +1764,52 @@ console.log(obj.content);
 </code></pre>
                     </div>
 
-                    <section class="text-right">
+                    <section class="text-right footer">
                         <div class="spacer15"></div>
                         <p>
                             Thanks for making it to the END of the document. <br>
-                            This Documentation needs review.
+                            Your support and suggestions matter the most!
                         </p>
                         <a href="https://github.com/craftpip/jquery-confirm/issues/new" target="empty" class="btn btn-success">Please post your <br> Questions / Suggestions / Issues.</a>
-                        <h4><i class="fa fa-heart" style="color: #f00"></i> Made with Love. </h4>
+                        <h4>Made by <a href="http://twitter.com/craftpip">@craftpip</a> with passion. </h4>
                         <div class="spacer15"></div>
                     </section>
                 </div>
             </div>
         </div>
         <script type="text/javascript" src="demo/demo.min.js"></script>
-
         <script>
-                            (function (i, s, o, g, r, a, m) {
-                                i['GoogleAnalyticsObject'] = r;
-                                i[r] = i[r] || function () {
-                                    (i[r].q = i[r].q || []).push(arguments)
-                                }, i[r].l = 1 * new Date();
-                                a = s.createElement(o),
-                                        m = s.getElementsByTagName(o)[0];
-                                a.async = 1;
-                                a.src = g;
-                                m.parentNode.insertBefore(a, m)
-                            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-                            ga('create', 'UA-53264350-2', 'auto');
-                            ga('send', 'pageview');
+            ga('create', 'UA-53264350-2', 'auto');
+            ga('send', 'pageview');
+        </script>
+
+        <script> window.twttr = (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0], t = window.twttr || {};
+            if (d.getElementById(id))
+                return t;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://platform.twitter.com/widgets.js";
+            fjs.parentNode.insertBefore(js, fjs);
+            t._e = [];
+            t.ready = function (f) {
+                t._e.push(f);
+            };
+            return t;
+        }(document, "script", "twitter-wjs"));
         </script>
         <!-- javascript for the demo page interface. -->
     </body>
-
 </html>

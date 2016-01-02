@@ -1,5 +1,5 @@
 <p>
-    &bull; Do complex things with jquery-confirm just like that!<br>
+    &bull; Making interactive stuff is easy.<br>
     &bull; This page is loaded from <a href="form.txt" target="_empty">form.txt</a><br>
     &bull; Access jquery-confirm's DOM via <code>this.$b</code>, you can then use <a target="_empty" href="https://api.jquery.com/category/traversing/">jQuery traversing methods</a> to get what you need.
 </p>
