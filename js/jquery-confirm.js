@@ -122,6 +122,8 @@ var jconfirm, Jconfirm;
              */
             this.animation = 'anim-' + this.animation.toLowerCase();
             this.closeAnimation = 'anim-' + this.closeAnimation.toLowerCase();
+            if (this.animation == 'anim-none')
+                this.animationSpeed = 0;
 
             /*
              * Append html.
@@ -129,6 +131,7 @@ var jconfirm, Jconfirm;
             this.$el = $(this.template).appendTo(this.container).addClass(this.theme);
             this.$el.find('.jconfirm-box-container').addClass(this.columnClass);
             this.$el.find('.jconfirm-bg').css(this._getCSS(this.animationSpeed, 1));
+
             this.$b = this.$el.find('.jconfirm-box').css(this._getCSS(this.animationSpeed, this.animationBounce)).addClass(this.animation);
             this.$body = this.$b; // alias
 
@@ -154,9 +157,26 @@ var jconfirm, Jconfirm;
             this.setIcon();
             this._setButtons();
 
+            this.observer = new MutationObserver(function (ms) {
+                $.each(ms, function (i, m) {
+                    setTimeout(function () {
+                        that.setDialogCenter();
+                        that._imagesLoaded(); // when images are added at runtime, check when loaded and center the dialog
+                    }, 0);
+                })
+            });
+            this.observer.observe(this.$content[0], {
+                attributes: true,
+                childList: true,
+                characterData: true,
+                subtree: true
+            });
+
             $.when(this._contentReady, this._modalReady).then(function () {
                 //that.$content.html(that.content); // will only be used when ajax.
-                that.setContent(that.content);
+                that.setContent();
+                that.setTitle();
+                that.setIcon();
             });
             this._getContent();
             this._imagesLoaded();
@@ -229,21 +249,6 @@ var jconfirm, Jconfirm;
 
             $(window).on('resize.' + this._rand, function () {
                 that.setDialogCenter(true);
-            });
-
-            this.observer = new MutationObserver(function (ms) {
-                $.each(ms, function (i, m) {
-                    setTimeout(function () {
-                        that.setDialogCenter();
-                        that._imagesLoaded(); // when images are added at runtime, check when loaded and center the dialog
-                    }, 100);
-                })
-            });
-            this.observer.observe(this.$content[0], {
-                attributes: true,
-                childList: true,
-                characterData: true,
-                subtree: true
             });
         },
         _getCSS: function (speed, bounce) {
@@ -356,7 +361,7 @@ var jconfirm, Jconfirm;
             } else {
                 console.error('Invalid option for property content, passed: ' + typeof this.content);
             }
-            this.setDialogCenter();
+            //this.setDialogCenter();
         },
         _stopCountDown: function () {
             clearInterval(this.timerInterval);
@@ -433,7 +438,7 @@ var jconfirm, Jconfirm;
                 var contentHeight = 0;
                 var paneHeight = 0;
             } else {
-                var contentHeight = this.$content.height();
+                var contentHeight = this.$content.outerHeight();
                 var paneHeight = this.$contentPane.height();
                 if (paneHeight == 0)
                     paneHeight = contentHeight;
