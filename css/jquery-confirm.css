@@ -57,6 +57,10 @@
   right: 0;
   bottom: 0;
   overflow-y: auto;
+  -webkit-perspective: 500px;
+          perspective: 500px;
+  -webkit-perspective-origin: center;
+          perspective-origin: center;
 }
 .jconfirm .jconfirm-box {
   background: white;
@@ -187,17 +191,17 @@
   left: 12px;
   right: auto;
 }
-.jconfirm.white .jconfirm-bg {
+.jconfirm.jconfirm-white .jconfirm-bg {
   background-color: rgba(0, 0, 0, 0.2);
 }
-.jconfirm.white .jconfirm-box {
+.jconfirm.jconfirm-white .jconfirm-box {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
 }
-.jconfirm.white .jconfirm-box .buttons {
+.jconfirm.jconfirm-white .jconfirm-box .buttons {
   float: right;
 }
-.jconfirm.white .jconfirm-box .buttons button {
+.jconfirm.jconfirm-white .jconfirm-box .buttons button {
   border: none;
   background-image: none;
   text-transform: uppercase;
@@ -208,26 +212,26 @@
           transition: background .1s;
   color: white;
 }
-.jconfirm.white .jconfirm-box .buttons button.btn-default {
+.jconfirm.jconfirm-white .jconfirm-box .buttons button.btn-default {
   box-shadow: none;
   color: #333;
 }
-.jconfirm.white .jconfirm-box .buttons button.btn-default:hover {
+.jconfirm.jconfirm-white .jconfirm-box .buttons button.btn-default:hover {
   background: #ddd;
 }
-.jconfirm.black .jconfirm-bg {
+.jconfirm.jconfirm-black .jconfirm-bg {
   background-color: rgba(0, 0, 0, 0.5);
 }
-.jconfirm.black .jconfirm-box {
+.jconfirm.jconfirm-black .jconfirm-box {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   background: #444;
   border-radius: 5px;
   color: white;
 }
-.jconfirm.black .jconfirm-box .buttons {
+.jconfirm.jconfirm-black .jconfirm-box .buttons {
   float: right;
 }
-.jconfirm.black .jconfirm-box .buttons button {
+.jconfirm.jconfirm-black .jconfirm-box .buttons button {
   border: none;
   background-image: none;
   text-transform: uppercase;
@@ -238,12 +242,12 @@
           transition: background .1s;
   color: white;
 }
-.jconfirm.black .jconfirm-box .buttons button.btn-default {
+.jconfirm.jconfirm-black .jconfirm-box .buttons button.btn-default {
   box-shadow: none;
   color: #fff;
   background: none;
 }
-.jconfirm.black .jconfirm-box .buttons button.btn-default:hover {
+.jconfirm.jconfirm-black .jconfirm-box .buttons button.btn-default:hover {
   background: #666;
 }
 .jconfirm .jconfirm-box.hilight {
@@ -335,10 +339,25 @@
       -ms-transform-origin: center;
           transform-origin: center;
 }
+.jconfirm .jconfirm-box.anim-rotatexr {
+  -webkit-transform: rotateX(-90deg);
+          transform: rotateX(-90deg);
+  -webkit-transform-origin: center;
+      -ms-transform-origin: center;
+          transform-origin: center;
+}
 .jconfirm .jconfirm-box.anim-rotatey {
   -webkit-transform: rotatey(90deg);
       -ms-transform: rotatey(90deg);
           transform: rotatey(90deg);
+  -webkit-transform-origin: center;
+      -ms-transform-origin: center;
+          transform-origin: center;
+}
+.jconfirm .jconfirm-box.anim-rotateyr {
+  -webkit-transform: rotatey(-90deg);
+      -ms-transform: rotatey(-90deg);
+          transform: rotatey(-90deg);
   -webkit-transform-origin: center;
       -ms-transform-origin: center;
           transform-origin: center;
@@ -392,35 +411,103 @@
 .jconfirm .jconfirm-box.anim-none {
   display: none;
 }
-.jconfirm.supervan .jconfirm-bg {
+.jconfirm.jconfirm-supervan .jconfirm-bg {
   background-color: rgba(54, 70, 93, 0.95);
 }
-.jconfirm.supervan .jconfirm-box {
+.jconfirm.jconfirm-supervan .jconfirm-box {
   background-color: transparent;
 }
-.jconfirm.supervan .jconfirm-box div.closeIcon {
+.jconfirm.jconfirm-supervan .jconfirm-box div.closeIcon {
   color: white;
 }
-.jconfirm.supervan .jconfirm-box div.title {
+.jconfirm.jconfirm-supervan .jconfirm-box div.title-c {
   text-align: center;
   color: white;
   font-size: 28px;
   font-weight: normal;
 }
-.jconfirm.supervan .jconfirm-box div.content {
+.jconfirm.jconfirm-supervan .jconfirm-box div.title-c > * {
+  padding-bottom: 25px;
+}
+.jconfirm.jconfirm-supervan .jconfirm-box div.content-pane {
+  margin-bottom: 25px;
+}
+.jconfirm.jconfirm-supervan .jconfirm-box div.content {
   text-align: center;
   color: white;
 }
-.jconfirm.supervan .jconfirm-box .buttons {
+.jconfirm.jconfirm-supervan .jconfirm-box .buttons {
   text-align: center;
 }
-.jconfirm.supervan .jconfirm-box .buttons button {
+.jconfirm.jconfirm-supervan .jconfirm-box .buttons button {
   font-size: 16px;
   border-radius: 2px;
   background: #303f53;
   text-shadow: none;
   border: none;
   color: white;
-  width: 25%;
   padding: 10px;
+  min-width: 100px;
+}
+.jconfirm.jconfirm-material .jconfirm-bg {
+  background-color: rgba(0, 0, 0, 0.67);
+}
+.jconfirm.jconfirm-material .jconfirm-box {
+  background-color: white;
+  box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2), 0 13px 19px 2px rgba(0, 0, 0, 0.14), 0 5px 24px 4px rgba(0, 0, 0, 0.12);
+  padding: 30px 25px 10px 25px;
+}
+.jconfirm.jconfirm-material .jconfirm-box div.closeIcon {
+  color: rgba(0, 0, 0, 0.87);
+}
+.jconfirm.jconfirm-material .jconfirm-box div.title-c {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 22px;
+  font-weight: bold;
+}
+.jconfirm.jconfirm-material .jconfirm-box div.content {
+  text-align: left;
+  color: rgba(0, 0, 0, 0.87);
+}
+.jconfirm.jconfirm-material .jconfirm-box .buttons {
+  text-align: right;
+}
+.jconfirm.jconfirm-material .jconfirm-box .buttons button {
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.jconfirm.jconfirm-bootstrap .jconfirm-bg {
+  background-color: rgba(0, 0, 0, 0.01);
+}
+.jconfirm.jconfirm-bootstrap .jconfirm-box {
+  background-color: white;
+  box-shadow: 0 3px 8px 0px rgba(0, 0, 0, 0.2);
+  border: solid 1px rgba(0, 0, 0, 0.4);
+  padding: 15px 0 0;
+}
+.jconfirm.jconfirm-bootstrap .jconfirm-box div.closeIcon {
+  color: rgba(0, 0, 0, 0.87);
+}
+.jconfirm.jconfirm-bootstrap .jconfirm-box div.title-c {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 22px;
+  font-weight: bold;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.jconfirm.jconfirm-bootstrap .jconfirm-box div.content {
+  text-align: left;
+  color: rgba(0, 0, 0, 0.87);
+  border-top: solid 1px #ddd;
+  padding-top: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.jconfirm.jconfirm-bootstrap .jconfirm-box .buttons {
+  text-align: right;
+  border-top: solid 1px #ddd;
+  padding: 10px;
+}
+.jconfirm.jconfirm-bootstrap .jconfirm-box .buttons button {
+  font-weight: 500;
 }

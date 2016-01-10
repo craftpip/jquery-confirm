@@ -128,6 +128,7 @@ var jconfirm, Jconfirm;
              */
             this.animation = 'anim-' + this.animation.toLowerCase();
             this.closeAnimation = 'anim-' + this.closeAnimation.toLowerCase();
+            this.theme = 'jconfirm-' + this.theme.toLowerCase();
             if (this.animation == 'anim-none')
                 this.animationSpeed = 0;
 

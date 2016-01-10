@@ -47,6 +47,8 @@
     right: 0;
     bottom: 0;
     overflow-y: auto;
+    perspective: 500px;
+    perspective-origin: center;
   }
   .jconfirm-box {
     background: white;
@@ -182,7 +184,7 @@
     }
   }
 
-  &.white {
+  &.jconfirm-white {
     .jconfirm-bg {
       background-color: rgba(0, 0, 0, .2);
     }
@@ -212,12 +214,10 @@
           }
         }
       }
-
     }
-
   }
 
-  &.black {
+  &.jconfirm-black {
     .jconfirm-bg {
       background-color: rgba(0, 0, 0, .5);
     }
@@ -294,8 +294,16 @@
       transform: rotateX(90deg);
       transform-origin: center;
     }
+    &.anim-rotatexr {
+      transform: rotateX(-90deg);
+      transform-origin: center;
+    }
     &.anim-rotatey {
       transform: rotatey(90deg);
+      transform-origin: center;
+    }
+    &.anim-rotateyr {
+      transform: rotatey(-90deg);
       transform-origin: center;
     }
     &.anim-scaley {
@@ -333,7 +341,7 @@
   }
 }
 
-.jconfirm.supervan {
+.jconfirm.jconfirm-supervan {
   .jconfirm-bg {
     background-color: rgba(54, 70, 93, .95);
   }
@@ -344,11 +352,17 @@
       color: white;
     }
 
-    div.title {
+    div.title-c {
       text-align: center;
       color: white;
       font-size: 28px;
       font-weight: normal;
+      > * {
+        padding-bottom: 25px;
+      }
+    }
+    div.content-pane{
+      margin-bottom: 25px;
     }
     div.content {
       text-align: center;
@@ -373,8 +387,112 @@
         text-shadow: none;
         border: none;
         color: white;
-        width: 25%;
         padding: 10px;
+        min-width: 100px;
+      }
+      button + button {
+
+      }
+    }
+    &.hilight {
+
+    }
+  }
+}
+
+.jconfirm.jconfirm-material {
+  .jconfirm-bg {
+    background-color: rgba(0,0,0,.67);
+  }
+  .jconfirm-box {
+    background-color: white;
+    box-shadow: 0 7px 8px -4px rgba(0,0,0,.2),0 13px 19px 2px rgba(0,0,0,.14),0 5px 24px 4px rgba(0,0,0,.12);
+    padding: 30px 25px 10px 25px;
+
+    div.closeIcon {
+      color: rgba(0,0,0,.87);
+    }
+
+    div.title-c {
+      color: rgba(0,0,0,.87);
+      font-size: 22px;
+      font-weight: bold;
+    }
+    div.content {
+      text-align: left;
+      color: rgba(0,0,0,.87);
+
+      &:empty {
+        &:before {
+
+        }
+        &:after {
+
+        }
+      }
+    }
+    .buttons {
+      text-align: right;
+
+      button {
+        text-transform: uppercase;
+        font-weight: 500;
+      }
+      button + button {
+
+      }
+    }
+    &.hilight {
+
+    }
+  }
+}
+.jconfirm.jconfirm-bootstrap {
+  .jconfirm-bg {
+    background-color: rgba(0,0,0,.01);
+  }
+  .jconfirm-box {
+    background-color: white;
+    box-shadow: 0 3px 8px 0px rgba(0, 0, 0, 0.2);
+    border: solid 1px rgba(0,0,0,.4);
+    padding: 15px 0 0;
+
+    div.closeIcon {
+      color: rgba(0, 0, 0, 0.87);
+    }
+
+    div.title-c {
+      color: rgba(0, 0, 0, 0.87);
+      font-size: 22px;
+      font-weight: bold;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+
+    div.content {
+      text-align: left;
+      color: rgba(0, 0, 0, 0.87);
+      border-top : solid 1px #ddd;
+      padding-top: 10px;
+      padding-left: 15px;
+      padding-right: 15px;
+
+      &:empty {
+        &:before {
+
+        }
+        &:after {
+
+        }
+      }
+    }
+    .buttons {
+      text-align: right;
+      border-top : solid 1px #ddd;
+      padding: 10px;
+
+      button {
+        font-weight: 500;
       }
       button + button {
 
