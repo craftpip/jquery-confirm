@@ -68,6 +68,15 @@
       display: none;
       font-size: 27px;
       line-height: 14px;
+      .fa{
+        font-size: 16px;
+      }
+      .glyphicon{
+        font-size: 16px;
+      }
+      .zmdi{
+        font-size: 16px;
+      }
 
       &:hover {
         opacity: 1;
@@ -105,7 +114,6 @@
     div.content-pane {
       margin-bottom: 15px;
       height: auto;
-      overflow: hidden;
       transition: height .4s ease-in;
       display: inline-block;
       width: 100%;
@@ -115,11 +123,12 @@
         position: absolute;
         top: 0;
         left: 0;
+        transition: all .2s ease-in;
         right: 0;
+
         img{
           width: 100%;
           height: auto;
-//          display: none;
         }
         &:empty {
           display: none;

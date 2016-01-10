@@ -80,6 +80,15 @@
   font-size: 27px;
   line-height: 14px;
 }
+.jconfirm .jconfirm-box div.closeIcon .fa {
+  font-size: 16px;
+}
+.jconfirm .jconfirm-box div.closeIcon .glyphicon {
+  font-size: 16px;
+}
+.jconfirm .jconfirm-box div.closeIcon .zmdi {
+  font-size: 16px;
+}
 .jconfirm .jconfirm-box div.closeIcon:hover {
   opacity: 1;
 }
@@ -114,7 +123,6 @@
 .jconfirm .jconfirm-box div.content-pane {
   margin-bottom: 15px;
   height: auto;
-  overflow: hidden;
   -webkit-transition: height 0.4s ease-in;
           transition: height 0.4s ease-in;
   display: inline-block;
@@ -125,6 +133,8 @@
   position: absolute;
   top: 0;
   left: 0;
+  -webkit-transition: all 0.2s ease-in;
+          transition: all 0.2s ease-in;
   right: 0;
 }
 .jconfirm .jconfirm-box div.content-pane .content img {

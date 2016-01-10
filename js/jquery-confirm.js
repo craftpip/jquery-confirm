@@ -15,8 +15,13 @@ if (typeof jQuery === 'undefined') {
 var jconfirm, Jconfirm;
 (function ($) {
     "use strict";
-    $.fn.confirm = function (options) {
+    $.fn.confirm = function (options, option2) {
         if (typeof options === 'undefined') options = {};
+        if (typeof options === 'string')
+            options = {
+                content: options,
+                title: (option2) ? option2 : false
+            };
         /*
          *  Alias of $.confirm to emulate native confirm()
          */
@@ -113,6 +118,7 @@ var jconfirm, Jconfirm;
             this._bindEvents();
             setTimeout(function () {
                 that.open();
+                that._watchContent();
             }, 0);
         },
         _buildHTML: function () {
@@ -152,37 +158,45 @@ var jconfirm, Jconfirm;
             this.$content = this.contentDiv; // alias
             this.$contentPane = this.$el.find('.content-pane');
             this.$icon = this.$el.find('.icon-c');
+            this.$closeIcon = this.$el.find('.closeIcon');
             this.$contentPane.css(this._getCSS(this.animationSpeed, 1));
             this.setTitle();
             this.setIcon();
             this._setButtons();
 
-            this.observer = new MutationObserver(function (ms) {
-                $.each(ms, function (i, m) {
-                    setTimeout(function () {
-                        that.setDialogCenter();
-                        that._imagesLoaded(); // when images are added at runtime, check when loaded and center the dialog
-                    }, 0);
-                })
-            });
-            this.observer.observe(this.$content[0], {
-                attributes: true,
-                childList: true,
-                characterData: true,
-                subtree: true
-            });
+            if (this.closeIconClass)
+                this.$closeIcon.html('<i class="' + this.closeIconClass + '"></i>');
 
+            that._contentHash = this._hash(that.$content.html());
             $.when(this._contentReady, this._modalReady).then(function () {
-                //that.$content.html(that.content); // will only be used when ajax.
+                console.log('ready');
                 that.setContent();
                 that.setTitle();
                 that.setIcon();
             });
+
             this._getContent();
             this._imagesLoaded();
 
             if (this.autoClose)
                 this._startCountDown();
+        },
+        _unwatchContent: function () {
+            clearInterval(this._timer);
+        },
+        _hash: function () {
+            return btoa((encodeURIComponent(this.$content.html())));
+        },
+        _watchContent: function () {
+            var that = this;
+            this._timer = setInterval(function () {
+                var now = that._hash(that.$content.html());
+                if (that._contentHash != now) {
+                    that._contentHash = now;
+                    that.setDialogCenter();
+                    that._imagesLoaded();
+                }
+            }, this.watchInterval);
         },
         _bindEvents: function () {
             var that = this;
@@ -261,10 +275,12 @@ var jconfirm, Jconfirm;
         },
         _imagesLoaded: function () {
             var that = this;
-            $.each(this.$content.find('img'), function (i, a) {
+            $.each(this.$content.find('img:not(.loaded)'), function (i, a) {
                 var interval = setInterval(function () {
                     var h = $(a).css('height');
+                    console.log(h);
                     if (h !== '0px') {
+                        $(a).addClass('loaded');
                         that.setDialogCenter();
                         clearInterval(interval);
                     }
@@ -303,7 +319,7 @@ var jconfirm, Jconfirm;
         setContent: function (string) {
             // only set the content on the modal.
             var that = this;
-            this.content = (typeof string == undefined) ? this.content : string;
+            this.content = (typeof string == 'undefined') ? this.content : string;
 
             if (this.content == '') {
                 this.$content.html(this.content);
@@ -321,7 +337,7 @@ var jconfirm, Jconfirm;
             // get content from remote & stuff.
             var that = this;
             string = (string) ? string : this.content;
-
+            this._isAjax = false;
             /*
              * Set content.
              */
@@ -331,6 +347,7 @@ var jconfirm, Jconfirm;
                 this._contentReady.reject();
             } else if (typeof this.content === 'string') {
                 if (this.content.substr(0, 4).toLowerCase() === 'url:') {
+                    this._isAjax = true;
                     this.$content.addClass('loading');
                     this.$btnc.find('button').prop('disabled', true);
                     var url = this.content.substring(4, this.content.length);
@@ -346,7 +363,7 @@ var jconfirm, Jconfirm;
                     this._contentReady.reject();
                 }
             } else if (typeof this.content === 'function') {
-                this.$content.html('').addClass('loading');
+                this.$content.addClass('loading');
                 this.$btnc.find('button').attr('disabled', 'disabled');
                 var promise = this.content(this);
                 if (typeof promise !== 'object') {
@@ -354,6 +371,7 @@ var jconfirm, Jconfirm;
                 } else if (typeof promise.always !== 'function') {
                     console.error('The object returned is not a jquery promise.');
                 } else {
+                    this._isAjax = true;
                     promise.always(function (data, status) {
                         that._contentReady.resolve();
                     });
@@ -361,7 +379,7 @@ var jconfirm, Jconfirm;
             } else {
                 console.error('Invalid option for property content, passed: ' + typeof this.content);
             }
-            //this.setDialogCenter();
+            this.setDialogCenter();
         },
         _stopCountDown: function () {
             clearInterval(this.timerInterval);
@@ -400,19 +418,16 @@ var jconfirm, Jconfirm;
 
             var key = e.which;
             // Do not react if Enter/Space is pressed on input elements
-            console.log(key);
             if (this.contentDiv.find(':input').is(':focus') && /13|32/.test(key))
                 return false;
 
-            console.log(this.cancelKeys);
             if ($.inArray(key, this.cancelKeys) !== -1) {
-                console.log('hey');
                 /*
                  * Cancel key pressed.
                  */
                 if (!this.backgroundDismiss) {
                     /*
-                     * If background dismiss is false, Glow the modal.
+                     * If background dismiss is false, Shake the modal.
                      */
                     this.$el.find('.jconfirm-scrollpane').click();
                     return false;
@@ -434,6 +449,7 @@ var jconfirm, Jconfirm;
             }
         },
         setDialogCenter: function () {
+            console.log('setting dialog to center');
             if (this.$contentPane.css('display') == 'none') {
                 var contentHeight = 0;
                 var paneHeight = 0;
@@ -443,10 +459,21 @@ var jconfirm, Jconfirm;
                 if (paneHeight == 0)
                     paneHeight = contentHeight;
 
-                this.$contentPane.css({
-                    'height': contentHeight
-                });
             }
+            var off = 100;
+            var w = this.$content.outerWidth();
+
+            //var s = '-clip-path: inset(0px 0px '+contentHeight+'px 0px);' +
+            //    'clip-path: inset(0px 0px '+contentHeight+'px 0px)';
+
+            this.$content.css({
+                'clip': 'rect(0px ' + (off + w) + 'px ' + contentHeight + 'px -' + off + 'px)'
+            });
+
+            this.$contentPane.css({
+                'height': contentHeight
+            });
+
             var windowHeight = $(window).height();
             var boxHeight = this.$b.outerHeight() - paneHeight + contentHeight;
             var topMargin = (windowHeight - boxHeight) / 2;
@@ -472,7 +499,9 @@ var jconfirm, Jconfirm;
             if (typeof this.onClose === 'function')
                 this.onClose();
 
-            this.observer.disconnect();
+            this._unwatchContent();
+
+            //this.observer.disconnect();
             /*
              unbind the window resize & keyup event.
              */
@@ -553,6 +582,8 @@ var jconfirm, Jconfirm;
         backgroundDismiss: false,
         autoClose: false,
         closeIcon: null,
+        closeIconClass: false,
+        watchInterval: 100,
         columnClass: 'col-md-4 col-md-offset-4',
         onOpen: function () {
         },
