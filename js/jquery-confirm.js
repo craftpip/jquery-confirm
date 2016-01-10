@@ -132,6 +132,8 @@ var jconfirm, Jconfirm;
             if (this.animation == 'anim-none')
                 this.animationSpeed = 0;
 
+            this._lastFocused = $('body').find(':focus');
+
             /*
              * Append html.
              */
@@ -493,6 +495,7 @@ var jconfirm, Jconfirm;
                 this.onClose();
 
             this._unwatchContent();
+            that._lastFocused.focus();
 
             //this.observer.disconnect();
             /*
