@@ -425,14 +425,6 @@ var jconfirm, Jconfirm;
                 /*
                  * Cancel key pressed.
                  */
-                if (!this.backgroundDismiss) {
-                    /*
-                     * If background dismiss is false, Shake the modal.
-                     */
-                    this.$el.find('.jconfirm-scrollpane').click();
-                    return false;
-                }
-
                 if (this.$cancelButton) {
                     this.$cancelButton.click();
                 } else {
