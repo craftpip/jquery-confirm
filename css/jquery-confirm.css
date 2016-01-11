@@ -477,7 +477,7 @@
   font-weight: 500;
 }
 .jconfirm.jconfirm-bootstrap .jconfirm-bg {
-  background-color: rgba(0, 0, 0, 0.01);
+  background-color: rgba(0, 0, 0, 0.21);
 }
 .jconfirm.jconfirm-bootstrap .jconfirm-box {
   background-color: white;
@@ -498,16 +498,18 @@
 .jconfirm.jconfirm-bootstrap .jconfirm-box div.content {
   text-align: left;
   color: rgba(0, 0, 0, 0.87);
-  border-top: solid 1px #ddd;
-  padding-top: 10px;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding: 0px 15px;
 }
 .jconfirm.jconfirm-bootstrap .jconfirm-box .buttons {
   text-align: right;
+  padding: 0px 0 0px;
+  margin: -5px 0 0px;
   border-top: solid 1px #ddd;
-  padding: 10px;
+  overflow: hidden;
+  border-radius: 0 0 4px 4px;
 }
 .jconfirm.jconfirm-bootstrap .jconfirm-box .buttons button {
   font-weight: 500;
+  border-radius: 0px;
+  margin: 0;
 }
