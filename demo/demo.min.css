@@ -3,7 +3,7 @@ body {
 }
 
 .navbar-right iframe {
-    margin-top: 10px
+    margin: 11px 10px 0 10px;
 }
 
 .affix {
@@ -30,8 +30,8 @@ kbd.blue {
 }
 
 .section {
-    border-left: solid 5px #2980b9;
-    padding-left: 15px
+    border-left: solid 1px #2980b9;
+    padding-left: 15px;
 }
 
 .spacer15 {
@@ -52,13 +52,13 @@ pre ol {
     color: #fff;
     border: 0;
     -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, .1);
-    box-shadow: 0 2px 3px rgba(0, 0, 0, .1)
+    box-shadow: 0 2px 3px rgba(0, 0, 0, .1);
+    border-radius: 0;
 }
-
-.btn-download {
-    border-radius: 0
+.btn-download:hover{
+    color: white;
+    background: #4889B5;
 }
-
 .com {
     color: #93a1a1
 }
@@ -93,13 +93,13 @@ pre ol {
 
 .prettyprint {
     padding: 8px;
-    background-color: #f7f7f9;
+    background-color: #FBFBFC;
     border: 1px solid #e1e1e8
 }
 
 .prettyprint.linenums {
     -webkit-box-shadow: inset 40px 0 0 #fbfbfc, inset 41px 0 0 #ececf0;
-    box-shadow: inset 40px 0 0 #fbfbfc, inset 41px 0 0 #ececf0
+    box-shadow: inset 48px 0 0 #fbfbfc, inset 48px 0 0 #FFFFFF;
 }
 
 ol.linenums {
@@ -121,19 +121,21 @@ ol.linenums li {
 }
 
 ul.nav.nav-list li a {
-    text-align: right;
+    text-align: left;
 }
 ul.nav.nav-list li > a {
     color: #444;
     padding: 5px 10px;
+    box-shadow: -1px 0px 0 -0px #ddd;
 }
 ul.nav.nav-list li > a:hover {
-    box-shadow: 7px 0px 0 -5px black;
+    box-shadow: -7px 0px 0 -5px black;
     background: transparent;
 }
 ul.nav.nav-list li li a {
     color: #444;
     padding: 0px 20px;
+    box-shadow: -1px 0px 0 -0px #ddd;
 }
 ul.nav.nav-list li li:last-child a {
     margin-bottom: 5px;
@@ -141,7 +143,7 @@ ul.nav.nav-list li li:last-child a {
 ul.nav.nav-list li.active > a {
     color: #3498DB;
     font-weight: bold;
-    box-shadow: 7px 0px 0 -5px #3498DB;
+    box-shadow: -7px 0px 0 -5px #3498DB;
 }
 ul.nav.nav-list li ul {
     display: none;

@@ -512,4 +512,5 @@
   font-weight: 500;
   border-radius: 0px;
   margin: 0;
+  border-left: solid 1px #ddd;
 }
