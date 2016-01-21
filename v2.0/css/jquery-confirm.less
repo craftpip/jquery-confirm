@@ -1,0 +1,418 @@
+/*!
+ * jquery-confirm v2.0.0 (http://craftpip.github.io/jquery-confirm/)
+ * Author: boniface pereira
+ * Website: www.craftpip.com
+ * Contact: hey@craftpip.com
+ *
+ * Copyright 2013-2015 jquery-confirm
+ * Licensed under MIT (https://github.com/craftpip/jquery-confirm/blob/master/LICENSE)
+ */
+body.jconfirm-noscroll {
+  overflow: hidden !important;
+}
+
+@keyframes jconfirm-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.jconfirm {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99999999;
+  font-family: inherit;
+  overflow: hidden;
+
+  .jconfirm-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    transition: all .4s;
+
+    &.seen {
+      opacity: 1;
+    }
+  }
+  .jconfirm-scrollpane {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+  }
+  .jconfirm-box {
+    background: white;
+    border-radius: 4px;
+    position: relative;
+    outline: none;
+
+    div.closeIcon {
+      height: 20px;
+      width: 20px;
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      cursor: pointer;
+      opacity: .6;
+      text-align: center;
+      display: none;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+    div.title {
+      font-size: 24px;
+      font-weight: bold;
+      font-family: inherit;
+      padding: 10px 15px 5px;
+    }
+    div.content {
+      padding-top: 10px;
+      padding: 10px 15px 10px;
+
+      &:empty {
+        height: 40px;
+        position: relative;
+        opacity: 0.6;
+        &:before {
+          content: '';
+          height: 20px;
+          width: 20px;
+          border: solid 2px #aaa;
+          position: absolute;
+          left: 50%;
+          margin-left: -45px;
+          border-radius: 20%;
+          animation: jconfirm-rotate 1s infinite;
+        }
+        &:after {
+          content: 'loading..';
+          position: absolute;
+          left: 50%;
+          margin-left: -15px;
+        }
+      }
+    }
+
+    .buttons {
+      padding: 10px 15px;
+
+      button + button {
+        margin-left: 5px;
+      }
+    }
+
+  }
+
+  .jquery-clear {
+    clear: both;
+  }
+
+  &.rtl {
+    direction: rtl;
+    div.closeIcon {
+      left: 12px;
+      right: auto;
+    }
+  }
+
+  &.white {
+    .jconfirm-bg {
+      background-color: rgba(0, 0, 0, .2);
+    }
+    .jconfirm-box {
+      box-shadow: 0 2px 6px rgba(0, 0, 0, .2);
+      border-radius: 5px;
+
+      .buttons {
+        float: right;
+
+        button {
+          border: none;
+          background-image: none;
+          text-transform: uppercase;
+          font-size: 14px;
+          font-weight: bold;
+          text-shadow: none;
+          transition: background .1s;
+          color: white;
+        }
+        button.btn-default {
+          box-shadow: none;
+          color: #333;
+
+          &:hover {
+            background: #ddd;
+          }
+        }
+      }
+
+    }
+
+  }
+
+  &.black {
+    .jconfirm-bg {
+      background-color: rgba(0, 0, 0, .5);
+    }
+    .jconfirm-box {
+      box-shadow: 0 2px 6px rgba(0, 0, 0, .2);
+      background: #444;
+      border-radius: 5px;
+      color: white;
+
+      .buttons {
+        float: right;
+
+        button {
+          border: none;
+          background-image: none;
+          text-transform: uppercase;
+          font-size: 14px;
+          font-weight: bold;
+          text-shadow: none;
+          transition: background .1s;
+          color: white;
+        }
+        button.btn-default {
+          box-shadow: none;
+          color: #fff;
+          background: none;
+
+          &:hover {
+            background: #666;
+          }
+        }
+      }
+
+    }
+
+  }
+
+  &.hololight {
+    .jconfirm-bg {
+      background-color: rgba(0, 0, 0, .5);
+    }
+    .jconfirm-box {
+      box-shadow: 0 2px 6px rgba(0, 0, 0, .4);
+      border-radius: 2px;
+      overflow: hidden;
+
+      div.title {
+        font-weight: inherit;
+        border-bottom: solid 2px #76CFDF;
+        color: #76CFDF;
+      }
+      div.content {
+
+      }
+      .buttons {
+        border-top: solid 2px #E7E7E7;
+        width: 100%;
+        float: none;
+        padding: 0;
+
+        button {
+          margin: 0;
+          border: none;
+          background: #fff;
+          border-radius: 0px;
+          width: 50%;
+          padding: 13px;
+          font-size: 16px;
+          font-weight: bold;
+          color: #666;
+        }
+        button + button {
+          border-left: solid 2px #E7E7E7;
+        }
+      }
+    }
+  }
+  &.holodark {
+    .jconfirm-bg {
+      background-color: rgba(0, 0, 0, .5);
+    }
+    .jconfirm-box {
+      box-shadow: 0 2px 6px rgba(0, 0, 0, .4);
+      border-radius: 2px;
+      background: #333;
+      overflow: hidden;
+      div.closeIcon {
+        color: white;
+      }
+      div.title {
+        font-weight: inherit;
+        border-bottom: solid 2px #76CFDF;
+        color: #76CFDF;
+      }
+      div.content {
+        color: white;
+      }
+      .buttons {
+        border-top: solid 2px rgba(255, 255, 255, .2);
+        width: 100%;
+        float: none;
+        padding: 0;
+
+        button {
+          margin: 0;
+          border: none;
+          background: #333;
+          border-radius: 0px;
+          width: 50%;
+          padding: 13px;
+          font-size: 16px;
+          font-weight: bold;
+          color: #fff;
+          text-shadow: none;
+        }
+        button + button {
+          border-left: solid 2px rgba(255, 255, 255, .2);
+        }
+      }
+    }
+  }
+  .jconfirm-box.hilight {
+//    box-shadow: 0 0 20px red;
+    animation: hilight 0.82s cubic-bezier(.36,.07,.19,.97) both;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes hilight {
+  10%, 90% {
+    transform: translate3d(-2px, 0, 0);
+  }
+  20%, 80% {
+    transform: translate3d(4px, 0, 0);
+  }
+  30%, 50%, 70% {
+    transform: translate3d(-8px, 0, 0);
+  }
+  40%, 60% {
+    transform: translate3d(8px, 0, 0);
+  }
+}
+
+/*Transition rules*/
+.jconfirm {
+  perspective: 400px;
+
+  .jconfirm-box {
+    opacity: 1;
+    transition-property: transform, opacity, box-shadow;
+
+    &.anim-top, &.anim-left, &.anim-right, &.anim-bottom, &.anim-opacity, &.anim-zoom, &.anim-scale, &.anim-none, &.anim-rotate, &.anim-rotatex, &.anim-rotatey, &.anim-scaley, &.anim-scalex {
+      opacity: 0;
+    }
+    &.anim-rotate {
+      transform: rotate(90deg);
+    }
+    &.anim-rotatex {
+      transform: rotateX(90deg);
+      transform-origin: center;
+    }
+    &.anim-rotatey {
+      transform: rotatey(90deg);
+      transform-origin: center;
+    }
+    &.anim-scaley {
+      transform: scaley(1.5);
+      transform-origin: center;
+    }
+    &.anim-scalex {
+      transform: scalex(1.5);
+      transform-origin: center;
+    }
+    &.anim-top {
+      transform: translate(0px, -100px);
+    }
+    &.anim-left {
+      transform: translate(-100px, 0px);
+    }
+    &.anim-right {
+      transform: translate(100px, 0px);
+    }
+    &.anim-bottom {
+      transform: translate(0px, 100px);
+    }
+    &.anim-opacity {
+
+    }
+    &.anim-zoom {
+      transform: scale(1.2);
+    }
+    &.anim-scale {
+      transform: scale(0.5);
+    }
+    &.anim-none {
+      display: none;
+    }
+  }
+}
+
+.jconfirm.supervan {
+  .jconfirm-bg {
+    background-color: rgba(54, 70, 93, .95);
+  }
+  .jconfirm-box {
+    background-color: transparent;
+
+    div.closeIcon {
+      color: white;
+    }
+
+    div.title {
+      text-align: center;
+      color: white;
+      font-size: 28px;
+      font-weight: normal;
+    }
+    div.content {
+      text-align: center;
+      color: white;
+
+      &:empty {
+        &:before {
+
+        }
+        &:after {
+
+        }
+      }
+    }
+    .buttons {
+      text-align: center;
+
+      button {
+        font-size: 16px;
+        border-radius: 2px;
+        background: darken(#36465D, 3%);
+        text-shadow: none;
+        border: none;
+        color: white;
+        width: 25%;
+        padding: 10px;
+      }
+      button + button {
+
+      }
+    }
+    &.hilight {
+
+    }
+  }
+}
