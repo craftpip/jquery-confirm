@@ -478,10 +478,12 @@ var jconfirm, Jconfirm;
                     'margin-top': minMargin / 2,
                     'margin-bottom': minMargin / 2
                 }
+                $('body').addClass('jconfirm-noscroll');
             } else {
                 var style = {
                     'margin-top': topMargin
                 }
+                $('body').removeClass('jconfirm-noscroll');
             }
             this.$b.css(style);
         },
@@ -506,6 +508,8 @@ var jconfirm, Jconfirm;
                 $(window).unbind('keyup.' + this._rand);
 
             that.$el.find('.jconfirm-bg').removeClass('seen');
+            $('body').removeClass('jconfirm-noscroll');
+
             this.$b.addClass(this.closeAnimation);
             var closeTimer = (this.closeAnimation == 'anim-none') ? 0 : this.animationSpeed;
             setTimeout(function () {

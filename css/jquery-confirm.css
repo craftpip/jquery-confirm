@@ -27,6 +27,9 @@
             transform: rotate(360deg);
   }
 }
+body.jconfirm-noscroll {
+  overflow: hidden !important;
+}
 .jconfirm {
   position: fixed;
   top: 0;
