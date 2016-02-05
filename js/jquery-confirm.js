@@ -142,7 +142,7 @@ var jconfirm, Jconfirm;
             this.$el = $(this.template).appendTo(this.container).addClass(this.theme);
             this.$el.find('.jconfirm-box-container').addClass(this.columnClass);
             this.$el.find('.jconfirm-bg').css(this._getCSS(this.animationSpeed, 1));
-            this.$el.find('.jconfirm-bg').css('background-color','rgba(0, 0, 0, '+this.opacity+')');
+            this.$el.find('.jconfirm-bg').css('opacity', this.opacity);
             this.$b = this.$el.find('.jconfirm-box').css(this._getCSS(this.animationSpeed, this.animationBounce)).addClass(this.animation);
             this.$body = this.$b; // alias
 
