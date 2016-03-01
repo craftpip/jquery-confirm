@@ -111,7 +111,6 @@
              id="content"
              tabindex="-1">
             <div class="container">
-
                 <h1 style="margin-top: 7px;" class="text-center">
                     <img style="width: 400px;" src="jquery-confirm.png" alt="JQUERY-CONFIRM"/>
                 </h1>
@@ -327,6 +326,7 @@
                                 <button class="btn btn-primary btn-block example-p-1">Alerts</button>
                                 <p class="text-success">Elegant Alerts.</p>
                             </div>
+
                             <div class="col-md-3">
                                 <button class="btn btn-primary btn-block example-p-2">Confirmation</button>
                                 <p class="text-success">Stacked Confirmations</p>
@@ -379,7 +379,29 @@
                                     content: 'jquery-confirm provides 12 animations to choose from.',
                                     animation: 'rotate',
                                     closeAnimation: 'right',
-                                    opacity: 0.5
+                                    theme: 'white, black',
+                                    opacity: 0.5,
+                                    closeIcon: {
+                                        class: '',
+                                        action: function(){
+
+                                        }
+                                    },
+                                    buttons: {
+                                        'confirm': {
+                                            text: '',
+                                            class: '',
+                                            action: function(){
+                                                alert('hey');
+                                            }
+                                        },
+                                        'Cancel?': function(){
+                                            alert('what?');
+                                        }
+                                    },
+                                    backgroundDismiss: function(){
+
+                                    }
                                 });
                             });
                             $('.example-pc-1').on('click', function () {
@@ -423,9 +445,11 @@
                                     confirmButton: 'Okay',
                                     confirmButtonClass: 'btn-primary',
                                     icon: 'fa fa-info',
-                                    animation: 'zoom',                                    
-                                    confirm: function () {
-                                        $.alert('Okay action clicked.');
+                                    animation: 'zoom',
+                                    buttons: {
+                                        confirm: function(){
+                                            $.alert('Okay action clicked.');
+                                        }
                                     }
                                 });
                             });
