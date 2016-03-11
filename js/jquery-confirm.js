@@ -22,7 +22,6 @@ var jconfirm, Jconfirm;
             options = {
                 content: options,
                 title: (option2) ? option2 : false
-
             };
         /*
          *  Alias of $.confirm to emulate native confirm()
@@ -39,8 +38,10 @@ var jconfirm, Jconfirm;
 
                 jcOption['$target'] = $this;
                 if ($this.attr('href') && !options['confirm'])
-                    jcOption['confirm'] = function () {
-                        location.href = $this.attr('href');
+                    jcOption['buttons'] = {
+                        'confirm': function () {
+                            location.href = $this.attr('href');
+                        }
                     };
                 $.confirm(jcOption);
             });
@@ -52,7 +53,11 @@ var jconfirm, Jconfirm;
         if (typeof options === 'string')
             options = {
                 content: options,
-                title: (option2) ? option2 : false
+                title: (option2) ? option2 : false,
+                buttons: {
+                    'Okay': function () {},
+                    'Cancel': function () {} // this doesn't make sense as both buttons won't do anything, but its a possibility.
+                }
             };
         /*
          *  Alias of jconfirm
@@ -64,12 +69,21 @@ var jconfirm, Jconfirm;
         if (typeof options === 'string')
             options = {
                 content: options,
-                title: (option2) ? option2 : false
+                title: (option2) ? option2 : false,
+                buttons: {
+                    'Okay': function () {}
+                }
             };
+
+        if (typeof options['buttons'] == 'undefined' || Object.keys(options['buttons']).length == 0) {
+            // alert should have at least one button.
+            options['buttons'] = {
+                'Okay': function () {}
+            }
+        }
         /*
          *  Alias of jconfirm
          */
-        options.cancelButton = false;
         return jconfirm(options);
     };
     $.dialog = function (options, option2) {
@@ -77,16 +91,23 @@ var jconfirm, Jconfirm;
         if (typeof options === 'string')
             options = {
                 content: options,
-                title: (option2) ? option2 : false
+                title: (option2) ? option2 : false,
+                closeIcon: function () {
+                    // Just close the modal
+                }
             };
+
+        if (typeof options['closeIcon'] == 'undefined') {
+            // Dialog must have a closeIcon.
+            options['closeIcon'] = function () {}
+        }
         /*
          *  Alias of jconfirm
          */
-        options.cancelButton = false;
-        options.confirmButton = false;
         options.confirmKeys = [13];
         return jconfirm(options);
-    };
+    }
+    ;
 
     jconfirm = function (options) {
         if (typeof options === 'undefined') options = {};
@@ -103,6 +124,7 @@ var jconfirm, Jconfirm;
          * merge options with plugin defaults.
          */
         var options = $.extend({}, jconfirm.pluginDefaults, options);
+
         return new Jconfirm(options);
     };
     Jconfirm = function (options) {
@@ -116,7 +138,7 @@ var jconfirm, Jconfirm;
     Jconfirm.prototype = {
         _init: function () {
             var that = this;
-            this._rand = Math.round(Math.random() * 99999);
+            this._id = Math.round(Math.random() * 99999);
             setTimeout(function () {
                 that.open();
             }, 0);
@@ -136,7 +158,8 @@ var jconfirm, Jconfirm;
             this.$jconfirmBg = this.$el.find('.jconfirm-bg')
                 .css(this._getCSS(this.animationSpeed, 1));
 
-            /*restructured code,
+            /*
+             restructured code,
              added more methods,
              multiple buttons,
              and more changes.
@@ -331,13 +354,13 @@ var jconfirm, Jconfirm;
             }
             if (this.keyboardEnabled) {
                 setTimeout(function () {
-                    $(window).on('keyup.' + this._rand, function (e) {
+                    $(window).on('keyup.' + this._id, function (e) {
                         that.reactOnKey(e);
                     });
                 }, 500);
             }
 
-            $(window).on('resize.' + this._rand, function () {
+            $(window).on('resize.' + this._id, function () {
                 that.setDialogCenter(true);
             });
         },
@@ -367,6 +390,9 @@ var jconfirm, Jconfirm;
                 }, 40);
             });
         },
+        /*
+         set buttons done.
+         */
         _setButtons: function () {
             var that = this;
             /*
@@ -390,36 +416,49 @@ var jconfirm, Jconfirm;
                 button.class = button.class || 'btn-default';
                 button.action = button.action || function () {};
 
-                var buttonEl = $('<button type="button" class="btn ' + button.class + '">' + button.text + '</button>').click(function (e) {
+                var button_element = $('<button type="button" class="btn ' + button.class + '">' + button.text + '</button>').click(function (e) {
                     e.preventDefault();
-                    var res = button.action();
+                    var res = button.action.apply(that);
+                    that.onAction(button.key);
                     if (typeof res === 'undefined' || res)
                         that.close();
                 });
-                that.buttons[key].el = buttonEl;
-                // buttons for quick access.
-                that['$_' + key] = buttonEl;
-                that.$btnc.append(buttonEl);
+                that.buttons[key].el = button_element;
+                /*
+                 Buttons are prefixed with $_ for quick access
+                 */
+                that['$_' + key] = button_element;
+                that.$btnc.append(button_element);
             });
 
-            if (total_buttons == 0) {
-                // if buttons are not specified, hide the container.
-                this.$btnc.hide();
+            if (total_buttons === 0) this.$btnc.hide();
+            if (this.closeIcon === null && total_buttons === 0) {
+                /*
+                 in case when no buttons are present & closeIcon is null, closeIcon is set to true,
+                 set closeIcon to true to explicitly tell to hide the close icon
+                 */
+                this.closeIcon = true;
             }
 
             if (this.closeIcon) {
-                if (typeof this.closeIcon == 'function')
-                    this.closeIcon = {
-                        'class': '',
-                        'action': this.closeIcon
-                    };
-
-                this.$closeIcon.html('<i class="' + this.closeIcon.class + '"></i>').click(function (e) {
+                if (this.closeIconClass) {
+                    // user requires a custom class.
+                    var closeHtml = '<i class="' + this.closeIconClass + '"></i>';
+                    this.$closeIcon.html(closeHtml);
+                }
+                this.$closeIcon.click(function (e) {
                     e.preventDefault();
-                    var res = that.closeIcon.action();
-                    if (typeof res === 'undefined' || res)
+
+                    if (typeof that.closeIcon == 'function') {
+                        var res = that.closeIcon();
+                        if (typeof res === 'undefined' || res)
+                            that.close();
+                    } else {
                         that.close();
+                    }
                 });
+            } else {
+                this.$closeIcon.hide();
             }
         },
         setTitle: function (string) {
@@ -427,12 +466,11 @@ var jconfirm, Jconfirm;
             this.$title.html(this.title || '');
         },
         setIcon: function (iconClass) {
-            this.title = (typeof string !== 'undefined') ? iconClass : this.title;
+            this.icon = (typeof string !== 'undefined') ? iconClass : this.icon;
             this.$icon.html(this.icon ? '<i class="' + this.icon + '"></i>' : '');
         },
         setContent: function (string) {
             // only set the content on the modal.
-            var that = this;
             this.content = (typeof string == 'undefined') ? this.content : string;
 
             if (this.content == '') {
@@ -444,6 +482,7 @@ var jconfirm, Jconfirm;
                 this.$contentPane.show();
             }
 
+            this.$body.find('input[autofocus]:visible:first').focus();
             this.hideLoading(true);
         },
         showLoading: function (disableButtons) {
@@ -603,13 +642,13 @@ var jconfirm, Jconfirm;
                 var style = {
                     'margin-top': minMargin / 2,
                     'margin-bottom': minMargin / 2
-                }
-                $('body').addClass('jconfirm-noscroll-' + this._rand);
+                };
+                $('body').addClass('jconfirm-noscroll-' + this._id);
             } else {
                 var style = {
                     'margin-top': topMargin
-                }
-                $('body').removeClass('jconfirm-noscroll-' + this._rand);
+                };
+                $('body').removeClass('jconfirm-noscroll-' + this._id);
             }
             this.$body.css(style);
         },
@@ -625,11 +664,11 @@ var jconfirm, Jconfirm;
             /*
              unbind the window resize & keyup event.
              */
-            $(window).unbind('resize.' + this._rand);
+            $(window).unbind('resize.' + this._id);
             if (this.keyboardEnabled)
-                $(window).unbind('keyup.' + this._rand);
+                $(window).unbind('keyup.' + this._id);
 
-            $('body').removeClass('jconfirm-noscroll-' + this._rand);
+            $('body').removeClass('jconfirm-noscroll-' + this._id);
             this.$jconfirmBg.css('opacity', '');
 
             this.$body.addClass(this.closeAnimation);
@@ -639,9 +678,6 @@ var jconfirm, Jconfirm;
                 that._lastFocused.focus();
             }, closeTimer * 0.40);
 
-            jconfirm.record.closed += 1;
-            jconfirm.record.currentlyOpen -= 1;
-
             return true;
         },
         open: function () {
@@ -649,13 +685,8 @@ var jconfirm, Jconfirm;
             this._buildHTML();
             this._bindEvents();
             this.$body.removeClass(this.animation);
-            this.$body.find('input[autofocus]:visible:first').focus();
-            jconfirm.record.opened += 1;
-            jconfirm.record.currentlyOpen += 1;
-            if (typeof this.onOpen === 'function')
-                this.onOpen();
 
-            var jcr = 'jconfirm-box' + this._rand;
+            var jcr = 'jconfirm-box' + this._id;
             this.$body.attr('aria-labelledby', jcr).attr('tabindex', -1).focus();
             if (this.$title)
                 this.$title.attr('id', jcr); else if (this.$content)
@@ -668,8 +699,10 @@ var jconfirm, Jconfirm;
                     'transition-property': that.$body.css('transition-property') + ', margin'
                 });
                 that._modalReady.resolve();
-            }, this.animationSpeed);
 
+                if (typeof that.onOpen === 'function')
+                    that.onOpen();
+            }, this.animationSpeed);
             return true;
         },
         isClosed: function () {
@@ -684,7 +717,7 @@ var jconfirm, Jconfirm;
         contentLoaded: function () {
         },
         icon: '',
-        opacity: 0.2,
+        opacity: 0.5,
         confirmButton: 'Okay',
         cancelButton: 'Close',
         confirmButtonClass: 'btn-default',
@@ -715,11 +748,5 @@ var jconfirm, Jconfirm;
         },
         onAction: function () {
         }
-    };
-
-    jconfirm.record = {
-        opened: 0,
-        closed: 0,
-        currentlyOpen: 0
     };
 })(jQuery);

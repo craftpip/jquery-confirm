@@ -301,7 +301,6 @@
                             </li>
                         </ul>
                     </div>
-
                 </div>
                 <div class="col-md-9 col-sm-12">
                     <!-- introduction -->
@@ -372,7 +371,141 @@
                                 <p class="text-success">Clean animations</p>
                             </div>
                         </div>
-                        <script type="text/javascript">                           
+                        <script type="text/javascript">
+                            // alert
+                            $('.example-p-1').on('click', function () {
+                                $.alert({
+                                    title: 'Hey!',
+                                    content: 'This is a simple alert to the user. <br> with some <strong>HTML</strong> <em>contents</em>',
+                                    confirmButton: 'Okay',
+                                    confirmButtonClass: 'btn-primary',
+                                    icon: 'fa fa-info',
+                                    animation: 'zoom',
+                                    buttons: {
+                                        confirm: function(){
+                                            $.alert('Okay action clicked.');
+                                        }
+                                    }
+                                });
+                            });
+
+                            // confirmation
+                            $('.example-p-2').on('click', function () {
+                                $.confirm({
+                                    title: 'A secure action',
+                                    content: 'Its smooth to do multiple confirms at a time. <br> Click proceed for another modal',
+                                    confirmButton: 'Proceed',
+                                    confirmButtonClass: 'btn-info',
+                                    icon: 'fa fa-question-circle',
+                                    animation: 'scale',
+                                    animationClose: 'top',
+                                    opacity: 0.5,
+                                    buttons: {
+                                        'confirm': function () {
+                                            $.confirm({
+                                                title: 'This maybe critical',
+                                                content: 'Critical actions can have multiple confirmations like this one.',
+                                                confirmButton: 'Yes, sure!',
+                                                icon: 'fa fa-warning',
+                                                confirmButtonClass: 'btn-warning',
+                                                animation: 'zoom',
+                                                buttons: {
+                                                    'Confirm me' :function () {
+                                                        $.alert('A very critical action triggered!');
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    }
+                                });
+                            });
+
+                            // act like prompt
+                            $('.example-p-7-1').on('click', function () {
+                                $.confirm({
+                                    title: 'A simple form',
+                                    content: 'url:form.txt',
+                                    buttons: {
+                                        confirm: function () {
+                                            var input = this.$content.find('input#input-name');
+                                            var errorText = this.$content.find('.text-danger');
+                                            if (input.val() == '') {
+                                                errorText.show();
+                                                return false;
+                                            } else {
+                                                $.alert('Hello ' + input.val());
+                                            }
+                                        }
+                                    }
+                                });
+                            });
+
+                            // background dismiss
+                            $('.example-p-3').on('click', function () {
+                                $.alert({
+                                    title: 'Background dismiss',
+                                    content: 'By default the user is not allowed to click outside the modal. Click outside the modal to close.',
+                                    confirmButton: 'okay',
+                                    confirmButtonClass: 'btn-info',
+                                    animation: 'bottom',
+                                    icon: 'fa fa-check',
+                                    backgroundDismiss: true,
+                                });
+                            });
+
+                            // using as dialogs
+                            $('.example-p-4').on('click', function () {
+                                $.dialog({
+                                    title: 'Title here',
+                                    content: 'Need a popup modal?, no problem!<br>' +
+                                    'disable the buttons, and get a full functional modal. <br>' +
+                                    '<h3>HTML inside modals</h3>' +
+                                    '<h4><strong>centered on the screen</strong></h4>' +
+                                    '<h5><em>Like a boss</em></h5>' +
+                                    '<button type="button">Interactive too</button>',
+                                    animation: 'scale',
+                                    onOpen: function(){
+                                        var that = this;
+                                        this.$content.find('button').click(function(){
+                                            that.setContent('As simple as that !');
+                                        })
+                                    }
+                                });
+                            });
+
+                            // asynchronous content
+                            $('.example-p-5').on('click', function () {
+                                $.dialog({
+                                    title: 'Asynchronous content',
+                                    content: 'url:table.html',
+                                    animation: 'top',
+                                    columnClass: 'col-md-6 col-md-offset-3',
+                                    closeAnimation: 'bottom',
+                                    backgroundDismiss: true,
+                                });
+                            });
+
+                            // auto close
+                            $('.example-p-6').on('click', function () {
+                                $.confirm({
+                                    title: 'Auto close',
+                                    content: 'Some actions maybe critical, prevent it with the Auto close feature. This dialog will automatically trigger cancel after the timer runs out.',
+                                    autoClose: 'cancel|10000',
+                                    buttons: {
+                                        confirm: {
+                                            class: 'btn-danger',
+                                            text: 'Delete ben\'s account',
+                                            action: function () {
+                                                $.alert('You deleted Ben\'s account!');
+                                            }
+                                        },
+                                        close: function () {
+                                            $.alert('Ben just got saved!');
+                                        }
+                                    }
+                                });
+                            });
+
                             $(' .example-pc-3').on('click', function () {
                                 $.alert({
                                     title: 'Animations',
@@ -384,7 +517,7 @@
                                     closeIcon: {
                                         class: '',
                                         action: function(){
-
+                                            alert('hey');
                                         }
                                     },
                                     buttons: {
@@ -400,7 +533,8 @@
                                         }
                                     },
                                     backgroundDismiss: function(){
-
+                                        this.$_confirm.click();
+                                        return false;
                                     }
                                 });
                             });
@@ -438,99 +572,6 @@
                                     }
                                 });
                             });
-                            $('.example-p-1').on('click', function () {
-                                $.alert({
-                                    title: 'Hey!',
-                                    content: 'This is a simple alert to the user. <br> with some <strong>HTML</strong> <em>contents</em>',
-                                    confirmButton: 'Okay',
-                                    confirmButtonClass: 'btn-primary',
-                                    icon: 'fa fa-info',
-                                    animation: 'zoom',
-                                    buttons: {
-                                        confirm: function(){
-                                            $.alert('Okay action clicked.');
-                                        }
-                                    }
-                                });
-                            });
-                            $('.example-p-2').on('click', function () {
-                                $.confirm({
-                                    title: 'A secure action',
-                                    content: 'Its smooth to do multiple confirms at a time. <br> Click proceed for another modal',
-                                    confirmButton: 'Proceed',
-                                    confirmButtonClass: 'btn-info',
-                                    icon: 'fa fa-question-circle',
-                                    animation: 'scale',
-                                    animationClose: 'top',
-                                    opacity: 0.5,
-                                    confirm: function () {
-                                        $.confirm({
-                                            title: 'This maybe critical',
-                                            content: 'Critical actions can have multiple confirmations like this one.',
-                                            confirmButton: 'Yes, sure!',
-                                            icon: 'fa fa-warning',
-                                            confirmButtonClass: 'btn-warning',
-                                            animation: 'zoom',
-                                            confirm: function () {
-                                                $.alert('A very critical action triggered!');
-                                            }
-                                        });
-                                    }
-                                });
-                            });
-                            $('.example-p-3').on('click', function () {
-                                $.alert({
-                                    title: 'Background dismiss',
-                                    content: 'By default the user is not allowed to click outside the modal. Click outside the modal to close.',
-                                    confirmButton: 'okay',
-                                    confirmButtonClass: 'btn-info',
-                                    animation: 'bottom',
-                                    icon: 'fa fa-check',
-                                    backgroundDismiss: true
-                                });
-                            });
-                            $('.example-p-4').on('click', function () {
-                                $.confirm({
-                                    title: 'Title here',
-                                    content: 'Need a popup modal?, no problem!<br>disable the buttons, and get a full functional modal. <br><h3>HTML inside modals</h3><h4><strong>centered on the screen</strong></h4><h5><em>Like a boss</em></h5>' +
-                                    '<button type="button">Interactive too</button>',
-                                    confirmButton: false,
-                                    cancelButton: false,
-                                    animation: 'scale',
-                                    onOpen: function(){
-                                        var that = this;
-                                        this.$content.find('button').click(function(){
-                                            that.$content.html('As simple as that !');
-                                        })
-                                    }
-                                });
-                            });
-                            $('.example-p-5').on('click', function () {
-                                $.confirm({
-                                    title: 'Asynchronous content',
-                                    content: 'url:table.html',
-                                    animation: 'top',
-                                    columnClass: 'col-md-6 col-md-offset-3',
-                                    closeAnimation: 'bottom',
-                                    backgroundDismiss: true,
-                                });
-                            });
-                            $('.example-p-6').on('click', function () {
-                                $.confirm({
-                                    title: 'Auto close',
-                                    content: 'Some actions maybe critical, prevent it with the Auto close feature. This dialog will automatically trigger cancel after the timer runs out.',
-                                    autoClose: 'cancel|10000',
-                                    confirmButtonClass: 'btn-danger',
-                                    confirmButton: 'Delete Ben\'s account',
-                                    cancelButton: 'Close',
-                                    confirm: function () {
-                                        $.alert('You deleted Ben\'s account!');
-                                    },
-                                    cancel: function () {
-                                        $.alert('Ben just got saved!');
-                                    }
-                                });
-                            });
                             $('.example-p-7').on('click', function () {
                                 $.confirm({
                                     title: 'Keystrokes Enabled!',
@@ -542,22 +583,6 @@
                                     },
                                     cancel: function () {
                                         $.alert('cancel triggered!');
-                                    }
-                                });
-                            });
-                            $('.example-p-7-1').on('click', function () {
-                                $.confirm({
-                                    title: 'A simple form',
-                                    content: 'url:form.txt',
-                                    confirm: function () {
-                                        var input = this.$b.find('input#input-name');
-                                        var errorText = this.$b.find('.text-danger');
-                                        if (input.val() == '') {
-                                            errorText.show();
-                                            return false;
-                                        } else {
-                                            $.alert('Hello ' + input.val());
-                                        }
                                     }
                                 });
                             });

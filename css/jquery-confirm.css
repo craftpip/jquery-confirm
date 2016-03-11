@@ -69,6 +69,9 @@ body[class~="jconfirm-noscroll-"] {
   outline: none;
   padding: 15px 15px 0;
 }
+.jconfirm .jconfirm-box.loading {
+  min-height: 120px;
+}
 .jconfirm .jconfirm-box.loading:before {
   content: '';
   position: absolute;
@@ -85,14 +88,14 @@ body[class~="jconfirm-noscroll-"] {
   content: '';
   height: 30px;
   width: 30px;
-  border: solid 2px transparent;
+  border: solid 3px transparent;
   position: absolute;
   left: 50%;
   margin-left: -15px;
   border-radius: 50%;
   -webkit-animation: jconfirm-rotate 1s infinite linear;
           animation: jconfirm-rotate 1s infinite linear;
-  border-bottom-color: #aaa;
+  border-bottom-color: dodgerblue;
   top: 50%;
   margin-top: -15px;
   z-index: 2;
@@ -106,11 +109,13 @@ body[class~="jconfirm-noscroll-"] {
   cursor: pointer;
   opacity: .6;
   text-align: center;
-  -webkit-transition: opacity 0.1s ease-in;
-          transition: opacity 0.1s ease-in;
+  -webkit-transition: opacity 0.3s ease-in;
+          transition: opacity 0.3s ease-in;
+  font-size: 27px !important;
+  line-height: 14px !important;
+}
+.jconfirm .jconfirm-box div.closeIcon:empty {
   display: none;
-  font-size: 27px;
-  line-height: 14px;
 }
 .jconfirm .jconfirm-box div.closeIcon .fa {
   font-size: 16px;
@@ -193,7 +198,7 @@ body[class~="jconfirm-noscroll-"] {
   right: auto;
 }
 .jconfirm.jconfirm-white .jconfirm-bg {
-  background-color: grey;
+  background-color: #444;
 }
 .jconfirm.jconfirm-white .jconfirm-box {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
