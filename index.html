@@ -464,20 +464,30 @@
                             animationClose: 'top',
                             opacity: 0.5,
                             buttons: {
+                                hey: {
+                                    keys: ['shift', 'enter'],
+                                },
                                 'confirm': function () {
-                                    $.confirm({
-                                        title: 'This maybe critical',
-                                        content: 'Critical actions can have multiple confirmations like this one.',
-                                        confirmButton: 'Yes, sure!',
-                                        icon: 'fa fa-warning',
-                                        confirmButtonClass: 'btn-warning',
-                                        animation: 'zoom',
-                                        buttons: {
-                                            'Confirm me': function () {
-                                                $.alert('A very critical action triggered!');
-                                            }
-                                        }
-                                    });
+                                    $.alert('hey');
+//                                    $.confirm({
+//                                        title: 'This maybe critical',
+//                                        content: 'Critical actions can have multiple confirmations like this one.',
+//                                        confirmButton: 'Yes, sure!',
+//                                        icon: 'fa fa-warning',
+//                                        confirmButtonClass: 'btn-warning',
+//                                        animation: 'zoom',
+//                                        buttons: {
+//                                            'Confirm': function () {
+//                                                $.alert('A very critical action triggered!');
+//                                            },
+//                                            hey: {
+//                                                text: 'wow',
+//                                                action: function () {
+//                                                    $.alert('yp');
+//                                                }
+//                                            }
+//                                        }
+//                                    });
                                 }
                             }
                         });
@@ -570,6 +580,23 @@
                         });
                     });
 
+                    // key strokes
+                    $('.example-p-7').on('click', function () {
+                        $.confirm({
+                            title: 'Escape key enabled',
+                            escapeKey: true,
+                            content: 'Press the escape key to close the modal. That works.',
+                            backgroundDismiss: true, // for escapeKey to work, backgroundDismiss should be enabled.
+                            confirm: function () {
+                                $.alert('confirm triggered!');
+                            },
+                            cancel: function () {
+                                $.alert('cancel triggered!');
+                            }
+                        });
+                    });
+                    // todo: from v3, keyboardEnabled is removed, escapeKey is introduced.
+
                     $(' .example-pc-3').on('click', function () {
                         $.alert({
                             title: 'Animations',
@@ -633,20 +660,6 @@
                             confirm: function () {
                                 this.$content.append('<img src="https://c2.staticflickr.com/6/5248/5240523362_8d6d315391_b.jpg">');
                                 return false; // prevent dialog from closing.
-                            }
-                        });
-                    });
-                    $('.example-p-7').on('click', function () {
-                        $.confirm({
-                            title: 'Keystrokes Enabled!',
-                            keyboardEnabled: true,
-                            content: 'Press ENTER to confirm, ESC to cancel.<br> Use <code>keyboardEnabled:true</code> to turn it on.',
-                            backgroundDismiss: true,
-                            confirm: function () {
-                                $.alert('confirm triggered!');
-                            },
-                            cancel: function () {
-                                $.alert('cancel triggered!');
                             }
                         });
                     });

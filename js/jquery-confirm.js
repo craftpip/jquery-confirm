@@ -173,6 +173,7 @@ var jconfirm, Jconfirm;
             this.$contentPane.css(this._getCSS(this.animationSpeed, this.animationBounce));
             this.$content.css(this._getCSS(this.animationSpeed, this.animationBounce));
             this.$btnc = this.$el.find('.buttons');
+            this.$scrollPane = this.$el.find('.jconfirm-scrollpane');
 
             this.setColumnClass();
             this.setTheme();
@@ -295,14 +296,12 @@ var jconfirm, Jconfirm;
             var that = this;
             this.boxClicked = false;
 
-            this.$el.find('.jconfirm-scrollpane').click(function (e) { // Ignore propagated clicks
+            this.$scrollPane.click(function (e) { // Ignore propagated clicks
                 if (!that.boxClicked) { // Background clicked
-
                     /*
-                     * If backgroundDismiss is a function and its return value is truthy
-                     * proceed to close the modal.
+                     If backgroundDismiss is a function and its return value is truthy
+                     proceed to close the modal.
                      */
-                    console.log(typeof that.backgroundDismiss, that.backgroundDismiss);
                     if (typeof that.backgroundDismiss == 'function') {
                         var res = that.backgroundDismiss();
 
@@ -318,47 +317,15 @@ var jconfirm, Jconfirm;
                 that.boxClicked = false;
             });
 
-            this.$el.find('.jconfirm-box').click(function (e) {
+            this.$jconfirmBox.click(function (e) {
                 that.boxClicked = true;
             });
 
-            if (this.$confirmButton) {
-                this.$confirmButton.click(function (e) {
-                    e.preventDefault();
-                    var r = that.confirm(that.$b);
-                    that._stopCountDown();
-                    that.onAction('confirm');
-                    if (typeof r === 'undefined' || r)
-                        that.close();
+            setTimeout(function () {
+                $(window).on('keyup.' + this._id, function (e) {
+                    that.reactOnKey(e);
                 });
-            }
-            if (this.$cancelButton) {
-                this.$cancelButton.click(function (e) {
-                    e.preventDefault();
-                    var r = that.cancel(that.$b);
-                    that._stopCountDown();
-                    that.onAction('cancel');
-
-                    if (typeof r === 'undefined' || r)
-                        that.close();
-                });
-            }
-            if (this.$closeButton) {
-                this.$closeButton.click(function (e) {
-                    e.preventDefault();
-                    that._stopCountDown();
-                    that.cancel();
-                    that.onAction('close');
-                    that.close();
-                });
-            }
-            if (this.keyboardEnabled) {
-                setTimeout(function () {
-                    $(window).on('keyup.' + this._id, function (e) {
-                        that.reactOnKey(e);
-                    });
-                }, 500);
-            }
+            }, 10);
 
             $(window).on('resize.' + this._id, function () {
                 that.setDialogCenter(true);
@@ -381,7 +348,6 @@ var jconfirm, Jconfirm;
             $.each(this.$content.find('img:not(.loaded)'), function (i, a) {
                 that.imageLoadInterval = setInterval(function () {
                     var h = $(a).css('height');
-                    console.log(h);
                     if (h !== '0px') {
                         $(a).addClass('loaded');
                         clearInterval(that.imageLoadInterval);
@@ -405,21 +371,22 @@ var jconfirm, Jconfirm;
 
             $.each(this.buttons, function (key, button) {
                 total_buttons += 1;
-                console.log(button, key);
-
-                if (typeof button == 'function')
-                    button = {
-                        action: button,
+                if (typeof button === 'function') {
+                    that.buttons[key] = button = {
+                        action: button
                     };
+                }
 
-                button.text = button.text || key;
-                button.class = button.class || 'btn-default';
-                button.action = button.action || function () {};
+                that.buttons[key].text = button.text || key;
+                that.buttons[key].class = button.class || 'btn-default';
+                that.buttons[key].action = button.action || function () {};
+                that.buttons[key].keys = button.keys || [];
 
-                var button_element = $('<button type="button" class="btn ' + button.class + '">' + button.text + '</button>').click(function (e) {
+                var button_element = $('<button type="button" class="btn ' + that.buttons[key].class + '">' + that.buttons[key].text + '</button>').click(function (e) {
                     e.preventDefault();
-                    var res = button.action.apply(that);
-                    that.onAction(button.key);
+                    var res = that.buttons[key].action.apply(that);
+                    that.onAction(key);
+                    that._stopCountDown();
                     if (typeof res === 'undefined' || res)
                         that.close();
                 });
@@ -579,41 +546,69 @@ var jconfirm, Jconfirm;
                 }
             }, 1000);
         },
-        reactOnKey: function key(e) {
+        _getKey: function (key) {
+            // very necessary keys.
+            switch (key) {
+                case 192:
+                    return 'tilde';
+                case 13:
+                    return 'enter';
+                case 16:
+                    return 'shift';
+                case 9:
+                    return 'tab';
+                case 20:
+                    return 'capslock';
+                case 17:
+                    return 'ctrl';
+                case 91:
+                    return 'win';
+                case 18:
+                    return 'alt';
+                case 27:
+                    return 'esc';
+            }
 
+            // only trust alphabets with this.
+            var initial = String.fromCharCode(key);
+            if (/^[A-z0-9]+$/.test(initial))
+                return initial.toLowerCase();
+            else
+                return false;
+        },
+        reactOnKey: function (e) {
+            var that = this;
+
+            console.log('reacted to key');
             /*
-             * prevent keyup event if the dialog is not last!
+             Prevent keyup event if the dialog is not last!
              */
             var a = $('.jconfirm');
             if (a.eq(a.length - 1)[0] !== this.$el[0])
                 return false;
 
             var key = e.which;
-            // Do not react if Enter/Space is pressed on input elements
-            if (this.contentDiv.find(':input').is(':focus') && /13|32/.test(key))
+            /*
+             Do not react if Enter or Space is pressed on input elements
+             */
+            if (this.$content.find(':input').is(':focus') && /13|32/.test(key))
                 return false;
 
-            if ($.inArray(key, this.cancelKeys) !== -1) {
-                /*
-                 * Cancel key pressed.
-                 */
-                if (this.$cancelButton) {
-                    this.$cancelButton.click();
-                } else {
-                    this.close();
-                }
+            var keyChar = this._getKey(key);
+            // If esc is pressed
+            if (keyChar === 'esc' && this.escapeKey) {
+                this.$scrollPane.trigger('click');
+                // if backgroundDismiss is true, the modal shall close, else it will give a feedback.
             }
-            if ($.inArray(key, this.confirmKeys) !== -1) {
-                /*
-                 * Confirm key pressed.
-                 */
-                if (this.$confirmButton) {
-                    this.$confirmButton.click();
+
+            // check if any button has requested to listen to this key.
+            $.each(this.buttons, function (key, button) {
+                if (button.keys.indexOf(keyChar) != -1) {
+                    that['$_' + key].trigger('click');
                 }
-            }
+            });
         },
         setDialogCenter: function () {
-            console.log('setting dialog to center');
             if (this.$contentPane.css('display') == 'none') {
                 var contentHeight = 0;
                 var paneHeight = 0;
@@ -642,8 +637,6 @@ var jconfirm, Jconfirm;
             var topMargin = (windowHeight - boxHeight) / 2;
             var minMargin = 100;
 
-            console.log(windowHeight, boxHeight, topMargin);
-
             if (boxHeight > (windowHeight - minMargin)) {
                 var style = {
                     'margin-top': minMargin / 2,
@@ -671,8 +664,7 @@ var jconfirm, Jconfirm;
              unbind the window resize & keyup event.
              */
             $(window).unbind('resize.' + this._id);
-            if (this.keyboardEnabled)
-                $(window).unbind('keyup.' + this._id);
+            $(window).unbind('keyup.' + this._id);
 
             $('body').removeClass('jconfirm-noscroll-' + this._id);
             this.$jconfirmBg.css('opacity', '');
@@ -733,10 +725,10 @@ var jconfirm, Jconfirm;
         closeAnimation: 'scale',
         animationSpeed: 500,
         animationBounce: 1.2,
-        keyboardEnabled: false,
+        escapeKey: false, // Key 27 todo: must be true by default.
         rtl: false,
-        confirmKeys: [13], // ENTER key
-        cancelKeys: [27], // ESC key
+        // confirmKeys: [13], // ENTER key todo: this will be moved to buttons.
+        // cancelKeys: [27], // ESC key
         container: 'body',
         confirm: function () {
         },
