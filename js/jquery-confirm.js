@@ -555,13 +555,16 @@ var jconfirm, Jconfirm;
         _startCountDown: function () {
             var that = this;
             var opt = this.autoClose.split('|');
-            if (opt.length !== 2)
-                console.error('Invalid option in autoClose. example \'close|10000\'');
+            if (opt.length !== 2) {
+                console.error('Invalid option for autoClose. example \'close|10000\'');
+                return false;
+            }
 
             var button_key = opt[0];
             var time = parseInt(opt[1]);
             if (typeof this.buttons[button_key] === 'undefined') {
-                console.error('Invalid button key ' + button_key + ' for autoClose');
+                console.error('Invalid button key \'' + button_key + '\' for autoClose');
+                return false;
             }
 
             this.$cd = $('<span class="countdown"></span>')
