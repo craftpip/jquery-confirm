@@ -548,30 +548,33 @@ var jconfirm, Jconfirm;
             this.setDialogCenter();
         },
         _stopCountDown: function () {
-            clearInterval(this.timerInterval);
+            clearInterval(this.autoCloseInterval);
             if (this.$cd)
                 this.$cd.remove();
         },
         _startCountDown: function () {
+            var that = this;
             var opt = this.autoClose.split('|');
-            if (/cancel/.test(opt[0]) && this.type === 'alert') {
-                return false;
-            } else if (/confirm|cancel/.test(opt[0])) {
-                this.$cd = $('<span class="countdown">').appendTo(this['$' + opt[0] + 'Button']);
-                var that = this;
-                that.$cd.parent().click();
-                var time = opt[1] / 1000;
-                this.timerInterval = setInterval(function () {
-                    that.$cd.html(' (' + (time -= 1) + ')');
-                    if (time === 0) {
-                        that.$cd.html('');
-                        that.$cd.parent().trigger('click');
-                        clearInterval(that.timerInterval);
-                    }
-                }, 1000);
-            } else {
-                console.error('Invalid option ' + opt[0] + ', must be confirm/cancel');
+            if (opt.length !== 2)
+                console.error('Invalid option in autoClose. example \'close|10000\'');
+
+            var button_key = opt[0];
+            var time = parseInt(opt[1]);
+            if (typeof this.buttons[button_key] === 'undefined') {
+                console.error('Invalid button key ' + button_key + ' for autoClose');
             }
+
+            this.$cd = $('<span class="countdown"></span>')
+                .appendTo(this['$_' + button_key]);
+
+            var seconds = time / 1000;
+            this.autoCloseInterval = setInterval(function () {
+                that.$cd.html(' (' + (seconds -= 1) + ') ');
+                if (seconds === 0) {
+                    that['$_' + button_key].trigger('click');
+                    that._stopCountDown();
+                }
+            }, 1000);
         },
         reactOnKey: function key(e) {
 
