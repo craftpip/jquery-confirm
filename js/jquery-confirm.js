@@ -322,7 +322,7 @@ var jconfirm, Jconfirm;
             });
 
             setTimeout(function () {
-                $(window).on('keyup.' + this._id, function (e) {
+                $(window).on('keyup.' + that._id, function (e) {
                     that.reactOnKey(e);
                 });
             }, 10);
@@ -607,6 +607,7 @@ var jconfirm, Jconfirm;
                     that['$_' + key].trigger('click');
                 }
             });
+            // todo: i was here, done with button keys.
         },
         setDialogCenter: function () {
             if (this.$contentPane.css('display') == 'none') {
