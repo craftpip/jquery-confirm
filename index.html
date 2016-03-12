@@ -464,12 +464,6 @@
                             animationClose: 'top',
                             opacity: 0.5,
                             buttons: {
-                                hey: {
-                                    keys: [
-                                        'shift',
-                                        'enter'
-                                    ],
-                                },
                                 'confirm': function () {
                                     $.confirm({
                                         title: 'This maybe critical',
@@ -482,18 +476,21 @@
                                             'Confirm': function () {
                                                 $.alert('A very critical action triggered!');
                                             },
-                                            hey: {
-                                                text: 'wow',
-                                                action: function () {
-                                                    $.alert('yp');
-                                                }
+                                            cancel: function(){
+                                                $.alert('cancel clicked');
                                             }
                                         }
                                     });
                                 },
-                                'yetAnother' : {
-                                    text: 'Buttons'
-                                }
+                                cancel: function(){
+                                    $.alert('cancel clicked');
+                                },
+                                moreButtons : {
+                                    text: 'something else',
+                                    action: function(){
+                                        $.alert('something else clicked');
+                                    }
+                                },
                             }
                         });
                     });
@@ -618,7 +615,7 @@
                     // alignment
                     $('.example-pc-1').on('click', function () {
                         $.confirm({
-                            title: 'This is smoooth',
+                            title: 'This is smooth',
                             content: '<p>You can add content and not worry about the alignment. The goal is to make a Interactive dialog!.</p>' +
                             '<button type="button">Click me to add content</button> <span> <br></span> ',
                             confirmButtonClass: 'btn-primary',
@@ -672,7 +669,7 @@
                     $(' .example-pc-3').on('click', function () {
                         $.alert({
                             title: 'Animations',
-                            content: 'jquery-confirm provides 12 animations to choose from.',
+                            content: 'jquery-confirm provides 12 open &amp; close animations to choose from.',
                             animation: 'rotate',
                             closeAnimation: 'right',
                             theme: 'white, black',
@@ -724,7 +721,7 @@
 
                 <p><strong>Dependencies:</strong></p>
                 <ul>
-                    <li>Bootstrap by Twitter >= v2</li>
+                    <li>Bootstrap by Twitter >= v3</li>
                     <li>jQuery library > v1.8</li>
                 </ul>
                 <div class="row">
@@ -732,7 +729,7 @@
                         <h4 id="alert">Alert</h4>
 
                         <p>
-                            <i class="fa fa-info-circle"></i> <code>$.alert()</code> Has only confirm button.
+                            <i class="fa fa-info-circle"></i> <code>$.alert()</code> adds a button if no buttons are specified, this lets the user to close the modal.
                         </p>
                         <button class="example1 btn btn-primary">example alert</button>
                         <script type="text/javascript">
@@ -740,21 +737,14 @@
                                 $.alert({
                                     title: 'Alert!',
                                     content: 'Simple alert!',
-                                    confirm: function () {
-                                        $.alert('Confirmed!');
-                                    }
                                 });
                             });
                         </script>
                         <div class="space10"></div>
                                 <pre class="prettyprint linenums"><code class="js">$.alert({
-                                    title: 'Alert!',
-                                    content: 'Simple alert!',
-                                    confirm: function(){
-                                    $.alert('Confirmed!'); // shorthand.
-                                    }
-                                    });
-                                </code></pre>
+    title: 'Alert!',
+    content: 'Simple alert!',
+});</code></pre>
                     </div>
                     <div class="col-md-12">
                         <h4 id="confirm">
@@ -762,7 +752,7 @@
                         </h4>
 
                         <p>
-                            <i class="fa fa-info-circle"></i> <code>$.confirm()</code> Has both confirm &amp; cancel buttons.
+                            <i class="fa fa-info-circle"></i> <code>$.confirm()</code> takes options as is, no buttons will be shown if none is specified.
                         </p>
                     </div>
                     <div class="col-md-6">
@@ -772,26 +762,36 @@
                                 $.confirm({
                                     title: 'Confirm!',
                                     content: 'Simple confirm!',
-                                    confirm: function () {
-                                        $.alert('Confirmed!');
-                                    },
-                                    cancel: function () {
-                                        $.alert('Canceled!');
+                                    buttons: {
+                                        confirm: function () {
+                                            $.alert('Confirmed!');
+                                        },
+                                        cancel: function () {
+                                            $.alert('Canceled!');
+                                        },
+                                        somethingElse: function(){
+                                            $.alert('Something else?');
+                                        }
                                     }
                                 });
                             });
                         </script>
                         <div class="space10"></div>
                                 <pre class="prettyprint linenums"><code class="js">$.confirm({
-                                    title: 'Confirm!',
-                                    content: 'Simple confirm!',
-                                    confirm: function(){
-                                    $.alert('Confirmed!');
-                                    },
-                                    cancel: function(){
-                                    $.alert('Canceled!')
-                                    }
-                                    });
+    title: 'Confirm!',
+    content: 'Simple confirm!',
+    buttons: {
+        confirm: function () {
+            $.alert('Confirmed!');
+        },
+        cancel: function () {
+            $.alert('Canceled!');
+        },
+        somethingElse: function(){
+            $.alert('Something else?');
+        }
+    }
+});
                                 </code></pre>
                     </div>
                     <div class="col-md-6">
@@ -806,12 +806,10 @@
                             });
                         </script>
                         <span>HTML</span>
-                                <pre class="prettyprint linenums"><code class="html">&lt;a class="twitter" data-title="Goto twitter?" href="http://twitter.com/craftpip"&gt;Goto twitter&lt;/a&gt;
-                                </code></pre>
+                                <pre class="prettyprint linenums"><code class="html">&lt;a class="twitter" data-title="Goto twitter?" href="http://twitter.com/craftpip"&gt;Goto twitter&lt;/a&gt;</code></pre>
                         <span>Javascript</span>
-                                <pre class="prettyprint linenums"><code class="js">$('a.twitter').confirm(options);
-                                </code></pre>
-                        <p>The alias $.confirm was made to emulate the native confirm(). <br/>
+                                <pre class="prettyprint linenums"><code class="js">$('a.twitter').confirm(options);</code></pre>
+                        <p>The alias $.fn.confirm was made to emulate the native confirm(). <br/>
                             <i class="fa fa-info"></i> By default on "confirm" the window will be redirected to the href provided, but if the `options` has the confirm callback, it will be called instead. Use <a href="#api-target">this.$target</a> to get the clicked element.</p>
                     </div>
                     <div class="col-md-12">
@@ -820,23 +818,27 @@
                         </h4>
 
                         <p>
-                            <i class="fa fa-info-circle"></i> <code>$.dialog()</code> Hides both confirm &amp; cancel buttons. (Shows close [x] button)
+                            <i class="fa fa-info-circle"></i> <code>$.dialog()</code> removes buttons and explicitly shows the closeIcon (&times;)
                         </p>
                         <button class="example2-1 btn btn-primary">example dialog</button>
                         <script type="text/javascript">
                             $('.example2-1').on('click', function () {
                                 $.dialog({
                                     title: 'Text content!',
-                                    content: 'Simple modal!'
+                                    content: 'Simple modal!',
+                                    buttons: {
+                                        aRandomButton: function(){
+                                            // this will be removed.
+                                        }
+                                    }
                                 });
                             });
                         </script>
                         <div class="space10"></div>
                                 <pre class="prettyprint linenums"><code class="js">$.dialog({
-                                    title: 'Text content!',
-                                    content: 'Simple modal!',
-                                    });
-                                </code></pre>
+    title: 'Text content!',
+    content: 'Simple modal!',
+});</code></pre>
                     </div>
                     <div class="col-md-12">
                         <h4 id="shorthand">Shorthand usage</h4>
@@ -845,10 +847,9 @@
                             The shorthand thingy takes in two string arguments, first one is the content of the dialog and second the title of the dialog.
                             The second argument is optional.
                         </p>
-                                <pre class="prettyprint linenums"><code class="js">$.alert('Content here', 'Title here');
-                                    $.confirm('A message', 'Title is optional');
-                                    $.dialog('Just to let you know');
-                                </code></pre>
+                                <pre class="prettyprint linenums"><code class="js">$.alert('Content here', 'Title here'); <a href="#" class="example-sh-1">click me</a>
+$.confirm('A message', 'Title is optional'); <a href="#" class="example-sh-2">click me</a>
+$.dialog('Just to let you know'); <a href="#" class="example-sh-3">click me</a></code></pre>
                     </div>
 
                 </div>

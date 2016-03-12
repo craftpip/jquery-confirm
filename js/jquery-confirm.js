@@ -97,6 +97,8 @@ var jconfirm, Jconfirm;
                 }
             };
 
+        options['buttons'] = {}; // purge buttons
+
         if (typeof options['closeIcon'] == 'undefined') {
             // Dialog must have a closeIcon.
             options['closeIcon'] = function () {}
@@ -356,9 +358,6 @@ var jconfirm, Jconfirm;
                 }, 40);
             });
         },
-        /*
-         set buttons done.
-         */
         _setButtons: function () {
             var that = this;
             /*
