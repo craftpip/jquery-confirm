@@ -417,7 +417,7 @@
                     </div>
                     <div class="col-md-3">
                         <button class="btn btn-primary btn-block example-p-7">Keystrokes</button>
-                        <p class="text-success">Keyboard actions?</p>
+                        <p class="text-success">Responds to keystrokes</p>
                     </div>
                 </div>
                 <div class="row">
@@ -465,29 +465,34 @@
                             opacity: 0.5,
                             buttons: {
                                 hey: {
-                                    keys: ['shift', 'enter'],
+                                    keys: [
+                                        'shift',
+                                        'enter'
+                                    ],
                                 },
                                 'confirm': function () {
-                                    $.alert('hey');
-//                                    $.confirm({
-//                                        title: 'This maybe critical',
-//                                        content: 'Critical actions can have multiple confirmations like this one.',
-//                                        confirmButton: 'Yes, sure!',
-//                                        icon: 'fa fa-warning',
-//                                        confirmButtonClass: 'btn-warning',
-//                                        animation: 'zoom',
-//                                        buttons: {
-//                                            'Confirm': function () {
-//                                                $.alert('A very critical action triggered!');
-//                                            },
-//                                            hey: {
-//                                                text: 'wow',
-//                                                action: function () {
-//                                                    $.alert('yp');
-//                                                }
-//                                            }
-//                                        }
-//                                    });
+                                    $.confirm({
+                                        title: 'This maybe critical',
+                                        content: 'Critical actions can have multiple confirmations like this one.',
+                                        confirmButton: 'Yes, sure!',
+                                        icon: 'fa fa-warning',
+                                        confirmButtonClass: 'btn-warning',
+                                        animation: 'zoom',
+                                        buttons: {
+                                            'Confirm': function () {
+                                                $.alert('A very critical action triggered!');
+                                            },
+                                            hey: {
+                                                text: 'wow',
+                                                action: function () {
+                                                    $.alert('yp');
+                                                }
+                                            }
+                                        }
+                                    });
+                                },
+                                'yetAnother' : {
+                                    text: 'Buttons'
                                 }
                             }
                         });
@@ -583,20 +588,87 @@
                     // key strokes
                     $('.example-p-7').on('click', function () {
                         $.confirm({
-                            title: 'Escape key enabled',
+                            title: 'Keystrokes',
                             escapeKey: true,
-                            content: 'Press the escape key to close the modal. That works.',
+                            content: 'Press the escape key to close the modal. That works.' +
+                            '<br> press Shift, enter key to trigger okay.' +
+                            '<br> press Ctrl key to trigger cancel.',
                             backgroundDismiss: true, // for escapeKey to work, backgroundDismiss should be enabled.
-                            confirm: function () {
-                                $.alert('confirm triggered!');
-                            },
-                            cancel: function () {
-                                $.alert('cancel triggered!');
+                            buttons: {
+                                okay: {
+                                    keys: [
+                                        'shift',
+                                        'enter'
+                                    ],
+                                    action: function () {
+                                        $.alert('Okay button was triggered.');
+                                    }
+                                },
+                                cancel: {
+                                    keys: ['ctrl'],
+                                    action: function () {
+                                        $.alert('Cancel button was triggered.');
+                                    }
+                                }
                             }
                         });
                     });
                     // todo: from v3, keyboardEnabled is removed, escapeKey is introduced.
 
+                    // alignment
+                    $('.example-pc-1').on('click', function () {
+                        $.confirm({
+                            title: 'This is smoooth',
+                            content: '<p>You can add content and not worry about the alignment. The goal is to make a Interactive dialog!.</p>' +
+                            '<button type="button">Click me to add content</button> <span> <br></span> ',
+                            confirmButtonClass: 'btn-primary',
+                            animation: 'zoom',
+                            buttons: {
+                                someButton: {
+                                    text: 'Say wow',
+                                    action: function () {
+                                        this.$content.find('span').append('<br>Wowww');
+                                        return false; // prevent dialog from closing.
+                                    }
+                                },
+                                close: function () {
+                                    // lets the user close the modal.
+                                }
+                            },
+                            onOpen: function () {
+                                // onOpen attach the events.
+                                var that = this;
+                                this.$content.find('button').click(function () {
+                                    that.$content.find('span').append('<br>This is awesome!!!!');
+                                });
+                            },
+                        });
+                    });
+
+                    // working with images
+                    $('.example-pc-2').on('click', function () {
+                        $.confirm({
+                            title: 'Adding images',
+                            content: 'Images from flickr <br><img src="https://c2.staticflickr.com/4/3891/14354989289_2eec0ba724_b.jpg">',
+                            animation: 'zoom',
+                            animationClose: 'top',
+                            buttons: {
+                                confirm: {
+                                    text: 'Add more',
+                                    class: 'btn-primary',
+                                    action: function(){
+                                        this.$content.append('<img src="https://c2.staticflickr.com/6/5248/5240523362_8d6d315391_b.jpg">');
+                                        return false; // prevent dialog from closing.
+                                    }
+                                },
+                                cancel: function(){
+                                    // lets the user close the modal.
+                                }
+                            },
+                        });
+                    });
+
+                    // animations
                     $(' .example-pc-3').on('click', function () {
                         $.alert({
                             title: 'Animations',
@@ -605,61 +677,19 @@
                             closeAnimation: 'right',
                             theme: 'white, black',
                             opacity: 0.5,
-                            closeIcon: {
-                                class: '',
-                                action: function () {
-                                    alert('hey');
-                                }
-                            },
                             buttons: {
-                                'confirm': {
-                                    text: '',
-                                    class: '',
-                                    action: function () {
-                                        alert('hey');
-                                    }
+                                'zoom': function(){
+                                    this.setCloseAnimation('zoom');
                                 },
-                                'Cancel?': function () {
-                                    alert('what?');
+                                'rotate': function () {
+                                    this.setCloseAnimation('rotate');
+                                },
+                                'scale': function () {
+                                    this.setCloseAnimation('scale');
                                 }
                             },
                             backgroundDismiss: function () {
-                                this.$_confirm.click();
-                                return false;
-                            }
-                        });
-                    });
-                    $('.example-pc-1').on('click', function () {
-                        $.confirm({
-                            title: 'This is smoooth',
-                            content: '<p>You can add content and not worry about the alignment. The goal is to make a Interactive dialog!.</p>' +
-                            '<button type="button">Click me to add content</button> <span> <br></span> ',
-                            confirmButtonClass: 'btn-primary',
-                            animation: 'zoom',
-                            onOpen: function () {
-                                var that = this;
-                                this.$content.find('button').click(function () {
-                                    that.$content.find('span').append('<br>This is awesome!!!!');
-                                });
-                            },
-                            confirmButton: 'Say "Wowww"',
-                            confirm: function () {
-                                this.$content.find('span').append('<br>Wowww');
-                                return false; // prevent dialog from closing.
-                            }
-                        });
-                    });
-                    $('.example-pc-2').on('click', function () {
-                        window.b = $.confirm({
-                            title: 'Adding images',
-                            content: 'Images from flickr <br><img src="https://c2.staticflickr.com/4/3891/14354989289_2eec0ba724_b.jpg">',
-                            confirmButtonClass: 'btn-primary',
-                            animation: 'zoom',
-                            animationClose: 'top',
-                            confirmButton: 'Add more',
-                            confirm: function () {
-                                this.$content.append('<img src="https://c2.staticflickr.com/6/5248/5240523362_8d6d315391_b.jpg">');
-                                return false; // prevent dialog from closing.
+                                this.setCloseAnimation('scale');
                             }
                         });
                     });

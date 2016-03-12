@@ -413,6 +413,7 @@ var jconfirm, Jconfirm;
                     var closeHtml = '<i class="' + this.closeIconClass + '"></i>';
                     this.$closeIcon.html(closeHtml);
                 }
+
                 this.$closeIcon.click(function (e) {
                     e.preventDefault();
 
@@ -595,6 +596,8 @@ var jconfirm, Jconfirm;
                 return false;
 
             var keyChar = this._getKey(key);
+
+            console.log(keyChar, key);
             // If esc is pressed
             if (keyChar === 'esc' && this.escapeKey) {
                 this.$scrollPane.trigger('click');
