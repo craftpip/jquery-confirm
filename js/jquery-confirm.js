@@ -174,7 +174,6 @@ var jconfirm, Jconfirm;
 
             that._contentHash = this._hash(that.$content.html());
             $.when(this._contentReady, this._modalReady).then(function () {
-                console.log('ready');
                 that.setContent();
                 that.setTitle();
                 that.setIcon();
@@ -283,7 +282,6 @@ var jconfirm, Jconfirm;
             $.each(this.$content.find('img:not(.loaded)'), function (i, a) {
                 var interval = setInterval(function () {
                     var h = $(a).css('height');
-                    console.log(h);
                     if (h !== '0px') {
                         $(a).addClass('loaded');
                         that.setDialogCenter();
@@ -446,7 +444,6 @@ var jconfirm, Jconfirm;
             }
         },
         setDialogCenter: function () {
-            console.log('setting dialog to center');
             if (this.$contentPane.css('display') == 'none') {
                 var contentHeight = 0;
                 var paneHeight = 0;
