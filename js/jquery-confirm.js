@@ -1,5 +1,5 @@
 /*!
- * jquery-confirm v2.5.0 (http://craftpip.github.io/jquery-confirm/)
+ * jquery-confirm v2.5.1 (http://craftpip.github.io/jquery-confirm/)
  * Author: Boniface Pereira
  * Website: www.craftpip.com
  * Contact: hey@craftpip.com
@@ -452,7 +452,6 @@ var jconfirm, Jconfirm;
                 var paneHeight = this.$contentPane.height();
                 if (paneHeight == 0)
                     paneHeight = contentHeight;
-
             }
             var off = 100;
             var w = this.$content.outerWidth();
