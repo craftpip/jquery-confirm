@@ -381,6 +381,10 @@ var jconfirm, Jconfirm;
                 that.buttons[key].action = button.action || function () {};
                 that.buttons[key].keys = button.keys || [];
 
+                $.each(that.buttons[key].keys, function(i, a){
+                    that.buttons[key].keys[i] = a.toLowerCase();
+                });
+
                 var button_element = $('<button type="button" class="btn ' + that.buttons[key].class + '">' + that.buttons[key].text + '</button>').click(function (e) {
                     e.preventDefault();
                     var res = that.buttons[key].action.apply(that);

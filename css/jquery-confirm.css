@@ -182,10 +182,12 @@ body[class~="jconfirm-noscroll-"] {
   display: none;
 }
 .jconfirm .jconfirm-box .buttons {
-  padding-bottom: 15px;
+  padding-bottom: 11px;
 }
-.jconfirm .jconfirm-box .buttons button + button {
-  margin-left: 5px;
+.jconfirm .jconfirm-box .buttons > button {
+  margin-bottom: 4px;
+  margin-left: 2px;
+  margin-right: 2px;
 }
 .jconfirm .jquery-clear {
   clear: both;
