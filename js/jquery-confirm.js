@@ -1,5 +1,5 @@
 /*!
- * jquery-confirm v2.5.0 (http://craftpip.github.io/jquery-confirm/)
+ * jquery-confirm v2.5.1 (http://craftpip.github.io/jquery-confirm/)
  * Author: Boniface Pereira
  * Website: www.craftpip.com
  * Contact: hey@craftpip.com
@@ -15,12 +15,14 @@ if (typeof jQuery === 'undefined') {
 var jconfirm, Jconfirm;
 (function ($) {
     "use strict";
-    $.fn.confirm = function (options, option2) {
+        
+    $.fn.confirm = function (options, option2) {        
         if (typeof options === 'undefined') options = {};
         if (typeof options === 'string')
             options = {
                 content: options,
                 title: (option2) ? option2 : false
+                
             };
         /*
          *  Alias of $.confirm to emulate native confirm()
@@ -140,7 +142,7 @@ var jconfirm, Jconfirm;
             this.$el = $(this.template).appendTo(this.container).addClass(this.theme);
             this.$el.find('.jconfirm-box-container').addClass(this.columnClass);
             this.$el.find('.jconfirm-bg').css(this._getCSS(this.animationSpeed, 1));
-
+            this.$el.find('.jconfirm-bg').css('opacity', this.opacity);
             this.$b = this.$el.find('.jconfirm-box').css(this._getCSS(this.animationSpeed, this.animationBounce)).addClass(this.animation);
             this.$body = this.$b; // alias
 
@@ -172,7 +174,6 @@ var jconfirm, Jconfirm;
 
             that._contentHash = this._hash(that.$content.html());
             $.when(this._contentReady, this._modalReady).then(function () {
-                console.log('ready');
                 that.setContent();
                 that.setTitle();
                 that.setIcon();
@@ -281,7 +282,6 @@ var jconfirm, Jconfirm;
             $.each(this.$content.find('img:not(.loaded)'), function (i, a) {
                 var interval = setInterval(function () {
                     var h = $(a).css('height');
-                    console.log(h);
                     if (h !== '0px') {
                         $(a).addClass('loaded');
                         that.setDialogCenter();
@@ -444,7 +444,6 @@ var jconfirm, Jconfirm;
             }
         },
         setDialogCenter: function () {
-            console.log('setting dialog to center');
             if (this.$contentPane.css('display') == 'none') {
                 var contentHeight = 0;
                 var paneHeight = 0;
@@ -453,7 +452,6 @@ var jconfirm, Jconfirm;
                 var paneHeight = this.$contentPane.height();
                 if (paneHeight == 0)
                     paneHeight = contentHeight;
-
             }
             var off = 100;
             var w = this.$content.outerWidth();
@@ -526,7 +524,7 @@ var jconfirm, Jconfirm;
             if (this.isClosed())
                 return false;
 
-            that.$el.find('.jconfirm-bg').addClass('seen');
+            that.$el.find('.jconfirm-bg').addClass('seen');           
             this.$b.removeClass(this.animation);
             this.$b.find('input[autofocus]:visible:first').focus();
             jconfirm.record.opened += 1;
@@ -560,7 +558,8 @@ var jconfirm, Jconfirm;
         content: 'Are you sure to continue?',
         contentLoaded: function () {
         },
-        icon: '',
+        icon: '',    
+        opacity: 0.2,
         confirmButton: 'Okay',
         cancelButton: 'Close',
         confirmButtonClass: 'btn-default',

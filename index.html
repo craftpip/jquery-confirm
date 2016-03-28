@@ -38,7 +38,7 @@
 
         <link rel="stylesheet" href="demo/demo.min.css">
         <script>
-            var version = '2.5.0';
+            var version = '2.5.1';
         </script>
         <style type="text/css">
             .space10{
@@ -382,13 +382,14 @@
                                 <p class="text-success">Clean animations</p>
                             </div>
                         </div>
-                        <script type="text/javascript">
-                            $('.example-pc-3').on('click', function () {
+                        <script type="text/javascript">                           
+                            $(' .example-pc-3').on('click', function () {
                                 $.alert({
                                     title: 'Animations',
                                     content: 'jquery-confirm provides 12 animations to choose from.',
                                     animation: 'rotate',
                                     closeAnimation: 'right',
+                                    opacity: 0.5
                                 });
                             });
                             $('.example-pc-1').on('click', function () {
@@ -432,7 +433,7 @@
                                     confirmButton: 'Okay',
                                     confirmButtonClass: 'btn-primary',
                                     icon: 'fa fa-info',
-                                    animation: 'zoom',
+                                    animation: 'zoom',                                    
                                     confirm: function () {
                                         $.alert('Okay action clicked.');
                                     }
@@ -447,6 +448,7 @@
                                     icon: 'fa fa-question-circle',
                                     animation: 'scale',
                                     animationClose: 'top',
+                                    opacity: 0.5,
                                     confirm: function () {
                                         $.confirm({
                                             title: 'This maybe critical',
@@ -2206,6 +2208,7 @@ console.log(obj.content); // some content.
             };
             return t;
         }(document, "script", "twitter-wjs"));
+            //jconfirm.pluginDefaults.opacity = 0.5;
         </script>
         <!-- javascript for the demo page interface. -->
     </body>
