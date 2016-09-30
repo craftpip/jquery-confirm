@@ -140,7 +140,7 @@ var jconfirm, Jconfirm;
              * Append html.
              */
             this.$el = $(this.template).appendTo(this.container).addClass(this.theme);
-            this.$el.find('.jconfirm-box-container').addClass(this.columnClass);
+            this.$el.find('.jconfirm-container').css('width',this.columnClass);
             this.$el.find('.jconfirm-bg').css(this._getCSS(this.animationSpeed, 1));
             this.$el.find('.jconfirm-bg').css('opacity', this.opacity);
             this.$b = this.$el.find('.jconfirm-box').css(this._getCSS(this.animationSpeed, this.animationBounce)).addClass(this.animation);
@@ -553,17 +553,17 @@ var jconfirm, Jconfirm;
     };
 
     jconfirm.pluginDefaults = {
-        template: '<div class="jconfirm"><div class="jconfirm-bg"></div><div class="jconfirm-scrollpane"><div class="container"><div class="row"><div class="jconfirm-box-container"><div class="jconfirm-box" role="dialog" aria-labelledby="labelled" tabindex="-1"><div class="closeIcon">&times;</div><div class="title-c"><span class="icon-c"></span><span class="title"></span></div><div class="content-pane"><div class="content"></div></div><div class="buttons"></div><div class="jquery-clear"></div></div></div></div></div></div></div>',
+        template: '<div class="jconfirm "><div class="jconfirm-bg"></div><div class="jconfirm-scrollpane"><div class="container jconfirm-container"><div class="row"><div class="jconfirm-box-container"><div class="jconfirm-box" role="dialog" aria-labelledby="labelled" tabindex="-1"><div class="closeIcon">&times;</div><div class="title-c"><span class="icon-c"></span><span class="title"></span></div><div class="content-pane"><div class="content"></div></div><div class="buttons"></div><div class="jquery-clear"></div></div></div></div></div></div></div>',
         title: 'Hello',
         content: 'Are you sure to continue?',
         contentLoaded: function () {
         },
         icon: '',    
         opacity: 0.2,
-        confirmButton: 'Okay',
+        confirmButton: 'Ok',
         cancelButton: 'Close',
-        confirmButtonClass: 'btn-default',
-        cancelButtonClass: 'btn-default',
+        confirmButtonClass: 'ui mini blue compact button',
+        cancelButtonClass: 'ui mini blue compact button',
         theme: 'white',
         animation: 'zoom',
         closeAnimation: 'scale',
@@ -583,7 +583,7 @@ var jconfirm, Jconfirm;
         closeIcon: null,
         closeIconClass: false,
         watchInterval: 100,
-        columnClass: 'col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1',
+        columnClass: '25%',
         onOpen: function () {
         },
         onClose: function () {
