@@ -587,3 +587,9 @@ body.jconfirm-noscroll {
     color: #FFF;
     text-shadow: none;
 }
+
+/*Add default jconfirm margin*/
+.jconfirm-container{
+	margin: auto !important;
+	width: 40%;
+}
