@@ -108,8 +108,7 @@ var jconfirm, Jconfirm;
          */
         options.confirmKeys = [13];
         return jconfirm(options);
-    }
-    ;
+    };
 
     jconfirm = function (options) {
         if (typeof options === 'undefined') options = {};
@@ -125,9 +124,10 @@ var jconfirm, Jconfirm;
         /*
          * merge options with plugin defaults.
          */
-        var options = $.extend({}, jconfirm.pluginDefaults, options);
-
-        return new Jconfirm(options);
+        options = $.extend({}, jconfirm.pluginDefaults, options);
+        var instance = new Jconfirm(options);
+        jconfirm.instances.push(instance);
+        return instance;
     };
     Jconfirm = function (options) {
         /*
@@ -157,23 +157,15 @@ var jconfirm, Jconfirm;
             this.$el = $(this.template).appendTo(this.container);
             this.$jconfirmBoxContainer = this.$el.find('.jconfirm-box-container');
             this.$jconfirmBox = this.$el.find('.jconfirm-box');
-            this.$jconfirmBg = this.$el.find('.jconfirm-bg')
-                .css(this._getCSS(this.animationSpeed, 1));
+            this.$jconfirmBg = this.$el.find('.jconfirm-bg');
 
-            /*
-             restructured code,
-             added more methods,
-             multiple buttons,
-             and more changes.
-             * Setup title contents
-             */
             this.$title = this.$el.find('.title');
             this.$content = this.$el.find('div.content');
             this.$contentPane = this.$el.find('.content-pane');
             this.$icon = this.$el.find('.icon-c');
             this.$closeIcon = this.$el.find('.closeIcon');
-            this.$contentPane.css(this._getCSS(this.animationSpeed, this.animationBounce));
-            this.$content.css(this._getCSS(this.animationSpeed, this.animationBounce));
+
+            // this.$content.css(this._getCSS(this.animationSpeed, this.animationBounce));
             this.$btnc = this.$el.find('.buttons');
             this.$scrollPane = this.$el.find('.jconfirm-scrollpane');
 
@@ -182,7 +174,6 @@ var jconfirm, Jconfirm;
             this.setAnimation();
             this.setCloseAnimation();
             this.$body = this.$el.find('.jconfirm-box').addClass(this.animation);
-            this.setAnimationBounce();
             this.setAnimationSpeed();
 
             /*
@@ -216,6 +207,11 @@ var jconfirm, Jconfirm;
 
             this._watchContent();
             this._getContent();
+
+            this.setDialogCenter();
+            this.$body.css(this._getCSS(this.animationSpeed, this.animationBounce));
+            this.$contentPane.css(this._getCSS(this.animationSpeed, 1));
+            this.$jconfirmBg.css(this._getCSS(this.animationSpeed, 1));
         },
         setTheme: function (theme) {
             var that = this;
@@ -257,18 +253,11 @@ var jconfirm, Jconfirm;
         },
         setAnimationSpeed: function (speed) {
             this.animationSpeed = speed || this.animationSpeed;
-            this.$body.css(this._getCSS(this.animationSpeed, this.animationBounce));
-        },
-        setAnimationBounce: function (bounce) {
-            this.animationBounce = bounce || this.animationBounce;
-            this.$body.css(this._getCSS(this.animationSpeed, this.animationBounce));
+            // this.$body.css(this._getCSS(this.animationSpeed, this.animationBounce));
         },
         setColumnClass: function (colClass) {
             this.columnClass = colClass || this.columnClass;
             this.$jconfirmBoxContainer.addClass(this.columnClass);
-        },
-        _unwatchContent: function () {
-            clearInterval(this._timer);
         },
         _hash: function () {
             return btoa((encodeURIComponent(this.$content.html())));
@@ -334,11 +323,15 @@ var jconfirm, Jconfirm;
             });
         },
         _getCSS: function (speed, bounce) {
+            // 0.36, 0.99, 0.19 old
+            // 0.37, 0.48, 0.54
+            // 0.44, 0.81, 0.68
+            // 0.07, 0.69, 0.68
             return {
                 '-webkit-transition-duration': speed / 1000 + 's',
                 'transition-duration': speed / 1000 + 's',
-                '-webkit-transition-timing-function': 'cubic-bezier(.36,1.1,.2, ' + bounce + ')',
-                'transition-timing-function': 'cubic-bezier(.36,1.1,.2, ' + bounce + ')'
+                '-webkit-transition-timing-function': 'cubic-bezier(0.36, 0.99, 0.19, ' + bounce + ')',
+                'transition-timing-function': 'cubic-bezier(0.36, 0.99, 0.19, ' + bounce + ')'
             };
         },
         _imagesLoaded: function () {
@@ -381,7 +374,7 @@ var jconfirm, Jconfirm;
                 that.buttons[key].action = button.action || function () {};
                 that.buttons[key].keys = button.keys || [];
 
-                $.each(that.buttons[key].keys, function(i, a){
+                $.each(that.buttons[key].keys, function (i, a) {
                     that.buttons[key].keys[i] = a.toLowerCase();
                 });
 
@@ -455,6 +448,7 @@ var jconfirm, Jconfirm;
 
             this.$body.find('input[autofocus]:visible:first').focus();
             this.hideLoading(true);
+            this.setDialogCenter();
         },
         showLoading: function (disableButtons) {
             this.$jconfirmBox.addClass('loading');
@@ -538,10 +532,10 @@ var jconfirm, Jconfirm;
                 return false;
             }
 
-            this.$cd = $('<span class="countdown"></span>')
+            var seconds = time / 1000;
+            this.$cd = $('<span class="countdown"> (' + seconds + ')</span>')
                 .appendTo(this['$_' + button_key]);
 
-            var seconds = time / 1000;
             this.autoCloseInterval = setInterval(function () {
                 that.$cd.html(' (' + (seconds -= 1) + ') ');
                 if (seconds === 0) {
@@ -600,63 +594,75 @@ var jconfirm, Jconfirm;
 
             var keyChar = this._getKey(key);
 
-            console.log(keyChar, key);
             // If esc is pressed
             if (keyChar === 'esc' && this.escapeKey) {
-                this.$scrollPane.trigger('click');
-                // if backgroundDismiss is true, the modal shall close, else it will give a feedback.
+                if (this.escapeKey === true) {
+                    this.$scrollPane.trigger('click');
+                }
+                else if (typeof this.escapeKey === 'string' || typeof this.escapeKey === 'function') {
+                    var buttonKey;
+                    if (typeof this.escapeKey === 'function') {
+                        buttonKey = this.escapeKey();
+                    } else {
+                        buttonKey = this.escapeKey;
+                    }
+
+                    if (buttonKey)
+                        if (typeof this.buttons[buttonKey] === 'undefined') {
+                            console.warn('Invalid escapeKey, no buttons found with key ' + buttonKey);
+                        } else {
+                            this['$_' + buttonKey].trigger('click');
+                        }
+                }
             }
 
-            // check if any button has requested to listen to this key.
+            // check if any button is listening to this key.
             $.each(this.buttons, function (key, button) {
                 if (button.keys.indexOf(keyChar) != -1) {
                     that['$_' + key].trigger('click');
                 }
             });
-            // todo: i was here, done with button keys.
         },
         setDialogCenter: function () {
-            if (this.$contentPane.css('display') == 'none') {
-                var contentHeight = 0;
-                var paneHeight = 0;
-            } else {
-                var contentHeight = this.$content.outerHeight();
-                var paneHeight = this.$contentPane.height();
-                if (paneHeight == 0)
-                    paneHeight = contentHeight;
+            var contentHeight;
+            var paneHeight;
+            var style;
+            contentHeight = 0;
+            paneHeight = 0;
+            if (this.$contentPane.css('display') != 'none') {
+                contentHeight = this.$content.outerHeight() || 0;
+                paneHeight = this.$contentPane.height() || 0;
             }
-            var off = 100;
-            var w = this.$content.outerWidth();
 
-            //var s = '-clip-path: inset(0px 0px '+contentHeight+'px 0px);' +
-            //    'clip-path: inset(0px 0px '+contentHeight+'px 0px)';
-
-            this.$content.css({
-                'clip': 'rect(0px ' + (off + w) + 'px ' + contentHeight + 'px -' + off + 'px)'
-            });
-
-            this.$contentPane.css({
-                'height': contentHeight
-            });
+            if (paneHeight == 0)
+                paneHeight = contentHeight;
 
             var windowHeight = $(window).height();
             var boxHeight = this.$body.outerHeight() - paneHeight + contentHeight;
             var topMargin = (windowHeight - boxHeight) / 2;
-            var minMargin = 100;
-
+            var minMargin = 100; // todo: include this in options
+            console.log(topMargin, boxHeight, contentHeight, paneHeight);
             if (boxHeight > (windowHeight - minMargin)) {
-                var style = {
+                style = {
                     'margin-top': minMargin / 2,
                     'margin-bottom': minMargin / 2
                 };
-                $('body').addClass('jconfirm-noscroll-' + this._id);
+                $('body').addClass('jconfirm-no-scroll-' + this._id);
             } else {
-                var style = {
-                    'margin-top': topMargin
+                style = {
+                    'margin-top': topMargin,
+                    'margin-bottom': minMargin / 2,
                 };
-                $('body').removeClass('jconfirm-noscroll-' + this._id);
+                $('body').removeClass('jconfirm-no-scroll-' + this._id);
             }
+
+            this.$contentPane.css({
+                'height': contentHeight
+            }).scrollTop(0);
             this.$body.css(style);
+        },
+        _unwatchContent: function () {
+            clearInterval(this._timer);
         },
         close: function () {
             var that = this;
@@ -677,7 +683,7 @@ var jconfirm, Jconfirm;
             this.$jconfirmBg.css('opacity', '');
 
             this.$body.addClass(this.closeAnimation);
-            var closeTimer = (this.closeAnimation == 'anim-none') ? 0 : this.animationSpeed;
+            var closeTimer = (this.closeAnimation == 'anim-none') ? 1 : this.animationSpeed;
             setTimeout(function () {
                 that.$el.remove();
                 that._lastFocused.focus();
@@ -700,6 +706,7 @@ var jconfirm, Jconfirm;
             that.$jconfirmBg.css('opacity', this.opacity);
 
             setTimeout(function () {
+                that.$body.css(that._getCSS(that.animationSpeed, 1));
                 that.$body.css({
                     'transition-property': that.$body.css('transition-property') + ', margin'
                 });
@@ -707,6 +714,7 @@ var jconfirm, Jconfirm;
 
                 if (typeof that.onOpen === 'function')
                     that.onOpen();
+
             }, this.animationSpeed);
             return true;
         },
@@ -715,22 +723,40 @@ var jconfirm, Jconfirm;
         }
     };
 
+    jconfirm.instances = [];
     jconfirm.pluginDefaults = {
-        template: '<div class="jconfirm"><div class="jconfirm-bg"></div><div class="jconfirm-scrollpane"><div class="container"><div class="row"><div class="jconfirm-box-container"><div class="jconfirm-box" role="dialog" aria-labelledby="labelled" tabindex="-1"><div class="closeIcon">&times;</div><div class="title-c"><span class="icon-c"></span><span class="title"></span></div><div class="content-pane"><div class="content"></div></div><div class="buttons"></div><div class="jquery-clear"></div></div></div></div></div></div></div>',
+        template: '<div class="jconfirm">' +
+        '<div class="jconfirm-bg"></div>' +
+        '<div class="jconfirm-scrollpane">' +
+        '<div class="container">' +
+        '<div class="row">' +
+        '<div class="jconfirm-box-container">' +
+        '<div class="jconfirm-box" role="dialog" aria-labelledby="labelled" tabindex="-1">' +
+        '<div class="closeIcon">&times;</div>' +
+        '<div class="title-c">' +
+        '<span class="icon-c"></span>' +
+        '<span class="title"></span></div>' +
+        '<div class="content-pane">' +
+        '<div class="content"></div>' +
+        '</div>' +
+        '<div class="buttons">' +
+        '</div>' +
+        '<div class="jquery-clear">' +
+        '</div></div></div></div></div></div></div>',
         title: 'Hello',
         content: 'Are you sure to continue?',
         contentLoaded: function () {
         },
         icon: '',
         opacity: 0.5,
-        confirmButton: 'Okay',
-        cancelButton: 'Close',
+        confirmButton: 'Okay', // @deprecated
+        cancelButton: 'Close', // @deprecated
         confirmButtonClass: 'btn-default',
         cancelButtonClass: 'btn-default',
         theme: 'white',
         animation: 'zoom',
         closeAnimation: 'scale',
-        animationSpeed: 500,
+        animationSpeed: 400,
         animationBounce: 1.2,
         escapeKey: false, // Key 27 todo: must be true by default.
         rtl: false,
