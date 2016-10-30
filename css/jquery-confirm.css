@@ -7,7 +7,7 @@
  * Copyright 2013-2016 jquery-confirm
  * Licensed under MIT (https://github.com/craftpip/jquery-confirm/blob/master/LICENSE)
  */
-@-webkit-keyframes jconfirm-rotate {
+@-webkit-keyframes jconfirm-spin {
   from {
     -webkit-transform: rotate(0deg);
             transform: rotate(0deg);
@@ -17,7 +17,7 @@
             transform: rotate(360deg);
   }
 }
-@keyframes jconfirm-rotate {
+@keyframes jconfirm-spin {
   from {
     -webkit-transform: rotate(0deg);
             transform: rotate(0deg);
@@ -27,7 +27,7 @@
             transform: rotate(360deg);
   }
 }
-body[class~="jconfirm-noscroll-"] {
+body[class~="jconfirm-no-scroll-"] {
   overflow: hidden !important;
 }
 .jconfirm {
@@ -93,8 +93,8 @@ body[class~="jconfirm-noscroll-"] {
   left: 50%;
   margin-left: -15px;
   border-radius: 50%;
-  -webkit-animation: jconfirm-rotate 1s infinite linear;
-          animation: jconfirm-rotate 1s infinite linear;
+  -webkit-animation: jconfirm-spin 1s infinite linear;
+          animation: jconfirm-spin 1s infinite linear;
   border-bottom-color: dodgerblue;
   top: 50%;
   margin-top: -15px;
@@ -165,17 +165,10 @@ body[class~="jconfirm-noscroll-"] {
   display: inline-block;
   width: 100%;
   position: relative;
-}
-.jconfirm .jconfirm-box div.content-pane .content {
-  position: absolute;
-  top: 0;
-  left: 0;
-  -webkit-transition: all 0.2s ease-in;
-          transition: all 0.2s ease-in;
-  right: 0;
+  overflow: hidden;
 }
 .jconfirm .jconfirm-box div.content-pane .content img {
-  width: 100%;
+  max-width: 100%;
   height: auto;
 }
 .jconfirm .jconfirm-box div.content-pane .content:empty {
@@ -317,8 +310,8 @@ body[class~="jconfirm-noscroll-"] {
 }
 .jconfirm .jconfirm-box {
   opacity: 1;
-  -webkit-transition-property: -webkit-transform, opacity, box-shadow;
-          transition-property: transform, opacity, box-shadow;
+  -webkit-transition-property: all;
+          transition-property: all;
 }
 .jconfirm .jconfirm-box.anim-top,
 .jconfirm .jconfirm-box.anim-left,

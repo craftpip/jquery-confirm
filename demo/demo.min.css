@@ -17,6 +17,7 @@ body {
     -webkit-background-size: contain;
     background-size: contain;
     background-position: center;
+    background-repeat: no-repeat;
     width: 130px;
     display: block;
     height: 20px
