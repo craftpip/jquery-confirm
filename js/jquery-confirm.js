@@ -151,36 +151,41 @@ var jconfirm, Jconfirm;
             // store the last focused element.
             this._lastFocused = $('body').find(':focus');
 
+            // prefix the animation string and store in animationParsed
+            this._parseAnimation(this.animation, 'o');
+            this._parseAnimation(this.closeAnimation, 'c');
+            this._parseColumnClass(this.columnClass);
+            this._parseTheme(this.theme);
+
             /*
              * Append html.
              */
-            this.$el = $(this.template).appendTo(this.container);
+            var template = $(this.template);
+            template.find('.jconfirm-box').addClass(this.animationParsed);
+            if (this.containerFluid)
+                template.find('.container').removeClass('container').addClass('container-fluid');
+            template.find('.jconfirm-box-container').addClass(this.columnClassParsed);
+            template.addClass(this.themeParsed);
+            var ariaLabel = 'jconfirm-box' + this._id;
+            template.find('.jconfirm-box').attr('aria-labelledby', ariaLabel).attr('tabindex', -1);
+            template.find('.jconfirm-content').attr('id', ariaLabel);
+            if (this.bgOpacity != null)
+                template.find('.jconfirm-bg').css('opacity', this.bgOpacity);
+            if(this.rtl)
+                template.addClass('jconfirm-rtl');
+
+            this.$el = template.appendTo(this.container);
             this.$jconfirmBoxContainer = this.$el.find('.jconfirm-box-container');
-            this.$jconfirmBox = this.$el.find('.jconfirm-box');
+            this.$jconfirmBox = this.$body = this.$el.find('.jconfirm-box');
             this.$jconfirmBg = this.$el.find('.jconfirm-bg');
-
-            this.$title = this.$el.find('.title');
-            this.$content = this.$el.find('div.content');
-            this.$contentPane = this.$el.find('.content-pane');
-            this.$icon = this.$el.find('.icon-c');
-            this.$closeIcon = this.$el.find('.closeIcon');
-
+            this.$title = this.$el.find('.jconfirm-title');
+            this.$content = this.$el.find('div.jconfirm-content');
+            this.$contentPane = this.$el.find('.jconfirm-content-pane');
+            this.$icon = this.$el.find('.jconfirm-icon-c');
+            this.$closeIcon = this.$el.find('.jconfirm-closeIcon');
             // this.$content.css(this._getCSS(this.animationSpeed, this.animationBounce));
-            this.$btnc = this.$el.find('.buttons');
+            this.$btnc = this.$el.find('.jconfirm-buttons');
             this.$scrollPane = this.$el.find('.jconfirm-scrollpane');
-
-            this.setColumnClass();
-            this.setTheme();
-            this.setAnimation();
-            this.setCloseAnimation();
-            this.$body = this.$el.find('.jconfirm-box').addClass(this.animation);
-            this.setAnimationSpeed();
-
-            /*
-             * Add rtl class if rtl option has selected
-             */
-            if (this.rtl)
-                this.$el.addClass("rtl");
 
             // for loading content via URL
             this._contentReady = $.Deferred();
@@ -188,13 +193,28 @@ var jconfirm, Jconfirm;
 
             this.setTitle();
             this.setIcon();
-            this._setButtons();
 
-            // set content and stuff when content is loaded.
+            this._setButtons();
+            this._getContent();
+
+            if (this._isContentAjax)
+                this.showLoading(true);
+
+            // todo: center align is wrong when using showloading.
             $.when(this._contentReady, this._modalReady).then(function () {
-                that.setContent();
-                that.setTitle();
-                that.setIcon();
+                if (that._isContentAjax)
+                    setTimeout(function () {
+                        that._isContentAjax = false;
+                        that.setContent();
+                        that.setTitle();
+                        that.setIcon();
+                        that.hideLoading(true);
+                    }, 200);
+                else {
+                    that.setContent();
+                    that.setTitle();
+                    that.setIcon();
+                }
 
                 // start countdown after content has loaded.
                 if (that.autoClose)
@@ -206,61 +226,101 @@ var jconfirm, Jconfirm;
             that._contentHeight = this.$content.height();
 
             this._watchContent();
-            this._getContent();
-
             this.setDialogCenter();
+
             this.$body.css(this._getCSS(this.animationSpeed, this.animationBounce));
             this.$contentPane.css(this._getCSS(this.animationSpeed, 1));
             this.$jconfirmBg.css(this._getCSS(this.animationSpeed, 1));
         },
+        themeParsed: '',
+        _themePrefix: 'jconfirm-',
         setTheme: function (theme) {
             var that = this;
-            /*
-             * prefix the theme and set it right away.
-             */
-            if (typeof theme == 'undefined')
-                theme = this.theme;
-
-            theme = theme.split(',');
-            $.each(theme, function (k, a) {
-                theme[k] = 'jconfirm-' + $.trim(a);
-            });
-            theme = theme.join(' ').toLowerCase();
-
-            this.$el.removeClass(this.theme).addClass(theme);
+            var previous = this.theme;
+            this.theme = theme || this.theme;
+            this._parseTheme(this.theme);
+            if (previous)
+                this.$el.removeClass(previous);
+            this.$el.addClass(this.themeParsed);
             this.theme = theme;
         },
-        setAnimation: function (animation) {
+        _parseTheme: function (theme) {
             var that = this;
-            if (typeof animation !== 'undefined')
-                this.animation = animation;
-
-            this.animation = this.animation.split(',');
-            $.each(this.animation, function (k, a) {
-                that.animation[k] = 'anim-' + $.trim(a);
+            theme = theme.split(',');
+            $.each(theme, function (k, a) {
+                if (a.indexOf(that._themePrefix) == -1)
+                    theme[k] = that._themePrefix + $.trim(a);
             });
-            this.animation = this.animation.join(' ').toLowerCase();
+            this.themeParsed = theme.join(' ').toLowerCase();
+        },
+        animationParsed: '',
+        closeAnimationParsed: '',
+        _animationPrefix: 'jconfirm-animation-',
+        setAnimation: function (animation) {
+            this.animation = animation || this.animation;
+            this._parseAnimation(this.animation, 'o');
+        },
+        _parseAnimation: function (animation, which) {
+            which = which || 'o'; // parse what animation and store where. open or close?
+            var animations = animation.split(',');
+            var that = this;
+            $.each(animations, function (k, a) {
+                if (a.indexOf(that._animationPrefix) == -1)
+                    animations[k] = that._animationPrefix + $.trim(a);
+            });
+            var a_string = animations.join(' ').toLowerCase();
+            if (which == 'o')
+                this.animationParsed = a_string;
+            else
+                this.closeAnimationParsed = a_string;
+
+            return a_string;
         },
         setCloseAnimation: function (closeAnimation) {
-            var that = this;
-            if (typeof closeAnimation !== 'undefined')
-                this.closeAnimation = closeAnimation;
-            this.closeAnimation = this.closeAnimation.split(',');
-            $.each(this.closeAnimation, function (k, a) {
-                that.closeAnimation[k] = 'anim-' + $.trim(a);
-            });
-            this.closeAnimation = this.closeAnimation.join(' ').toLowerCase();
+            this.closeAnimation = closeAnimation || this.closeAnimation;
+            this._parseAnimation(this.closeAnimation, 'c');
         },
         setAnimationSpeed: function (speed) {
             this.animationSpeed = speed || this.animationSpeed;
             // this.$body.css(this._getCSS(this.animationSpeed, this.animationBounce));
         },
+        columnClassParsed: '',
         setColumnClass: function (colClass) {
             this.columnClass = colClass || this.columnClass;
-            this.$jconfirmBoxContainer.addClass(this.columnClass);
+            this._parseColumnClass(this.columnClass);
+            this.$jconfirmBoxContainer.addClass(this.columnClassParsed);
         },
-        _hash: function () {
-            return btoa((encodeURIComponent(this.$content.html())));
+        _parseColumnClass: function (colClass) {
+            colClass = colClass.toLowerCase();
+            var p;
+            switch (colClass) {
+                case 'xl':
+                case 'xlarge':
+                    p = 'col-md-12';
+                    break;
+                case 'l':
+                case 'large':
+                    p = 'col-md-8 col-md-offset-2';
+                    break;
+                case 'm':
+                case 'medium':
+                    p = 'col-md-6 col-md-offset-3';
+                    break;
+                case 's':
+                case 'small':
+                    p = 'col-md-4 col-md-offset-4';
+                    break;
+                case 'xs':
+                case 'xsmall':
+                    p = 'col-md-2 col-md-offset-5'
+                    break;
+                default:
+                    p = colClass;
+            }
+            this.columnClassParsed = p;
+        },
+        _hash: function (a) {
+            return btoa((encodeURIComponent(a)));
         },
         _watchContent: function () {
             var that = this;
@@ -425,18 +485,56 @@ var jconfirm, Jconfirm;
                 this.$closeIcon.hide();
             }
         },
-        setTitle: function (string) {
-            this.title = (typeof string !== 'undefined') ? string : this.title;
+        setTitle: function (string, force) {
+            force = force || false;
+
+            if (typeof string !== 'undefined')
+                if (typeof string == 'string')
+                    this.title = string;
+                else if (typeof string == 'function') {
+                    if (typeof string.promise == 'function')
+                        console.error('Promise was returned from title function, this is not supported.');
+
+                    var response = string();
+                    if (typeof response == 'string')
+                        this.title = response;
+                    else
+                        this.title = false;
+                } else
+                    this.title = false;
+
+            if (this._isContentAjax && !force)
+                return;
+
             this.$title.html(this.title || '');
         },
-        setIcon: function (iconClass) {
-            this.icon = (typeof string !== 'undefined') ? iconClass : this.icon;
+        setIcon: function (iconClass, force) {
+            force = force || false;
+
+            if (typeof iconClass !== 'undefined')
+                if (typeof iconClass == 'string')
+                    this.icon = iconClass;
+                else if (typeof iconClass === 'function') {
+                    var response = iconClass();
+                    if (typeof response == 'string')
+                        this.icon = response;
+                    else
+                        this.icon = false;
+                }
+                else
+                    this.icon = false;
+
+            if (this._isContentAjax && !force)
+                return;
+
             this.$icon.html(this.icon ? '<i class="' + this.icon + '"></i>' : '');
         },
-        setContent: function (string) {
-            // only set the content on the modal.
+        setContent: function (string, force) {
+            force = force || false;
             this.content = (typeof string == 'undefined') ? this.content : string;
 
+            if (this._isContentAjax && !force)
+                return;
             if (this.content == '') {
                 this.$content.html(this.content);
                 this.$contentPane.hide();
@@ -445,20 +543,29 @@ var jconfirm, Jconfirm;
                 this.setDialogCenter();
                 this.$contentPane.show();
             }
-
             this.$body.find('input[autofocus]:visible:first').focus();
-            this.hideLoading(true);
             this.setDialogCenter();
         },
+        loadingSpinner: false,
         showLoading: function (disableButtons) {
+            this.loadingSpinner = true;
             this.$jconfirmBox.addClass('loading');
             if (disableButtons)
                 this.$btnc.find('button').prop('disabled', true);
         },
         hideLoading: function (enableButtons) {
+            this.loadingSpinner = false;
             this.$jconfirmBox.removeClass('loading');
             if (enableButtons)
                 this.$btnc.find('button').prop('disabled', false);
+        },
+        _getIfContentAjax: function () {
+            if (typeof this.content == 'string' && this.content.substr(0, 4).toLowerCase() == 'url')
+                return true;
+            else if (typeof this.content == 'function' && typeof this.content.promise == 'function')
+                return true;
+
+            return false;
         },
         _getContent: function (string) {
             /*
@@ -466,47 +573,40 @@ var jconfirm, Jconfirm;
              */
             var that = this;
             string = (string) ? string : this.content;
-            this._isAjax = false;
+            this._isContentAjax = false;
 
             if (!this.content) { // if the content is falsy
-
                 this.content = '';
                 this._contentReady.resolve();
-
             } else if (typeof this.content === 'string') {
-
                 if (this.content.substr(0, 4).toLowerCase() === 'url:') {
-                    this._isAjax = true;
-
-                    this.showLoading(true);
+                    this._isContentAjax = true;
                     var url = this.content.substring(4, this.content.length);
                     $.get(url).done(function (html) {
                         that.content = html;
                     }).always(function (data, status, xhr) {
                         that._contentReady.resolve(data, status, xhr);
                     });
-
                 } else {
                     this.setContent(this.content);
                     this._contentReady.resolve();
                 }
-
             } else if (typeof this.content === 'function') {
-
                 this.$content.addClass('loading');
                 this.$btnc.find('button').attr('disabled', 'disabled');
-                var promise = this.content(this);
-                if (typeof promise !== 'object') {
-                    console.error('The content function must return jquery promise.');
-                } else if (typeof promise.always !== 'function') {
-                    console.error('The object returned is not a jquery promise.');
-                } else {
-                    this._isAjax = true;
-                    promise.always(function (data, status) {
+                var response = this.content(this);
+                if (typeof response.always === 'function') { // promise
+                    this._isContentAjax = true;
+                    response.always(function (data, status) {
                         that._contentReady.resolve();
                     });
+                } else if (typeof response === 'string') {
+                    this.setContent(response);
+                    this._contentReady.resolve();
+                } else {
+                    this.setContent('');
+                    this._contentReady.resolve();
                 }
-
             } else {
                 console.error('Invalid option for property content, passed: ' + typeof this.content);
             }
@@ -627,6 +727,7 @@ var jconfirm, Jconfirm;
             var contentHeight;
             var paneHeight;
             var style;
+
             contentHeight = 0;
             paneHeight = 0;
             if (this.$contentPane.css('display') != 'none') {
@@ -638,10 +739,15 @@ var jconfirm, Jconfirm;
                 paneHeight = contentHeight;
 
             var windowHeight = $(window).height();
-            var boxHeight = this.$body.outerHeight() - paneHeight + contentHeight;
+            var boxHeight;
+
+            boxHeight = (this.$body.outerHeight() - paneHeight) + contentHeight;
+            //false 511 70 220.5 0 0
+            // 479 70 204.5 0 0
+
             var topMargin = (windowHeight - boxHeight) / 2;
             var minMargin = 100; // todo: include this in options
-            console.log(topMargin, boxHeight, contentHeight, paneHeight);
+            console.log(this.loadingSpinner, windowHeight, boxHeight, topMargin, contentHeight, paneHeight);
             if (boxHeight > (windowHeight - minMargin)) {
                 style = {
                     'margin-top': minMargin / 2,
@@ -678,12 +784,10 @@ var jconfirm, Jconfirm;
              */
             $(window).unbind('resize.' + this._id);
             $(window).unbind('keyup.' + this._id);
-
-            $('body').removeClass('jconfirm-noscroll-' + this._id);
-            this.$jconfirmBg.css('opacity', '');
-
-            this.$body.addClass(this.closeAnimation);
-            var closeTimer = (this.closeAnimation == 'anim-none') ? 1 : this.animationSpeed;
+            $('body').removeClass('jconfirm-no-scroll-' + this._id);
+            this.$body.addClass(this.closeAnimationParsed);
+            this.$jconfirmBg.addClass('jconfirm-bg-h');
+            var closeTimer = (this.closeAnimation == 'none') ? 1 : this.animationSpeed;
             setTimeout(function () {
                 that.$el.remove();
                 that._lastFocused.focus();
@@ -692,63 +796,69 @@ var jconfirm, Jconfirm;
             return true;
         },
         open: function () {
-            var that = this;
+            // var that = this;
             this._buildHTML();
             this._bindEvents();
-            this.$body.removeClass(this.animation);
+            this._open();
 
-            var jcr = 'jconfirm-box' + this._id;
-            this.$body.attr('aria-labelledby', jcr).attr('tabindex', -1).focus();
-            if (this.$title)
-                this.$title.attr('id', jcr); else if (this.$content)
-                this.$content.attr('id', jcr);
-
-            that.$jconfirmBg.css('opacity', this.opacity);
-
+            return true;
+        },
+        _open: function () {
+            var that = this;
+            this.$body.removeClass(this.animationParsed);
+            this.$jconfirmBg.removeClass('jconfirm-bg-h');
+            this.$body.focus();
             setTimeout(function () {
                 that.$body.css(that._getCSS(that.animationSpeed, 1));
                 that.$body.css({
                     'transition-property': that.$body.css('transition-property') + ', margin'
                 });
                 that._modalReady.resolve();
-
                 if (typeof that.onOpen === 'function')
                     that.onOpen();
-
             }, this.animationSpeed);
-            return true;
         },
         isClosed: function () {
             return this.$el.css('display') === '';
-        }
+        },
+        isOpen: function () {
+            return !this.isClosed();
+        },
+        toggle: function () {
+            if (!this.isOpen())
+                this.open();
+            else
+                this.close();
+        },
     };
 
     jconfirm.instances = [];
     jconfirm.pluginDefaults = {
-        template: '<div class="jconfirm">' +
-        '<div class="jconfirm-bg"></div>' +
+        template: '' +
+        '<div class="jconfirm">' +
+        '<div class="jconfirm-bg jconfirm-bg-h"></div>' +
         '<div class="jconfirm-scrollpane">' +
         '<div class="container">' +
         '<div class="row">' +
         '<div class="jconfirm-box-container">' +
         '<div class="jconfirm-box" role="dialog" aria-labelledby="labelled" tabindex="-1">' +
-        '<div class="closeIcon">&times;</div>' +
-        '<div class="title-c">' +
-        '<span class="icon-c"></span>' +
-        '<span class="title"></span></div>' +
-        '<div class="content-pane">' +
-        '<div class="content"></div>' +
+        '<div class="jconfirm-closeIcon">&times;</div>' +
+        '<div class="jconfirm-title-c">' +
+        '<span class="jconfirm-icon-c"></span>' +
+        '<span class="jconfirm-title"></span></div>' +
+        '<div class="jconfirm-content-pane">' +
+        '<div class="jconfirm-content"></div>' +
         '</div>' +
-        '<div class="buttons">' +
+        '<div class="jconfirm-buttons">' +
         '</div>' +
-        '<div class="jquery-clear">' +
+        '<div class="jconfirm-clear">' +
         '</div></div></div></div></div></div></div>',
         title: 'Hello',
         content: 'Are you sure to continue?',
         contentLoaded: function () {
         },
         icon: '',
-        opacity: 0.5,
+        bgOpacity: null, // leave null for theme specific opacity.
         confirmButton: 'Okay', // @deprecated
         cancelButton: 'Close', // @deprecated
         confirmButtonClass: 'btn-default',
@@ -758,18 +868,19 @@ var jconfirm, Jconfirm;
         closeAnimation: 'scale',
         animationSpeed: 400,
         animationBounce: 1.2,
-        escapeKey: false, // Key 27 todo: must be true by default.
+        escapeKey: true, // Key 27 todo: must be true by default.
         rtl: false,
         // confirmKeys: [13], // ENTER key todo: this will be moved to buttons.
         // cancelKeys: [27], // ESC key
         container: 'body',
+        containerFluid: false,
         confirm: function () {
         },
         cancel: function () {
         },
         backgroundDismiss: false,
         autoClose: false,
-        closeIcon: null,
+        closeIcon: true,
         closeIconClass: false,
         watchInterval: 100,
         columnClass: 'col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1',

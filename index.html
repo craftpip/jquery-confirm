@@ -608,9 +608,9 @@
                         $.dialog({
                             title: 'Asynchronous content',
                             content: 'url:table.html',
-                            animation: 'top',
+                            animation: 'zoom',
                             columnClass: 'col-md-6 col-md-offset-3',
-                            closeAnimation: 'bottom',
+                            closeAnimation: 'scale',
                             backgroundDismiss: true,
                         });
                     });
@@ -1272,17 +1272,20 @@ $.dialog('Just to let you know'); <a href="#"
                     <script type="text/javascript">
                         $('.grid-1').on('click', function () {
                             $.confirm({
-                                columnClass: 'col-md-6 col-md-offset-3'
+                                columnClass: 'col-md-6 col-md-offset-3',
+                                containerFluid: true,
                             }); // empty because its default.
                         });
                         $('.grid-2').on('click', function () {
                             $.confirm({
-                                columnClass: 'col-md-4 col-md-offset-4'
+                                columnClass: 's',
+                                containerFluid: true,
                             });
                         });
                         $('.grid-3').on('click', function () {
                             $.confirm({
-                                columnClass: 'col-md-4'
+                                columnClass: 'col-md-4',
+                                containerFluid: true,
                             });
                         });
                         $('.grid-4').on('click', function () {
@@ -1647,7 +1650,8 @@ $.dialog('Just to let you know'); <a href="#"
                     <script type="text/javascript">
                         $('.example4').on('click', function () {
                             $.confirm({
-                                theme: 'white'
+                                theme: 'white',
+                                bgOpacity: .3,
                             });
                         });
                         $('.example5').on('click', function () {
@@ -1745,9 +1749,9 @@ $.dialog('Just to let you know'); <a href="#"
                         $.confirm({
                             title: 'Title',
                             content: 'url:text.txt',
-                            animation: 'top',
+                            animation: 'zoom',
                             columnClass: 'col-md-6 col-md-offset-3',
-                            closeAnimation: 'top'
+                            closeAnimation: 'scale'
                         });
                     });
                     $('.example18-1-1').on('click', function () {
@@ -1761,9 +1765,9 @@ $.dialog('Just to let you know'); <a href="#"
                                     self.setTitle('Stuff is loaded');
                                 }, 2000);
                             },
-                            animation: 'top',
+                            animation: 'zoom',
                             columnClass: 'col-md-6 col-md-offset-3',
-                            closeAnimation: 'top'
+                            closeAnimation: 'zoom'
                         });
                     });
                 </script>
@@ -1797,42 +1801,46 @@ $.dialog('Just to let you know'); <a href="#"
                                     dataType: 'json',
                                     method: 'get'
                                 }).done(function (response) {
-                                    jc.setContent('Description: ' + response.description);
-                                    jc.setContent(jc.content + '<br>Version: ' + response.version); // appending
+//                                    jc.content = response.description;
+                                        jc.setContent('Description: ' + response.description);
+                                        jc.setContent(jc.content + '<br>Version: ' + response.version); // appending
                                     jc.setTitle(response.name);
                                 }).fail(function () {
                                     jc.setContent('Something went wrong.');
                                 });
                             },
                             confirmButton: 'Add sentence',
-                            confirm: function () {
-                                this.setContent(this.content + '<h4>Adding a new sentence.</h4>');
-                                return false;
+                            backgroundDismiss: true,
+                            escapeKey: true,
+                            buttons: {
+                                s: function () {
+                                    this.setContent(this.content + '<h4>Adding a new sentence.</h4>');
+                                    return false;
+                                }
                             }
                         });
                     });
                 </script>
                 <pre class="prettyprint linenums"><code>$.confirm({
-                             content: function () {
-                             var self = this;
-                             return $.ajax({
-                             url: 'bower.json',
-                             dataType: 'json',
-                             method: 'get'
-                             }).done(function (response) {
-                             self.setContent('Description: ' + response.description);
-                             self.setContent(self.content + '&lt;br&gt;Version: ' + response.version); // appending
-                             self.setTitle(response.name);
-                             }).fail(function(){
-                             self.setContent('Something went wrong.');
-                             });
-                             },
-                             confirm: function(){
-                             this.setContent( this.content + '&lt;h4&gt;Adding a new sentence.&lt;/h4&gt;');
-                             return false; // prevent modal from closing
-                             }
-                             });
-                         </code></pre>
+    content: function () {
+        var self = this;
+        return $.ajax({
+            url: 'bower.json',
+            dataType: 'json',
+            method: 'get'
+        }).done(function (response) {
+            self.setContent('Description: ' + response.description);
+            self.setContent(self.content + '&lt;br&gt;Version: ' + response.version); // appending
+            self.setTitle(response.name);
+        }).fail(function(){
+            self.setContent('Something went wrong.');
+        });
+    },
+    confirm: function(){
+        this.setContent( this.content + '&lt;h4&gt;Adding a new sentence.&lt;/h4&gt;');
+        return false; // prevent modal from closing
+    }
+});</code></pre>
             </div>
 
             <section>
