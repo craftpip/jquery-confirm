@@ -1791,7 +1791,7 @@ $.dialog('Just to let you know'); <a href="#"
                 <script type="text/javascript">
                     $('.example18-2').on('click', function () {
                         $.confirm({
-                            title: 'Title',
+                            title: false,
                             content: function () {
                                 // because `this` is unreachable in jquery ajax callbacks
                                 var jc = this;
@@ -1802,9 +1802,9 @@ $.dialog('Just to let you know'); <a href="#"
                                     method: 'get'
                                 }).done(function (response) {
 //                                    jc.content = response.description;
-                                        jc.setContent('Description: ' + response.description);
-                                        jc.setContent(jc.content + '<br>Version: ' + response.version); // appending
-                                    jc.setTitle(response.name);
+                                    jc.setContent('Description: ' + response.description);
+                                    jc.setContent(jc.content + '<br>Version: ' + response.version); // appending
+//                                    jc.setTitle(response.name);
                                 }).fail(function () {
                                     jc.setContent('Something went wrong.');
                                 });
@@ -1813,10 +1813,10 @@ $.dialog('Just to let you know'); <a href="#"
                             backgroundDismiss: true,
                             escapeKey: true,
                             buttons: {
-                                s: function () {
-                                    this.setContent(this.content + '<h4>Adding a new sentence.</h4>');
-                                    return false;
-                                }
+//                                s: function () {
+//                                    this.setContent(this.content + '<h4>Adding a new sentence.</h4>');
+//                                    return false;
+//                                }
                             }
                         });
                     });

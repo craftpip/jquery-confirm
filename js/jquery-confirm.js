@@ -171,7 +171,7 @@ var jconfirm, Jconfirm;
             template.find('.jconfirm-content').attr('id', ariaLabel);
             if (this.bgOpacity != null)
                 template.find('.jconfirm-bg').css('opacity', this.bgOpacity);
-            if(this.rtl)
+            if (this.rtl)
                 template.addClass('jconfirm-rtl');
 
             this.$el = template.appendTo(this.container);
@@ -196,8 +196,7 @@ var jconfirm, Jconfirm;
 
             this._setButtons();
             this._getContent();
-
-            if (this._isContentAjax)
+            if(this._isContentAjax)
                 this.showLoading(true);
 
             // todo: center align is wrong when using showloading.
@@ -208,7 +207,9 @@ var jconfirm, Jconfirm;
                         that.setContent();
                         that.setTitle();
                         that.setIcon();
-                        that.hideLoading(true);
+                        setTimeout(function(){
+                            that.hideLoading(true);
+                        }, 100)
                     }, 200);
                 else {
                     that.setContent();
@@ -552,20 +553,16 @@ var jconfirm, Jconfirm;
             this.$jconfirmBox.addClass('loading');
             if (disableButtons)
                 this.$btnc.find('button').prop('disabled', true);
+
+            this.setDialogCenter();
         },
         hideLoading: function (enableButtons) {
             this.loadingSpinner = false;
             this.$jconfirmBox.removeClass('loading');
             if (enableButtons)
                 this.$btnc.find('button').prop('disabled', false);
-        },
-        _getIfContentAjax: function () {
-            if (typeof this.content == 'string' && this.content.substr(0, 4).toLowerCase() == 'url')
-                return true;
-            else if (typeof this.content == 'function' && typeof this.content.promise == 'function')
-                return true;
 
-            return false;
+            this.setDialogCenter();
         },
         _getContent: function (string) {
             /*
@@ -762,7 +759,7 @@ var jconfirm, Jconfirm;
                 $('body').removeClass('jconfirm-no-scroll-' + this._id);
             }
 
-            this.$contentPane.css({
+            that.$contentPane.css({
                 'height': contentHeight
             }).scrollTop(0);
             this.$body.css(style);
