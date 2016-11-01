@@ -70,6 +70,7 @@ body[class~="jconfirm-no-scroll-"] {
   position: relative;
   outline: none;
   padding: 15px 15px 0;
+  overflow: hidden;
 }
 .jconfirm .jconfirm-box.loading {
   height: 120px;
@@ -197,7 +198,7 @@ body[class~="jconfirm-no-scroll-"] {
 }
 .jconfirm.jconfirm-white .jconfirm-bg {
   background-color: #444;
-  opacity: .9;
+  opacity: .3;
 }
 .jconfirm.jconfirm-white .jconfirm-box {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);

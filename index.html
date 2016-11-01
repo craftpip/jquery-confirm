@@ -242,22 +242,6 @@
                     view on <i class="fa fa-github"></i> Github
                 </a>
             </p>
-            <!--<a href="https://github.com/craftpip/jquery-confirm/zipball/master"-->
-            <!--class="btn btn-download btn-lg btn-block">-->
-            <!--Download latest-->
-            <!--</a>-->
-            <!--<a href="https://github.com/craftpip/jquery-confirm/releases"-->
-            <!--class="btn btn-download btn-block">-->
-            <!--View all releases-->
-            <!--</a>-->
-
-            <!--<div class="spacer15"></div>-->
-            <!--<p class="text-right">-->
-            <!--<code>version-->
-            <!--<span class="version"></span>-->
-            <!--</code>-->
-            <!--</p>-->
-
             <div class="spacer15"></div>
             <div id="my-nav">
                 <ul class="nav nav-list">
@@ -448,7 +432,7 @@
             </section>
             <hr>
             <section id="quickfeatures">
-                <h2>Quick features</h2>
+                <h2>Features</h2>
 
                 <p>These features can practically be used like so.</p>
 
@@ -463,18 +447,18 @@
                         <p class="text-success">Stacked Confirmations</p>
                     </div>
                     <div class="col-md-3">
-                        <button class="btn btn-primary btn-block example-p-7-1">Act like Prompt</button>
+                        <button class="btn btn-primary btn-block example-p-7-1">Prompt</button>
                         <p class="text-success">Need input?</p>
                     </div>
                     <div class="col-md-3">
-                        <button class="btn btn-primary btn-block example-p-3">Background dismiss</button>
-                        <p class="text-success">Not so important modal</p>
+                        <button class="btn btn-primary btn-block example-p-4">Dialogs</button>
+                        <p class="text-success">Its also a Dialog.</p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <button class="btn btn-primary btn-block example-p-4">Using as dialogs/modals</button>
-                        <p class="text-success">Its also a Dialog.</p>
+                        <button class="btn btn-primary btn-block example-p-3">Background dismiss</button>
+                        <p class="text-success">Not so important modal</p>
                     </div>
                     <div class="col-md-3">
                         <button class="btn btn-primary btn-block example-p-5">Asynchronous content</button>
@@ -507,15 +491,15 @@
                     // alert
                     $('.example-p-1').on('click', function () {
                         $.alert({
-                            title: 'Hey!',
-                            content: 'This is a simple alert to the user. <br> with some <strong>HTML</strong> <em>contents</em>',
-                            confirmButton: 'Okay',
-                            confirmButtonClass: 'btn-primary',
-                            icon: 'fa fa-info',
+                            title: 'Alert alert!',
+                            content: 'This is a simple alert. <br> with some <strong>HTML</strong> <em>contents</em>',
+                            icon: 'fa fa-rocket',
                             animation: 'zoom',
+                            closeAnimation: 'zoom',
                             buttons: {
-                                confirm: function () {
-                                    $.alert('Okay action clicked.');
+                                okay: {
+                                    text: 'Okay',
+                                    btnClass: 'btn-primary'
                                 }
                             }
                         });
@@ -525,60 +509,72 @@
                     $('.example-p-2').on('click', function () {
                         $.confirm({
                             title: 'A secure action',
-                            content: 'Its smooth to do multiple confirms at a time. <br> Click proceed for another modal',
-                            confirmButton: 'Proceed',
-                            confirmButtonClass: 'btn-info',
+                            content: 'Its smooth to do multiple confirms at a time. <br> Click confirm or cancel for another modal',
                             icon: 'fa fa-question-circle',
                             animation: 'scale',
-                            animationClose: 'top',
+                            closeAnimation: 'scale',
                             opacity: 0.5,
                             buttons: {
-                                'confirm': function () {
-                                    $.confirm({
-                                        title: 'This maybe critical',
-                                        content: 'Critical actions can have multiple confirmations like this one.',
-                                        confirmButton: 'Yes, sure!',
-                                        icon: 'fa fa-warning',
-                                        confirmButtonClass: 'btn-warning',
-                                        animation: 'zoom',
-                                        buttons: {
-                                            'Confirm': function () {
-                                                $.alert('A very critical action triggered!');
-                                            },
-                                            cancel: function () {
-                                                $.alert('cancel clicked');
+                                'confirm': {
+                                    text: 'Proceed',
+                                    btnClass: 'btn-info',
+                                    action: function () {
+                                        $.confirm({
+                                            title: 'This maybe critical',
+                                            content: 'Critical actions can have multiple confirmations like this one.',
+                                            icon: 'fa fa-warning',
+                                            animation: 'zoom',
+                                            closeAnimation: 'zoom',
+                                            buttons: {
+                                                confirm: {
+                                                    text: 'Yes, sure!',
+                                                    btnClass: 'btn-warning',
+                                                    action: function () {
+                                                        $.alert('A very critical action <strong>triggered!</strong>');
+                                                    }
+                                                },
+                                                cancel: function () {
+                                                    $.alert('you clicked on <strong>cancel</strong>');
+                                                }
                                             }
-                                        }
-                                    });
+                                        });
+                                    }
                                 },
                                 cancel: function () {
-                                    $.alert('cancel clicked');
+                                    $.alert('you clicked on <strong>cancel</strong>');
                                 },
                                 moreButtons: {
                                     text: 'something else',
                                     action: function () {
-                                        $.alert('something else clicked');
+                                        $.alert('you clicked on <strong>something else</strong>');
                                     }
                                 },
                             }
                         });
                     });
 
-                    // act like prompt
+                    // prompt
                     $('.example-p-7-1').on('click', function () {
                         $.confirm({
                             title: 'A simple form',
-                            content: 'url:form.txt',
+                            content: 'url:form.html',
                             buttons: {
-                                confirm: function () {
-                                    var input = this.$content.find('input#input-name');
-                                    var errorText = this.$content.find('.text-danger');
-                                    if (input.val() == '') {
-                                        errorText.show();
-                                        return false;
-                                    } else {
-                                        $.alert('Hello ' + input.val());
+                                sayMyName: {
+                                    text: 'Say my name',
+                                    btnClass: 'btn-warning',
+                                    action: function () {
+                                        var input = this.$content.find('input#input-name');
+                                        var errorText = this.$content.find('.text-danger');
+                                        if (input.val() == '') {
+                                            errorText.html('Please don\'t keep the name field empty!').slideDown(200);
+                                            return false;
+                                        } else {
+                                            $.alert('Hello ' + input.val() + ', i hope you have a great day!');
+                                        }
                                     }
+                                },
+                                later: function () {
+                                    // do nothing.
                                 }
                             }
                         });
@@ -588,26 +584,31 @@
                     $('.example-p-3').on('click', function () {
                         $.alert({
                             title: 'Background dismiss',
-                            content: 'By default the user is not allowed to click outside the modal. Click outside the modal to close.',
-                            confirmButton: 'okay',
-                            confirmButtonClass: 'btn-info',
-                            animation: 'bottom',
-                            icon: 'fa fa-check',
+                            content: 'Click outside the modal to close it.',
+                            animation: 'top',
+                            closeAnimation: 'bottom',
                             backgroundDismiss: true,
+                            buttons: {
+                                okay: {
+                                    text: 'okay',
+                                    btnClass: 'btn-info',
+                                    action: function () {
+                                        // do nothing
+                                    }
+                                }
+                            }
                         });
-                        // todo: backgroundDismiss accepts function with conditions. awesome
                     });
 
                     // using as dialogs
                     $('.example-p-4').on('click', function () {
                         $.dialog({
-                            title: 'Title here',
-                            content: 'Need a popup modal?, no problem!<br>' +
-                            'disable the buttons, and get a full functional modal. <br>' +
-                            '<h3>HTML inside modals</h3>' +
-                            '<h4><strong>centered on the screen</strong></h4>' +
-                            '<h5><em>Like a boss</em></h5>' +
-                            '<button type="button">Interactive too</button>',
+                            title: 'Title comes here',
+                            content: 'Just need a popup without buttons, <strong>no problem!</strong><br>' +
+                            '<h3>disable the buttons</h3>' +
+                            '<h4><strong>and you get a dialog modal</strong></h4>' +
+                            '<h5><em>Well, that close icon is shown if no buttons are here (u need something to close the modal right), u can explicitly control that too.</em></h5>' +
+                            '<button type="button" class="btn btn-success">Click me to change the content</button>',
                             animation: 'scale',
                             onOpen: function () {
                                 var that = this;
@@ -624,7 +625,7 @@
                             title: 'Asynchronous content',
                             content: 'url:table.html',
                             animation: 'zoom',
-                            columnClass: 'col-md-6 col-md-offset-3',
+                            columnClass: 'medium',
                             closeAnimation: 'scale',
                             backgroundDismiss: true,
                         });
@@ -634,19 +635,22 @@
                     $('.example-p-6').on('click', function () {
                         $.confirm({
                             title: 'Auto close',
-                            content: 'Some actions maybe critical, prevent it with the Auto close feature. This dialog will automatically trigger cancel after the timer runs out.',
-                            autoClose: 'close|10000',
-                            escapeKey: 'confirm',
+                            content: 'Some actions maybe critical, prevent it with the Auto close. This dialog will automatically trigger cancel after the timer runs out.',
+                            autoClose: 'cancelAction|10000',
+                            escapeKey: 'cancelAction',
                             buttons: {
                                 confirm: {
-                                    class: 'btn-danger',
+                                    btnClass: 'btn-danger',
                                     text: 'Delete ben\'s account',
                                     action: function () {
                                         $.alert('You deleted Ben\'s account!');
                                     }
                                 },
-                                close: function () {
-                                    $.alert('Ben just got saved!');
+                                cancelAction: {
+                                    text: 'Cancel',
+                                    action: function () {
+                                        $.alert('Ben just got saved!');
+                                    }
                                 }
                             }
                         });
@@ -656,45 +660,55 @@
                     $('.example-p-7').on('click', function () {
                         $.confirm({
                             title: 'Keystrokes',
-                            escapeKey: true,
-                            content: 'Press the escape key to close the modal. That works.' +
-                            '<br> press Shift, enter key to trigger okay.' +
-                            '<br> press Ctrl key to trigger cancel.',
+                            escapeKey: true, // close the modal when escape is pressed.
+                            content: 'Press the <strong>escape key</strong> to close the modal. That works.' +
+                            '<br> press <strong>space or enter key</strong> to trigger okay.' +
+                            '<br> press <strong>shift or ctrl key</strong> to trigger cancel.',
                             backgroundDismiss: true, // for escapeKey to work, backgroundDismiss should be enabled.
                             buttons: {
                                 okay: {
                                     keys: [
-                                        'shift',
+                                        'space',
                                         'enter'
                                     ],
                                     action: function () {
-                                        $.alert('Okay button was triggered.');
+                                        $.alert('<strong>Okay button</strong> was triggered.');
                                     }
                                 },
                                 cancel: {
-                                    keys: ['ctrl'],
+                                    keys: [
+                                        'ctrl',
+                                        'shift'
+                                    ],
                                     action: function () {
-                                        $.alert('Cancel button was triggered.');
+                                        $.alert('<strong>Cancel button</strong> was triggered.');
                                     }
                                 }
                             }
                         });
                     });
-                    // todo: from v3, keyboardEnabled is removed, escapeKey is introduced.
 
                     // alignment
                     $('.example-pc-1').on('click', function () {
                         $.confirm({
-                            title: 'This is smooth',
+                            title: 'Gracefully center aligned',
                             content: '<p>You can add content and not worry about the alignment. The goal is to make a Interactive dialog!.</p>' +
-                            '<button type="button">Click me to add content</button> <span> <br></span> ',
+                            '<button type="button" class="btn btn-success">Click me to add more content</button> <span> <br></span> ',
                             confirmButtonClass: 'btn-primary',
-                            animation: 'zoom',
                             buttons: {
                                 someButton: {
-                                    text: 'Say wow',
+                                    text: 'Add wow',
+                                    btnClass: 'btn-success',
                                     action: function () {
                                         this.$content.find('span').append('<br>Wowww');
+                                        return false; // prevent dialog from closing.
+                                    }
+                                },
+                                someOtherButton: {
+                                    text: 'Clear it',
+                                    btnClass: 'btn-warning',
+                                    action: function () {
+                                        this.$content.find('span').html('');
                                         return false; // prevent dialog from closing.
                                     }
                                 },
@@ -713,6 +727,7 @@
                     });
 
                     // working with images
+                    // todo: images is not tested yet.
                     $('.example-pc-2').on('click', function () {
                         $.confirm({
                             title: 'Adding images',
@@ -736,28 +751,30 @@
                     });
 
                     // animations
+                    // todo: im here
                     $(' .example-pc-3').on('click', function () {
                         $.alert({
                             title: 'Animations',
-                            content: 'jquery-confirm provides 12 open &amp; close animations to choose from.',
+                            content: 'jquery-confirm provides a lot of open &amp; close animations out of the box. <br>The best part is, you can add custom ones too.',
                             animation: 'rotate',
                             closeAnimation: 'right',
-                            theme: 'white, black',
-                            opacity: 0.5,
                             buttons: {
-                                'zoom': function () {
+                                zoom: function () {
                                     this.setCloseAnimation('zoom');
                                 },
-                                'rotate': function () {
+                                rotate: function () {
                                     this.setCloseAnimation('rotate');
                                 },
-                                'scale': function () {
+                                scale: function () {
                                     this.setCloseAnimation('scale');
+                                },
+                                top: function () {
+                                    this.setCloseAnimation('top');
                                 }
                             },
-                            backgroundDismiss: function () {
-                                this.setCloseAnimation('scale');
-                            }
+                            backgroundDismiss: function(){
+                                return false;
+                            },
                         });
                     });
                 </script>

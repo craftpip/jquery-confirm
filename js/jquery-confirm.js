@@ -384,17 +384,46 @@ var jconfirm, Jconfirm;
                      If backgroundDismiss is a function and its return value is truthy
                      proceed to close the modal.
                      */
-                    if (typeof that.backgroundDismiss == 'function') {
-                        var res = that.backgroundDismiss();
+                    var buttonName = false;
+                    var shouldClose = false;
+                    var str;
 
-                        if (typeof res === 'undefined' || res) that.close(); else
-                            that._hiLightModal();
+                    if (typeof that.backgroundDismiss == 'function')
+                        str = that.backgroundDismiss();
+                    else
+                        str = that.backgroundDismiss;
+
+                    if (typeof str == 'string' && typeof that.buttons[str] != 'undefined') {
+                        buttonName = str;
+                        shouldClose = false;
+                    } else if (typeof str == 'undefined' || !!(str) == true) {
+                        shouldClose = true;
                     } else {
-                        if (that.backgroundDismiss)
-                            that.close();
-                        else
-                            that._hiLightModal();
+                        shouldClose = false;
                     }
+
+                    if (buttonName) {
+                        var btnResponse = that.buttons[buttonName].action.apply(that);
+                        shouldClose = (typeof btnResponse == 'undefined') || !!(btnResponse);
+                    }
+
+                    if (shouldClose)
+                        that.close();
+                    else
+                        that._hiLightModal();
+
+                    // else if (typeof that.backgroundDismiss == 'string' && typeof that.buttons[that.backgroundDismiss] != 'undefined') {
+                    //     buttonName = that.backgroundDismiss;
+                    //     shouldClose = false;
+                    // } else {
+                    //
+                    // }
+
+                    // if (typeof res === 'undefined' || res)
+                    //     that.close();
+                    // else
+                    //     that._hiLightModal();
+
                 }
                 that.boxClicked = false;
             });
@@ -695,6 +724,8 @@ var jconfirm, Jconfirm;
                     return 'alt';
                 case 27:
                     return 'esc';
+                case 32:
+                    return 'space';
             }
 
             // only trust alphabets with this.
@@ -777,7 +808,6 @@ var jconfirm, Jconfirm;
 
             var topMargin = (windowHeight - boxHeight) / 2;
             var minMargin = 100; // todo: include this in options
-            console.log(this.loadingSpinner, windowHeight, boxHeight, topMargin, contentHeight, paneHeight);
             if (boxHeight > (windowHeight - minMargin)) {
                 style = {
                     'margin-top': minMargin / 2,
@@ -911,7 +941,7 @@ var jconfirm, Jconfirm;
         backgroundDismiss: false,
         backgroundDismissAnimation: 'shake',
         autoClose: false,
-        closeIcon: true,
+        closeIcon: null,
         closeIconClass: false,
         watchInterval: 100,
         columnClass: 'col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1',
