@@ -463,7 +463,7 @@ var jconfirm, Jconfirm;
                 }
 
                 that.buttons[key].text = button.text || key;
-                that.buttons[key].class = button.class || 'btn-default';
+                that.buttons[key].btnClass = button.btnClass || 'btn-default';
                 that.buttons[key].action = button.action || function () {};
                 that.buttons[key].keys = button.keys || [];
 
@@ -471,7 +471,7 @@ var jconfirm, Jconfirm;
                     that.buttons[key].keys[i] = a.toLowerCase();
                 });
 
-                var button_element = $('<button type="button" class="btn ' + that.buttons[key].class + '">' + that.buttons[key].text + '</button>').click(function (e) {
+                var button_element = $('<button type="button" class="btn ' + that.buttons[key].btnClass + '">' + that.buttons[key].text + '</button>').click(function (e) {
                     e.preventDefault();
                     var res = that.buttons[key].action.apply(that);
                     that.onAction(key);
