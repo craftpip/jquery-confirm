@@ -206,8 +206,7 @@
 
                 <p>
                     <em>alerts</em>, <em>confirms</em> and <em>dialogs</em> in
-                    <strong>one</strong>
-                    .
+                    <strong>one.</strong>
                 </p>
 
                 <div class="row download-btns">
@@ -234,7 +233,8 @@
             <div class="space10"></div>
             <p>
                 <strong>jquery-confirm
-                    v<span class="version">-</span>
+                    v
+                    <span class="version">-</span>
                     docs
                 </strong>
                 <br>
@@ -243,35 +243,33 @@
                 </a>
             </p>
             <!--<a href="https://github.com/craftpip/jquery-confirm/zipball/master"-->
-               <!--class="btn btn-download btn-lg btn-block">-->
-                <!--Download latest-->
+            <!--class="btn btn-download btn-lg btn-block">-->
+            <!--Download latest-->
             <!--</a>-->
             <!--<a href="https://github.com/craftpip/jquery-confirm/releases"-->
-               <!--class="btn btn-download btn-block">-->
-                <!--View all releases-->
+            <!--class="btn btn-download btn-block">-->
+            <!--View all releases-->
             <!--</a>-->
 
             <!--<div class="spacer15"></div>-->
             <!--<p class="text-right">-->
-                <!--<code>version-->
-                    <!--<span class="version"></span>-->
-                <!--</code>-->
+            <!--<code>version-->
+            <!--<span class="version"></span>-->
+            <!--</code>-->
             <!--</p>-->
 
             <div class="spacer15"></div>
             <div id="my-nav">
                 <ul class="nav nav-list">
                     <li>
-                        <a href="#quickfeatures"> Quick features</a>
+                        <a href="#quickfeatures"> Features</a>
+                    </li>
+                    <li>
+                        <a href="#getting-started"> Getting started</a>
                         <ul class="nav nav-list">
                             <li>
                                 <a href="#installation"> Installation</a>
                             </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#usage"> Quick Use</a>
-                        <ul class="nav nav-list">
                             <li>
                                 <a href="#alert"> $.alert</a>
                             </li>
@@ -450,7 +448,7 @@
             </section>
             <hr>
             <section id="quickfeatures">
-                <h1>Quick features</h1>
+                <h2>Quick features</h2>
 
                 <p>These features can practically be used like so.</p>
 
@@ -766,98 +764,104 @@
             </section>
 
             <!-- Installation -->
-            <section id="installation">
-                <h2>Installation</h2>
+            <section id="getting-started">
+                <h2>Getting started</h2>
+                <h4 id="installation">
+                    Installation
+                </h4>
+                <div class="section">
+                    <p>
+                        <strong>Download</strong>
+                        <br>
+                        Download the Latest version and use files in the <code>/dist/</code> folder.
+                    </p>
 
-                <p>
-                    <strong>Download</strong>
-                    <br>
-                    Download the Latest version and use files in the <code>/dist/</code> folder.
-                </p>
+                    <p>
+                        <strong>via Bower:</strong>
+                        <br>
+                        <code>
+                            $ bower install craftpip/jquery-confirm
+                        </code>
+                    </p>
 
-                <p>
-                    <strong>via Bower:</strong>
-                    <br>
-                    <code>
-                        $ bower install craftpip/jquery-confirm
-                    </code>
-                </p>
-
-                <p>
-                    <strong>via Npm:</strong>
-                    <br>
-                    <code>
-                        $ npm install jquery-confirm
-                    </code>
-                </p>
+                    <p>
+                        <strong>via Npm:</strong>
+                        <br>
+                        <code>
+                            $ npm install jquery-confirm
+                        </code>
+                    </p>
+                </div>
 
             </section>
 
             <!-- basic usage -->
             <section id="usage">
-                <h2>Quick Usage</h2>
+                <h3>Quick Usage</h3>
 
-                <p>
-                    <strong>Dependencies:</strong>
-                </p>
-                <ul>
-                    <li>Bootstrap by Twitter >= v3</li>
-                    <li>jQuery library > v1.8</li>
-                </ul>
-                <div class="row">
-                    <div class="col-md-12">
-                        <h4 id="alert">Alert</h4>
+                <div class="section">
 
-                        <p>
-                            <i class="fa fa-info-circle"></i> <code>$.alert()</code> adds a button if no buttons are specified, this lets the user to close the modal.
-                        </p>
-                        <button class="example1 btn btn-primary">example alert</button>
-                        <script type="text/javascript">
-                            $('.example1').on('click', function () {
-                                $.alert({
-                                    title: 'Alert!',
-                                    content: 'Simple alert!',
+                    <p>
+                        <strong>Dependencies:</strong>
+                    </p>
+                    <ul>
+                        <li>Bootstrap by Twitter >= v3</li>
+                        <li>jQuery library > v1.8</li>
+                    </ul>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4 id="alert">Alert</h4>
+
+                            <p>
+                                <i class="fa fa-info-circle"></i> <code>$.alert()</code> adds a button if no buttons are specified, this lets the user to close the modal.
+                            </p>
+                            <button class="example1 btn btn-primary">example alert</button>
+                            <script type="text/javascript">
+                                $('.example1').on('click', function () {
+                                    $.alert({
+                                        title: 'Alert!',
+                                        content: 'Simple alert!',
+                                    });
                                 });
-                            });
-                        </script>
-                        <div class="space10"></div>
-                        <pre class="prettyprint linenums"><code class="js">$.alert({
+                            </script>
+                            <div class="space10"></div>
+                            <pre class="prettyprint linenums"><code class="js">$.alert({
     title: 'Alert!',
     content: 'Simple alert!',
 });</code></pre>
-                    </div>
-                    <div class="col-md-12">
-                        <h4 id="confirm">
-                            Confirm
-                        </h4>
+                        </div>
+                        <div class="col-md-12">
+                            <h4 id="confirm">
+                                Confirm
+                            </h4>
 
-                        <p>
-                            <i class="fa fa-info-circle"></i> <code>$.confirm()</code> takes options as is, no buttons will be shown if none is specified.
-                        </p>
-                    </div>
-                    <div class="col-md-6">
-                        <button class="example2 btn btn-primary">example confirm</button>
-                        <script type="text/javascript">
-                            $('.example2').on('click', function () {
-                                $.confirm({
-                                    title: 'Confirm!',
-                                    content: 'Simple confirm!',
-                                    buttons: {
-                                        confirm: function () {
-                                            $.alert('Confirmed!');
-                                        },
-                                        cancel: function () {
-                                            $.alert('Canceled!');
-                                        },
-                                        somethingElse: function () {
-                                            $.alert('Something else?');
+                            <p>
+                                <i class="fa fa-info-circle"></i> <code>$.confirm()</code> if no buttons are specified, two buttons (Okay &amp; cancel) will be added.
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="example2 btn btn-primary">example confirm</button>
+                            <script type="text/javascript">
+                                $('.example2').on('click', function () {
+                                    $.confirm({
+                                        title: 'Confirm!',
+                                        content: 'Simple confirm!',
+                                        buttons: {
+                                            confirm: function () {
+                                                $.alert('Confirmed!');
+                                            },
+                                            cancel: function () {
+                                                $.alert('Canceled!');
+                                            },
+                                            somethingElse: function () {
+                                                $.alert('Something else?');
+                                            }
                                         }
-                                    }
+                                    });
                                 });
-                            });
-                        </script>
-                        <div class="space10"></div>
-                        <pre class="prettyprint linenums"><code class="js">$.confirm({
+                            </script>
+                            <div class="space10"></div>
+                            <pre class="prettyprint linenums"><code class="js">$.confirm({
     title: 'Confirm!',
     content: 'Simple confirm!',
     buttons: {
@@ -873,89 +877,93 @@
     }
 });
                                 </code></pre>
-                    </div>
-                    <div class="col-md-6">
-                        <p>
-                            <a class="example2-1-1 btn btn-primary"
-                               data-title="Goto twitter?"
-                               href="http://twitter.com/craftpip">Goto twitter
-                            </a>
-                        </p>
-                        <script>
-                            $('.example2-1-1').confirm({
-                                content: "This will take you to my twitter <br> You can access the clicked element by <code>this.$target</code>",
-                            });
-                        </script>
-                        <span>HTML</span>
-                        <pre class="prettyprint linenums"><code class="html">&lt;a class="twitter" data-title="Goto twitter?" href="http://twitter.com/craftpip"&gt;Goto twitter&lt;/a&gt;</code></pre>
-                        <span>Javascript</span>
-                        <pre class="prettyprint linenums"><code class="js">$('a.twitter').confirm(options);</code></pre>
-                        <p>The alias $.fn.confirm was made to emulate the native confirm(). <br/>
-                            <i class="fa fa-info"></i> By default on "confirm" the window will be redirected to the href provided, but if the `options` has the confirm callback, it will be called instead. Use
-                            <a href="#api-target">this.$target</a>
-                            to get the clicked element.
-                        </p>
-                    </div>
-                    <div class="col-md-12">
-                        <h4 id="dialog">
-                            Dialog
-                        </h4>
-
-                        <p>
-                            <i class="fa fa-info-circle"></i> <code>$.dialog()</code> removes buttons and explicitly shows the closeIcon (&times;)
-                        </p>
-                        <button class="example2-1 btn btn-primary">example dialog</button>
-                        <script type="text/javascript">
-                            $('.example2-1').on('click', function () {
-                                $.dialog({
-                                    title: 'Text content!',
-                                    content: 'Simple modal!',
-                                    buttons: {
-                                        aRandomButton: function () {
-                                            // this will be removed.
-                                        }
-                                    }
+                        </div>
+                        <div class="col-md-6">
+                            <p>
+                                <a class="example2-1-1 btn btn-primary"
+                                   data-title="Goto twitter?"
+                                   href="http://twitter.com/craftpip">Goto twitter
+                                </a>
+                            </p>
+                            <script>
+                                $('.example2-1-1').confirm({
+                                    content: "This will take you to my twitter <br> You can access the clicked element by <code>this.$target</code>",
                                 });
-                            });
-                        </script>
-                        <div class="space10"></div>
-                        <pre class="prettyprint linenums"><code class="js">$.dialog({
+                            </script>
+                            <span>HTML</span>
+                            <pre class="prettyprint linenums"><code class="html">&lt;a class="twitter" data-title="Goto twitter?" href="http://twitter.com/craftpip"&gt;Goto twitter&lt;/a&gt;</code></pre>
+                            <span>Javascript</span>
+                            <pre class="prettyprint linenums"><code class="js">$('a.twitter').confirm({
+    content: "This will take you to my twitter &lt;br&gt; You can access the clicked element by <code>this.$target</code>",
+});</code></pre>
+                            <p>The alias $.fn.confirm was made to emulate the native confirm(). <br/>
+                                <i class="fa fa-info"></i> By default on "confirm" the window will be redirected to the href provided, but if the `options` has the confirm callback, it will be called instead. Use
+                                <a href="#api-target">this.$target</a>
+                                to get the clicked element.
+                            </p>
+                        </div>
+                        <div class="col-md-12">
+                            <h4 id="dialog">
+                                Dialog
+                            </h4>
+
+                            <p>
+                                <i class="fa fa-info-circle"></i> <code>$.dialog()</code> removes buttons and explicitly shows the closeIcon (&times;)
+                            </p>
+                            <button class="example2-1 btn btn-primary">example dialog</button>
+                            <script type="text/javascript">
+                                $('.example2-1').on('click', function () {
+                                    $.dialog({
+                                        title: 'Text content!',
+                                        content: 'Simple modal!',
+                                        buttons: {
+                                            aRandomButton: function () {
+                                                // this will be removed.
+                                            }
+                                        }
+                                    });
+                                });
+                            </script>
+                            <div class="space10"></div>
+                            <pre class="prettyprint linenums"><code class="js">$.dialog({
     title: 'Text content!',
     content: 'Simple modal!',
 });</code></pre>
-                    </div>
-                    <div class="col-md-12">
-                        <h4 id="shorthand">Shorthand usage</h4>
+                        </div>
+                        <div class="col-md-12">
+                            <h4 id="shorthand">Shorthand usage</h4>
 
-                        <p>
-                            The shorthand thingy takes in two string arguments, first one is the content of the dialog and second the title of the dialog.
-                            The second argument is optional.
-                        </p>
-                        <pre class="prettyprint linenums"><code class="js">$.alert('Content here', 'Title here'); <a href="#"
-                                                                                                                     class="example-sh-1">try me</a>
+                            <p>
+                                The shorthand thingy takes in two string arguments, first one is the content of the dialog and second the title of the dialog.
+                                The second argument is optional.
+                            </p>
+                            <pre class="prettyprint linenums"><code class="js">$.alert('Content here', 'Title here'); <a href="#"
+                                                                                                                         class="example-sh-1">try me</a>
 $.confirm('A message', 'Title is optional'); <a href="#"
                                                 class="example-sh-2">try me</a>
 $.dialog('Just to let you know'); <a href="#"
                                      class="example-sh-3">try me</a></code></pre>
-                    </div>
-                    <script>
-                        $('.example-sh-1').click(function (e) {
-                            e.preventDefault();
-                            $.alert('Content here', 'Title here');
-                        });
-                        $('.example-sh-2').click(function (e) {
-                            e.preventDefault();
-                            $.confirm('A message', 'Title is optional');
-                        });
-                        $('.example-sh-3').click(function (e) {
-                            e.preventDefault();
-                            $.dialog('Just to let you know');
-                        });
-                    </script>
+                        </div>
+                        <script>
+                            $('.example-sh-1').click(function (e) {
+                                e.preventDefault();
+                                $.alert('Content here', 'Title here');
+                            });
+                            $('.example-sh-2').click(function (e) {
+                                e.preventDefault();
+                                $.confirm('A message', 'Title is optional');
+                            });
+                            $('.example-sh-3').click(function (e) {
+                                e.preventDefault();
+                                $.dialog('Just to let you know');
+                            });
+                        </script>
 
+                    </div>
                 </div>
             </section>
 
+            <div style="height: 15px;"></div>
             <div class="alert alert-info">
                 <p>
                     <i class="fa fa-bookmark fa-fw"></i>
