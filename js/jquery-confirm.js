@@ -483,7 +483,7 @@ var jconfirm, Jconfirm;
                 /*
                  Buttons are prefixed with $_ for quick access
                  */
-                that['$_' + key] = button_element;
+                that['$_' + key] = that['$$' + key] = button_element;
                 that.$btnc.append(button_element);
             });
 
@@ -514,6 +514,7 @@ var jconfirm, Jconfirm;
                         that.close();
                     }
                 });
+                this.$closeIcon.show();
             } else {
                 this.$closeIcon.hide();
             }

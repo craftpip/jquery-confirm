@@ -97,9 +97,9 @@
             </button>
             <!--<a href="/"-->
             <!--class="navbar-brand">Jquery-confirm</a>-->
-            <a class="navbar-brand"
-               href="http://craftpip.github.io">
-                <span class="craftpip-logo"></span>
+            <a class="navbar-brand jconfirm-logo"
+               href="http://craftpip.github.io/jquery-confirm">
+                <!--<span class="jconfirm-logo"></span>-->
             </a>
         </div>
         <nav id="bs-navbar"
@@ -195,18 +195,35 @@
      id="content"
      tabindex="-1">
     <div class="container">
-        <h1 style="margin-top: 7px;"
-            class="text-center">
-            <img style="width: 400px;"
-                 src="jquery-confirm.png"
-                 alt="JQUERY-CONFIRM"/>
-        </h1>
+        <div class="row">
+            <div class="col-md-12">
+                <h1 style="margin-top: 7px;"
+                    class="text-center">
+                    <img style="max-width: 400px;"
+                         src="jquery-confirm.png"
+                         alt="JQUERY-CONFIRM"/>
+                </h1>
 
-        <p>
-            <em>alerts</em>, <em>confirms</em> and <em>dialogs</em> in
-            <strong>one</strong>
-            .
-        </p>
+                <p>
+                    <em>alerts</em>, <em>confirms</em> and <em>dialogs</em> in
+                    <strong>one</strong>
+                    .
+                </p>
+
+                <div class="row download-btns">
+                    <div class="col-md-4 col-md-offset-4">
+                        <div style="height: 15px;"></div>
+                        <a href="https://github.com/craftpip/jquery-confirm/zipball/master"
+                           class="btn btn-lg">Download v3
+                        </a>
+                        <a href="https://github.com/craftpip/jquery-confirm"
+                           class="btn btn-lg"><i class="fa fa-github"></i> View on GitHub
+                        </a>
+                        <div style="height: 15px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <!--<div style="height:50px"></div>-->
@@ -216,8 +233,8 @@
             <div class="space10"></div>
             <div class="space10"></div>
             <p>
-                <strong>jquery-confirm v
-                    <span class="version"></span>
+                <strong>jquery-confirm
+                    v<span class="version">-</span>
                     docs
                 </strong>
                 <br>
@@ -225,21 +242,21 @@
                     view on <i class="fa fa-github"></i> Github
                 </a>
             </p>
-            <a href="https://github.com/craftpip/jquery-confirm/zipball/master"
-               class="btn btn-download btn-lg btn-block">
-                Download latest
-            </a>
-            <a href="https://github.com/craftpip/jquery-confirm/releases"
-               class="btn btn-download btn-block">
-                View all releases
-            </a>
+            <!--<a href="https://github.com/craftpip/jquery-confirm/zipball/master"-->
+               <!--class="btn btn-download btn-lg btn-block">-->
+                <!--Download latest-->
+            <!--</a>-->
+            <!--<a href="https://github.com/craftpip/jquery-confirm/releases"-->
+               <!--class="btn btn-download btn-block">-->
+                <!--View all releases-->
+            <!--</a>-->
 
-            <div class="spacer15"></div>
-            <p class="text-right">
-                <code>version
-                    <span class="version"></span>
-                </code>
-            </p>
+            <!--<div class="spacer15"></div>-->
+            <!--<p class="text-right">-->
+                <!--<code>version-->
+                    <!--<span class="version"></span>-->
+                <!--</code>-->
+            <!--</p>-->
 
             <div class="spacer15"></div>
             <div id="my-nav">
@@ -1802,10 +1819,10 @@ $.dialog('Just to let you know'); <a href="#"
                                     dataType: 'json',
                                     method: 'get'
                                 }).done(function (response) {
-//                                    jc.content = response.description;
+                                    //                                    jc.content = response.description;
                                     jc.setContent('Description: ' + response.description);
                                     jc.setContent(jc.content + '<br>Version: ' + response.version); // appending
-//                                    jc.setTitle(response.name);
+                                    //                                    jc.setTitle(response.name);
                                 }).fail(function () {
                                     jc.setContent('Something went wrong.');
                                 });
@@ -1814,10 +1831,10 @@ $.dialog('Just to let you know'); <a href="#"
                             backgroundDismiss: true,
                             escapeKey: true,
                             buttons: {
-//                                s: function () {
-//                                    this.setContent(this.content + '<h4>Adding a new sentence.</h4>');
-//                                    return false;
-//                                }
+                                //                                s: function () {
+                                //                                    this.setContent(this.content + '<h4>Adding a new sentence.</h4>');
+                                //                                    return false;
+                                //                                }
                             }
                         });
                     });

@@ -115,6 +115,7 @@ body[class~="jconfirm-no-scroll-"] {
           transition: opacity 0.3s ease-in;
   font-size: 27px !important;
   line-height: 14px !important;
+  display: none;
 }
 .jconfirm .jconfirm-box div.jconfirm-closeIcon:empty {
   display: none;

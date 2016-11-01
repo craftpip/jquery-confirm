@@ -12,15 +12,18 @@ body {
     width: 100%
 }
 
-.craftpip-logo {
-    background-image: url(logo-name.svg);
-    -webkit-background-size: contain;
+.jconfirm-logo {
+    background-image: url('../jquery-confirm.png');
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    width: 130px;
-    display: block;
-    height: 20px
+    width: 152px;
+}
+
+.download-btns .btn{
+    background: white;
+    color: dodgerblue;
+    border-radius: 4px;
 }
 
 kbd.blue {
