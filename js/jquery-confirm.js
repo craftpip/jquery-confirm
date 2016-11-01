@@ -23,6 +23,7 @@ var jconfirm, Jconfirm;
                 content: options,
                 title: (option2) ? option2 : false
             };
+
         /*
          *  Alias of $.confirm to emulate native confirm()
          */
@@ -39,10 +40,18 @@ var jconfirm, Jconfirm;
                 jcOption['$target'] = $this;
                 if ($this.attr('href') && !options['confirm'])
                     jcOption['buttons'] = {
-                        'confirm': function () {
-                            location.href = $this.attr('href');
+                        'okay': {
+                            text: 'okay',
+                            class: 'btn-primary',
+                            action: function () {
+                                location.href = $this.attr('href');
+                            }
+                        },
+                        'cancel': function () {
+
                         }
                     };
+                jcOption['closeIcon'] = false;
                 $.confirm(jcOption);
             });
         });
@@ -56,7 +65,7 @@ var jconfirm, Jconfirm;
                 title: (option2) ? option2 : false,
                 buttons: {
                     'Okay': function () {},
-                    'Cancel': function () {} // this doesn't make sense as both buttons won't do anything, but its a possibility.
+                    'Cancel': function () {} // this doesn't make sense as both buttons won't do anything, but confirm boxes have two buttons right.
                 }
             };
         /*
@@ -154,6 +163,7 @@ var jconfirm, Jconfirm;
             // prefix the animation string and store in animationParsed
             this._parseAnimation(this.animation, 'o');
             this._parseAnimation(this.closeAnimation, 'c');
+            this._parseBgDismissAnimation(this.backgroundDismissAnimation);
             this._parseColumnClass(this.columnClass);
             this._parseTheme(this.theme);
 
@@ -161,7 +171,7 @@ var jconfirm, Jconfirm;
              * Append html.
              */
             var template = $(this.template);
-            template.find('.jconfirm-box').addClass(this.animationParsed);
+            template.find('.jconfirm-box').addClass(this.animationParsed).addClass(this.backgroundDismissAnimationParsed);
             if (this.containerFluid)
                 template.find('.container').removeClass('container').addClass('container-fluid');
             template.find('.jconfirm-box-container').addClass(this.columnClassParsed);
@@ -194,9 +204,13 @@ var jconfirm, Jconfirm;
             this.setTitle();
             this.setIcon();
 
+            if (!this.content)
+                this.content = '&nbsp;';
+
             this._setButtons();
             this._getContent();
-            if(this._isContentAjax)
+
+            if (this._isContentAjax)
                 this.showLoading(true);
 
             // todo: center align is wrong when using showloading.
@@ -207,7 +221,7 @@ var jconfirm, Jconfirm;
                         that.setContent();
                         that.setTitle();
                         that.setIcon();
-                        setTimeout(function(){
+                        setTimeout(function () {
                             that.hideLoading(true);
                         }, 100)
                     }, 200);
@@ -228,6 +242,11 @@ var jconfirm, Jconfirm;
 
             this._watchContent();
             this.setDialogCenter();
+
+            if (this.animation == 'none') {
+                this.animationSpeed = 1;
+                this.animationBounce = 1;
+            }
 
             this.$body.css(this._getCSS(this.animationSpeed, this.animationBounce));
             this.$contentPane.css(this._getCSS(this.animationSpeed, 1));
@@ -253,6 +272,17 @@ var jconfirm, Jconfirm;
                     theme[k] = that._themePrefix + $.trim(a);
             });
             this.themeParsed = theme.join(' ').toLowerCase();
+        },
+        backgroundDismissAnimationParsed: '',
+        _bgDismissPrefix: 'jconfirm-hilight-',
+        _parseBgDismissAnimation: function (bgDismissAnimation) {
+            var animation = bgDismissAnimation.split(',');
+            var that = this;
+            $.each(animation, function (k, a) {
+                if (a.indexOf(that._bgDismissPrefix) == -1)
+                    animation[k] = that._bgDismissPrefix + $.trim(a);
+            });
+            this.backgroundDismissAnimationParsed = animation.join(' ').toLowerCase();
         },
         animationParsed: '',
         closeAnimationParsed: '',
@@ -383,16 +413,18 @@ var jconfirm, Jconfirm;
                 that.setDialogCenter(true);
             });
         },
+        _cubic_bezier: '0.36, 0.55, 0.19',
         _getCSS: function (speed, bounce) {
             // 0.36, 0.99, 0.19 old
             // 0.37, 0.48, 0.54
             // 0.44, 0.81, 0.68
             // 0.07, 0.69, 0.68
+
             return {
                 '-webkit-transition-duration': speed / 1000 + 's',
                 'transition-duration': speed / 1000 + 's',
-                '-webkit-transition-timing-function': 'cubic-bezier(0.36, 0.99, 0.19, ' + bounce + ')',
-                'transition-timing-function': 'cubic-bezier(0.36, 0.99, 0.19, ' + bounce + ')'
+                '-webkit-transition-timing-function': 'cubic-bezier(' + this._cubic_bezier + ', ' + bounce + ')',
+                'transition-timing-function': 'cubic-bezier(' + this._cubic_bezier + ', ' + bounce + ')'
             };
         },
         _imagesLoaded: function () {
@@ -759,7 +791,7 @@ var jconfirm, Jconfirm;
                 $('body').removeClass('jconfirm-no-scroll-' + this._id);
             }
 
-            that.$contentPane.css({
+            this.$contentPane.css({
                 'height': contentHeight
             }).scrollTop(0);
             this.$body.css(style);
@@ -876,6 +908,7 @@ var jconfirm, Jconfirm;
         cancel: function () {
         },
         backgroundDismiss: false,
+        backgroundDismissAnimation: 'shake',
         autoClose: false,
         closeIcon: true,
         closeIconClass: false,

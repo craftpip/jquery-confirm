@@ -60,9 +60,8 @@ body[class~="jconfirm-no-scroll-"]{
     outline: none;
     padding: 15px 15px 0;
 
-
     &.loading {
-      min-height: 120px;
+      height: 120px;
 
       &:before {
         content: '';
@@ -268,18 +267,22 @@ body[class~="jconfirm-no-scroll-"]{
           }
         }
       }
-
     }
-
   }
 
   .jconfirm-box.hilight {
-    animation: hilight 0.82s cubic-bezier(.36, .07, .19, .97) both;
-    transform: translate3d(0, 0, 0);
+    &.jconfirm-hilight-shake{
+      animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
+      transform: translate3d(0, 0, 0);
+    }
+    &.jconfirm-hilight-glow{
+      animation: glow 0.82s cubic-bezier(.36, .07, .19, .97) both;
+      transform: translate3d(0, 0, 0);
+    }
   }
 }
 
-@keyframes hilight {
+@keyframes shake {
   10%, 90% {
     transform: translate3d(-2px, 0, 0);
   }
@@ -291,6 +294,14 @@ body[class~="jconfirm-no-scroll-"]{
   }
   40%, 60% {
     transform: translate3d(8px, 0, 0);
+  }
+}
+@keyframes glow {
+  0%, 100%{
+    box-shadow: 0 0 3px red;
+  }
+  50%{
+    box-shadow: 0 0 30px red;
   }
 }
 
@@ -354,7 +365,7 @@ body[class~="jconfirm-no-scroll-"]{
       transform: scale(0.5);
     }
     &.jconfirm-animation-none {
-      display: none;
+      visibility: hidden;
     }
   }
 }

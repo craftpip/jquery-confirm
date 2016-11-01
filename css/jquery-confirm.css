@@ -72,7 +72,7 @@ body[class~="jconfirm-no-scroll-"] {
   padding: 15px 15px 0;
 }
 .jconfirm .jconfirm-box.loading {
-  min-height: 120px;
+  height: 120px;
 }
 .jconfirm .jconfirm-box.loading:before {
   content: '';
@@ -254,13 +254,19 @@ body[class~="jconfirm-no-scroll-"] {
 .jconfirm.jconfirm-black .jconfirm-box .jconfirm-buttons button.btn-default:hover {
   background: #666;
 }
-.jconfirm .jconfirm-box.hilight {
-  -webkit-animation: hilight 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-          animation: hilight 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+.jconfirm .jconfirm-box.hilight.jconfirm-hilight-shake {
+  -webkit-animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+          animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
   -webkit-transform: translate3d(0, 0, 0);
           transform: translate3d(0, 0, 0);
 }
-@-webkit-keyframes hilight {
+.jconfirm .jconfirm-box.hilight.jconfirm-hilight-glow {
+  -webkit-animation: glow 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+          animation: glow 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+@-webkit-keyframes shake {
   10%,
   90% {
     -webkit-transform: translate3d(-2px, 0, 0);
@@ -283,7 +289,7 @@ body[class~="jconfirm-no-scroll-"] {
             transform: translate3d(8px, 0, 0);
   }
 }
-@keyframes hilight {
+@keyframes shake {
   10%,
   90% {
     -webkit-transform: translate3d(-2px, 0, 0);
@@ -304,6 +310,24 @@ body[class~="jconfirm-no-scroll-"] {
   60% {
     -webkit-transform: translate3d(8px, 0, 0);
             transform: translate3d(8px, 0, 0);
+  }
+}
+@-webkit-keyframes glow {
+  0%,
+  100% {
+    box-shadow: 0 0 3px red;
+  }
+  50% {
+    box-shadow: 0 0 30px red;
+  }
+}
+@keyframes glow {
+  0%,
+  100% {
+    box-shadow: 0 0 3px red;
+  }
+  50% {
+    box-shadow: 0 0 30px red;
   }
 }
 /*Transition rules*/
@@ -413,7 +437,7 @@ body[class~="jconfirm-no-scroll-"] {
           transform: scale(0.5);
 }
 .jconfirm .jconfirm-box.jconfirm-animation-none {
-  display: none;
+  visibility: hidden;
 }
 .jconfirm.jconfirm-supervan .jconfirm-bg {
   background-color: rgba(54, 70, 93, 0.95);
