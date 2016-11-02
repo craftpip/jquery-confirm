@@ -264,6 +264,9 @@
                                 <a href="#dialog"> $.dialog</a>
                             </li>
                             <li>
+                                <a href="#jquery-fn"> $.fn.confirm</a>
+                            </li>
+                            <li>
                                 <a href="#shorthand"> Shorthand usage</a>
                             </li>
                         </ul>
@@ -272,8 +275,11 @@
                         <a href="#buttons">Buttons</a>
                         <ul class="nav nav-list">
                             <li>
-                                <a href="#presenting_buttons"> Presenting buttons</a>
+                                <a href="#defining-buttons"> Presenting buttons</a>
                             </li>
+                            <!--<li>-->
+                            <!--<a href="#accessing-buttons"> Accessing buttons</a>-->
+                            <!--</li>-->
                             <li>
                                 <a href="#buttontext"> Button text</a>
                             </li>
@@ -772,7 +778,7 @@
                                     this.setCloseAnimation('top');
                                 }
                             },
-                            backgroundDismiss: function(){
+                            backgroundDismiss: function () {
                                 return false;
                             },
                         });
@@ -808,15 +814,6 @@
                             $ npm install jquery-confirm
                         </code>
                     </p>
-                </div>
-
-            </section>
-
-            <!-- basic usage -->
-            <section id="usage">
-                <h3>Quick Usage</h3>
-
-                <div class="section">
 
                     <p>
                         <strong>Dependencies:</strong>
@@ -825,12 +822,22 @@
                         <li>Bootstrap by Twitter >= v3</li>
                         <li>jQuery library > v1.8</li>
                     </ul>
+                </div>
+            </section>
+
+            <!-- basic usage -->
+            <section id="usage">
+                <h3>Quick Usage</h3>
+
+                <div class="section">
                     <div class="row">
                         <div class="col-md-12">
-                            <h4 id="alert">Alert</h4>
+                            <h4 id="alert">
+                                <code>$.alert</code>
+                            </h4>
 
                             <p>
-                                <i class="fa fa-info-circle"></i> <code>$.alert()</code> adds a button if no buttons are specified, this lets the user to close the modal.
+                                adds one button (okay) if no buttons are specified, this lets the user to close the modal.
                             </p>
                             <button class="example1 btn btn-primary">example alert</button>
                             <script type="text/javascript">
@@ -849,14 +856,14 @@
                         </div>
                         <div class="col-md-12">
                             <h4 id="confirm">
-                                Confirm
+                                <code>$.confirm</code>
                             </h4>
 
                             <p>
-                                <i class="fa fa-info-circle"></i> <code>$.confirm()</code> if no buttons are specified, two buttons (Okay &amp; cancel) will be added.
+                                if no buttons are specified, two buttons (Okay &amp; cancel) will be added.
                             </p>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <button class="example2 btn btn-primary">example confirm</button>
                             <script type="text/javascript">
                                 $('.example2').on('click', function () {
@@ -870,8 +877,18 @@
                                             cancel: function () {
                                                 $.alert('Canceled!');
                                             },
-                                            somethingElse: function () {
-                                                $.alert('Something else?');
+                                            somethingElse: {
+                                                text: 'Something else',
+                                                btnClass: 'btn-primary',
+                                                keys: [
+                                                    'enter',
+                                                    'shift'
+                                                ],
+                                                action: function () {
+                                                    this.$content
+                                                    // reference to the content
+                                                    $.alert('Something else?');
+                                                }
                                             }
                                         }
                                     });
@@ -888,44 +905,25 @@
         cancel: function () {
             $.alert('Canceled!');
         },
-        somethingElse: function(){
-            $.alert('Something else?');
+        somethingElse: {
+            text: 'Something else',
+            btnClass: 'btn-primary',
+            keys: ['enter', 'shift'],
+            action: function(){
+                $.alert('Something else?');
+            }
         }
     }
 });
                                 </code></pre>
                         </div>
-                        <div class="col-md-6">
-                            <p>
-                                <a class="example2-1-1 btn btn-primary"
-                                   data-title="Goto twitter?"
-                                   href="http://twitter.com/craftpip">Goto twitter
-                                </a>
-                            </p>
-                            <script>
-                                $('.example2-1-1').confirm({
-                                    content: "This will take you to my twitter <br> You can access the clicked element by <code>this.$target</code>",
-                                });
-                            </script>
-                            <span>HTML</span>
-                            <pre class="prettyprint linenums"><code class="html">&lt;a class="twitter" data-title="Goto twitter?" href="http://twitter.com/craftpip"&gt;Goto twitter&lt;/a&gt;</code></pre>
-                            <span>Javascript</span>
-                            <pre class="prettyprint linenums"><code class="js">$('a.twitter').confirm({
-    content: "This will take you to my twitter &lt;br&gt; You can access the clicked element by <code>this.$target</code>",
-});</code></pre>
-                            <p>The alias $.fn.confirm was made to emulate the native confirm(). <br/>
-                                <i class="fa fa-info"></i> By default on "confirm" the window will be redirected to the href provided, but if the `options` has the confirm callback, it will be called instead. Use
-                                <a href="#api-target">this.$target</a>
-                                to get the clicked element.
-                            </p>
-                        </div>
                         <div class="col-md-12">
                             <h4 id="dialog">
-                                Dialog
+                                <code>$.dialog</code>
                             </h4>
 
                             <p>
-                                <i class="fa fa-info-circle"></i> <code>$.dialog()</code> removes buttons and explicitly shows the closeIcon (&times;)
+                                removes buttons and explicitly shows the closeIcon (&times;)
                             </p>
                             <button class="example2-1 btn btn-primary">example dialog</button>
                             <script type="text/javascript">
@@ -946,6 +944,40 @@
     title: 'Text content!',
     content: 'Simple modal!',
 });</code></pre>
+                        </div>
+                        <div class="col-md-12">
+                            <h4 id="jquery-fn"><code>$.fn.confirm</code></h4>
+                            <p>This can be used to bind to a element directly <br/>
+                                If no buttons are defined, the default buttons (okay and cancel) will be added, and default action for okay will be to redirect on the given href.
+                                use
+                                <a href="#api-target">this.$target</a>
+                                to get the clicked element.
+                            </p>
+                            <p>
+                                <a class="example2-1-1 btn btn-primary"
+                                   data-title="Goto twitter?"
+                                   href="http://twitter.com/craftpip">Goto twitter
+                                </a>
+                            </p>
+                            <script>
+                                $('.example2-1-1').confirm({
+                                    content: "This will take you to my twitter <br> You can access the clicked element by <code>this.$target</code>",
+                                });
+                            </script>
+                            <span>HTML</span>
+                            <pre class="prettyprint linenums"><code class="html">&lt;a class="twitter" data-title="Goto twitter?" href="http://twitter.com/craftpip"&gt;Goto twitter&lt;/a&gt;</code></pre>
+                            <span>Javascript</span>
+                            <pre class="prettyprint linenums"><code class="js">$('a.twitter').confirm({
+    content: "...",
+});
+$('a.twitter').confirm({
+    buttons: {
+        hey: function(){
+            location.href = this.$target.attr('href');
+        }
+    }
+});</code></pre>
+
                         </div>
                         <div class="col-md-12">
                             <h4 id="shorthand">Shorthand usage</h4>
@@ -975,7 +1007,6 @@ $.dialog('Just to let you know'); <a href="#"
                                 $.dialog('Just to let you know');
                             });
                         </script>
-
                     </div>
                 </div>
             </section>
@@ -1001,45 +1032,38 @@ $.dialog('Just to let you know'); <a href="#"
             <section id="buttons">
                 <h2>Buttons</h2>
                 <p>
-                    Its all what you need to know about buttons in jquery-confirm v3.
+                    Its all what you need to know about buttons in jquery-confirm v3. <br>
+                    Defining multiple buttons is introduced in v3.
                 </p>
-                <h4 id="presenting_buttons">
-                    Presenting buttons
+                <div class="alert alert-info">
+                    You can access the button element via <code>this.$$heyThere</code> for heyThere button in the below snippet. <br>this is to change the button properties at run time.
+                </div>
+                <h4 id="defining-buttons">
+                    Defining buttons
                 </h4>
                 <div class="section">
                     <p>
-                        1. Buttons with least options, here the key will be used as the button text, and its value (function) as the callback.
+
                     </p>
                     <pre class="prettyprint linenums"><code class="html">$.confirm({
     buttons: {
-        buttonOne: function(){
-            // callback
+        hey: function(){
+            // button action
         },
-        buttonTwo: function(){
-            // callback
+        hello: function(){
+            // button action
         },
-        buttonThree: function(){
-            // callback
-        },
-    }
-});</code></pre>
-                    <p>
-                        2. To define text with spaces or special characters, button classes, keystokes
-                    </p>
-                    <pre class="prettyprint linenums"><code class="html">$.confirm({
-    buttons: {
-        buttonOne: {
-            text: 'Button one',
-            class: 'btn-danger',
-            key: ['shift', 'enter'], // this callback will be triggered when shift or enter is pressed
+        heyThere: {
+            text: 'Hey there!',
+            btnClass: 'btn-primary',
+            keys: ['enter', 'a'],
             action: function(){
-                // callback
+                // button action.
             }
-        }
+        },
     }
 });</code></pre>
                 </div>
-
                 <h4 id="buttontext">Button text</h4>
                 <div class="section">
                     <button class="btn btn-primary example3">click me!</button>
@@ -1048,13 +1072,11 @@ $.dialog('Just to let you know'); <a href="#"
                             $.confirm({
                                 buttons: {
                                     something: function () {
-                                        // here the key 'something' will be used as the text.
-                                        $.alert('You clicked on something.');
+                                        // here the button key 'something' will be used as the text.
                                     },
                                     somethingElse: {
                                         text: 'Something else &*', // Some Non-Alphanumeric characters
                                         action: function () {
-                                            $.alert('You clicked on something else');
                                         }
                                     }
                                 }
@@ -1082,7 +1104,7 @@ $.dialog('Just to let you know'); <a href="#"
                 <div class="section">
                     <p>Simply applying classes to buttons.</p>
                     <p class="text-info">
-                        Available bootstrap options are <code>btn-primary</code> <code>btn-inverse</code> <code>btn-warning</code> <code>btn-info</code> <code>btn-danger</code> <code>btn-success</code> or any class name.
+                        Available bootstrap options are <code>btn-primary</code> <code>btn-inverse</code> <code>btn-warning</code> <code>btn-info</code> <code>btn-danger</code> <code>btn-success</code> or any other class name.
                     </p>
                     <button class="btn btn-primary example3-1">info, danger, warning, success!</button>
                     <script type="text/javascript">
@@ -1090,16 +1112,20 @@ $.dialog('Just to let you know'); <a href="#"
                             $.confirm({
                                 buttons: {
                                     info: {
-                                        class: 'btn-info'
+                                        btnClass: 'btn-info',
+                                        action: function () {}
                                     },
                                     danger: {
-                                        class: 'btn-danger'
+                                        btnClass: 'btn-danger custom-class',
+                                        action: function () {}
                                     },
                                     warning: {
-                                        class: 'btn-warning'
+                                        btnClass: 'btn-warning',
+                                        action: function () {}
                                     },
                                     success: {
-                                        class: 'btn-success'
+                                        btnClass: 'btn-success',
+                                        action: function () {}
                                     }
                                 }
                             });
@@ -1109,17 +1135,17 @@ $.dialog('Just to let you know'); <a href="#"
                     <pre class="prettyprint linenums"><code class="html">$.confirm({
     buttons: {
         info: {
-            class: 'btn-info'
+            btnClass: 'btn-info',
+            action: function(){}
         },
         danger: {
-            class: 'btn-danger'
+            btnClass: 'btn-danger any-other-class', // multiple classes.
+            ...
         },
         warning: {
-            class: 'btn-warning'
+            btnClass: 'btn-warning',
+            ...
         },
-        success: {
-            class: 'btn-success'
-        }
     }
 });</code></pre>
                 </div>
@@ -1130,7 +1156,58 @@ $.dialog('Just to let you know'); <a href="#"
                     <p>
                         Listen to keyup events for individual buttons. A button can listen for multiple keys at a time.
                     </p>
+                    <div class="alert alert-info">
+                        Available options are: <br>
+                        a to Z, tilde, enter, shift, tab, capslock, ctrl, win, alt, esc, space.
+                    </div>
                     <button class="btn btn-primary example3-1-a">Click me!</button>
+                    <div class="space10"></div>
+                    <pre class="prettyprint linenums"><code class="html">$.confirm({
+    buttons: {
+        specialKey: {
+            text: 'On behalf of shift',
+            keys: ['shift', 'alt'],
+            action: function(){
+                $.alert('Shift or Alt was pressed');
+            }
+        },
+        alphabet: {
+            text: 'A, B',
+            keys: ['a', 'b'],
+            action: function(){
+                $.alert('A or B was pressed');
+            }
+        }
+    }
+});</code></pre>
+
+                    <button type="button" class="btn btn-primary example3-1-1">Another important example</button>
+                    <div class="space10"></div>
+                    <p>
+                        In this example, the YES button is hidden using bootstrap's hide class, thus the user can only use keys to proceed.
+                    </p>
+                    <pre class="prettyprint linenums"><code class="html">$.confirm({
+    title: false,
+    content: 'A very very critical action here! &lt;br&gt; ' +
+             'the proceed button is hidden.' +
+             'The only way to proceed is to press the key &lt;strong&gt;Y&lt;/strong&gt;.&lt;br&gt;' +
+             'Press &lt;span style="font-size: 20px;"&gt;Y&lt;/span&gt; to proceed.',
+    buttons: {
+        yes: {
+            btnClass: 'hide', // hide is a bootstrap class to hide elements
+            keys: ['y'],
+            action: function () {
+                $.alert('Critical action &lt;strong&gt;was performed&lt;/strong&gt;.');
+            }
+        },
+        no: {
+            keys: ['N'],
+            action: function () {
+                $.alert('You clicked No.');
+            }
+        },
+    }
+});</code></pre>
                     <script type="text/javascript">
                         $('.example3-1-a').on('click', function () {
                             $.confirm({
@@ -1162,64 +1239,29 @@ $.dialog('Just to let you know'); <a href="#"
                         $('.example3-1-1').on('click', function () {
                             $.confirm({
                                 title: false,
-                                content: 'A very very critical action here! <br> Press <h4>Y</h4> to proceed',
+                                content: 'A very very critical action here! <br> ' +
+                                'the proceed button is hidden.' +
+                                'The only way to proceed is to press the key <strong>Y</strong>.<br>' +
+                                'Press <span style="font-size: 20px;">Y</span> to proceed.',
                                 buttons: {
                                     yes: {
-                                        class: 'btn-danger hide', // hide is a bootstrap class
+                                        btnClass: 'hide', // hide is a bootstrap class to hide elements
                                         keys: ['y'],
                                         action: function () {
-                                            $.alert('Critical action was performed.');
+                                            $.alert('Critical action <strong>was performed</strong>.');
                                         }
                                     },
                                     no: {
                                         keys: ['N'],
                                         action: function () {
-                                            $.alert('A very critical action was not performed');
+                                            $.alert('You clicked No.');
                                         }
                                     },
                                 }
                             });
                         });
                     </script>
-                    <div class="space10"></div>
-                    <pre class="prettyprint linenums"><code class="html">$.confirm({
-    buttons: {
-        specialKey: {
-            text: 'On behalf of shift',
-            keys: ['shift', 'alt'],
-            action: function(){
-                $.alert('Shift or Alt was pressed');
-            }
-        },
-        alphabet: {
-            text: 'A, B',
-            keys: ['a', 'b'],
-            action: function(){
-                $.alert('A or B was pressed');
-            }
-        }
-    }
-});</code></pre>
                 </div>
-
-                <button class="btn btn-primary example3-1-1">Another usable example</button>
-
-                <div class="space10"></div>
-                <pre class="prettyprint linenums"><code class="html">$.confirm({
-    title: false,
-    content: 'A very very critical action here! <br> Press <h4>Y</h4> to proceed',
-    buttons: {
-        yes: {
-            class: 'btn-danger hide', // hide is a bootstrap class
-            keys: ['y'],
-                                action: function()
-        },
-        no: {
-            keys: ['N'],
-        },
-    }
-});</code></pre>
-                <!--</div>-->
             </section>
 
             <section id="customizing">

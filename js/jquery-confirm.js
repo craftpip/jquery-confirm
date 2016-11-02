@@ -36,9 +36,10 @@ var jconfirm, Jconfirm;
                     jcOption['title'] = $this.attr('data-title');
                 if ($this.attr('data-content'))
                     jcOption['content'] = $this.attr('data-content');
-
+                if(typeof jcOption['buttons'] == 'undefined')
+                    jcOption['buttons'] = {};
                 jcOption['$target'] = $this;
-                if ($this.attr('href') && !options['confirm'])
+                if ($this.attr('href') && Object.keys(jcOption['buttons']).length == 0)
                     jcOption['buttons'] = {
                         'okay': {
                             text: 'okay',
@@ -411,19 +412,6 @@ var jconfirm, Jconfirm;
                         that.close();
                     else
                         that._hiLightModal();
-
-                    // else if (typeof that.backgroundDismiss == 'string' && typeof that.buttons[that.backgroundDismiss] != 'undefined') {
-                    //     buttonName = that.backgroundDismiss;
-                    //     shouldClose = false;
-                    // } else {
-                    //
-                    // }
-
-                    // if (typeof res === 'undefined' || res)
-                    //     that.close();
-                    // else
-                    //     that._hiLightModal();
-
                 }
                 that.boxClicked = false;
             });
