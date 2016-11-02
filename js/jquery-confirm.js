@@ -36,7 +36,7 @@ var jconfirm, Jconfirm;
                     jcOption['title'] = $this.attr('data-title');
                 if ($this.attr('data-content'))
                     jcOption['content'] = $this.attr('data-content');
-                if(typeof jcOption['buttons'] == 'undefined')
+                if (typeof jcOption['buttons'] == 'undefined')
                     jcOption['buttons'] = {};
                 jcOption['$target'] = $this;
                 if ($this.attr('href') && Object.keys(jcOption['buttons']).length == 0)
@@ -66,10 +66,10 @@ var jconfirm, Jconfirm;
                 title: (option2) ? option2 : false,
             };
 
-        if(typeof options['buttons'] != 'object')
+        if (typeof options['buttons'] != 'object')
             options['buttons'] = {};
 
-        if(Object.keys(options['buttons']).length == 0)
+        if (Object.keys(options['buttons']).length == 0)
             options['buttons'] = {
                 'Okay': function () {},
                 'Cancel': function () {} // this doesn't make sense as both buttons won't do anything, but confirm boxes have two buttons right.
@@ -503,26 +503,26 @@ var jconfirm, Jconfirm;
                         that.close();
                 });
                 that.buttons[key].el = button_element;
-                that.buttons[key].setText = function(text){
+                that.buttons[key].setText = function (text) {
                     button_element.html(text);
                 };
-                that.buttons[key].addClass = function(className){
+                that.buttons[key].addClass = function (className) {
                     button_element.addClass(className);
                 };
-                that.buttons[key].removeClass = function(className){
+                that.buttons[key].removeClass = function (className) {
                     button_element.removeClass(className);
                 };
-                that.buttons[key].disable = function(){
+                that.buttons[key].disable = function () {
                     button_element.prop('disabled', true);
                 };
-                that.buttons[key].enable = function(){
+                that.buttons[key].enable = function () {
                     button_element.prop('disabled', false);
                 };
-                that.buttons[key].show = function(){
+                that.buttons[key].show = function () {
                     button_element.css('display', '');
                     that.setDialogCenter();
                 };
-                that.buttons[key].hide = function(){
+                that.buttons[key].hide = function () {
                     button_element.css('display', 'none');
                     that.setDialogCenter();
                 };
@@ -556,25 +556,25 @@ var jconfirm, Jconfirm;
                     var shouldClose = false;
                     var str;
 
-                    if(typeof that.closeIcon == 'function'){
+                    if (typeof that.closeIcon == 'function') {
                         str = that.closeIcon();
-                    }else{
+                    } else {
                         str = that.closeIcon;
                     }
 
-                    if(typeof str == 'string' && typeof that.buttons[str] != 'undefined'){
+                    if (typeof str == 'string' && typeof that.buttons[str] != 'undefined') {
                         buttonName = str;
                         shouldClose = false;
-                    }else if(typeof str == 'undefined' || !!(str) == true){
+                    } else if (typeof str == 'undefined' || !!(str) == true) {
                         shouldClose = true;
-                    }else{
+                    } else {
                         shouldClose = false;
                     }
-                    if(buttonName){
+                    if (buttonName) {
                         var btnResponse = that.buttons[buttonName].action.apply(that);
                         shouldClose = (typeof btnResponse == 'undefined') || !!(btnResponse);
                     }
-                    if(shouldClose){
+                    if (shouldClose) {
                         that.close();
                     }
                 });
@@ -680,6 +680,8 @@ var jconfirm, Jconfirm;
                         that.content = html;
                     }).always(function (data, status, xhr) {
                         that._contentReady.resolve(data, status, xhr);
+                        if (typeof that.contentLoaded == 'function')
+                            that.contentLoaded(data, status, xhr);
                     });
                 } else {
                     this.setContent(this.content);

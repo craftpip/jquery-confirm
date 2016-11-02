@@ -1597,12 +1597,12 @@ $.confirm({
                         </div>
                     </div>
 
-                    <h4 class="text-warning">
-                        Advanced - Close icon
+                    <h4>
+                        <i class="fa fa-info"></i> Handle closeIcon's callback
                     </h4>
                     <p>
                         Control what happens when close icon is clicked. <br>
-                        <i class="fa fa-info"></i> closeIcon can take in function to handle the button click or you can return a button name.
+                        closeIcon can take in function to handle the button click or you can return a button name.
                     </p>
                     <button class="example15-1-3-5-1 btn btn-primary">Test it</button>
                     <div class="space10"></div>
@@ -2014,8 +2014,11 @@ $.confirm({
                             contentLoaded: function (data, status, xhr) {
                                 var self = this;
                                 setTimeout(function () {
-                                    self.setContent('<h1>OK! the status is: ' + status + '</h1><br>' + self.content); // concat content
-                                    self.setTitle('Stuff is loaded');
+                                    self.$content.html('hey');
+                                    self.$title.html('wwowowwow');
+                                    // todo: im here
+//                                    self.setContent('<h1>OK! the status is: ' + status + '</h1><br>' + self.content); // concat content
+//                                    self.setTitle('Stuff is loaded');
                                 }, 2000);
                             },
                             animation: 'zoom',
