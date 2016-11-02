@@ -503,6 +503,27 @@ var jconfirm, Jconfirm;
                         that.close();
                 });
                 that.buttons[key].el = button_element;
+                that.buttons[key].setText = function(text){
+                    button_element.html(text);
+                };
+                that.buttons[key].addClass = function(className){
+                    button_element.addClass(className);
+                };
+                that.buttons[key].removeClass = function(className){
+                    button_element.removeClass(className);
+                };
+                that.buttons[key].disable = function(){
+                    button_element.prop('disabled', true);
+                };
+                that.buttons[key].enable = function(){
+                    button_element.prop('disabled', false);
+                };
+                that.buttons[key].show = function(){
+                    button_element.css('display', '');
+                };
+                that.buttons[key].hide = function(){
+                    button_element.css('display', 'none');
+                };
                 /*
                  Buttons are prefixed with $_ for quick access
                  */

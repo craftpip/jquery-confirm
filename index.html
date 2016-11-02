@@ -275,7 +275,7 @@
                         <a href="#buttons">Buttons</a>
                         <ul class="nav nav-list">
                             <li>
-                                <a href="#defining-buttons"> Presenting buttons</a>
+                                <a href="#defining-buttons"> Defining buttons</a>
                             </li>
                             <li>
                                 <a href="#buttontext"> Button text</a>
@@ -1037,12 +1037,15 @@ $.dialog('Just to let you know'); <a href="#"
                 </h4>
                 <div class="section">
                     <p>
-
+                        Buttons can be defined in the following fashion, pretty self explanatory.
                     </p>
                     <pre class="prettyprint linenums"><code class="html">$.confirm({
     buttons: {
         hey: function(){
             // button action
+            this.$$hello.trigger('click'); // click the other button
+            this.buttons.hello.action(); // run the other button function
+            this.$$hey.prop('disabled', true); // disable the current button
         },
         hello: function(){
             // button action
@@ -1057,6 +1060,8 @@ $.dialog('Just to let you know'); <a href="#"
         },
     }
 });</code></pre>
+
+
                 </div>
                 <h4 id="buttontext">Button text</h4>
                 <div class="section">
@@ -1429,14 +1434,15 @@ $.confirm({
                         </div>
                     </div>
 
-                    <h5>
-                        Control what happens when close icon is clicked.
-                    </h5>
+                    <h4 class="text-warning">
+                        Advanced - Close icon
+                    </h4>
+                    <p>
+                        Control what happens when close icon is clicked. <br>
+                        <i class="fa fa-info"></i> closeIcon can take in function to handle the button click or you can return a button name.
+                    </p>
                     <button class="example15-1-3-5-1 btn btn-primary">Test it</button>
                     <div class="space10"></div>
-                    <p>
-                        <i class="fa fa-info"></i> closeIcon can take in function to handle the button click or you can set a button to handle it.
-                    </p>
                     <pre class="prettyprint linenums"><code>$.confirm({
     closeIcon: function(){
         return false; // to prevent close the modal.
@@ -1475,13 +1481,15 @@ $.confirm({
                         });
                         $('.example15-1-3-5-1').click(function () {
                             $.confirm({
+                                content: "The close icon is now handled by 'aRandomButton', if the button returns a falsy value the modal will not close." +
+                                "<br>Click on the close icon to try it out",
                                 closeIcon: 'aRandomButton', // set a button handler
                                 buttons: {
-                                    aRandomButton: function(){
+                                    aRandomButton: function () {
                                         $.alert('A random button is called, and i prevent closing the modal');
                                         return false; // you shall not pass
                                     },
-                                    close: function(){
+                                    close: function () {
                                     }
                                 }
                             });
