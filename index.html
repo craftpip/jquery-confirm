@@ -58,7 +58,7 @@
     <link rel="stylesheet"
           href="demo/demo.min.css">
     <script>
-        var version = '2.5.0';
+        var version = '3.0.0';
     </script>
     <style type="text/css">
         .space10 {
@@ -1382,7 +1382,7 @@ $.confirm({
     icon: 'fa fa-warning',
     title: 'font-awesome'
 });
-$.alert({
+$.confirm({
     icon: 'fa fa-spinner fa-spin',
     title: 'Working!',
     content: 'Sit back, we are processing your request!'
@@ -1402,21 +1402,59 @@ $.alert({
                         <br>
                         To explicitly show <code>closeIcon</code> set it to a truthy value and vise versa.
                     </div>
-                    <button class="example15-1-3-4 btn btn-primary">With closeIcon</button>
-                    <div class="space10"></div>
-                    <pre class="prettyprint linenums"><code>$.alert({
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>
+                                Turn on closeIcon explicitly
+                            </p>
+                            <button class="example15-1-3-4 btn btn-primary">With closeIcon</button>
+                            <div class="space10"></div>
+                            <pre class="prettyprint linenums"><code>$.confirm({
     closeIcon: true
 });</code></pre>
-                    <p>
-                        Using your own class for icons.
-                    </p>
-                    <button class="example15-1-3-5 btn btn-primary">Using glyphicon</button>
-                    <button class="example15-1-3-6 btn btn-primary">Using font awesome</button>
-                    <div class="space10"></div>
-                    <pre class="prettyprint linenums"><code>$.alert({
+                        </div>
+                        <div class="col-md-6">
+                            <p>
+                                Using other libraries for icons
+                            </p>
+                            <button class="example15-1-3-5 btn btn-primary">Using glyphicon</button>
+                            <button class="example15-1-3-6 btn btn-primary">Using font awesome</button>
+                            <div class="space10"></div>
+                            <pre class="prettyprint linenums"><code>$.confirm({
     closeIcon: true,
-    closeIconClass: 'fa fa-close' // or 'glyphicon glyphicon-remove'
+    closeIconClass: 'fa fa-close'
 });</code></pre>
+                        </div>
+                    </div>
+
+                    <h5>
+                        Control what happens when close icon is clicked.
+                    </h5>
+                    <button class="example15-1-3-5-1 btn btn-primary">Test it</button>
+                    <div class="space10"></div>
+                    <p>
+                        <i class="fa fa-info"></i> closeIcon can take in function to handle the button click or you can set a button to handle it.
+                    </p>
+                    <pre class="prettyprint linenums"><code>$.confirm({
+    closeIcon: function(){
+        return false; // to prevent close the modal.
+        // or
+        return 'aRandomButton'; // set a button handler, 'aRandomButton' prevents close.
+    },
+    // or
+    closeIcon: 'aRandomButton', // set a button handler
+    buttons: {
+        aRandomButton: function(){
+            $.alert('A random button is called, and i prevent closing the modal');
+            return false; // you shall not pass
+        },
+        close: function(){
+        }
+    }
+});</code></pre>
+
                     <script>
                         $('.example15-1-3-4').click(function () {
                             $.alert({
@@ -1434,6 +1472,19 @@ $.alert({
                                 closeIcon: true,
                                 closeIconClass: 'fa fa-close'
                             })
+                        });
+                        $('.example15-1-3-5-1').click(function () {
+                            $.confirm({
+                                closeIcon: 'aRandomButton', // set a button handler
+                                buttons: {
+                                    aRandomButton: function(){
+                                        $.alert('A random button is called, and i prevent closing the modal');
+                                        return false; // you shall not pass
+                                    },
+                                    close: function(){
+                                    }
+                                }
+                            });
                         });
                     </script>
                 </div>

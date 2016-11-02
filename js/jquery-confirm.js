@@ -1,5 +1,5 @@
 /*!
- * jquery-confirm v2.5.0 (http://craftpip.github.io/jquery-confirm/)
+ * jquery-confirm v3.0.0 (http://craftpip.github.io/jquery-confirm/)
  * Author: Boniface Pereira
  * Website: www.craftpip.com
  * Contact: hey@craftpip.com
@@ -529,11 +529,29 @@ var jconfirm, Jconfirm;
                 this.$closeIcon.click(function (e) {
                     e.preventDefault();
 
-                    if (typeof that.closeIcon == 'function') {
-                        var res = that.closeIcon();
-                        if (typeof res === 'undefined' || res)
-                            that.close();
-                    } else {
+                    var buttonName = false;
+                    var shouldClose = false;
+                    var str;
+
+                    if(typeof that.closeIcon == 'function'){
+                        str = that.closeIcon();
+                    }else{
+                        str = that.closeIcon;
+                    }
+
+                    if(typeof str == 'string' && typeof that.buttons[str] != 'undefined'){
+                        buttonName = str;
+                        shouldClose = false;
+                    }else if(typeof str == 'undefined' || !!(str) == true){
+                        shouldClose = true;
+                    }else{
+                        shouldClose = false;
+                    }
+                    if(buttonName){
+                        var btnResponse = that.buttons[buttonName].action.apply(that);
+                        shouldClose = (typeof btnResponse == 'undefined') || !!(btnResponse);
+                    }
+                    if(shouldClose){
                         that.close();
                     }
                 });
