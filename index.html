@@ -1175,7 +1175,9 @@ $.dialog('Just to let you know'); <a href="#"
     }
 });</code></pre>
 
-                    <button type="button" class="btn btn-primary example3-1-1">Another important example</button>
+                    <button type="button"
+                            class="btn btn-primary example3-1-1">Another important example
+                    </button>
                     <div class="space10"></div>
                     <p>
                         In this example, the YES button is hidden using bootstrap's hide class, thus the user can only use keys to proceed.
@@ -1373,19 +1375,18 @@ $.confirm({
                     </script>
                     <div class="space10"></div>
                     <pre class="prettyprint linenums"><code>$.confirm({
-                            icon: 'glyphicon glyphicon-heart',
-                            title: 'glyphicon'
-                            });
-                            $.confirm({
-                            icon: 'fa fa-warning',
-                            title: 'font-awesome'
-                            });
-                            $.alert({
-                            icon: 'fa fa-spinner fa-spin',
-                            title: 'Working!',
-                            content: 'Sit back, we are processing your request. &lt;br&gt;The animated icon is provided by Font-Awesome!'
-                            });
-                        </code></pre>
+    icon: 'glyphicon glyphicon-heart',
+    title: 'glyphicon'
+});
+$.confirm({
+    icon: 'fa fa-warning',
+    title: 'font-awesome'
+});
+$.alert({
+    icon: 'fa fa-spinner fa-spin',
+    title: 'Working!',
+    content: 'Sit back, we are processing your request!'
+});</code></pre>
                 </div>
 
                 <h4 id="close-icon">Close icon</h4>
@@ -1396,19 +1397,26 @@ $.confirm({
                     </p>
 
                     <div class="alert alert-info">
-                        Using $.dialog will show the close Icon by default.
+                        By default <code>closeIcon</code> is set to <code>null</code>.
+                        That means, if buttons are not defined the closeIcon will be shown, else will not be shown.
+                        <br>
+                        To explicitly show <code>closeIcon</code> set it to a truthy value and vise versa.
                     </div>
                     <button class="example15-1-3-4 btn btn-primary">With closeIcon</button>
                     <div class="space10"></div>
                     <pre class="prettyprint linenums"><code>$.alert({
-                                closeIcon: true
-                                });
-                            </code></pre>
+    closeIcon: true
+});</code></pre>
                     <p>
                         Using your own class for icons.
                     </p>
                     <button class="example15-1-3-5 btn btn-primary">Using glyphicon</button>
                     <button class="example15-1-3-6 btn btn-primary">Using font awesome</button>
+                    <div class="space10"></div>
+                    <pre class="prettyprint linenums"><code>$.alert({
+    closeIcon: true,
+    closeIconClass: 'fa fa-close' // or 'glyphicon glyphicon-remove'
+});</code></pre>
                     <script>
                         $('.example15-1-3-4').click(function () {
                             $.alert({
@@ -1428,12 +1436,6 @@ $.confirm({
                             })
                         });
                     </script>
-                    <div class="space10"></div>
-                    <pre class="prettyprint linenums"><code>$.alert({
-                                closeIcon: true,
-                                closeIconClass: 'fa fa-close' // or 'glyphicon glyphicon-remove'
-                                });
-                            </code></pre>
                 </div>
             </section>
 
