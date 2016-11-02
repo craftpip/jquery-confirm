@@ -64,11 +64,17 @@ var jconfirm, Jconfirm;
             options = {
                 content: options,
                 title: (option2) ? option2 : false,
-                buttons: {
-                    'Okay': function () {},
-                    'Cancel': function () {} // this doesn't make sense as both buttons won't do anything, but confirm boxes have two buttons right.
-                }
             };
+
+        if(typeof options['buttons'] != 'object')
+            options['buttons'] = {};
+
+        if(Object.keys(options['buttons']).length == 0)
+            options['buttons'] = {
+                'Okay': function () {},
+                'Cancel': function () {} // this doesn't make sense as both buttons won't do anything, but confirm boxes have two buttons right.
+            };
+
         /*
          *  Alias of jconfirm
          */

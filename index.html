@@ -277,9 +277,6 @@
                             <li>
                                 <a href="#defining-buttons"> Presenting buttons</a>
                             </li>
-                            <!--<li>-->
-                            <!--<a href="#accessing-buttons"> Accessing buttons</a>-->
-                            <!--</li>-->
                             <li>
                                 <a href="#buttontext"> Button text</a>
                             </li>
@@ -294,9 +291,6 @@
                     <li>
                         <a href="#customizing">Customizing</a>
                         <ul class="nav nav-list">
-                            <li>
-                                <a href="#hide-elements"> Hide elements</a>
-                            </li>
                             <li>
                                 <a href="#custom-width"> Custom width</a>
                             </li>
@@ -1266,73 +1260,6 @@ $.dialog('Just to let you know'); <a href="#"
 
             <section id="customizing">
                 <h2>Customizing</h2>
-                <h4 id="hide-elements">Hide elements</h4>
-
-                <div class="section">
-                    <p>Hide the Title/Content/Confirm Button/Cancel Button/Close icon when u don't need them.</p>
-                    <button class="btn btn-primary example-hide-1">No title</button>
-                    <button class="btn btn-primary example-hide-5">No content</button>
-                    <button class="btn btn-primary example-hide-2">No title/cancel Button</button>
-                    <button class="btn btn-primary example-hide-3">No title/cancel/confirm Button</button>
-                    <button class="btn btn-primary example-hide-4">No title/cancel/confirm Button + no close icon</button>
-                    <script type="text/javascript">
-                        $('.example-hide-1').on('click', function () {
-                            $.confirm({
-                                title: false,
-                                content: 'Hide the title.'
-                            });
-                        });
-                        $('.example-hide-2').on('click', function () {
-                            $.confirm({
-                                title: false,
-                                content: 'Hide the cancel button &amp; title.',
-                                cancelButton: false
-                            });
-                        });
-                        $('.example-hide-3').on('click', function () {
-                            $.confirm({
-                                title: false,
-                                content: 'Hide both the buttons &amp; title.',
-                                cancelButton: false,
-                                confirmButton: false
-                            });
-                        });
-                        $('.example-hide-4').on('click', function () {
-                            $.confirm({
-                                title: false,
-                                content: 'If you hide everything, what can do you to close the modal?. <br>"backgroundDismiss" is active on this one, click outside to close.',
-                                cancelButton: false,
-                                confirmButton: false,
-                                backgroundDismiss: true,
-                                closeIcon: false
-                            });
-                        });
-                        $('.example-hide-5').on('click', function () {
-                            $.confirm({
-                                content: false
-                            });
-                        });
-                    </script>
-                    <div class="space10"></div>
-                    <pre class="prettyprint linenums"><code class="html">$.confirm({
-                            title: false, // hides the title.
-                            cancelButton: false // hides the cancel button.
-                            confirmButton: false, // hides the confirm button.
-                            closeIcon: false, // hides the close icon.
-                            content: false, // hides content block.
-                            });
-                        </code></pre>
-                    <i class="fa fa-info-circle fa-fw"></i>
-                    <strong>NOTE:</strong>
-                    <br>
-
-                    <p>
-                        By default the closeIcon is visible if both confirm &amp; cancel buttons are hidden. (dialog mode).<br>
-                        To explicitly show or hide closeIcon set <code>closeIcon: true</code> or <code>closeIcon: false</code>.<br>
-                        Shorthand to hide both buttons is to use <code>$.dialog()</code>.
-                    </p>
-                </div>
-
                 <h4 id="custom-width">Custom width</h4>
 
                 <div class="section">
@@ -1347,29 +1274,36 @@ $.dialog('Just to let you know'); <a href="#"
                         </a>
                     </p>
 
-                    <button class="btn btn-primary grid-1">col-md-6 col-md-offset-3</button>
-                    <button class="btn btn-primary grid-2">col-md-4 col-md-offset-4 (default)</button>
+                    <p>
+                        instead of typing the whole thing, provide keywords like <br>
+                        <code>xlarge</code>/<code>xl</code></code> equivalent to <code>col-md-12</code> <br>
+                        <code>large</code>/<code>l</code></code> equivalent to <code>col-md-8 col-md-offset-2</code> <br>
+                        <code>medium</code>/<code>m</code></code> equivalent to <code>col-md-6 col-md-offset-3</code> <br>
+                        <code>small</code>/<code>s</code></code> equivalent to <code>col-md-4 col-md-offset-4</code> <br>
+                        <code>xsmall</code>/<code>xs</code></code> equivalent to <code>col-md-2 col-md-offset-5</code>
+                    </p>
+
+                    <button class="btn btn-primary grid-1">medium</button>
+                    <button class="btn btn-primary grid-2">small (default)</button>
                     <button class="btn btn-primary grid-3">col-md-4</button>
                     <button class="btn btn-primary grid-4">col-md-4 col-md-offset-8</button>
-                    <button class="btn btn-primary grid-5">col-md-12</button>
+                    <button class="btn btn-primary grid-5">xlarge</button>
+                    <button class="btn btn-primary grid-6">xlarge (fluid)</button>
                     <div class="space10"></div>
                     <script type="text/javascript">
                         $('.grid-1').on('click', function () {
                             $.confirm({
-                                columnClass: 'col-md-6 col-md-offset-3',
-                                containerFluid: true,
+                                columnClass: 'medium',
                             }); // empty because its default.
                         });
                         $('.grid-2').on('click', function () {
                             $.confirm({
-                                columnClass: 's',
-                                containerFluid: true,
+                                columnClass: 'small',
                             });
                         });
                         $('.grid-3').on('click', function () {
                             $.confirm({
                                 columnClass: 'col-md-4',
-                                containerFluid: true,
                             });
                         });
                         $('.grid-4').on('click', function () {
@@ -1379,19 +1313,29 @@ $.dialog('Just to let you know'); <a href="#"
                         });
                         $('.grid-5').on('click', function () {
                             $.confirm({
-                                columnClass: 'col-md-12'
+                                columnClass: 'xlarge'
+                            });
+                        });
+                        $('.grid-6').on('click', function () {
+                            $.confirm({
+                                columnClass: 'xlarge',
+                                containerFluid: true,
                             });
                         });
                     </script>
                     <pre class="prettyprint linenums"><code>$.confirm({
-                            columnClass: 'col-md-4 col-md-offset-4'
-                            });
-                            $.confirm({
-                            columnClass: 'col-md-4'
-                            });
-                            $.confirm({
-                            columnClass: 'col-md-4 col-md-offset-8 col-xs-4 col-xs-offset-8'
-                            });</code></pre>
+    columnClass: 'small'
+});
+$.confirm({
+    columnClass: 'col-md-4'
+});
+$.confirm({
+    columnClass: 'col-md-4 col-md-offset-8 col-xs-4 col-xs-offset-8'
+});
+$.confirm({
+    columnClass: 'col-md-4 col-md-offset-8 col-xs-4 col-xs-offset-8',
+    containerFluid: true, // this will add 'container-fluid' instead of 'container'
+});</code></pre>
                 </div>
 
                 <h4 id="icons">Icons</h4>
