@@ -275,16 +275,19 @@
                         <a href="#buttons">Buttons</a>
                         <ul class="nav nav-list">
                             <li>
-                                <a href="#defining-buttons"> Defining buttons</a>
+                                <a href="#defining-buttons"> Definition</a>
                             </li>
                             <li>
-                                <a href="#buttontext"> Button text</a>
+                                <a href="#buttontext"> Text</a>
                             </li>
                             <li>
-                                <a href="#buttonstyle"> Button style</a>
+                                <a href="#buttonstyle"> Style</a>
                             </li>
                             <li>
-                                <a href="#button_keys"> Button keys</a>
+                                <a href="#button_keys"> Keys</a>
+                            </li>
+                            <li>
+                                <a href="#button-functions"> Functions</a>
                             </li>
                         </ul>
                     </li>
@@ -1033,7 +1036,7 @@ $.dialog('Just to let you know'); <a href="#"
                     You can access the button element via <code>this.$$heyThere</code> for heyThere button in the below snippet. <br>this is to change the button properties at run time.
                 </div>
                 <h4 id="defining-buttons">
-                    Defining buttons
+                    Definition
                 </h4>
                 <div class="section">
                     <p>
@@ -1041,14 +1044,16 @@ $.dialog('Just to let you know'); <a href="#"
                     </p>
                     <pre class="prettyprint linenums"><code class="html">$.confirm({
     buttons: {
-        hey: function(){
-            // button action
-            this.$$hello.trigger('click'); // click the other button
-            this.buttons.hello.action(); // run the other button function
-            this.$$hey.prop('disabled', true); // disable the current button
-        },
         hello: function(){
             // button action
+        },
+        hey: function(){
+            this.$$hello.trigger('click'); // click the other button
+            this.buttons.hello.setText('Helloooo'); // do whatever
+
+            this.$$hey.prop('disabled', true); // disable the current button
+            // or
+            this.buttons.hey.disable();
         },
         heyThere: {
             text: 'Hey there!',
@@ -1263,6 +1268,164 @@ $.dialog('Just to let you know'); <a href="#"
                         });
                     </script>
                 </div>
+
+                <h4 id="button-functions">Button functions</h4>
+                <div class="section">
+                    <p>
+                        Button functions provide a nice and clean way to alter your buttons in run-time. <br>
+                        if this is not enough you can use <code>this.$$&lt;buttonName&gt;</code> to get the DOM element
+                    </p>
+                    <button class="btn btn-primary example3-1-a-f-1">Try me</button>
+                    <div class="space10"></div>
+                    <pre class="prettyprint linenums"><code class="html">$.confirm({
+    buttons: {
+       buttonA: {
+            text: 'button a',
+            action: function () {
+                this.buttons.buttonB.setText('Changed it!');
+                return false;
+            }
+        },
+        buttonB: {
+            text: 'button b',
+            action: function () {
+                this.buttons.buttonA.disable();
+                return false;
+            }
+        },
+        reset: function () {
+            this.buttons.buttonA.enable();
+            this.buttons.buttonB.setText('button b');
+            return false;
+        }
+    }
+});</code></pre>
+                    <p>
+                        A full list of functions for buttons.
+                    </p>
+                    <table class="table table-bordered table-condensed">
+                        <tr>
+                            <td>
+                                Function
+                            </td>
+                            <td>
+                                Code
+                            </td>
+                            <td>
+                                Description
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                setText
+                            </td>
+                            <td>
+                                this.buttons.&lt;buttonName&gt;.setText(text)
+                            </td>
+                            <td>
+                                The text you want to set.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                addClass
+                            </td>
+                            <td>
+                                this.buttons.&lt;buttonName&gt;.addClass(className)
+                            </td>
+                            <td>
+                                Add a class to the button
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                removeClass
+                            </td>
+                            <td>
+                                this.buttons.&lt;buttonName&gt;.removeClass(className)
+                            </td>
+                            <td>
+                                remove a class to the button
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                disable
+                            </td>
+                            <td>
+                                this.buttons.&lt;buttonName&gt;.disable()
+                            </td>
+                            <td>
+                                Disable the button
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                enable
+                            </td>
+                            <td>
+                                this.buttons.&lt;buttonName&gt;.enable()
+                            </td>
+                            <td>
+                                Enable the button
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                show
+                            </td>
+                            <td>
+                                this.buttons.&lt;buttonName&gt;.show()
+                            </td>
+                            <td>
+                                Show the button via CSS
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                hide
+                            </td>
+                            <td>
+                                this.buttons.&lt;buttonName&gt;.hide()
+                            </td>
+                            <td>
+                                Hide the button via CSS
+                            </td>
+                        </tr>
+                    </table>
+
+                    <script type="text/javascript">
+                        $('.example3-1-a-f-1').on('click', function () {
+                            $.confirm({
+                                content: 'Click on the buttons to test it out, <br>Click on the close icon to close the modal',
+                                closeIcon: true, // to close the modal
+                                buttons: {
+                                    buttonA: {
+                                        text: 'button a',
+                                        action: function () {
+                                            this.buttons.buttonB.setText('Changed it!');
+                                            return false;
+                                        }
+                                    },
+                                    buttonB: {
+                                        text: 'button b',
+                                        action: function () {
+                                            this.buttons.buttonA.disable();
+                                            return false;
+                                        }
+                                    },
+                                    reset: function () {
+                                        this.buttons.buttonA.enable();
+                                        this.buttons.buttonB.setText('button a');
+                                        return false;
+                                    }
+                                }
+                            });
+                        });
+                    </script>
+                </div>
+
+
             </section>
 
             <section id="customizing">

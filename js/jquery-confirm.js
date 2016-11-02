@@ -520,9 +520,11 @@ var jconfirm, Jconfirm;
                 };
                 that.buttons[key].show = function(){
                     button_element.css('display', '');
+                    that.setDialogCenter();
                 };
                 that.buttons[key].hide = function(){
                     button_element.css('display', 'none');
+                    that.setDialogCenter();
                 };
                 /*
                  Buttons are prefixed with $_ for quick access
