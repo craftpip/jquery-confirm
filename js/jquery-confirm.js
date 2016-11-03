@@ -664,16 +664,16 @@ var jconfirm, Jconfirm;
         showLoading: function (disableButtons) {
             this.loadingSpinner = true;
             this.$jconfirmBox.addClass('loading');
-            if (disableButtons)
-                this.$btnc.find('button').prop('disabled', true);
+            // if (disableButtons)
+            //     this.$btnc.find('button').prop('disabled', true);
 
             this.setDialogCenter();
         },
         hideLoading: function (enableButtons) {
             this.loadingSpinner = false;
             this.$jconfirmBox.removeClass('loading');
-            if (enableButtons)
-                this.$btnc.find('button').prop('disabled', false);
+            // if (enableButtons)
+            //     this.$btnc.find('button').prop('disabled', false);
 
             this.setDialogCenter();
         },
@@ -715,7 +715,7 @@ var jconfirm, Jconfirm;
                 var response = this.content(this);
                 if (typeof response.always === 'function') { // promise
                     this._isContentAjax = true;
-                    response.always(function (data, status) {
+                    response.always(function (data, status, xhr) {
                         that.ajaxResponseData = {
                             data: data,
                             status: status,
