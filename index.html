@@ -341,6 +341,14 @@
                     </li>
                     <li>
                         <a href="#backgrounddismiss"> Background dismiss</a>
+                        <ul class="nav nav-list">
+                            <li>
+                                <a href="#backgrounddismiss"> Background dismiss</a>
+                            </li>
+                            <li>
+                                <a href="#backgrounddismiss-animations">Dismiss animations</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="#keyboardactions"> Keyboard actions</a>
@@ -2280,7 +2288,7 @@ $.confirm({
 
                     <div class="space10"></div>
                     <pre class="prettyprint linenums"><code>$.confirm({
-    backgroundDismiss: true, // this will just close the modal, nothing else will happen
+    backgroundDismiss: true, // this will just close the modal
 });
 $.confirm({
     backgroundDismiss: function(){
@@ -2289,19 +2297,19 @@ $.confirm({
 });
 $.confirm({
     backgroundDismiss: function(){
-        // this will be called & the button will handle it
-        return 'buttonName';
+        return 'buttonName'; // the button will handle it
     },
 });
 $.confirm({
-    backgroundDismiss: 'buttonName', // the button will handle it
-    content: 'Click outside the dialog, and i will shake it off like taylor swift.',
+    backgroundDismiss: 'buttonName',
+    content: 'in here the backgroundDismiss action is handled by buttonName' +
+    '&lt;div class="checkbox"&gt;&lt;label&gt;&lt;input type="checkbox" id="enableCheckbox"&gt; Enable backgroundDismiss&lt;/label&gt;&lt;/div&gt;',
     buttons: {
-        buttonName: function(){
-            // i wont close.
-            return false;
+        buttonName: function () {
+            var $checkbox = this.$content.find('#enableCheckbox');
+            return $checkbox.prop('checked');
         },
-        close: function(){
+        close: function () {
         }
     }
 });</code></pre>
@@ -2315,10 +2323,7 @@ $.confirm({
                                 buttons: {
                                     buttonName: function () {
                                         var $checkbox = this.$content.find('#enableCheckbox');
-                                        if ($checkbox.prop('checked'))
-                                            return true;
-                                        else
-                                            return false;
+                                        return $checkbox.prop('checked');
                                     },
                                     close: function () {
                                     }
@@ -2327,7 +2332,48 @@ $.confirm({
                         });
                     </script>
                 </div>
+
+                <h4 id="backgrounddismiss-animations">Background dismiss animation</h4>
+                <div class="section">
+                    <p>
+                        Fancy animations to grab users attention. Click outside the modal to see the animation.
+                    </p>
+                    <button class="btn btn-primary example22-1-1-1">Shake (default)</button>
+                    <button class="btn btn-primary example22-1-1-2">Glow</button>
+
+                    <div class="space10"></div>
+                    <pre class="prettyprint linenums"><code>$.confirm({
+    backgroundDismiss: false,
+    backgroundDismissAnimation: 'shake',
+});
+$.confirm({
+    backgroundDismiss: false,
+    backgroundDismissAnimation: 'glow',
+});</code></pre>
+
+                </div>
+                <script>
+                    $('.example22-1-1-1').on('click', function () {
+                        $.confirm({
+                            backgroundDismiss: false,
+                            backgroundDismissAnimation: 'shake',
+                        });
+                    });
+                    $('.example22-1-1-2').on('click', function () {
+                        $.confirm({
+                            backgroundDismiss: false,
+                            backgroundDismissAnimation: 'glow',
+                        });
+                    });
+                </script>
             </section>
+
+
+
+
+
+
+
             <section id="keyboardactions">
                 <h2>
                     Keyboard actions
