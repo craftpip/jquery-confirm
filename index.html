@@ -326,10 +326,13 @@
                         <a href="#ajaxloading"> Ajax loading</a>
                         <ul class="nav nav-list">
                             <li>
-                                <a href="#urlprefix">Using URL: prefix</a>
+                                <a href="#urlprefix">URL: prefix method</a>
                             </li>
                             <li>
-                                <a href="#ajaxpromise">Using ajax promise</a>
+                                <a href="#ajaxpromise">Ajax promise method</a>
+                            </li>
+                            <li>
+                                <a href="#content-loaded">Ajax complete callback</a>
                             </li>
                         </ul>
                     </li>
@@ -1950,23 +1953,28 @@ $.confirm({
                 </p>
                 <ol>
                     <li>Pass in String content the URL with "URL:" prepended.<br/>
-                        Eg: <code>content: "URL:http://example.com/getData?id=1"</code>
+                        <code>content: "URL:http://example.com/getData?id=1"</code>
                     </li>
                     <li>Pass in Function that returns a jQuery ajax promise. <br/>
-                        Eg: <code>content: function(){ return $.get(...); }</code>
+                        <code>content: function(){ return $.get(...); }</code>
                     </li>
                 </ol>
-                <div class="alert alert-info">
-                    The confirm / cancel buttons are disabled until the Ajax call is complete.
+                <div class="alert alert-warning">
+                    <i class="fa fa-info fa-fw"></i> From v3 onwards,
+                    <strong>buttons are not disabled</strong>
+                    until ajax call is complete. <br>
+                    <i class="fa fa-info fa-fw"></i> contentLoaded is called when the ajax is complete. before the content is put in DOM.
                 </div>
             </section>
             <h4 id="urlprefix">Using the "URL:" prefix</h4>
 
             <div class="section">
                 <p>
-                    Using the url prefix is the quick way, however has some limitations like you cannot modify the ajax call's method, dataType, etc. <br/>
+                    Using the url prefix is the quick way, however has some limitations like you cannot modify the ajax call's method, dataType, etc.<br/>
                     To use, prepend your URL with "URL:" ends up like "URL:http://example.com/file.extension". <br/>
-                    When the call is complete the <code>contentLoaded</code> function is run with arguments Data, Status & Xhr object.
+                </p>
+                <p class="text-info">
+                    <i class="fa fa-lightbulb-o"></i> NOTE: the returned data is set as content automatically before contentLoaded callback is called.
                 </p>
                 <button class="btn btn-primary example18-1">Load from text.txt</button>
                 <a class="btn btn-default"
@@ -1976,54 +1984,28 @@ $.confirm({
 
                 <div class="space10"></div>
                 <pre class="prettyprint linenums"><code>$.confirm({
-                            content: 'url:text.txt',
-                            title: 'Title'
-                            });
-                        </code></pre>
-                <p>
-                    <i class="fa fa-info fa-fw"></i> The content is set before contentLoaded is called.
-                </p>
-                <button class="btn btn-primary example18-1-1">Using contentLoaded callback</button>
-                <div class="space10"></div>
-                <pre class="prettyprint linenums"><code>$.confirm({
-                            content: 'url:text.txt',
-                            title: 'Title',
-                            contentLoaded: function(data, status, xhr){
-                            var self = this;
-                            setTimeout(function(){
-                            self.setContent('&lt;h1&gt;OK! the status is: ' + status + '&lt;/h1&gt;&lt;br&gt;' + self.content);
-                            self.setTitle('Stuff is loaded');
-                            }, 2000);
-                            }
-                            });
-                        </code></pre>
+    content: 'url:text.txt',
+    title: 'Title',
+});</code></pre>
+
                 <script type="text/javascript">
                     $('.example18-1').on('click', function () {
                         $.confirm({
                             title: 'Title',
                             content: 'url:text.txt',
-                            animation: 'zoom',
-                            columnClass: 'col-md-6 col-md-offset-3',
-                            closeAnimation: 'scale'
-                        });
-                    });
-                    $('.example18-1-1').on('click', function () {
-                        $.confirm({
-                            title: 'Title',
-                            content: 'url:text.txt',
-                            contentLoaded: function (data, status, xhr) {
+                            contentLoaded: function () {
                                 var self = this;
-                                self.setContentPrepend('<h1>OK! the status is: ' + status + '</h1>');
+                                this.setContentPrepend('<div>Prepended text</div>');
                                 setTimeout(function () {
-                                    self.setContentAppend('<strong>This is appended text</strong>');
-                                    self.setTitle('Stuff is loaded');
+                                    self.setContentAppend('<div>Appended text after 2 seconds</div>');
                                 }, 2000);
                             },
                             animation: 'zoom',
                             columnClass: 'col-md-6 col-md-offset-3',
-                            closeAnimation: 'zoom'
+                            closeAnimation: 'scale',
                         });
                     });
+
                 </script>
             </div>
 
@@ -2035,6 +2017,9 @@ $.confirm({
                     The content takes a function that returns a jQuery promise ($.ajax, $.get, $.post, etc.).
                     In this example a json object is requested, and a part of it is set as content.
                 </p>
+                <p class="text-info">
+                    <i class="fa fa-lightbulb-o"></i> NOTE: the returned data is NOT set as content automatically, you must set the content yourself.
+                </p>
                 <button class="btn btn-primary example18-2">Load from bower.json</button>
                 <a class="btn btn-default"
                    href="bower.json"
@@ -2045,33 +2030,22 @@ $.confirm({
                 <script type="text/javascript">
                     $('.example18-2').on('click', function () {
                         $.confirm({
-                            title: false,
                             content: function () {
-                                // because `this` is unreachable in jquery ajax callbacks
-                                var jc = this;
-
+                                var self = this;
                                 return $.ajax({
                                     url: 'bower.json',
                                     dataType: 'json',
                                     method: 'get'
                                 }).done(function (response) {
-                                    //                                    jc.content = response.description;
-                                    jc.setContent('Description: ' + response.description);
-                                    jc.setContent(jc.content + '<br>Version: ' + response.version); // appending
-                                    //                                    jc.setTitle(response.name);
+                                    self.setContent('Description: ' + response.description);
+                                    self.setContentAppend('<br>Version: ' + response.version);
+                                    alert('done');
                                 }).fail(function () {
-                                    jc.setContent('Something went wrong.');
+                                    self.setContent('Something went wrong.');
+                                }).always(function () {
+                                    alert('always');
                                 });
                             },
-                            confirmButton: 'Add sentence',
-                            backgroundDismiss: true,
-                            escapeKey: true,
-                            buttons: {
-                                //                                s: function () {
-                                //                                    this.setContent(this.content + '<h4>Adding a new sentence.</h4>');
-                                //                                    return false;
-                                //                                }
-                            }
                         });
                     });
                 </script>
@@ -2084,17 +2058,122 @@ $.confirm({
             method: 'get'
         }).done(function (response) {
             self.setContent('Description: ' + response.description);
-            self.setContent(self.content + '&lt;br&gt;Version: ' + response.version); // appending
+            self.setContentAppend('&lt;br&gt;Version: ' + response.version);
             self.setTitle(response.name);
         }).fail(function(){
             self.setContent('Something went wrong.');
         });
-    },
-    confirm: function(){
-        this.setContent( this.content + '&lt;h4&gt;Adding a new sentence.&lt;/h4&gt;');
-        return false; // prevent modal from closing
     }
 });</code></pre>
+            </div>
+
+
+            <h4 id="content-loaded">Ajax complete callback <code>contentLoaded</code></h4>
+            <div class="section">
+                <p>
+                    When the ajax call is complete the <code>contentLoaded</code> function is called with arguments Data, Status & Xhr object. <br>
+                    <span class="text-warning"><code>contentLoaded</code> is called before the content is put in DOM</span>
+                    <br>
+                    <i class="fa fa-info"></i> If you want to do stuff after the content has put in DOM, use <code>onContentReady</code>
+                </p>
+                <div class="space10"></div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                <pre class="prettyprint linenums"><code>$.confirm({
+    content: 'url:text.txt',
+    contentLoaded: function(data, status, xhr){
+        // data is already set in content
+        this.setContentAppend('&lt;br&gt;Status: ' + status);
+    }
+});</code></pre>
+                    </div>
+                    <div class="col-md-4">
+                        <p>
+                            Using the url: prefix method
+                        </p>
+                        <button class="btn btn-primary example18-1-1 btn-block">Using contentLoaded callback</button>
+                    </div>
+                    <div class="col-md-8">
+                <pre class="prettyprint linenums"><code>$.confirm({
+    content: function(){
+        var self = this;
+        self.setContent('Checking callback flow');
+        return $.ajax({
+            url: 'bower.json',
+            dataType: 'json',
+            method: 'get'
+        }).done(function (response) {
+            self.setContentAppend('&lt;br&gt;Done!');
+        }).fail(function(){
+            self.setContentAppend('&lt;br&gt;Fail!');
+        }).always(function(){
+            self.setContentAppend('&lt;br&gt;Always!');
+        });
+    },
+    contentLoaded: function(data, status, xhr){
+        self.setContentAppend('&lt;br&gt;Content loaded!');
+    },
+    onContentReady: function(){
+        this.setContentAppend('&lt;br&gt;Content ready!');
+    }
+});</code></pre>
+                    </div>
+                    <div class="col-md-4">
+                        <p>
+                            Using the Ajax promise method
+                        </p>
+                        <button class="btn btn-primary example18-1-1-1 btn-block">Using contentLoaded callback</button>
+                        <div style="height: 10px;"></div>
+                        <p>
+                            You can set your content in any of the callbacks.
+                            callback execution flow:
+                        </p>
+                        <ol>
+                            <li>Promise's done</li>
+                            <li>Promise's always</li>
+                            <li>contentLoaded</li>
+                            <li>onContentReady</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <script>
+                    $('.example18-1-1').on('click', function () {
+                        $.confirm({
+                            content: 'url:text.txt',
+                            contentLoaded: function (data, status, xhr) {
+                                // data is already set in content
+                                this.setContentAppend('<br>Status: ' + status);
+                            }
+                        });
+                    });
+                    $('.example18-1-1-1').on('click', function () {
+                        $.confirm({
+                            content: function () {
+                                var self = this;
+                                self.setContent('Checking callback flow');
+                                return $.ajax({
+                                    url: 'bower.json',
+                                    dataType: 'json',
+                                    method: 'get'
+                                }).done(function (response) {
+                                    self.setContentAppend('<br>Done!');
+                                }).fail(function () {
+                                    self.setContentAppend('<br>Fail!');
+                                }).always(function () {
+                                    self.setContentAppend('<br>Always!');
+                                });
+                            },
+                            contentLoaded: function (data, status, xhr) {
+                                this.setContentAppend('<br>Content loaded!');
+                            },
+                            onContentReady: function () {
+                                this.setContentAppend('<br>Content ready!');
+                            }
+                        });
+                    });
+                </script>
             </div>
 
             <section>
@@ -2109,20 +2188,57 @@ $.confirm({
                 </p>
 
                 <div class="section">
-                    <button class="btn btn-primary example20">Auto Cancel.</button>
-                    <button class="btn btn-primary example21">Auto Confirm.</button>
+                    <button class="btn btn-primary example20">Delete user</button>
+                    <button class="btn btn-primary example21">Logout myself</button>
+                    <div class="space10"></div>
+                    <pre class="prettyprint linenums"><code>$.confirm({
+    title: 'Delete user?',
+    content: 'This dialog will automatically trigger \'cancel\' in 6 seconds if you don\'t respond.',
+    autoClose: 'cancelAction|8000',
+    buttons: {
+        deleteUser: {
+            text: 'delete user',
+            action: function () {
+                $.alert('Deleted the user!');
+            }
+        },
+        cancelAction: function () {
+            $.alert('action is canceled');
+        }
+    }
+});
+$.confirm({
+   title: 'Logout?',
+    content: 'Your time is out, you will be automatically logged out in 10 seconds.',
+    autoClose: 'logoutUser|10000',
+    buttons: {
+        logoutUser: {
+            text: 'logout myself',
+            action: function () {
+                $.alert('The user was logged out');
+            }
+        },
+        cancel: function () {
+            $.alert('canceled');
+        }
+    }
+});</code></pre>
                     <script type="text/javascript">
                         $('.example20').on('click', function () {
                             $.confirm({
                                 title: 'Delete user?',
                                 content: 'This dialog will automatically trigger \'cancel\' in 6 seconds if you don\'t respond.',
-                                autoClose: 'cancel|6000',
-                                confirm: function () {
-                                    $.alert('confirmed');
-                                    return false;
-                                },
-                                cancel: function () {
-                                    $.alert('canceled');
+                                autoClose: 'cancelAction|8000',
+                                buttons: {
+                                    deleteUser: {
+                                        text: 'delete user',
+                                        action: function () {
+                                            $.alert('Deleted the user!');
+                                        }
+                                    },
+                                    cancelAction: function () {
+                                        $.alert('action is canceled');
+                                    }
                                 }
                             });
                         });
@@ -2130,41 +2246,21 @@ $.confirm({
                             $.confirm({
                                 title: 'Logout?',
                                 content: 'Your time is out, you will be automatically logged out in 10 seconds.',
-                                autoClose: 'confirm|10000',
-                                confirm: function () {
-                                    $.alert('confirmed');
-                                },
-                                cancel: function () {
-                                    $.alert('canceled');
+                                autoClose: 'logoutUser|10000',
+                                buttons: {
+                                    logoutUser: {
+                                        text: 'logout myself',
+                                        action: function () {
+                                            $.alert('The user was logged out');
+                                        }
+                                    },
+                                    cancel: function () {
+                                        $.alert('canceled');
+                                    }
                                 }
                             });
                         });
                     </script>
-                    <div class="space10"></div>
-                    <pre class="prettyprint linenums"><code>$.confirm({
-                                title: 'Delete user?',
-                                content: 'This dialog will automatically trigger \'cancel\' in 6 seconds if you don\'t respond.',
-                                autoClose: 'cancel|6000',
-                                confirm: function(){
-                                alert('confirmed');
-                                },
-                                cancel:function(){
-                                alert('canceled');
-                                }
-                                });
-
-                                $.confirm({
-                                title: 'Logout?',
-                                content: 'Your time is out, you will be automatically logged out in 10 seconds.',
-                                autoClose: 'confirm|10000',
-                                confirm: function(){
-                                alert('confirmed');
-                                },
-                                cancel:function(){
-                                alert('canceled');
-                                }
-                                });
-                            </code></pre>
                 </div>
             </section>
 
@@ -2175,39 +2271,61 @@ $.confirm({
 
                 <div class="section">
                     <p>
-                        Whether the user can close the dialog by clicking outside the modal. <br/>
+                        Control what happens if the user clicks outside the modal. <br/>
                     </p>
-
-                    <div class="alert alert-info">
-                        The 'cancel' action is trigged if the user click outside of the dialog.
+                    <div class="alert alert-warning">
+                        backgroundDismiss is set to false by default.
                     </div>
                     <button class="btn btn-primary example22">Allow backgroundDismiss</button>
-                    <button class="btn btn-primary example23">Disallow backgroundDismiss</button>
+
+                    <div class="space10"></div>
+                    <pre class="prettyprint linenums"><code>$.confirm({
+    backgroundDismiss: true, // this will just close the modal, nothing else will happen
+});
+$.confirm({
+    backgroundDismiss: function(){
+        return false; // modal wont close.
+    },
+});
+$.confirm({
+    backgroundDismiss: function(){
+        // this will be called & the button will handle it
+        return 'buttonName';
+    },
+});
+$.confirm({
+    backgroundDismiss: 'buttonName', // the button will handle it
+    content: 'Click outside the dialog, and i will shake it off like taylor swift.',
+    buttons: {
+        buttonName: function(){
+            // i wont close.
+            return false;
+        },
+        close: function(){
+        }
+    }
+});</code></pre>
 
                     <script type="text/javascript">
                         $('.example22').on('click', function () {
                             $.confirm({
-                                backgroundDismiss: true,
-                                content: 'Click outside the dialog, and i shall close!'
-                            });
-                        });
-                        $('.example23').on('click', function () {
-                            $.confirm({
-                                backgroundDismiss: false,
-                                content: 'Click outside the dialog, and i will shake it off like taylor swift.'
+                                backgroundDismiss: 'buttonName',
+                                content: 'in here the backgroundDismiss action is handled by buttonName' +
+                                '<div class="checkbox"><label><input type="checkbox" id="enableCheckbox"> Enable backgroundDismiss</label></div>',
+                                buttons: {
+                                    buttonName: function () {
+                                        var $checkbox = this.$content.find('#enableCheckbox');
+                                        if ($checkbox.prop('checked'))
+                                            return true;
+                                        else
+                                            return false;
+                                    },
+                                    close: function () {
+                                    }
+                                }
                             });
                         });
                     </script>
-                    <div class="space10"></div>
-                    <pre class="prettyprint linenums"><code>$.confirm({
-                                backgroundDismiss: true,
-                                content: 'Click outside the dialog, and i shall close!'
-                                });
-                                $.confirm({
-                                backgroundDismiss: false,
-                                content: 'Click outside the dialog, and i will shake it off like taylor swift.'
-                                });
-                            </code></pre>
                 </div>
             </section>
             <section id="keyboardactions">

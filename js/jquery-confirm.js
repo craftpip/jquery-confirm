@@ -210,21 +210,16 @@ var jconfirm, Jconfirm;
 
             this.setTitle();
             this.setIcon();
-
-            if (!this.content)
-                this.content = '&nbsp;';
-
             this._setButtons();
-            this._getContent();
+            this._parseContent();
 
-            if (this._isContentAjax)
+            if (this.isAjax)
                 this.showLoading(false);
 
-            // todo: center align is wrong when using showloading.
             $.when(this._contentReady, this._modalReady).then(function () {
-                if (that._isContentAjax)
+                if (that.isAjaxLoading)
                     setTimeout(function () {
-                        that._isContentAjax = false;
+                        that.isAjaxLoading = false;
                         that.setContent();
                         that.setTitle();
                         that.setIcon();
@@ -233,7 +228,7 @@ var jconfirm, Jconfirm;
                         }, 100);
                         if (typeof that.onContentReady == 'function')
                             that.onContentReady();
-                    }, 200);
+                    }, 50);
                 else {
                     that.setContent();
                     that.setTitle();
@@ -605,7 +600,7 @@ var jconfirm, Jconfirm;
                 } else
                     this.title = false;
 
-            if (this._isContentAjax && !force)
+            if (this.isAjax && !force)
                 return;
 
             this.$title.html(this.title || '');
@@ -626,39 +621,37 @@ var jconfirm, Jconfirm;
                 else
                     this.icon = false;
 
-            if (this._isContentAjax && !force)
+            if (this.isAjax && !force)
                 return;
 
             this.$icon.html(this.icon ? '<i class="' + this.icon + '"></i>' : '');
         },
-        setContentPrepend: function (string) {
-            this.content = string + this.content;
-            if (this._isContentAjax)
+        setContentPrepend: function (string, force) {
+            this.contentParsed = string + this.contentParsed;
+            if (this.isAjaxLoading && !force)
                 return;
+
             this.$content.prepend(string);
         },
-        setContentAppend: function (string) {
-            this.content = this.content + string;
-            if (this._isContentAjax)
+        setContentAppend: function (string, force) {
+            this.contentParsed = this.contentParsed + string;
+            if (this.isAjaxLoading && !force)
                 return;
+
             this.$content.append(string);
         },
         setContent: function (string, force) {
             force = force || false;
-            this.content = (typeof string == 'undefined') ? this.content : string;
-
-            if (this._isContentAjax && !force)
+            var that = this;
+            this.contentParsed = (typeof string == 'undefined') ? this.contentParsed : string;
+            if (this.isAjaxLoading && !force)
                 return;
-            if (this.content == '') {
-                this.$content.html(this.content);
-                this.$contentPane.hide();
-            } else {
-                this.$content.html(this.content);
-                this.setDialogCenter();
-                this.$contentPane.show();
-            }
-            this.$body.find('input[autofocus]:visible:first').focus();
+
+            this.$content.html(this.contentParsed);
             this.setDialogCenter();
+            setTimeout(function () {
+                that.$body.find('input[autofocus]:visible:first').focus();
+            }, 100);
         },
         loadingSpinner: false,
         showLoading: function (disableButtons) {
@@ -677,26 +670,25 @@ var jconfirm, Jconfirm;
 
             this.setDialogCenter();
         },
-        ajaxResponseData: false,
-        _getContent: function (string) {
-            /*
-             * get content from remote & stuff.
-             */
+        ajaxResponse: false,
+        contentParsed: '',
+        isAjax: false,
+        isAjaxLoading: false,
+        _parseContent: function () {
             var that = this;
-            string = (string) ? string : this.content;
-            this._isContentAjax = false;
+            var e = '&nbsp;';
 
-            if (!this.content) { // if the content is falsy
-                this.content = '';
-                this._contentReady.resolve();
-            } else if (typeof this.content === 'string') {
-                if (this.content.substr(0, 4).toLowerCase() === 'url:') {
-                    this._isContentAjax = true;
-                    var url = this.content.substring(4, this.content.length);
-                    $.get(url).done(function (html) {
-                        that.content = html;
-                    }).always(function (data, status, xhr) {
-                        that.ajaxResponseData = {
+            if (typeof this.content == 'function') {
+                var res = this.content.apply(this);
+                if (typeof res == 'string') {
+                    this.content = res;
+                }
+                else if (typeof res == 'object' && typeof res.always == 'function') {
+                    // this is ajax loading via promise
+                    this.isAjax = true;
+                    this.isAjaxLoading = true;
+                    res.always(function (data, status, xhr) {
+                        that.ajaxResponse = {
                             data: data,
                             status: status,
                             xhr: xhr
@@ -705,36 +697,38 @@ var jconfirm, Jconfirm;
                         if (typeof that.contentLoaded == 'function')
                             that.contentLoaded(data, status, xhr);
                     });
+                    this.content = e;
                 } else {
-                    this.setContent(this.content);
-                    this._contentReady.resolve();
+                    this.content = e;
                 }
-            } else if (typeof this.content === 'function') {
-                this.$content.addClass('loading');
-                var response = this.content(this);
-                if (typeof response.always === 'function') { // promise
-                    this._isContentAjax = true;
-                    response.always(function (data, status, xhr) {
-                        that.ajaxResponseData = {
-                            data: data,
-                            status: status,
-                            xhr: xhr
-                        };
-                        that._contentReady.resolve();
-                        if (typeof that.contentLoaded == 'function')
-                            that.contentLoaded(data, status, xhr);
-                    });
-                } else if (typeof response === 'string') {
-                    this.setContent(response);
-                    this._contentReady.resolve();
-                } else {
-                    this.setContent('');
-                    this._contentReady.resolve();
-                }
-            } else {
-                console.error('Invalid option for property content, passed: ' + typeof this.content);
             }
-            this.setDialogCenter();
+
+            if (typeof this.content == 'string' && this.content.substr(0, 4).toLowerCase() === 'url:') {
+                this.isAjax = true;
+                this.isAjaxLoading = true;
+                var u = this.content.substring(4, this.content.length);
+                $.get(u).done(function (html) {
+                    that.contentParsed = html;
+                }).always(function (data, status, xhr) {
+                    that.ajaxResponse = {
+                        data: data,
+                        status: status,
+                        xhr: xhr
+                    };
+                    that._contentReady.resolve(data, status, xhr);
+                    if (typeof that.contentLoaded == 'function')
+                        that.contentLoaded(data, status, xhr);
+                });
+            }
+
+            if (!this.content)
+                this.content = e;
+
+            if (!this.isAjax) {
+                this.contentParsed = this.content;
+                this.setContent(this.contentParsed);
+                that._contentReady.resolve();
+            }
         },
         _stopCountDown: function () {
             clearInterval(this.autoCloseInterval);
@@ -763,7 +757,7 @@ var jconfirm, Jconfirm;
             this.autoCloseInterval = setInterval(function () {
                 that.$cd.html(' (' + (seconds -= 1) + ') ');
                 if (seconds === 0) {
-                    that['$_' + button_key].trigger('click');
+                    that['$$' + button_key].trigger('click');
                     that._stopCountDown();
                 }
             }, 1000);
