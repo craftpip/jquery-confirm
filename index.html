@@ -2015,8 +2015,8 @@ $.confirm({
                                 var self = this;
                                 self.setContentPrepend('<h1>OK! the status is: ' + status + '</h1>');
                                 setTimeout(function () {
-                                    self.setContentAppend('<h1>OK! the status is: ' + status + '</h1>');
-                                     self.setTitle('Stuff is loaded');
+                                    self.setContentAppend('<strong>This is appended text</strong>');
+                                    self.setTitle('Stuff is loaded');
                                 }, 2000);
                             },
                             animation: 'zoom',

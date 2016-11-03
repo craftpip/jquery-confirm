@@ -230,12 +230,16 @@ var jconfirm, Jconfirm;
                         that.setIcon();
                         setTimeout(function () {
                             that.hideLoading(true);
-                        }, 100)
+                        }, 100);
+                        if(typeof that.onContentReady == 'function')
+                            that.onContentReady();
                     }, 200);
                 else {
                     that.setContent();
                     that.setTitle();
                     that.setIcon();
+                    if(typeof that.onContentReady == 'function')
+                        that.onContentReady();
                 }
 
                 // start countdown after content has loaded.
@@ -673,6 +677,7 @@ var jconfirm, Jconfirm;
 
             this.setDialogCenter();
         },
+        ajaxResponseData: false,
         _getContent: function (string) {
             /*
              * get content from remote & stuff.
@@ -691,6 +696,7 @@ var jconfirm, Jconfirm;
                     $.get(url).done(function (html) {
                         that.content = html;
                     }).always(function (data, status, xhr) {
+                        that.ajaxResponseData = {data: data, status: status, xhr: xhr};
                         that._contentReady.resolve(data, status, xhr);
                         if (typeof that.contentLoaded == 'function')
                             that.contentLoaded(data, status, xhr);
@@ -706,7 +712,10 @@ var jconfirm, Jconfirm;
                 if (typeof response.always === 'function') { // promise
                     this._isContentAjax = true;
                     response.always(function (data, status) {
+                        that.ajaxResponseData = {data: data, status: status, xhr: xhr};
                         that._contentReady.resolve();
+                        if (typeof that.contentLoaded == 'function')
+                            that.contentLoaded(data, status, xhr);
                     });
                 } else if (typeof response === 'string') {
                     this.setContent(response);
@@ -987,14 +996,8 @@ var jconfirm, Jconfirm;
         animationBounce: 1.2,
         escapeKey: true, // Key 27 todo: must be true by default.
         rtl: false,
-        // confirmKeys: [13], // ENTER key todo: this will be moved to buttons.
-        // cancelKeys: [27], // ESC key
         container: 'body',
         containerFluid: false,
-        confirm: function () {
-        },
-        cancel: function () {
-        },
         backgroundDismiss: false,
         backgroundDismissAnimation: 'shake',
         autoClose: false,
@@ -1002,11 +1005,17 @@ var jconfirm, Jconfirm;
         closeIconClass: false,
         watchInterval: 100,
         columnClass: 'col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1',
+        onContentReady: function(){
+
+        },
         onOpen: function () {
+
         },
         onClose: function () {
+
         },
         onAction: function () {
+
         }
     };
 })(jQuery);
