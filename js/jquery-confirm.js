@@ -627,6 +627,18 @@ var jconfirm, Jconfirm;
 
             this.$icon.html(this.icon ? '<i class="' + this.icon + '"></i>' : '');
         },
+        setContentPrepend: function (string) {
+            this.content = string + this.content;
+            if (this._isContentAjax)
+                return;
+            this.$content.prepend(string);
+        },
+        setContentAppend: function (string) {
+            this.content = this.content + string;
+            if (this._isContentAjax)
+                return;
+            this.$content.append(string);
+        },
         setContent: function (string, force) {
             force = force || false;
             this.content = (typeof string == 'undefined') ? this.content : string;
@@ -831,6 +843,14 @@ var jconfirm, Jconfirm;
             if (this.$contentPane.css('display') != 'none') {
                 contentHeight = this.$content.outerHeight() || 0;
                 paneHeight = this.$contentPane.height() || 0;
+            }
+
+            // if the child has margin top
+            var children = this.$content.children();
+            if (children.length != 0) {
+                var marginTopChild = parseInt(children.eq(0).css('margin-top'));
+                if (marginTopChild)
+                    contentHeight += marginTopChild;
             }
 
             if (paneHeight == 0)

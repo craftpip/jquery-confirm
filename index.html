@@ -2013,12 +2013,10 @@ $.confirm({
                             content: 'url:text.txt',
                             contentLoaded: function (data, status, xhr) {
                                 var self = this;
+                                self.setContentPrepend('<h1>OK! the status is: ' + status + '</h1>');
                                 setTimeout(function () {
-                                    self.$content.html('hey');
-                                    self.$title.html('wwowowwow');
-                                    // todo: im here
-//                                    self.setContent('<h1>OK! the status is: ' + status + '</h1><br>' + self.content); // concat content
-//                                    self.setTitle('Stuff is loaded');
+                                    self.setContentAppend('<h1>OK! the status is: ' + status + '</h1>');
+                                     self.setTitle('Stuff is loaded');
                                 }, 2000);
                             },
                             animation: 'zoom',
