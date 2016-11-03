@@ -231,14 +231,14 @@ var jconfirm, Jconfirm;
                         setTimeout(function () {
                             that.hideLoading(true);
                         }, 100);
-                        if(typeof that.onContentReady == 'function')
+                        if (typeof that.onContentReady == 'function')
                             that.onContentReady();
                     }, 200);
                 else {
                     that.setContent();
                     that.setTitle();
                     that.setIcon();
-                    if(typeof that.onContentReady == 'function')
+                    if (typeof that.onContentReady == 'function')
                         that.onContentReady();
                 }
 
@@ -696,7 +696,11 @@ var jconfirm, Jconfirm;
                     $.get(url).done(function (html) {
                         that.content = html;
                     }).always(function (data, status, xhr) {
-                        that.ajaxResponseData = {data: data, status: status, xhr: xhr};
+                        that.ajaxResponseData = {
+                            data: data,
+                            status: status,
+                            xhr: xhr
+                        };
                         that._contentReady.resolve(data, status, xhr);
                         if (typeof that.contentLoaded == 'function')
                             that.contentLoaded(data, status, xhr);
@@ -712,7 +716,11 @@ var jconfirm, Jconfirm;
                 if (typeof response.always === 'function') { // promise
                     this._isContentAjax = true;
                     response.always(function (data, status) {
-                        that.ajaxResponseData = {data: data, status: status, xhr: xhr};
+                        that.ajaxResponseData = {
+                            data: data,
+                            status: status,
+                            xhr: xhr
+                        };
                         that._contentReady.resolve();
                         if (typeof that.contentLoaded == 'function')
                             that.contentLoaded(data, status, xhr);
@@ -917,6 +925,8 @@ var jconfirm, Jconfirm;
             setTimeout(function () {
                 that.$el.remove();
                 that._lastFocused.focus();
+                if (typeof that.onDestroy == 'function')
+                    that.onDestroy();
             }, closeTimer * 0.40);
 
             return true;
@@ -931,6 +941,8 @@ var jconfirm, Jconfirm;
         },
         _open: function () {
             var that = this;
+            if (typeof that.onOpenBefore == 'function')
+                that.onOpenBefore();
             this.$body.removeClass(this.animationParsed);
             this.$jconfirmBg.removeClass('jconfirm-bg-h');
             this.$body.focus();
@@ -955,7 +967,7 @@ var jconfirm, Jconfirm;
                 this.open();
             else
                 this.close();
-        },
+        }
     };
 
     jconfirm.instances = [];
@@ -1005,13 +1017,19 @@ var jconfirm, Jconfirm;
         closeIconClass: false,
         watchInterval: 100,
         columnClass: 'col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1',
-        onContentReady: function(){
+        onContentReady: function () {
+
+        },
+        onOpenBefore: function () {
 
         },
         onOpen: function () {
 
         },
         onClose: function () {
+
+        },
+        onDestroy: function () {
 
         },
         onAction: function () {
