@@ -218,7 +218,7 @@ var jconfirm, Jconfirm;
             this._getContent();
 
             if (this._isContentAjax)
-                this.showLoading(true);
+                this.showLoading(false);
 
             // todo: center align is wrong when using showloading.
             $.when(this._contentReady, this._modalReady).then(function () {
@@ -229,7 +229,7 @@ var jconfirm, Jconfirm;
                         that.setTitle();
                         that.setIcon();
                         setTimeout(function () {
-                            that.hideLoading(true);
+                            that.hideLoading(false);
                         }, 100);
                         if (typeof that.onContentReady == 'function')
                             that.onContentReady();
@@ -664,16 +664,16 @@ var jconfirm, Jconfirm;
         showLoading: function (disableButtons) {
             this.loadingSpinner = true;
             this.$jconfirmBox.addClass('loading');
-            // if (disableButtons)
-            //     this.$btnc.find('button').prop('disabled', true);
+            if (disableButtons)
+                this.$btnc.find('button').prop('disabled', true);
 
             this.setDialogCenter();
         },
         hideLoading: function (enableButtons) {
             this.loadingSpinner = false;
             this.$jconfirmBox.removeClass('loading');
-            // if (enableButtons)
-            //     this.$btnc.find('button').prop('disabled', false);
+            if (enableButtons)
+                this.$btnc.find('button').prop('disabled', false);
 
             this.setDialogCenter();
         },
@@ -711,7 +711,6 @@ var jconfirm, Jconfirm;
                 }
             } else if (typeof this.content === 'function') {
                 this.$content.addClass('loading');
-                this.$btnc.find('button').attr('disabled', 'disabled');
                 var response = this.content(this);
                 if (typeof response.always === 'function') { // promise
                     this._isContentAjax = true;
