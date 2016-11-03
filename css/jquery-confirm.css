@@ -193,7 +193,7 @@ body[class~="jconfirm-no-scroll-"] {
   direction: rtl;
 }
 .jconfirm.jconfirm-rtl div.jconfirm-closeIcon {
-  left: 12px;
+  left: 5px;
   right: auto;
 }
 .jconfirm.jconfirm-white .jconfirm-bg {

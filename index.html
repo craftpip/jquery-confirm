@@ -351,15 +351,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#keyboardactions"> Keyboard actions</a>
-                        <ul class="nav nav-list">
-                            <li>
-                                <a href="#keyboardactions"> Keyboard actions</a>
-                            </li>
-                            <li>
-                                <a href="#keyboardactions-config">Using custom keys</a>
-                            </li>
-                        </ul>
+                        <a href="#escape-key"> Escape key</a>
                     </li>
                     <li>
                         <a href="#rtl"> RTL Support</a>
@@ -2368,95 +2360,56 @@ $.confirm({
                 </script>
             </section>
 
-
-
-
-
-
-
-            <section id="keyboardactions">
+            <section id="escape-key">
                 <h2>
-                    Keyboard actions
+                    Escape key
                 </h2>
 
                 <p>
-                    Enables keyboard events on jquery-confirm dialog. <br>
-                    ENTER calls <code>confirm();</code> &amp; ESC calls <code>cancel();</code>
+                    Control what happens when the escape key is pressed. This is enabled by default. <br>
+                    backgroundDismiss is called when escape key is pressed. if backgroundDismiss is false, it will shake the modal.
                 </p>
 
                 <div class="section">
-                    <button class="btn btn-primary example22-1">Keyboard Enabled</button>
+                    <button class="btn btn-primary example22-1">Escape key</button>
+                    <button class="btn btn-primary example22-1-2">Escape key handled with button</button>
                     <script type="text/javascript">
                         $('.example22-1').on('click', function () {
                             $.confirm({
-                                keyboardEnabled: true,
-                                content: 'Press ESC or ENTER to see it in action.',
-                                cancel: function () {
-                                    $.alert('canceled');
-                                },
-                                confirm: function () {
-                                    $.alert('confirmed');
-                                }
+                                escapeKey: true,
+                                backgroundDismiss: false,
                             });
                         });
-                    </script>
-                    <div class="space10"></div>
-                    <pre class="prettyprint linenums"><code>$.confirm({
-                                keyboardEnabled: true,
-                                content: 'Press ESC or ENTER to see it in action.',
-                                cancel: function(){
-                                $.alert('canceled');
-                                },
-                                confirm: function(){
-                                $.alert('confirmed');
-                                }
-                                });
-                            </code></pre>
-                </div>
-                <h4 id="keyboardactions-config">Setting custom keys</h4>
-
-                <div class="section">
-                    <p>
-                        The confirmKeys, cancelKeys take an array of key numbers, in this example 65 is 'A' & 66 is 'B'.
-                    </p>
-
-                    <div class="alert alert-info">
-                        <i class="fa fa-info"></i> If the modal has input elements, ENTER & SPACE buttons will not do anything for the focused input (when the user is typing)
-                    </div>
-                    <div class="alert alert-warning">
-                        <i class="fa fa-warning"></i> Using custom keys like 'A' or 'B' when you have input elements inside the modal will cause the modal to close when user types those keys.
-                    </div>
-                    <button class="btn btn-primary example22-2">With custom keys</button>
-                    <script type="text/javascript">
-                        $('.example22-2').on('click', function () {
+                        $('.example22-1-2').on('click', function () {
                             $.confirm({
-                                keyboardEnabled: true,
-                                content: 'Press "A" to confirm or "B" to cancel. <input type="text" class="form-control" placeholder="typing a or b will close the modal"/>',
-                                confirmKeys: [65],
-                                cancelKeys: [66],
-                                cancel: function () {
-                                    $.alert('canceled');
-                                },
-                                confirm: function () {
-                                    $.alert('confirmed');
+                                escapeKey: 'buttonName',
+                                buttons: {
+                                    buttonName: function(){
+                                        $.alert('Button name was called');
+                                    },
+                                    close: function(){
+
+                                    }
                                 }
                             });
                         });
                     </script>
                     <div class="space10"></div>
                     <pre class="prettyprint linenums"><code>$.confirm({
-                                keyboardEnabled: true,
-                                content: 'Press "A" to confirm or "B" to cancel. &lt;input type="text" placeholder="typing a or b will close the modal"/&gt;',
-                                confirmKeys: [65],
-                                cancelKeys: [66],
-                                cancel: function () {
-                                $.alert('canceled');
-                                },
-                                confirm: function () {
-                                $.alert('confirmed');
-                                }
-                                });
-                            </code></pre>
+    escapeKey: true,
+    backgroundDismiss: false,
+});
+$.confirm({
+    escapeKey: 'buttonName',
+    buttons: {
+        buttonName: function(){
+            $.alert('Button name was called');
+        },
+        close: function(){
+
+        }
+    }
+});</code></pre>
                 </div>
             </section>
 
