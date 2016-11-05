@@ -1012,7 +1012,7 @@ var jconfirm, Jconfirm;
         },
         icon: '',
         bgOpacity: null, // leave null for theme specific opacity.
-        theme: 'white',
+        theme: 'light',
         animation: 'zoom',
         closeAnimation: 'scale',
         animationSpeed: 400,

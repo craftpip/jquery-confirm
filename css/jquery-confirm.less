@@ -17,7 +17,7 @@
   }
 }
 
-body[class~="jconfirm-no-scroll-"]{
+body[class~="jconfirm-no-scroll-"] {
   overflow: hidden !important;
 }
 
@@ -39,7 +39,7 @@ body[class~="jconfirm-no-scroll-"]{
     bottom: 0;
     transition: opacity .4s;
 
-    &.jconfirm-bg-h{
+    &.jconfirm-bg-h {
       opacity: 0 !important;
     }
   }
@@ -93,7 +93,6 @@ body[class~="jconfirm-no-scroll-"]{
       }
     }
 
-
     div.jconfirm-closeIcon {
       height: 20px;
       width: 20px;
@@ -108,17 +107,17 @@ body[class~="jconfirm-no-scroll-"]{
       line-height: 14px !important;
       display: none;
 
-      &:empty{
+      &:empty {
         display: none;
       }
 
-      .fa{
+      .fa {
         font-size: 16px;
       }
-      .glyphicon{
+      .glyphicon {
         font-size: 16px;
       }
-      .zmdi{
+      .zmdi {
         font-size: 16px;
       }
 
@@ -171,7 +170,7 @@ body[class~="jconfirm-no-scroll-"]{
         //transition: all .2s ease-in;
         //right: 0;
 
-        img{
+        img {
           max-width: 100%;
           height: auto;
         }
@@ -182,7 +181,7 @@ body[class~="jconfirm-no-scroll-"]{
     }
     .jconfirm-buttons {
       padding-bottom: 11px;
-      > button{
+      > button {
         margin-bottom: 4px;
         margin-left: 2px;
         margin-right: 2px;
@@ -202,7 +201,7 @@ body[class~="jconfirm-no-scroll-"]{
     }
   }
 
-  &.jconfirm-white {
+  &.jconfirm-white, &.jconfirm-light {
     .jconfirm-bg {
       background-color: #444;
       opacity: .3;
@@ -236,7 +235,7 @@ body[class~="jconfirm-no-scroll-"]{
     }
   }
 
-  &.jconfirm-black {
+  &.jconfirm-black, &.jconfirm-dark {
     .jconfirm-bg {
       background-color: darkslategray;
     }
@@ -273,11 +272,11 @@ body[class~="jconfirm-no-scroll-"]{
   }
 
   .jconfirm-box.hilight {
-    &.jconfirm-hilight-shake{
+    &.jconfirm-hilight-shake {
       animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
       transform: translate3d(0, 0, 0);
     }
-    &.jconfirm-hilight-glow{
+    &.jconfirm-hilight-glow {
       animation: glow 0.82s cubic-bezier(.36, .07, .19, .97) both;
       transform: translate3d(0, 0, 0);
     }
@@ -298,11 +297,12 @@ body[class~="jconfirm-no-scroll-"]{
     transform: translate3d(8px, 0, 0);
   }
 }
+
 @keyframes glow {
-  0%, 100%{
+  0%, 100% {
     box-shadow: 0 0 3px red;
   }
-  50%{
+  50% {
     box-shadow: 0 0 30px red;
   }
 }
@@ -392,7 +392,7 @@ body[class~="jconfirm-no-scroll-"]{
         padding-bottom: 25px;
       }
     }
-    div.jconfirm-content-pane{
+    div.jconfirm-content-pane {
       margin-bottom: 25px;
     }
     div.jconfirm-content {
@@ -433,25 +433,25 @@ body[class~="jconfirm-no-scroll-"]{
 
 .jconfirm.jconfirm-material {
   .jconfirm-bg {
-    background-color: rgba(0,0,0,.67);
+    background-color: rgba(0, 0, 0, .67);
   }
   .jconfirm-box {
     background-color: white;
-    box-shadow: 0 7px 8px -4px rgba(0,0,0,.2),0 13px 19px 2px rgba(0,0,0,.14),0 5px 24px 4px rgba(0,0,0,.12);
+    box-shadow: 0 7px 8px -4px rgba(0, 0, 0, .2), 0 13px 19px 2px rgba(0, 0, 0, .14), 0 5px 24px 4px rgba(0, 0, 0, .12);
     padding: 30px 25px 10px 25px;
 
     div.jconfirm-closeIcon {
-      color: rgba(0,0,0,.87);
+      color: rgba(0, 0, 0, .87);
     }
 
     div.jconfirm-title-c {
-      color: rgba(0,0,0,.87);
+      color: rgba(0, 0, 0, .87);
       font-size: 22px;
       font-weight: bold;
     }
     div.jconfirm-content {
       text-align: left;
-      color: rgba(0,0,0,.87);
+      color: rgba(0, 0, 0, .87);
 
       &:empty {
         &:before {
@@ -478,9 +478,10 @@ body[class~="jconfirm-no-scroll-"]{
     }
   }
 }
+
 .jconfirm.jconfirm-bootstrap {
   .jconfirm-bg {
-    background-color: rgba(0,0,0,.21);
+    background-color: rgba(0, 0, 0, .21);
   }
 
   .jconfirm-box {
@@ -500,7 +501,7 @@ body[class~="jconfirm-no-scroll-"]{
       padding-left: 15px;
       padding-right: 15px;
     }
-    div.jconfirm-content-pane{
+    div.jconfirm-content-pane {
 
     }
     div.jconfirm-content {
@@ -522,8 +523,8 @@ body[class~="jconfirm-no-scroll-"]{
       padding: 0px 0 0px;
       margin: -5px 0 0px;
       border-top: solid 1px #ddd;
-      overflow:hidden;
-      border-radius:  0 0 4px 4px;
+      overflow: hidden;
+      border-radius: 0 0 4px 4px;
 
       button {
         font-weight: 500;

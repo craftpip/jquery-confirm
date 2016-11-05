@@ -196,18 +196,22 @@ body[class~="jconfirm-no-scroll-"] {
   left: 5px;
   right: auto;
 }
-.jconfirm.jconfirm-white .jconfirm-bg {
+.jconfirm.jconfirm-white .jconfirm-bg,
+.jconfirm.jconfirm-light .jconfirm-bg {
   background-color: #444;
   opacity: .3;
 }
-.jconfirm.jconfirm-white .jconfirm-box {
+.jconfirm.jconfirm-white .jconfirm-box,
+.jconfirm.jconfirm-light .jconfirm-box {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
 }
-.jconfirm.jconfirm-white .jconfirm-box .jconfirm-buttons {
+.jconfirm.jconfirm-white .jconfirm-box .jconfirm-buttons,
+.jconfirm.jconfirm-light .jconfirm-box .jconfirm-buttons {
   float: right;
 }
-.jconfirm.jconfirm-white .jconfirm-box .jconfirm-buttons button {
+.jconfirm.jconfirm-white .jconfirm-box .jconfirm-buttons button,
+.jconfirm.jconfirm-light .jconfirm-box .jconfirm-buttons button {
   border: none;
   background-image: none;
   text-transform: uppercase;
@@ -218,26 +222,32 @@ body[class~="jconfirm-no-scroll-"] {
           transition: background .1s;
   color: white;
 }
-.jconfirm.jconfirm-white .jconfirm-box .jconfirm-buttons button.btn-default {
+.jconfirm.jconfirm-white .jconfirm-box .jconfirm-buttons button.btn-default,
+.jconfirm.jconfirm-light .jconfirm-box .jconfirm-buttons button.btn-default {
   box-shadow: none;
   color: #333;
 }
-.jconfirm.jconfirm-white .jconfirm-box .jconfirm-buttons button.btn-default:hover {
+.jconfirm.jconfirm-white .jconfirm-box .jconfirm-buttons button.btn-default:hover,
+.jconfirm.jconfirm-light .jconfirm-box .jconfirm-buttons button.btn-default:hover {
   background: #ddd;
 }
-.jconfirm.jconfirm-black .jconfirm-bg {
+.jconfirm.jconfirm-black .jconfirm-bg,
+.jconfirm.jconfirm-dark .jconfirm-bg {
   background-color: darkslategray;
 }
-.jconfirm.jconfirm-black .jconfirm-box {
+.jconfirm.jconfirm-black .jconfirm-box,
+.jconfirm.jconfirm-dark .jconfirm-box {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   background: #444;
   border-radius: 5px;
   color: white;
 }
-.jconfirm.jconfirm-black .jconfirm-box .jconfirm-buttons {
+.jconfirm.jconfirm-black .jconfirm-box .jconfirm-buttons,
+.jconfirm.jconfirm-dark .jconfirm-box .jconfirm-buttons {
   float: right;
 }
-.jconfirm.jconfirm-black .jconfirm-box .jconfirm-buttons button {
+.jconfirm.jconfirm-black .jconfirm-box .jconfirm-buttons button,
+.jconfirm.jconfirm-dark .jconfirm-box .jconfirm-buttons button {
   border: none;
   background-image: none;
   text-transform: uppercase;
@@ -248,12 +258,14 @@ body[class~="jconfirm-no-scroll-"] {
           transition: background .1s;
   color: white;
 }
-.jconfirm.jconfirm-black .jconfirm-box .jconfirm-buttons button.btn-default {
+.jconfirm.jconfirm-black .jconfirm-box .jconfirm-buttons button.btn-default,
+.jconfirm.jconfirm-dark .jconfirm-box .jconfirm-buttons button.btn-default {
   box-shadow: none;
   color: #fff;
   background: none;
 }
-.jconfirm.jconfirm-black .jconfirm-box .jconfirm-buttons button.btn-default:hover {
+.jconfirm.jconfirm-black .jconfirm-box .jconfirm-buttons button.btn-default:hover,
+.jconfirm.jconfirm-dark .jconfirm-box .jconfirm-buttons button.btn-default:hover {
   background: #666;
 }
 .jconfirm .jconfirm-box.hilight.jconfirm-hilight-shake {
