@@ -38,20 +38,21 @@ var jconfirm, Jconfirm;
                     jcOption['content'] = $this.attr('data-content');
                 if (typeof jcOption['buttons'] == 'undefined')
                     jcOption['buttons'] = {};
-                jcOption['$target'] = $this;
-                if ($this.attr('href') && Object.keys(jcOption['buttons']).length == 0)
-                    jcOption['buttons'] = {
-                        'okay': {
-                            text: 'okay',
-                            class: 'btn-primary',
-                            action: function () {
-                                location.href = $this.attr('href');
-                            }
-                        },
-                        'cancel': function () {
 
-                        }
+                jcOption['$target'] = $this;
+                if ($this.attr('href') && Object.keys(jcOption['buttons']).length == 0) {
+                    var buttons = {};
+                    if (jconfirm.defaults && jconfirm.defaults.defaultButtons) {
+                        buttons = $.extend({}, jconfirm.pluginDefaults.defaultButtons, jconfirm.defaults.defaultButtons || {});
+                    } else {
+                        buttons = $.extend({}, jconfirm.pluginDefaults.defaultButtons);
+                    }
+                    var firstBtn = Object.keys(buttons)[0];
+                    jcOption['buttons'] = buttons;
+                    jcOption.buttons[firstBtn].action = function () {
+                        location.href = $this.attr('href');
                     };
+                }
                 jcOption['closeIcon'] = false;
                 $.confirm(jcOption);
             });
@@ -69,11 +70,15 @@ var jconfirm, Jconfirm;
         if (typeof options['buttons'] != 'object')
             options['buttons'] = {};
 
-        if (Object.keys(options['buttons']).length == 0)
-            options['buttons'] = {
-                'Okay': function () {},
-                'Cancel': function () {} // this doesn't make sense as both buttons won't do anything, but confirm boxes have two buttons right.
-            };
+        if (Object.keys(options['buttons']).length == 0) {
+            var buttons = {};
+            if (jconfirm.defaults && jconfirm.defaults.defaultButtons) {
+                buttons = $.extend({}, jconfirm.pluginDefaults.defaultButtons, jconfirm.defaults.defaultButtons || {});
+            } else {
+                buttons = $.extend({}, jconfirm.pluginDefaults.defaultButtons);
+            }
+            options['buttons'] = buttons;
+        }
 
         /*
          *  Alias of jconfirm
@@ -86,16 +91,19 @@ var jconfirm, Jconfirm;
             options = {
                 content: options,
                 title: (option2) ? option2 : false,
-                buttons: {
-                    'Okay': function () {}
-                }
             };
 
-        if (typeof options['buttons'] == 'undefined' || Object.keys(options['buttons']).length == 0) {
-            // alert should have at least one button.
-            options['buttons'] = {
-                'Okay': function () {}
-            }
+        if (typeof options.buttons != 'object')
+            options.buttons = {};
+
+        if (Object.keys(options['buttons']).length == 0) {
+            var buttons = {};
+            if (jconfirm.defaults && jconfirm.defaults.defaultButtons)
+                buttons = $.extend({}, jconfirm.pluginDefaults.defaultButtons, jconfirm.defaults.defaultButtons || {});
+            else
+                buttons = $.extend({}, jconfirm.pluginDefaults.defaultButtons);
+            var firstBtn = Object.keys(buttons)[0];
+            options['buttons'][firstBtn] = buttons[firstBtn];
         }
         /*
          *  Alias of jconfirm
@@ -117,7 +125,8 @@ var jconfirm, Jconfirm;
 
         if (typeof options['closeIcon'] == 'undefined') {
             // Dialog must have a closeIcon.
-            options['closeIcon'] = function () {}
+            options['closeIcon'] = function () {
+            }
         }
         /*
          *  Alias of jconfirm
@@ -137,6 +146,7 @@ var jconfirm, Jconfirm;
              */
             $.extend(jconfirm.pluginDefaults, jconfirm.defaults);
         }
+
         /*
          * merge options with plugin defaults.
          */
@@ -486,7 +496,8 @@ var jconfirm, Jconfirm;
 
                 that.buttons[key].text = button.text || key;
                 that.buttons[key].btnClass = button.btnClass || 'btn-default';
-                that.buttons[key].action = button.action || function () {};
+                that.buttons[key].action = button.action || function () {
+                    };
                 that.buttons[key].keys = button.keys || [];
 
                 $.each(that.buttons[key].keys, function (i, a) {
@@ -986,14 +997,21 @@ var jconfirm, Jconfirm;
         '</div></div></div></div></div></div></div>',
         title: 'Hello',
         content: 'Are you sure to continue?',
+        buttons: {},
+        defaultButtons: {
+            ok: {
+                action: function () {
+                }
+            },
+            close: {
+                action: function () {
+                }
+            },
+        },
         contentLoaded: function () {
         },
         icon: '',
         bgOpacity: null, // leave null for theme specific opacity.
-        confirmButton: 'Okay', // @deprecated
-        cancelButton: 'Close', // @deprecated
-        confirmButtonClass: 'btn-default',
-        cancelButtonClass: 'btn-default',
         theme: 'white',
         animation: 'zoom',
         closeAnimation: 'scale',
