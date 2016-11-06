@@ -12,14 +12,18 @@ body {
     width: 100%
 }
 
-.craftpip-logo {
-    background-image: url(logo-name.svg);
-    -webkit-background-size: contain;
+.jconfirm-logo {
+    background-image: url('../jquery-confirm.png');
     background-size: contain;
     background-position: center;
-    width: 130px;
-    display: block;
-    height: 20px
+    background-repeat: no-repeat;
+    width: 152px;
+}
+
+.download-btns .btn{
+    background: white;
+    color: dodgerblue;
+    border-radius: 4px;
 }
 
 kbd.blue {
@@ -30,7 +34,7 @@ kbd.blue {
 }
 
 .section {
-    border-left: solid 1px #2980b9;
+    border-left: solid 1px #ddd;
     padding-left: 15px;
 }
 
@@ -151,6 +155,9 @@ ul.nav.nav-list li ul {
 ul.nav.nav-list li.active ul {
     display: block;
 }
+ul.nav.nav-list li.no-b-l a{
+    box-shadow: none;
+}
 .navheader{
     margin-bottom: 0px;
     background: white;
@@ -173,4 +180,15 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3D83BF', endC
 .header p{
     color: #f8f8f8;
     font-size: 24px;
+}
+.v{
+    vertical-align: text-top;
+}
+
+.space10 {
+    height: 10px;
+}
+body {
+    font-family: Segoe UI, Frutiger, Frutiger Linotype, Dejavu Sans, Helvetica Neue, Arial, sans-serif;
+    position: relative;
 }
