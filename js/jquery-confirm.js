@@ -391,7 +391,6 @@ var jconfirm, Jconfirm;
 
             that.$body.addClass('hilight');
             var duration = parseFloat(that.$body.css('animation-duration')) || 0;
-            console.log(duration);
             this._hilightAnimating = true;
             setTimeout(function () {
                 that._hilightAnimating = false;
@@ -455,11 +454,6 @@ var jconfirm, Jconfirm;
         },
         _cubic_bezier: '0.36, 0.55, 0.19',
         _getCSS: function (speed, bounce) {
-            // 0.36, 0.99, 0.19 old
-            // 0.37, 0.48, 0.54
-            // 0.44, 0.81, 0.68
-            // 0.07, 0.69, 0.68
-
             return {
                 '-webkit-transition-duration': speed / 1000 + 's',
                 'transition-duration': speed / 1000 + 's',
@@ -816,7 +810,6 @@ var jconfirm, Jconfirm;
         reactOnKey: function (e) {
             var that = this;
 
-            console.log('reacted to key');
             /*
              Prevent keyup event if the dialog is not last!
              */
@@ -889,8 +882,6 @@ var jconfirm, Jconfirm;
             var boxHeight;
 
             boxHeight = (this.$body.outerHeight() - paneHeight) + contentHeight;
-            //false 511 70 220.5 0 0
-            // 479 70 204.5 0 0
 
             var topMargin = (windowHeight - boxHeight) / 2;
             var minMargin = 100; // todo: include this in options
