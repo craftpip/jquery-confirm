@@ -155,6 +155,9 @@ ul.nav.nav-list li ul {
 ul.nav.nav-list li.active ul {
     display: block;
 }
+ul.nav.nav-list li.no-b-l a{
+    box-shadow: none;
+}
 .navheader{
     margin-bottom: 0px;
     background: white;
@@ -177,4 +180,15 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3D83BF', endC
 .header p{
     color: #f8f8f8;
     font-size: 24px;
+}
+.v{
+    vertical-align: text-top;
+}
+
+.space10 {
+    height: 10px;
+}
+body {
+    font-family: Segoe UI, Frutiger, Frutiger Linotype, Dejavu Sans, Helvetica Neue, Arial, sans-serif;
+    position: relative;
 }

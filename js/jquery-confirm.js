@@ -383,12 +383,20 @@ var jconfirm, Jconfirm;
                 }
             }, this.watchInterval);
         },
+        _hilightAnimating: false,
         _hiLightModal: function () {
             var that = this;
+            if(this._hilightAnimating)
+                return;
+
             that.$body.addClass('hilight');
+            var duration = parseFloat(that.$body.css('animation-duration')) || 0;
+            console.log(duration);
+            this._hilightAnimating = true;
             setTimeout(function () {
+                that._hilightAnimating = false;
                 that.$body.removeClass('hilight');
-            }, 800);
+            }, duration*1000);
         },
         _bindEvents: function () {
             var that = this;
@@ -537,7 +545,7 @@ var jconfirm, Jconfirm;
                     that.setDialogCenter();
                 };
                 /*
-                 Buttons are prefixed with $_ for quick access
+                 Buttons are prefixed with $_ or $$ for quick access
                  */
                 that['$_' + key] = that['$$' + key] = button_element;
                 that.$btnc.append(button_element);
@@ -1011,13 +1019,13 @@ var jconfirm, Jconfirm;
         contentLoaded: function () {
         },
         icon: '',
-        bgOpacity: null, // leave null for theme specific opacity.
+        bgOpacity: null,
         theme: 'light',
         animation: 'zoom',
         closeAnimation: 'scale',
         animationSpeed: 400,
         animationBounce: 1.2,
-        escapeKey: true, // Key 27 todo: must be true by default.
+        escapeKey: true,
         rtl: false,
         container: 'body',
         containerFluid: false,
