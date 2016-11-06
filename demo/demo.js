@@ -82,11 +82,12 @@ $(document).ready(function () {
 $('.format-css').hide();
 
 function rs() {
-    if ($(window).width() > 992) {
-        $('#my-nav').show();
-    } else {
-        $('#my-nav').hide();
-    }
+    console.log($(window).width(), $(window).outerWidth());
+    // if ($(window).width() > 992) {
+    //     $('.sticky-wrapper').show();
+    // } else {
+    //     $('.sticky-wrapper').hide();
+    // }
 }
 $(window).resize(function () {
     rs();

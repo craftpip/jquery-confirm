@@ -172,7 +172,7 @@ ul.nav.nav-list li.no-b-l a{
     background-image: -webkit-gradient(linear,left top,left bottom,from(#3D83BF),to(#1F90E2));
     background-image: -webkit-linear-gradient(top,#3D83BF 0,#1F90E2 100%);
     background-image: -o-linear-gradient(top,#3D83BF 0,#1F90E2 100%);
-    background-image: linear-gradient(to bottom,#3D83BF 0,#1F90E2 100%)
+    background-image: linear-gradient(to bottom,#3D83BF 0,#1F90E2 100%);
 filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3D83BF', endColorstr='#1F90E2', GradientType=0);
     background-repeat: repeat-x;
     color: white;
@@ -180,6 +180,21 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3D83BF', endC
 .header p{
     color: #f8f8f8;
     font-size: 24px;
+}
+.header img{
+    max-width: 400px;
+}
+@media all and (max-width: 500px){
+    .header img{
+        max-width: none;
+        width: 100%;
+    }
+    .header .btn{
+        display: block;
+    }
+    .header .btn + .btn{
+        margin-top: 5px;
+    }
 }
 .v{
     vertical-align: text-top;
@@ -191,4 +206,10 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3D83BF', endC
 body {
     font-family: Segoe UI, Frutiger, Frutiger Linotype, Dejavu Sans, Helvetica Neue, Arial, sans-serif;
     position: relative;
+}
+
+@media all and (max-width: 992px) {
+    #my-nav-sticky-wrapper{
+        display: none;
+    }
 }
