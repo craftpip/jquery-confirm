@@ -4,7 +4,7 @@
  * Website: www.craftpip.com
  * Contact: hey@craftpip.com
  *
- * Copyright 2013-2015 jquery-confirm
+ * Copyright 2013-2016 jquery-confirm
  * Licensed under MIT (https://github.com/craftpip/jquery-confirm/blob/master/LICENSE)
  */
 
@@ -359,7 +359,7 @@ var jconfirm, Jconfirm;
                     break;
                 case 'xs':
                 case 'xsmall':
-                    p = 'col-md-2 col-md-offset-5'
+                    p = 'col-md-2 col-md-offset-5';
                     break;
                 default:
                     p = colClass;

@@ -161,6 +161,6 @@ Checkout the [documentation](http://craftpip.github.io/jquery-confirm) for furth
 
 ## Copyright and license
 
-Copyright (C) 2014-2015 jquery-confirm
+Copyright (C) 2014-2016 jquery-confirm
 
 Licensed under [the MIT license](LICENSE).
