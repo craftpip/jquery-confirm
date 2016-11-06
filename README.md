@@ -18,11 +18,11 @@ View Detailed [Documentation & Examples](http://craftpip.github.io/jquery-confir
 Download the latest release [here](https://github.com/craftpip/jquery-confirm/archive/master.zip) and use the files within `dist` folder.
 
 via Bower: <br>
-`$ bower install craftpip/jquery-confirm` <br>
+`$ bower install craftpip/jquery-confirm`
 
 ##Basic Usage
 
-How to respond to user action
+Showing a confirm box.
 ```js
 $.confirm({
     title: 'What is up?',
