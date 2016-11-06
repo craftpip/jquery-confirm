@@ -1,15 +1,15 @@
 ### ![jquery-confirm](https://raw.githubusercontent.com/craftpip/jquery-confirm/master/jquery-confirm.png "jquery-confirm")
 *alerts, confirms and dialogs in* ***one.***
 
-v2.5.1
+v3.0.0
 
 A multipurpose plugin for alert, confirm & dialog, with Super powers.
 
-* Keyboard actions. 
-* directly load content via Ajax 
+* Listen keyboard keys 
+* Directly load content via Ajax 
 * Auto-close dialog after a specified time 
 * prevent Dialog close on background click
-* callback function, and more
+* callback function, and ton more
 
 View Detailed [Documentation & Examples](http://craftpip.github.io/jquery-confirm)
 
@@ -25,11 +25,20 @@ via Bower: <br>
 How to respond to user action
 ```js
 $.confirm({
-    confirm: function(){
-            console.log('the user clicked confirm');
-    },
-    cancel: function(){
-            console.log('the user clicked cancel');
+    title: 'What is up?',
+    content: 'Here goes a little content',
+    buttons: {   
+        ok: {
+            text: "ok!",
+            btnClass: 'btn-primary',
+            keys: ['enter'],
+            action: function(){
+                 console.log('the user clicked confirm');
+            }
+        },
+        cancel: function(){
+                console.log('the user clicked cancel');
+        }
     }
 });
 ```
@@ -53,6 +62,24 @@ The `$.alert()` , `$.confirm()` & `$.dialog()` are alias of `jconfirm();`.
 Checkout the [documentation](http://craftpip.github.io/jquery-confirm) for further information.
 
 ## Version changes
+(New in 3.0.0) **no backwards compatible with v2.**
+* Define multiple buttons
+* Define keyboard keys for individual buttons
+* Added setContentPrepend, setContentAppend for control over content.
+* Added functions to enable, disable, show, hide, and more for buttons.
+* Added aliases for columnClass
+* Added bgOpacity
+* Added containerFluid
+* Added backgroundDismiss animations
+* Added callbacks, onContentReady, onOpenBefore, onDestroy
+* Docs added for custom animations and themes
+* Animation fixes when loading via Ajax
+* Restructured code
+* Bind button to closeIcon event
+* Bind button to backgroundDismiss event
+* Now created and destroyed instances can be reopened. 
+* Bug fixes
+
 (New in 2.5.1)
 * Fixes
 
