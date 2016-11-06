@@ -1,0 +1,10 @@
+<p>
+    &bull; Making interactive stuff is easy.<br>
+    &bull; This page is loaded from <a href="form.txt" target="_empty">form.txt</a><br>
+    &bull; Access jquery-confirm's DOM via <code>this.$b</code>, you can then use <a target="_empty" href="https://api.jquery.com/category/traversing/">jQuery traversing methods</a> to get what you need.
+</p>
+<div class="form-group">
+    <label>Your name</label>
+    <input autofocus type="text" id="input-name" placeholder="Lets greet Ourselves." class="form-control">
+</div>
+<p class="text-danger" style="display:none">The modal is prevented to close until the input is valid!</p>
