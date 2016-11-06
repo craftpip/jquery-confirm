@@ -82,12 +82,6 @@ $(document).ready(function () {
 $('.format-css').hide();
 
 function rs() {
-    console.log($(window).width(), $(window).outerWidth());
-    // if ($(window).width() > 992) {
-    //     $('.sticky-wrapper').show();
-    // } else {
-    //     $('.sticky-wrapper').hide();
-    // }
 }
 $(window).resize(function () {
     rs();
