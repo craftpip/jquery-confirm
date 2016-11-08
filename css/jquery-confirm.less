@@ -75,25 +75,82 @@ body[class*=jconfirm-no-scroll-] {
     padding: 15px 15px 0;
     overflow: hidden;
 
-    &.blue{
-      border-top: solid 10px @blue;
+    @keyframes type-blue {
+      1%, 100% {
+        border-color: @blue;
+      }
+      50% {
+        border-color: lighten(@blue, 10%);
+      }
     }
-    &.green{
-      border-top: solid 10px @green;
+    @keyframes type-green {
+      1%, 100% {
+        border-color: @green;
+      }
+      50% {
+        border-color: lighten(@green, 10%);
+      }
     }
-    &.red{
-      border-top: solid 10px @red;
+    @keyframes type-red {
+      1%, 100% {
+        border-color: @red;
+      }
+      50% {
+        border-color: lighten(@red, 10%);
+      }
     }
-    &.orange{
-      border-top: solid 10px @orange;
+    @keyframes type-orange {
+      1%, 100% {
+        border-color: @orange;
+      }
+      50% {
+        border-color: lighten(@orange, 10%);
+      }
     }
-    &.purple{
-      border-top: solid 10px @purple;
+    @keyframes type-purple {
+      1%, 100% {
+        border-color: @purple;
+      }
+      50% {
+        border-color: lighten(@purple, 10%);
+      }
     }
-    &.dark{
-      border-top: solid 10px @dark;
+    @keyframes type-dark {
+      1%, 100% {
+        border-color: @dark;
+      }
+      50% {
+        border-color: lighten(@dark, 10%);
+      }
     }
-
+    &.jconfirm-type-animated{
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+    }
+    &.jconfirm-blue {
+      border-top: solid 7px @blue;
+      animation-name: type-blue;
+    }
+    &.jconfirm-green {
+      border-top: solid 7px @green;
+      animation-name: type-green;
+    }
+    &.jconfirm-red {
+      border-top: solid 7px @red;
+      animation-name: type-red;
+    }
+    &.jconfirm-orange {
+      border-top: solid 7px @orange;
+      animation-name: type-orange;
+    }
+    &.jconfirm-purple {
+      border-top: solid 7px @purple;
+      animation-name: type-purple;
+    }
+    &.jconfirm-dark {
+      border-top: solid 7px @dark;
+      animation-name: type-dark;
+    }
     &.loading {
       height: 120px;
 
@@ -342,7 +399,7 @@ body[class*=jconfirm-no-scroll-] {
   &.jconfirm-white, &.jconfirm-light {
     .jconfirm-bg {
       background-color: #444;
-      opacity: .3;
+      opacity: .2;
     }
     .jconfirm-box {
       margin: 0 auto;

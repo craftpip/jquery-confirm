@@ -72,23 +72,149 @@ body[class*=jconfirm-no-scroll-] {
   padding: 15px 15px 0;
   overflow: hidden;
 }
-.jconfirm .jconfirm-box.blue {
-  border-top: solid 10px #3498db;
+@-webkit-keyframes type-blue {
+  1%,
+  100% {
+    border-color: #3498db;
+  }
+  50% {
+    border-color: #5faee3;
+  }
 }
-.jconfirm .jconfirm-box.green {
-  border-top: solid 10px #2ecc71;
+@keyframes type-blue {
+  1%,
+  100% {
+    border-color: #3498db;
+  }
+  50% {
+    border-color: #5faee3;
+  }
 }
-.jconfirm .jconfirm-box.red {
-  border-top: solid 10px #e74c3c;
+@-webkit-keyframes type-green {
+  1%,
+  100% {
+    border-color: #2ecc71;
+  }
+  50% {
+    border-color: #54d98c;
+  }
 }
-.jconfirm .jconfirm-box.orange {
-  border-top: solid 10px #f1c40f;
+@keyframes type-green {
+  1%,
+  100% {
+    border-color: #2ecc71;
+  }
+  50% {
+    border-color: #54d98c;
+  }
 }
-.jconfirm .jconfirm-box.purple {
-  border-top: solid 10px #9b59b6;
+@-webkit-keyframes type-red {
+  1%,
+  100% {
+    border-color: #e74c3c;
+  }
+  50% {
+    border-color: #ed7669;
+  }
 }
-.jconfirm .jconfirm-box.dark {
-  border-top: solid 10px #34495e;
+@keyframes type-red {
+  1%,
+  100% {
+    border-color: #e74c3c;
+  }
+  50% {
+    border-color: #ed7669;
+  }
+}
+@-webkit-keyframes type-orange {
+  1%,
+  100% {
+    border-color: #f1c40f;
+  }
+  50% {
+    border-color: #f4d03f;
+  }
+}
+@keyframes type-orange {
+  1%,
+  100% {
+    border-color: #f1c40f;
+  }
+  50% {
+    border-color: #f4d03f;
+  }
+}
+@-webkit-keyframes type-purple {
+  1%,
+  100% {
+    border-color: #9b59b6;
+  }
+  50% {
+    border-color: #b07cc6;
+  }
+}
+@keyframes type-purple {
+  1%,
+  100% {
+    border-color: #9b59b6;
+  }
+  50% {
+    border-color: #b07cc6;
+  }
+}
+@-webkit-keyframes type-dark {
+  1%,
+  100% {
+    border-color: #34495e;
+  }
+  50% {
+    border-color: #46627f;
+  }
+}
+@keyframes type-dark {
+  1%,
+  100% {
+    border-color: #34495e;
+  }
+  50% {
+    border-color: #46627f;
+  }
+}
+.jconfirm .jconfirm-box.jconfirm-type-animated {
+  -webkit-animation-duration: 2s;
+          animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+}
+.jconfirm .jconfirm-box.jconfirm-blue {
+  border-top: solid 7px #3498db;
+  -webkit-animation-name: type-blue;
+          animation-name: type-blue;
+}
+.jconfirm .jconfirm-box.jconfirm-green {
+  border-top: solid 7px #2ecc71;
+  -webkit-animation-name: type-green;
+          animation-name: type-green;
+}
+.jconfirm .jconfirm-box.jconfirm-red {
+  border-top: solid 7px #e74c3c;
+  -webkit-animation-name: type-red;
+          animation-name: type-red;
+}
+.jconfirm .jconfirm-box.jconfirm-orange {
+  border-top: solid 7px #f1c40f;
+  -webkit-animation-name: type-orange;
+          animation-name: type-orange;
+}
+.jconfirm .jconfirm-box.jconfirm-purple {
+  border-top: solid 7px #9b59b6;
+  -webkit-animation-name: type-purple;
+          animation-name: type-purple;
+}
+.jconfirm .jconfirm-box.jconfirm-dark {
+  border-top: solid 7px #34495e;
+  -webkit-animation-name: type-dark;
+          animation-name: type-dark;
 }
 .jconfirm .jconfirm-box.loading {
   height: 120px;
@@ -322,7 +448,7 @@ body[class*=jconfirm-no-scroll-] {
 .jconfirm.jconfirm-white .jconfirm-bg,
 .jconfirm.jconfirm-light .jconfirm-bg {
   background-color: #444;
-  opacity: .3;
+  opacity: .2;
 }
 .jconfirm.jconfirm-white .jconfirm-box,
 .jconfirm.jconfirm-light .jconfirm-box {

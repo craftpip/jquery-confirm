@@ -196,13 +196,15 @@ var jconfirm, Jconfirm;
                 case 'orange':
                 case 'purple':
                 case 'dark':
-                    type = this.type;
+                    type = 'jconfirm-' + this.type;
                     break;
                 default:
                     console.warn('Invalid dialog type: ' + this.type);
             }
 
             template.find('.jconfirm-box').addClass(this.animationParsed).addClass(this.backgroundDismissAnimationParsed).addClass(type);
+            if (this.typeAnimated)
+                template.find('.jconfirm-box').addClass('jconfirm-type-animated');
 
             if (this.useBootstrap) {
                 template.find('.jc-bs3-row').addClass(this.bootstrapClasses.row);
@@ -955,7 +957,23 @@ var jconfirm, Jconfirm;
             var closeTimer = (this.closeAnimation == 'none') ? 1 : this.animationSpeed;
             setTimeout(function () {
                 that.$el.remove();
-                that._lastFocused.focus();
+
+                console.log(that._lastFocused);
+                if (that._lastFocused.length && $.contains(document, that._lastFocused[0])) {
+                    var st = $(window).scrollTop();
+                    var ot = that._lastFocused.offset().top;
+                    var wh = $(window).height();
+                    if (!(ot > st && ot < (st + wh))) {
+                        $('html, body').animate({
+                            scrollTop: (ot - Math.round((wh / 3))),
+                        }, that.animationSpeed, 'swing', function () {
+                            that._lastFocused.focus();
+                        });
+                    } else {
+                        that._lastFocused.focus();
+                    }
+                }
+
                 if (typeof that.onDestroy == 'function')
                     that.onDestroy();
             }, closeTimer * 0.40);
@@ -1025,6 +1043,7 @@ var jconfirm, Jconfirm;
         title: 'Hello',
         titleClass: '',
         type: 'default',
+        typeAnimated: true,
         content: 'Are you sure to continue?',
         buttons: {},
         defaultButtons: {
