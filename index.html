@@ -1089,10 +1089,12 @@ $.dialog('Just to let you know'); <a href="#"
                                 buttons: {
                                     something: function () {
                                         // here the button key 'something' will be used as the text.
+                                        $.alert('You clicked on something.');
                                     },
                                     somethingElse: {
                                         text: 'Something else &*', // Some Non-Alphanumeric characters
                                         action: function () {
+                                            $.alert('You clicked on something else');
                                         }
                                     }
                                 }
