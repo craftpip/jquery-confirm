@@ -203,6 +203,7 @@ body[class*=jconfirm-no-scroll-] {
 }
 .jconfirm.jconfirm-white .jconfirm-box,
 .jconfirm.jconfirm-light .jconfirm-box {
+  margin: 0 auto;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
 }
@@ -234,6 +235,7 @@ body[class*=jconfirm-no-scroll-] {
 .jconfirm.jconfirm-black .jconfirm-bg,
 .jconfirm.jconfirm-dark .jconfirm-bg {
   background-color: darkslategray;
+  opacity: .4;
 }
 .jconfirm.jconfirm-black .jconfirm-box,
 .jconfirm.jconfirm-dark .jconfirm-box {
