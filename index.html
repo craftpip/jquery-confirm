@@ -1146,34 +1146,61 @@ $.dialog('Just to let you know'); <a href="#"
                 <div class="section">
                     <p>Simply applying classes to buttons.</p>
                     <p class="text-info">
-                        Available bootstrap options are <code>btn-primary</code> <code>btn-inverse</code> <code>btn-warning</code>
+                        Jconfirm comes bundled with <code>btn-blue</code> <code>btn-green</code> <code>btn-red</code>
+                        <code>btn-orange</code> <code>btn-purple</code> <code>btn-default</code> <code>btn-dark</code> or any other class name.
+                    </p>
+                    <p class="text-info">
+                        Other bootstrap options are <code>btn-primary</code> <code>btn-inverse</code> <code>btn-warning</code>
                         <code>btn-info</code> <code>btn-danger</code> <code>btn-success</code> or any other class name.
                     </p>
-                    <button class="btn btn-primary example3-1">info, danger, warning, success!</button>
+                    <button class="btn btn-primary example3-1-jc">Using buttons that come with jconfirm!</button>
+                    <button class="btn btn-primary example3-1">Using bootstrap buttons!</button>
                     <script type="text/javascript">
                         $('.example3-1').on('click', function () {
                             $.confirm({
                                 buttons: {
+                                    default: {
+                                        btnClass: 'btn-default',
+                                    },
                                     info: {
                                         btnClass: 'btn-info',
-                                        action: function () {
-                                        }
+                                    },
+                                    success: {
+                                        btnClass: 'btn-success custom-class',
                                     },
                                     danger: {
                                         btnClass: 'btn-danger custom-class',
-                                        action: function () {
-                                        }
                                     },
                                     warning: {
                                         btnClass: 'btn-warning',
-                                        action: function () {
-                                        }
                                     },
-                                    success: {
-                                        btnClass: 'btn-success',
-                                        action: function () {
-                                        }
-                                    }
+                                }
+                            });
+                        });
+                        $('.example3-1-jc').on('click', function () {
+                            $.confirm({
+                                buttons: {
+                                    default: {
+                                        btnClass: 'btn-default',
+                                    },
+                                    blue: {
+                                        btnClass: 'btn-blue',
+                                    },
+                                    green: {
+                                        btnClass: 'btn-green',
+                                    },
+                                    red: {
+                                        btnClass: 'btn-red',
+                                    },
+                                    orange: {
+                                        btnClass: 'btn-orange',
+                                    },
+                                    purple: {
+                                        btnClass: 'btn-purple',
+                                    },
+                                    dark: {
+                                        btnClass: 'btn-dark',
+                                    },
                                 }
                             });
                         });
@@ -1182,11 +1209,11 @@ $.dialog('Just to let you know'); <a href="#"
                     <pre class="prettyprint linenums"><code class="html">$.confirm({
     buttons: {
         info: {
-            btnClass: 'btn-info',
+            btnClass: 'btn-blue',
             action: function(){}
         },
         danger: {
-            btnClass: 'btn-danger any-other-class', // multiple classes.
+            btnClass: 'btn-red any-other-class', // multiple classes.
             ...
         },
         warning: {
@@ -1745,6 +1772,27 @@ $.confirm({
 $.confirm({
     boxWidth: '500px',
     useBootstrap: false,
+});</code></pre>
+                </div>
+
+                <h4 id="namespaced-bootstrap">Namespaced bootstrap</h4>
+
+                <div class="section">
+                    <p>
+                        Namespacing is basically isolating the bootstrap classes names, like turning '.row' to '.custom-row'
+                        <br>
+                        If you're using a namespaced bootstrap library, this option is for you.
+                    </p>
+                    <p>
+                        <i class="fa fa-info fa-fw"></i> it is ideal to set this in jconfirm.defaults
+                    </p>
+                    <div class="space10"></div>
+                    <pre class="prettyprint linenums"><code>$.confirm({
+    bootstrapClasses: {
+        container: 'container',
+        containerFluid: 'container-fluid',
+        row: 'row',
+    },
 });</code></pre>
                 </div>
             </section>
