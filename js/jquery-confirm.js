@@ -390,7 +390,8 @@ var jconfirm, Jconfirm;
                 return;
 
             that.$body.addClass('hilight');
-            var duration = parseFloat(that.$body.css('animation-duration')) || 0;
+            // var duration = parseFloat(that.$body.css('animation-duration')) || 0;
+            var duration = 2; // 2 seconds default
             this._hilightAnimating = true;
             setTimeout(function () {
                 that._hilightAnimating = false;
