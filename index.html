@@ -65,8 +65,10 @@
     <link rel="stylesheet"
           type="text/css"
           href="css/jquery-confirm.css"/>
+    <!--<script type="text/javascript"-->
+            <!--src="js/jquery-confirm.js"></script>-->
     <script type="text/javascript"
-            src="js/jquery-confirm.js"></script>
+            src="dist/jquery-confirm.min.js"></script>
     <!--END jquery-confirm files-->
 </head>
 <body data-spy="scroll"
@@ -788,6 +790,13 @@
             <!-- Installation -->
             <section id="getting-started">
                 <h2>Getting started</h2>
+
+                <div class="alert alert-info">
+                    Notes on migrating from v2 to v3. <br>
+                    <a href="https://github.com/craftpip/jquery-confirm/wiki/Migrate-from-v2-to-v3" target="_blank">https://github.com/craftpip/jquery-confirm/wiki/Migrate-from-v2-to-v3</a>
+                </div>
+
+                
                 <h4 id="installation">
                     Installation
                 </h4>
@@ -1087,10 +1096,12 @@ $.dialog('Just to let you know'); <a href="#"
                                 buttons: {
                                     something: function () {
                                         // here the button key 'something' will be used as the text.
+                                        $.alert('You clicked on something.');
                                     },
                                     somethingElse: {
                                         text: 'Something else &*', // Some Non-Alphanumeric characters
                                         action: function () {
+                                            $.alert('You clicked on something else');
                                         }
                                     }
                                 }
