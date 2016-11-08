@@ -187,9 +187,24 @@ var jconfirm, Jconfirm;
              * Append html.
              */
             var template = $(this.template);
-            template.find('.jconfirm-box').addClass(this.animationParsed).addClass(this.backgroundDismissAnimationParsed).addClass(this.type);
+            var type = '';
+            switch (this.type) {
+                case 'default':
+                case 'blue':
+                case 'green':
+                case 'red':
+                case 'orange':
+                case 'purple':
+                case 'dark':
+                    type = this.type;
+                    break;
+                default:
+                    console.warn('Invalid dialog type: ' + this.type);
+            }
 
-            if(this.useBootstrap){
+            template.find('.jconfirm-box').addClass(this.animationParsed).addClass(this.backgroundDismissAnimationParsed).addClass(type);
+
+            if (this.useBootstrap) {
                 template.find('.jc-bs3-row').addClass(this.bootstrapClasses.row);
                 template.find('.jconfirm-box-container').addClass(this.columnClassParsed);
 
@@ -197,11 +212,11 @@ var jconfirm, Jconfirm;
                     template.find('.jc-bs3-container').addClass(this.bootstrapClasses.containerFluid);
                 else
                     template.find('.jc-bs3-container').addClass(this.bootstrapClasses.container);
-            }else{
+            } else {
                 template.find('.jconfirm-box').css('width', this.boxWidth);
             }
 
-            if(this.titleClass)
+            if (this.titleClass)
                 template.find('.jconfirm-title-c').addClass(this.titleClass);
 
             template.addClass(this.themeParsed);
@@ -398,7 +413,7 @@ var jconfirm, Jconfirm;
         _hilightAnimating: false,
         _hiLightModal: function () {
             var that = this;
-            if(this._hilightAnimating)
+            if (this._hilightAnimating)
                 return;
 
             that.$body.addClass('hilight');
@@ -408,7 +423,7 @@ var jconfirm, Jconfirm;
             setTimeout(function () {
                 that._hilightAnimating = false;
                 that.$body.removeClass('hilight');
-            }, duration*1000);
+            }, duration * 1000);
         },
         _bindEvents: function () {
             var that = this;
