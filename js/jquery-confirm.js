@@ -166,6 +166,8 @@ var jconfirm, Jconfirm;
     Jconfirm.prototype = {
         _init: function () {
             var that = this;
+
+            this._lastFocused = $('body').find(':focus');
             this._id = Math.round(Math.random() * 99999);
             setTimeout(function () {
                 that.open();
@@ -173,9 +175,6 @@ var jconfirm, Jconfirm;
         },
         _buildHTML: function () {
             var that = this;
-
-            // store the last focused element.
-            this._lastFocused = $('body').find(':focus');
 
             // prefix the animation string and store in animationParsed
             this._parseAnimation(this.animation, 'o');
@@ -201,6 +200,9 @@ var jconfirm, Jconfirm;
             }else{
                 template.find('.jconfirm-box').css('width', this.boxWidth);
             }
+
+            if(this.titleClass)
+                template.find('.jconfirm-title-c').addClass(this.titleClass);
 
             template.addClass(this.themeParsed);
             var ariaLabel = 'jconfirm-box' + this._id;
@@ -1006,6 +1008,8 @@ var jconfirm, Jconfirm;
         '<div class="jconfirm-clear">' +
         '</div></div></div></div></div></div></div>',
         title: 'Hello',
+        titleClass: '',
+        type: 'default',
         content: 'Are you sure to continue?',
         buttons: {},
         defaultButtons: {
