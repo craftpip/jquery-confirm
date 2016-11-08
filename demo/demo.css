@@ -51,18 +51,6 @@ pre ol {
     border: 0
 }
 
-.btn-download {
-    background: #3498db;
-    color: #fff;
-    border: 0;
-    -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, .1);
-    box-shadow: 0 2px 3px rgba(0, 0, 0, .1);
-    border-radius: 0;
-}
-.btn-download:hover{
-    color: white;
-    background: #4889B5;
-}
 .com {
     color: #93a1a1
 }

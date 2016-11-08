@@ -1,5 +1,5 @@
 /*!
- * jquery-confirm v3.0.0 (http://craftpip.github.io/jquery-confirm/)
+ * jquery-confirm v3.0.1 (http://craftpip.github.io/jquery-confirm/)
  * Author: Boniface Pereira
  * Website: www.craftpip.com
  * Contact: hey@craftpip.com
@@ -166,6 +166,8 @@ var jconfirm, Jconfirm;
     Jconfirm.prototype = {
         _init: function () {
             var that = this;
+
+            this._lastFocused = $('body').find(':focus');
             this._id = Math.round(Math.random() * 99999);
             setTimeout(function () {
                 that.open();
@@ -173,9 +175,6 @@ var jconfirm, Jconfirm;
         },
         _buildHTML: function () {
             var that = this;
-
-            // store the last focused element.
-            this._lastFocused = $('body').find(':focus');
 
             // prefix the animation string and store in animationParsed
             this._parseAnimation(this.animation, 'o');
@@ -188,10 +187,40 @@ var jconfirm, Jconfirm;
              * Append html.
              */
             var template = $(this.template);
-            template.find('.jconfirm-box').addClass(this.animationParsed).addClass(this.backgroundDismissAnimationParsed);
-            if (this.containerFluid)
-                template.find('.container').removeClass('container').addClass('container-fluid');
-            template.find('.jconfirm-box-container').addClass(this.columnClassParsed);
+            var type = '';
+            switch (this.type) {
+                case 'default':
+                case 'blue':
+                case 'green':
+                case 'red':
+                case 'orange':
+                case 'purple':
+                case 'dark':
+                    type = 'jconfirm-' + this.type;
+                    break;
+                default:
+                    console.warn('Invalid dialog type: ' + this.type);
+            }
+
+            template.find('.jconfirm-box').addClass(this.animationParsed).addClass(this.backgroundDismissAnimationParsed).addClass(type);
+            if (this.typeAnimated)
+                template.find('.jconfirm-box').addClass('jconfirm-type-animated');
+
+            if (this.useBootstrap) {
+                template.find('.jc-bs3-row').addClass(this.bootstrapClasses.row);
+                template.find('.jconfirm-box-container').addClass(this.columnClassParsed);
+
+                if (this.containerFluid)
+                    template.find('.jc-bs3-container').addClass(this.bootstrapClasses.containerFluid);
+                else
+                    template.find('.jc-bs3-container').addClass(this.bootstrapClasses.container);
+            } else {
+                template.find('.jconfirm-box').css('width', this.boxWidth);
+            }
+
+            if (this.titleClass)
+                template.find('.jconfirm-title-c').addClass(this.titleClass);
+
             template.addClass(this.themeParsed);
             var ariaLabel = 'jconfirm-box' + this._id;
             template.find('.jconfirm-box').attr('aria-labelledby', ariaLabel).attr('tabindex', -1);
@@ -386,16 +415,17 @@ var jconfirm, Jconfirm;
         _hilightAnimating: false,
         _hiLightModal: function () {
             var that = this;
-            if(this._hilightAnimating)
+            if (this._hilightAnimating)
                 return;
 
             that.$body.addClass('hilight');
-            var duration = parseFloat(that.$body.css('animation-duration')) || 0;
+            // var duration = parseFloat(that.$body.css('animation-duration')) || 0;
+            var duration = 2; // 2 seconds default
             this._hilightAnimating = true;
             setTimeout(function () {
                 that._hilightAnimating = false;
                 that.$body.removeClass('hilight');
-            }, duration*1000);
+            }, duration * 1000);
         },
         _bindEvents: function () {
             var that = this;
@@ -927,7 +957,23 @@ var jconfirm, Jconfirm;
             var closeTimer = (this.closeAnimation == 'none') ? 1 : this.animationSpeed;
             setTimeout(function () {
                 that.$el.remove();
-                that._lastFocused.focus();
+
+                console.log(that._lastFocused);
+                if (that._lastFocused.length && $.contains(document, that._lastFocused[0])) {
+                    var st = $(window).scrollTop();
+                    var ot = that._lastFocused.offset().top;
+                    var wh = $(window).height();
+                    if (!(ot > st && ot < (st + wh))) {
+                        $('html, body').animate({
+                            scrollTop: (ot - Math.round((wh / 3))),
+                        }, that.animationSpeed, 'swing', function () {
+                            that._lastFocused.focus();
+                        });
+                    } else {
+                        that._lastFocused.focus();
+                    }
+                }
+
                 if (typeof that.onDestroy == 'function')
                     that.onDestroy();
             }, closeTimer * 0.40);
@@ -979,8 +1025,8 @@ var jconfirm, Jconfirm;
         '<div class="jconfirm">' +
         '<div class="jconfirm-bg jconfirm-bg-h"></div>' +
         '<div class="jconfirm-scrollpane">' +
-        '<div class="container">' +
-        '<div class="row">' +
+        '<div class="jc-bs3-container">' +
+        '<div class="jc-bs3-row">' +
         '<div class="jconfirm-box-container">' +
         '<div class="jconfirm-box" role="dialog" aria-labelledby="labelled" tabindex="-1">' +
         '<div class="jconfirm-closeIcon">&times;</div>' +
@@ -995,6 +1041,9 @@ var jconfirm, Jconfirm;
         '<div class="jconfirm-clear">' +
         '</div></div></div></div></div></div></div>',
         title: 'Hello',
+        titleClass: '',
+        type: 'default',
+        typeAnimated: true,
         content: 'Are you sure to continue?',
         buttons: {},
         defaultButtons: {
@@ -1027,6 +1076,13 @@ var jconfirm, Jconfirm;
         closeIconClass: false,
         watchInterval: 100,
         columnClass: 'col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1',
+        boxWidth: '50%',
+        useBootstrap: true,
+        bootstrapClasses: {
+            container: 'container',
+            containerFluid: 'container-fluid',
+            row: 'row',
+        },
         onContentReady: function () {
 
         },

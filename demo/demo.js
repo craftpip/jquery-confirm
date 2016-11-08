@@ -9,45 +9,6 @@ $('body').scrollspy({
 var bs = $('.footer').outerHeight() + 10;
 $("#my-nav").sticky({topSpacing: 20, bottomSpacing: bs});
 $("span.version").html(version || "");
-$.fn.getCursorPosition = function () {
-    var input = this.get(0);
-    if (!input) return; // No (input) element found
-    if ('selectionStart' in input) {
-        // Standard-compliant browsers
-        return input.selectionStart;
-    } else if (document.selection) {
-        // IE
-        input.focus();
-        var sel = document.selection.createRange();
-        var selLen = document.selection.createRange().text.length;
-        sel.moveStart('character', -input.value.length);
-        return sel.text.length - selLen;
-    }
-}
-function getCaretPosition(editableDiv) {
-    var caretPos = 0,
-        sel, range;
-    if (window.getSelection) {
-        sel = window.getSelection();
-        if (sel.rangeCount) {
-            range = sel.getRangeAt(0);
-            if (range.commonAncestorContainer.parentNode == editableDiv) {
-                caretPos = range.endOffset;
-            }
-        }
-    } else if (document.selection && document.selection.createRange) {
-        range = document.selection.createRange();
-        if (range.parentElement() == editableDiv) {
-            var tempEl = document.createElement("span");
-            editableDiv.insertBefore(tempEl, editableDiv.firstChild);
-            var tempRange = range.duplicate();
-            tempRange.moveToElementText(tempEl);
-            tempRange.setEndPoint("EndToEnd", range);
-            caretPos = tempRange.text.length;
-        }
-    }
-    return caretPos;
-}
 
 $(document).ready(function () {
     prettyPrint();

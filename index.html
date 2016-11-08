@@ -58,17 +58,17 @@
     <link rel="stylesheet"
           href="demo/demo.css">
     <script>
-        var version = '3.0.0';
+        var version = '3.0.1';
     </script>
     <!-- Add the minified version of files from the /dist/ folder. -->
     <!-- jquery-confirm files -->
     <link rel="stylesheet"
           type="text/css"
           href="css/jquery-confirm.css"/>
-    <!--<script type="text/javascript"-->
-            <!--src="js/jquery-confirm.js"></script>-->
     <script type="text/javascript"
-            src="dist/jquery-confirm.min.js"></script>
+            src="js/jquery-confirm.js"></script>
+    <!--<script type="text/javascript"-->
+    <!--src="dist/jquery-confirm.min.js"></script>-->
     <!--END jquery-confirm files-->
 </head>
 <body data-spy="scroll"
@@ -112,6 +112,9 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v3.0.0">v3.0.0</a>
+                        </li>
                         <li>
                             <a href="http://craftpip.github.io/jquery-confirm/v2.5.1">v2.5.1</a>
                         </li>
@@ -192,8 +195,8 @@
                 <h1 style="margin-top: 7px;"
                     class="text-center">
                     <img
-                         src="jquery-confirm.png"
-                         alt="JQUERY-CONFIRM"/>
+                            src="jquery-confirm.png"
+                            alt="JQUERY-CONFIRM"/>
                 </h1>
 
                 <p>
@@ -204,8 +207,8 @@
                 <div class="row download-btns">
                     <div class="col-md-12">
                         <div style="height: 15px;"></div>
-                        <a href="https://github.com/craftpip/jquery-confirm/releases/download/v3.0.0/jquery-confirm-v3.0.0.zip"
-                           class="btn btn-lg">Download v3
+                        <a href="https://github.com/craftpip/jquery-confirm/releases/download/v3.0.1/jquery-confirm-v3.0.1.zip"
+                           class="btn btn-lg">Download v3.0.1
                         </a>
                         <a href="https://github.com/craftpip/jquery-confirm"
                            class="btn btn-lg"><i class="fa fa-github"></i> View on GitHub
@@ -287,13 +290,22 @@
                         <a href="#customizing">Customizing</a>
                         <ul class="nav nav-list">
                             <li>
-                                <a href="#custom-width"> Custom width</a>
+                                <a href="#dialog-type"> Dialog type</a>
                             </li>
                             <li>
                                 <a href="#icons"> Icons</a>
                             </li>
                             <li>
                                 <a href="#close-icon"> Close icon</a>
+                            </li>
+                            <li>
+                                <a href="#custom-width"> Custom width</a>
+                            </li>
+                            <li>
+                                <a href="#custom-width-without-bootstrap"> Custom width w/o bootstrap</a>
+                            </li>
+                            <li>
+                                <a href="#namespaced-bootstrap"> Namespaced bootstrap</a>
                             </li>
                         </ul>
                     </li>
@@ -455,15 +467,19 @@
                         <p class="text-success">Stacked Confirmations</p>
                     </div>
                     <div class="col-md-3">
+                        <button class="btn btn-primary btn-block example-p-70-type">Alert types</button>
+                        <p class="text-success">Success, error, warning</p>
+                    </div>
+                    <div class="col-md-3">
                         <button class="btn btn-primary btn-block example-p-7-1">Prompt</button>
                         <p class="text-success">Need input?</p>
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-md-3">
                         <button class="btn btn-primary btn-block example-p-4">Dialogs</button>
                         <p class="text-success">Its also a Dialog.</p>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-md-3">
                         <button class="btn btn-primary btn-block example-p-3">Background dismiss</button>
                         <p class="text-success">Not so important modal</p>
@@ -476,12 +492,12 @@
                         <button class="btn btn-primary btn-block example-p-6">Auto-close</button>
                         <p class="text-success">Some actions maybe critical</p>
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-md-3">
                         <button class="btn btn-primary btn-block example-p-7">Keystrokes</button>
                         <p class="text-success">Responds to keystrokes</p>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-md-3">
                         <button class="btn btn-primary btn-block example-pc-1">Alignment</button>
                         <p class="text-success">Automatically centered</p>
@@ -585,6 +601,15 @@
                                     // do nothing.
                                 }
                             }
+                        });
+                    });
+
+                    // alert types
+                    $('.example-p-70-type').on('click', function () {
+                        $.alert({
+                            title: 'Oh no',
+                            type: 'red',
+                            content: 'Something bad, bad happened.',
                         });
                     });
 
@@ -758,7 +783,6 @@
                     });
 
                     // animations
-                    // todo: im here
                     $(' .example-pc-3').on('click', function () {
                         $.alert({
                             title: 'Animations',
@@ -787,6 +811,15 @@
                 </script>
             </section>
 
+            <section>
+                <h2>Whats new <span style="color: #aaa">in v3.0.1</span></h2>
+                <ul>
+                    <li>Support for namespaced bootstrap classes</li>
+                    <li>Jconfirm can be used without bootstrap</li>
+                    <li>Added type for modals (green/success, red/failure, orange/warning, etc)</li>
+                </ul>
+            </section>
+
             <!-- Installation -->
             <section id="getting-started">
                 <h2>Getting started</h2>
@@ -796,7 +829,7 @@
                     <a href="https://github.com/craftpip/jquery-confirm/wiki/Migrate-from-v2-to-v3" target="_blank">https://github.com/craftpip/jquery-confirm/wiki/Migrate-from-v2-to-v3</a>
                 </div>
 
-                
+
                 <h4 id="installation">
                     Installation
                 </h4>
@@ -827,9 +860,13 @@
                         <strong>Dependencies:</strong>
                     </p>
                     <ul>
-                        <li>Bootstrap by Twitter >= v3</li>
+                        <li>Bootstrap by Twitter >= v3 (optional, if you want to use responsive layouts)</li>
                         <li>jQuery library > v1.8</li>
                     </ul>
+                    <div class="alert alert-info">
+                        <i class="fa fa-info fa-fw"></i> to use jconfirm without bootstrap set <code>useBootstrap:
+                        false</code>
+                    </div>
                 </div>
             </section>
 
@@ -1129,34 +1166,63 @@ $.dialog('Just to let you know'); <a href="#"
                 <div class="section">
                     <p>Simply applying classes to buttons.</p>
                     <p class="text-info">
-                        Available bootstrap options are <code>btn-primary</code> <code>btn-inverse</code> <code>btn-warning</code>
+                        Jconfirm comes bundled with <code>btn-blue</code> <code>btn-green</code> <code>btn-red</code>
+                        <code>btn-orange</code> <code>btn-purple</code> <code>btn-default</code> <code>btn-dark</code>
+                        or any other class name.
+                    </p>
+                    <p class="text-info">
+                        Other bootstrap options are <code>btn-primary</code> <code>btn-inverse</code>
+                        <code>btn-warning</code>
                         <code>btn-info</code> <code>btn-danger</code> <code>btn-success</code> or any other class name.
                     </p>
-                    <button class="btn btn-primary example3-1">info, danger, warning, success!</button>
+                    <button class="btn btn-primary example3-1-jc">Using buttons that come with jconfirm!</button>
+                    <button class="btn btn-primary example3-1">Using bootstrap buttons!</button>
                     <script type="text/javascript">
                         $('.example3-1').on('click', function () {
                             $.confirm({
                                 buttons: {
+                                    default: {
+                                        btnClass: 'btn-default',
+                                    },
                                     info: {
                                         btnClass: 'btn-info',
-                                        action: function () {
-                                        }
+                                    },
+                                    success: {
+                                        btnClass: 'btn-success custom-class',
                                     },
                                     danger: {
                                         btnClass: 'btn-danger custom-class',
-                                        action: function () {
-                                        }
                                     },
                                     warning: {
                                         btnClass: 'btn-warning',
-                                        action: function () {
-                                        }
                                     },
-                                    success: {
-                                        btnClass: 'btn-success',
-                                        action: function () {
-                                        }
-                                    }
+                                }
+                            });
+                        });
+                        $('.example3-1-jc').on('click', function () {
+                            $.confirm({
+                                buttons: {
+                                    default: {
+                                        btnClass: 'btn-default',
+                                    },
+                                    blue: {
+                                        btnClass: 'btn-blue',
+                                    },
+                                    green: {
+                                        btnClass: 'btn-green',
+                                    },
+                                    red: {
+                                        btnClass: 'btn-red',
+                                    },
+                                    orange: {
+                                        btnClass: 'btn-orange',
+                                    },
+                                    purple: {
+                                        btnClass: 'btn-purple',
+                                    },
+                                    dark: {
+                                        btnClass: 'btn-dark',
+                                    },
                                 }
                             });
                         });
@@ -1165,11 +1231,11 @@ $.dialog('Just to let you know'); <a href="#"
                     <pre class="prettyprint linenums"><code class="html">$.confirm({
     buttons: {
         info: {
-            btnClass: 'btn-info',
+            btnClass: 'btn-blue',
             action: function(){}
         },
         danger: {
-            btnClass: 'btn-danger any-other-class', // multiple classes.
+            btnClass: 'btn-red any-other-class', // multiple classes.
             ...
         },
         warning: {
@@ -1457,84 +1523,115 @@ $.dialog('Just to let you know'); <a href="#"
 
             <section id="customizing">
                 <h2>Customizing</h2>
-                <h4 id="custom-width">Custom width</h4>
+
+                <h4 id="dialog-type">Dialog type</h4>
 
                 <div class="section">
                     <p>
-                        Jquery-confirm uses bootstrap's grid system for its layout. <br>
-                        You can simply provide column classes to adjust the modal's width.
+                        Dialog types helps give the user a hint as to what the dialog is about
                     </p>
 
-                    <p class="text-info"><i class="fa fa-magic fa-fw"></i> You can also set responsive layouts.
-                        <a href="http://getbootstrap.com/examples/grid/"
-                           target="_empty">Bootstrap grid docs
-                        </a>
-                    </p>
-
-                    <p>
-                        instead of typing the whole thing, provide keywords like <br>
-                        <code>xlarge</code>/<code>xl</code></code> equivalent to <code>col-md-12</code> <br>
-                        <code>large</code>/<code>l</code></code> equivalent to <code>col-md-8 col-md-offset-2</code>
-                        <br>
-                        <code>medium</code>/<code>m</code></code> equivalent to <code>col-md-6 col-md-offset-3</code>
-                        <br>
-                        <code>small</code>/<code>s</code></code> equivalent to <code>col-md-4 col-md-offset-4</code>
-                        <br>
-                        <code>xsmall</code>/<code>xs</code></code> equivalent to <code>col-md-2 col-md-offset-5</code>
-                    </p>
-
-                    <button class="btn btn-primary grid-1">medium</button>
-                    <button class="btn btn-primary grid-2">small (default)</button>
-                    <button class="btn btn-primary grid-3">col-md-4</button>
-                    <button class="btn btn-primary grid-4">col-md-4 col-md-offset-8</button>
-                    <button class="btn btn-primary grid-5">xlarge</button>
-                    <button class="btn btn-primary grid-6">xlarge (fluid)</button>
+                    <button class="btn btn-primary example21-t-1">Error/Red dialog</button>
+                    <button class="btn btn-primary example21-t-2">Success/Green dialog</button>
+                    <button class="btn btn-primary example21-t-3">Non animated type dialog</button>
                     <div class="space10"></div>
+                    <button class="btn btn-primary example21-t-4">orange</button>
+                    <button class="btn btn-primary example21-t-5">blue</button>
+                    <button class="btn btn-primary example21-t-6">purple</button>
+                    <button class="btn btn-primary example21-t-7">dark</button>
+
                     <script type="text/javascript">
-                        $('.grid-1').on('click', function () {
+                        $('.example21-t-1').on('click', function () {
                             $.confirm({
-                                columnClass: 'medium',
-                            }); // empty because its default.
-                        });
-                        $('.grid-2').on('click', function () {
-                            $.confirm({
-                                columnClass: 'small',
+                                title: 'Encountered an error!',
+                                content: 'Something went downhill, this may be serious',
+                                type: 'red',
+                                buttons: {
+                                    omg: {
+                                        text: 'Try again',
+                                        btnClass: 'btn-red',
+                                    },
+                                    close: function () {
+                                    }
+                                }
                             });
                         });
-                        $('.grid-3').on('click', function () {
+                        $('.example21-t-2').on('click', function () {
                             $.confirm({
-                                columnClass: 'col-md-4',
+                                title: 'Congratulations!',
+                                content: 'Consider something great happened, and you have to show a positive message.',
+                                type: 'green',
+                                buttons: {
+                                    omg: {
+                                        text: 'Thank you!',
+                                        btnClass: 'btn-green',
+                                    },
+                                    close: function () {
+                                    }
+                                }
                             });
                         });
-                        $('.grid-4').on('click', function () {
+                        $('.example21-t-3').on('click', function () {
                             $.confirm({
-                                columnClass: 'col-md-4 col-md-offset-8'
+                                title: 'Encountered an error!',
+                                content: 'Something went downhill, this may be serious',
+                                type: 'red',
+                                typeAnimated: false,
+                                buttons: {
+                                    omg: {
+                                        text: 'Try again',
+                                        btnClass: 'btn-red',
+                                    },
+                                    close: function () {
+                                    }
+                                }
                             });
                         });
-                        $('.grid-5').on('click', function () {
+                        $('.example21-t-4').on('click', function () {
                             $.confirm({
-                                columnClass: 'xlarge'
+                                title: 'Orange!',
+                                content: 'Some content here.',
+                                type: 'orange',
                             });
                         });
-                        $('.grid-6').on('click', function () {
+                        $('.example21-t-5').on('click', function () {
                             $.confirm({
-                                columnClass: 'xlarge',
-                                containerFluid: true,
+                                title: 'Blue!',
+                                content: 'Some content here.',
+                                type: 'blue',
+                            });
+                        });
+                        $('.example21-t-6').on('click', function () {
+                            $.confirm({
+                                title: 'Purple!',
+                                content: 'Some content here.',
+                                type: 'purple',
+                            });
+                        });
+                        $('.example21-t-7').on('click', function () {
+                            $.confirm({
+                                title: 'Dark!',
+                                content: 'Some content here.',
+                                type: 'dark',
                             });
                         });
                     </script>
-                    <pre class="prettyprint linenums"><code>$.confirm({
-    columnClass: 'small'
-});
-$.confirm({
-    columnClass: 'col-md-4'
-});
-$.confirm({
-    columnClass: 'col-md-4 col-md-offset-8 col-xs-4 col-xs-offset-8'
-});
-$.confirm({
-    columnClass: 'col-md-4 col-md-offset-8 col-xs-4 col-xs-offset-8',
-    containerFluid: true, // this will add 'container-fluid' instead of 'container'
+                    <div class="space10"></div>
+                    <pre class="prettyprint linenums"><code>  $.confirm({
+    title: 'Encountered an error!',
+    content: 'Something went downhill, this may be serious',
+    type: 'red',
+    typeAnimated: true,
+    buttons: {
+        tryAgain: {
+            text: 'Try again',
+            btnClass: 'btn-red',
+            action: function(){
+            }
+        },
+        close: function () {
+        }
+    }
 });</code></pre>
                 </div>
 
@@ -1547,19 +1644,12 @@ $.confirm({
                         .
                     </p>
 
-                    <button class="btn btn-primary example21-1">Using bootstrap's glyphicon</button>
                     <button class="btn btn-primary example21-2">Using font-awesome</button>
                     <button class="btn btn-primary example21-3">Animated font-awesome</button>
                     <script type="text/javascript">
-                        $('.example21-1').on('click', function () {
-                            $.confirm({
-                                icon: 'glyphicon glyphicon-heart',
-                                title: 'glyphicon'
-                            });
-                        });
                         $('.example21-2').on('click', function () {
                             $.confirm({
-                                icon: 'fa fa-warning',
+                                icon: 'fa fa-warning', // glyphicon glyphicon-heart
                                 title: 'font-awesome'
                             });
                         });
@@ -1689,6 +1779,148 @@ $.confirm({
                             });
                         });
                     </script>
+                </div>
+                <h4 id="custom-width">Custom width</h4>
+
+                <div class="section">
+                    <p>
+                        Jquery-confirm uses bootstrap's grid system for its layout by default.
+                        You can simply provide column classes to adjust the modal's width.
+                    </p>
+
+                    <p class="text-info"><i class="fa fa-magic fa-fw"></i> You can also set responsive layouts.
+                        <a href="http://getbootstrap.com/examples/grid/"
+                           target="_empty">Bootstrap grid docs
+                        </a>
+                    </p>
+
+                    <p>
+                        instead of typing the whole thing, provide keywords like <br>
+                        <code>xlarge</code>/<code>xl</code></code> equivalent to <code>col-md-12</code> <br>
+                        <code>large</code>/<code>l</code></code> equivalent to <code>col-md-8 col-md-offset-2</code>
+                        <br>
+                        <code>medium</code>/<code>m</code></code> equivalent to <code>col-md-6 col-md-offset-3</code>
+                        <br>
+                        <code>small</code>/<code>s</code></code> equivalent to <code>col-md-4 col-md-offset-4</code>
+                        <br>
+                        <code>xsmall</code>/<code>xs</code></code> equivalent to <code>col-md-2 col-md-offset-5</code>
+                    </p>
+
+                    <button class="btn btn-primary grid-1">medium</button>
+                    <button class="btn btn-primary grid-2">small (default)</button>
+                    <button class="btn btn-primary grid-3">col-md-4</button>
+                    <button class="btn btn-primary grid-4">col-md-4 col-md-offset-8</button>
+                    <button class="btn btn-primary grid-5">xlarge</button>
+                    <button class="btn btn-primary grid-6">xlarge (fluid)</button>
+                    <div class="space10"></div>
+                    <script type="text/javascript">
+                        $('.grid-1').on('click', function () {
+                            $.confirm({
+                                columnClass: 'medium',
+                            }); // empty because its default.
+                        });
+                        $('.grid-2').on('click', function () {
+                            $.confirm({
+                                columnClass: 'small',
+                            });
+                        });
+                        $('.grid-3').on('click', function () {
+                            $.confirm({
+                                columnClass: 'col-md-4',
+                            });
+                        });
+                        $('.grid-4').on('click', function () {
+                            $.confirm({
+                                columnClass: 'col-md-4 col-md-offset-8'
+                            });
+                        });
+                        $('.grid-5').on('click', function () {
+                            $.confirm({
+                                columnClass: 'xlarge'
+                            });
+                        });
+                        $('.grid-6').on('click', function () {
+                            $.confirm({
+                                columnClass: 'xlarge',
+                                containerFluid: true,
+                            });
+                        });
+                    </script>
+                    <pre class="prettyprint linenums"><code>$.confirm({
+    columnClass: 'small'
+});
+$.confirm({
+    columnClass: 'col-md-4'
+});
+$.confirm({
+    columnClass: 'col-md-4 col-md-offset-8 col-xs-4 col-xs-offset-8'
+});
+$.confirm({
+    columnClass: 'col-md-4 col-md-offset-8 col-xs-4 col-xs-offset-8',
+    containerFluid: true, // this will add 'container-fluid' instead of 'container'
+});</code></pre>
+                </div>
+
+                <h4 id="custom-width-without-bootstrap">Custom width without Bootstrap</h4>
+
+                <div class="section">
+                    <p>
+                        Many have a different taste, who wont be using bootstrap in their projects. <br>
+                        You can simply provide the width of the modal, in px or any metric you want.
+                    </p>
+
+                    <div class="alert alert-warning">
+                        <code>useBootstrap</code> must be set to <code>false</code> to use this feature <br>
+                        you can globally disable bootstrap by setting jconfirm.defaults
+                    </div>
+
+                    <button class="btn btn-primary grid-wo-bootstrap-1">30%</button>
+                    <button class="btn btn-primary grid-wo-bootstrap-2">500px</button>
+                    <div class="space10"></div>
+                    <script type="text/javascript">
+                        $('.grid-wo-bootstrap-1').on('click', function () {
+                            $.confirm({
+                                boxWidth: '30%',
+                                useBootstrap: false,
+                            });
+                        });
+                        $('.grid-wo-bootstrap-2').on('click', function () {
+                            $.confirm({
+                                boxWidth: '500px',
+                                useBootstrap: false,
+                            });
+                        });
+                    </script>
+                    <pre class="prettyprint linenums"><code>$.confirm({
+    boxWidth: '30%',
+    useBootstrap: false,
+});
+$.confirm({
+    boxWidth: '500px',
+    useBootstrap: false,
+});</code></pre>
+                </div>
+
+                <h4 id="namespaced-bootstrap">Namespaced bootstrap</h4>
+
+                <div class="section">
+                    <p>
+                        Namespacing is basically isolating the bootstrap classes names, like turning '.row' to
+                        '.custom-row'
+                        <br>
+                        If you're using a namespaced bootstrap library, this option is for you.
+                    </p>
+                    <p>
+                        <i class="fa fa-info fa-fw"></i> it is ideal to set this in jconfirm.defaults
+                    </p>
+                    <div class="space10"></div>
+                    <pre class="prettyprint linenums"><code>$.confirm({
+    bootstrapClasses: {
+        container: 'container',
+        containerFluid: 'container-fluid',
+        row: 'row',
+    },
+});</code></pre>
                 </div>
             </section>
 
@@ -2341,6 +2573,7 @@ $.confirm({
                         the plugin has loaded. of course.</p>
                     <pre class="prettyprint linenums"><code>jconfirm.defaults = {
     title: 'Hello',
+    type: 'default',
     content: 'Are you sure to continue?',
     buttons: {},
     defaultButtons: {
@@ -2371,6 +2604,13 @@ $.confirm({
     closeIcon: null,
     closeIconClass: false,
     columnClass: 'col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1',
+    boxWidth: '50%',
+    useBootstrap: true,
+    bootstrapClasses: {
+        container: 'container',
+        containerFluid: 'container-fluid',
+        row: 'row',
+    },
     onContentReady: function () {},
     onOpenBefore: function () {},
     onOpen: function () {},
@@ -2403,6 +2643,27 @@ $.confirm({
                                 </td>
                                 <td>Title of the dialog. <br>
                                     Also accepts a function that returns a string.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>type</td>
+                                <td>String</td>
+                                <td>
+                                    <code>'default'</code>
+                                </td>
+                                <td>
+                                    Colors the modal to give the user a hint of success/failure/warning, <br>
+                                    available options are: 'blue, green, red, orange, purple & dark'
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>typeAnimated</td>
+                                <td>Boolean</td>
+                                <td>
+                                    <code>true</code>
+                                </td>
+                                <td>
+                                    Adds a little animation to the colors.
                                 </td>
                             </tr>
                             <tr>
@@ -2578,8 +2839,41 @@ $.confirm({
                                     grid.
                                 </td>
                             </tr>
-
-
+                            <tr>
+                                <td>useBootstrap</td>
+                                <td>Boolean</td>
+                                <td><code>true</code></td>
+                                <td>
+                                    if true, bootstrap classes will be set on the modal. columnClass wil be set on the
+                                    box.
+                                    if false, bootstrap classes will not be set, instead boxWidth will be set on the
+                                    box.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>boxWidth</td>
+                                <td>String</td>
+                                <td><code>'50%'</code></td>
+                                <td>
+                                    This options sets the width of the box, when you're not planning to use bootstrap in
+                                    your project
+                                    <br>
+                                    <i class="fa fa-info"></i> Will only work if useBootstrap is set to false,
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>bootstrapClasses</td>
+                                <td>object</td>
+                                <td><code>{
+                                    container: 'container',
+                                    containerFluid: 'container-fluid',
+                                    row: 'row',
+                                    }</code></td>
+                                <td>
+                                    These are the default classes that are set when bootstrap is used,
+                                    this option is available to folks who use namespaced bootstrap classes.
+                                </td>
+                            </tr>
                             <tr>
                                 <td>onContentReady</td>
                                 <td>Function</td>
