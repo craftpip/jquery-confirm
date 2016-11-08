@@ -1038,7 +1038,7 @@ var jconfirm, Jconfirm;
         closeIconClass: false,
         watchInterval: 100,
         columnClass: 'col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1',
-        boxWidth: '50%', // applicable with useBootstrap is false.
+        boxWidth: '50%',
         useBootstrap: true,
         bootstrapClasses: {
             container: 'container',

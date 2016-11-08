@@ -7,6 +7,20 @@
  * Copyright 2013-2016 jquery-confirm
  * Licensed under MIT (https://github.com/craftpip/jquery-confirm/blob/master/LICENSE)
  */
+@blue: #3498db;
+@blueHover: #2980b9;
+@green: #2ecc71;
+@greenHover: #27ae60;
+@red: #e74c3c;
+@redHover: #c0392b;
+@orange: #f1c40f;
+@orangeHover: #f39c12;
+@purple: #9b59b6;
+@purpleHover: #8e44ad;
+@default: #ecf0f1;
+@defaultHover: #bdc3c7;
+@dark: #34495e;
+@darkHover: #2c3e50;
 
 @keyframes jconfirm-spin {
   from {
@@ -180,12 +194,116 @@ body[class*=jconfirm-no-scroll-] {
         }
       }
     }
+
     .jconfirm-buttons {
       padding-bottom: 11px;
       > button {
         margin-bottom: 4px;
         margin-left: 2px;
         margin-right: 2px;
+      }
+
+      button {
+        display: inline-block;
+        padding: 6px 12px;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        -ms-touch-action: manipulation;
+        touch-action: manipulation;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        border-radius: 4px;
+        min-height: 1em;
+        outline: 0;
+        user-select: none;
+        transition: opacity .1s ease, background-color .1s ease, color .1s ease, box-shadow .1s ease, background .1s ease;
+        -webkit-tap-highlight-color: transparent;
+        border: none;
+        background-image: none;
+
+        &.btn-blue {
+          background-color: @blue;
+          color: #FFF;
+          text-shadow: none;
+          transition: background .2s;
+          &:hover {
+            background-color: @blueHover;
+            color: #FFF;
+          }
+        }
+
+        &.btn-green {
+          background-color: @green;
+          color: #FFF;
+          text-shadow: none;
+          transition: background .2s;
+          &:hover {
+            background-color: @greenHover;
+            color: #FFF;
+          }
+        }
+
+        &.btn-red {
+          background-color: @red;
+          color: #FFF;
+          text-shadow: none;
+          transition: background .2s;
+          &:hover {
+            background-color: @redHover;
+            color: #FFF;
+          }
+        }
+
+        &.btn-orange {
+          background-color: @orange;
+          color: #FFF;
+          text-shadow: none;
+          transition: background .2s;
+          &:hover {
+            background-color: @orangeHover;
+            color: #FFF;
+          }
+        }
+
+        &.btn-default {
+          background-color: @default;
+          color: #000;
+          text-shadow: none;
+          transition: background .2s;
+          &:hover {
+            background-color: @defaultHover;
+            color: #000;
+          }
+        }
+
+        &.btn-purple {
+          background-color: @purple;
+          color: #FFF;
+          text-shadow: none;
+          transition: background .2s;
+          &:hover {
+            background-color: @purpleHover;
+            color: #FFF;
+          }
+        }
+
+        &.btn-dark {
+          background-color: @dark;
+          color: #FFF;
+          text-shadow: none;
+          transition: background .2s;
+          &:hover {
+            background-color: @darkHover;
+            color: #FFF;
+          }
+        }
       }
     }
   }
@@ -216,14 +334,10 @@ body[class*=jconfirm-no-scroll-] {
         float: right;
 
         button {
-          border: none;
-          background-image: none;
           text-transform: uppercase;
           font-size: 14px;
           font-weight: bold;
           text-shadow: none;
-          transition: background .1s;
-          color: white;
         }
         button.btn-default {
           box-shadow: none;

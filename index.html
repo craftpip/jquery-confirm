@@ -287,13 +287,19 @@
                         <a href="#customizing">Customizing</a>
                         <ul class="nav nav-list">
                             <li>
-                                <a href="#custom-width"> Custom width</a>
-                            </li>
-                            <li>
                                 <a href="#icons"> Icons</a>
                             </li>
                             <li>
                                 <a href="#close-icon"> Close icon</a>
+                            </li>
+                            <li>
+                                <a href="#custom-width"> Custom width</a>
+                            </li>
+                            <li>
+                                <a href="#custom-width-without-bootstrap"> Custom width w/o bootstrap</a>
+                            </li>
+                            <li>
+                                <a href="#namespaced-bootstrap"> Namespaced bootstrap</a>
                             </li>
                         </ul>
                     </li>
@@ -838,6 +844,9 @@
                         <li>Bootstrap by Twitter >= v3 (optional, if you want to use responsive layouts)</li>
                         <li>jQuery library > v1.8</li>
                     </ul>
+                    <div class="alert alert-info">
+                    	<i class="fa fa-info fa-fw"></i> to use jconfirm without bootstrap set <code>useBootstrap: false</code>
+                    </div>
                 </div>
             </section>
 
@@ -1465,86 +1474,6 @@ $.dialog('Just to let you know'); <a href="#"
 
             <section id="customizing">
                 <h2>Customizing</h2>
-                <h4 id="custom-width">Custom width</h4>
-
-                <div class="section">
-                    <p>
-                        Jquery-confirm uses bootstrap's grid system for its layout. <br>
-                        You can simply provide column classes to adjust the modal's width.
-                    </p>
-
-                    <p class="text-info"><i class="fa fa-magic fa-fw"></i> You can also set responsive layouts.
-                        <a href="http://getbootstrap.com/examples/grid/"
-                           target="_empty">Bootstrap grid docs
-                        </a>
-                    </p>
-
-                    <p>
-                        instead of typing the whole thing, provide keywords like <br>
-                        <code>xlarge</code>/<code>xl</code></code> equivalent to <code>col-md-12</code> <br>
-                        <code>large</code>/<code>l</code></code> equivalent to <code>col-md-8 col-md-offset-2</code>
-                        <br>
-                        <code>medium</code>/<code>m</code></code> equivalent to <code>col-md-6 col-md-offset-3</code>
-                        <br>
-                        <code>small</code>/<code>s</code></code> equivalent to <code>col-md-4 col-md-offset-4</code>
-                        <br>
-                        <code>xsmall</code>/<code>xs</code></code> equivalent to <code>col-md-2 col-md-offset-5</code>
-                    </p>
-
-                    <button class="btn btn-primary grid-1">medium</button>
-                    <button class="btn btn-primary grid-2">small (default)</button>
-                    <button class="btn btn-primary grid-3">col-md-4</button>
-                    <button class="btn btn-primary grid-4">col-md-4 col-md-offset-8</button>
-                    <button class="btn btn-primary grid-5">xlarge</button>
-                    <button class="btn btn-primary grid-6">xlarge (fluid)</button>
-                    <div class="space10"></div>
-                    <script type="text/javascript">
-                        $('.grid-1').on('click', function () {
-                            $.confirm({
-                                columnClass: 'medium',
-                            }); // empty because its default.
-                        });
-                        $('.grid-2').on('click', function () {
-                            $.confirm({
-                                columnClass: 'small',
-                            });
-                        });
-                        $('.grid-3').on('click', function () {
-                            $.confirm({
-                                columnClass: 'col-md-4',
-                            });
-                        });
-                        $('.grid-4').on('click', function () {
-                            $.confirm({
-                                columnClass: 'col-md-4 col-md-offset-8'
-                            });
-                        });
-                        $('.grid-5').on('click', function () {
-                            $.confirm({
-                                columnClass: 'xlarge'
-                            });
-                        });
-                        $('.grid-6').on('click', function () {
-                            $.confirm({
-                                columnClass: 'xlarge',
-                                containerFluid: true,
-                            });
-                        });
-                    </script>
-                    <pre class="prettyprint linenums"><code>$.confirm({
-    columnClass: 'small'
-});
-$.confirm({
-    columnClass: 'col-md-4'
-});
-$.confirm({
-    columnClass: 'col-md-4 col-md-offset-8 col-xs-4 col-xs-offset-8'
-});
-$.confirm({
-    columnClass: 'col-md-4 col-md-offset-8 col-xs-4 col-xs-offset-8',
-    containerFluid: true, // this will add 'container-fluid' instead of 'container'
-});</code></pre>
-                </div>
 
                 <h4 id="icons">Icons</h4>
 
@@ -1697,6 +1626,126 @@ $.confirm({
                             });
                         });
                     </script>
+                </div>
+                <h4 id="custom-width">Custom width</h4>
+
+                <div class="section">
+                    <p>
+                        Jquery-confirm uses bootstrap's grid system for its layout by default.
+                        You can simply provide column classes to adjust the modal's width.
+                    </p>
+
+                    <p class="text-info"><i class="fa fa-magic fa-fw"></i> You can also set responsive layouts.
+                        <a href="http://getbootstrap.com/examples/grid/"
+                           target="_empty">Bootstrap grid docs
+                        </a>
+                    </p>
+
+                    <p>
+                        instead of typing the whole thing, provide keywords like <br>
+                        <code>xlarge</code>/<code>xl</code></code> equivalent to <code>col-md-12</code> <br>
+                        <code>large</code>/<code>l</code></code> equivalent to <code>col-md-8 col-md-offset-2</code>
+                        <br>
+                        <code>medium</code>/<code>m</code></code> equivalent to <code>col-md-6 col-md-offset-3</code>
+                        <br>
+                        <code>small</code>/<code>s</code></code> equivalent to <code>col-md-4 col-md-offset-4</code>
+                        <br>
+                        <code>xsmall</code>/<code>xs</code></code> equivalent to <code>col-md-2 col-md-offset-5</code>
+                    </p>
+
+                    <button class="btn btn-primary grid-1">medium</button>
+                    <button class="btn btn-primary grid-2">small (default)</button>
+                    <button class="btn btn-primary grid-3">col-md-4</button>
+                    <button class="btn btn-primary grid-4">col-md-4 col-md-offset-8</button>
+                    <button class="btn btn-primary grid-5">xlarge</button>
+                    <button class="btn btn-primary grid-6">xlarge (fluid)</button>
+                    <div class="space10"></div>
+                    <script type="text/javascript">
+                        $('.grid-1').on('click', function () {
+                            $.confirm({
+                                columnClass: 'medium',
+                            }); // empty because its default.
+                        });
+                        $('.grid-2').on('click', function () {
+                            $.confirm({
+                                columnClass: 'small',
+                            });
+                        });
+                        $('.grid-3').on('click', function () {
+                            $.confirm({
+                                columnClass: 'col-md-4',
+                            });
+                        });
+                        $('.grid-4').on('click', function () {
+                            $.confirm({
+                                columnClass: 'col-md-4 col-md-offset-8'
+                            });
+                        });
+                        $('.grid-5').on('click', function () {
+                            $.confirm({
+                                columnClass: 'xlarge'
+                            });
+                        });
+                        $('.grid-6').on('click', function () {
+                            $.confirm({
+                                columnClass: 'xlarge',
+                                containerFluid: true,
+                            });
+                        });
+                    </script>
+                    <pre class="prettyprint linenums"><code>$.confirm({
+    columnClass: 'small'
+});
+$.confirm({
+    columnClass: 'col-md-4'
+});
+$.confirm({
+    columnClass: 'col-md-4 col-md-offset-8 col-xs-4 col-xs-offset-8'
+});
+$.confirm({
+    columnClass: 'col-md-4 col-md-offset-8 col-xs-4 col-xs-offset-8',
+    containerFluid: true, // this will add 'container-fluid' instead of 'container'
+});</code></pre>
+                </div>
+
+                <h4 id="custom-width-without-bootstrap">Custom width without Bootstrap</h4>
+
+                <div class="section">
+                    <p>
+                        Many have a different taste, who wont be using bootstrap in their projects. <br>
+                        You can simply provide the width of the modal, in px or any metric you want.
+                    </p>
+
+                    <div class="alert alert-warning">
+                    	<code>useBootstrap</code> must be set to <code>false</code> to use this feature <br>
+                        you can globally disable bootstrap by setting jconfirm.defaults
+                    </div>
+
+                    <button class="btn btn-primary grid-wo-bootstrap-1">30%</button>
+                    <button class="btn btn-primary grid-wo-bootstrap-2">500px</button>
+                    <div class="space10"></div>
+                    <script type="text/javascript">
+                        $('.grid-wo-bootstrap-1').on('click', function () {
+                            $.confirm({
+                                boxWidth: '30%',
+                                useBootstrap: false,
+                            });
+                        });
+                        $('.grid-wo-bootstrap-2').on('click', function () {
+                            $.confirm({
+                                boxWidth: '500px',
+                                useBootstrap: false,
+                            });
+                        });
+                    </script>
+                    <pre class="prettyprint linenums"><code>$.confirm({
+    boxWidth: '30%',
+    useBootstrap: false,
+});
+$.confirm({
+    boxWidth: '500px',
+    useBootstrap: false,
+});</code></pre>
                 </div>
             </section>
 
@@ -2379,6 +2428,13 @@ $.confirm({
     closeIcon: null,
     closeIconClass: false,
     columnClass: 'col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1',
+    boxWidth: '50%',
+    useBootstrap: true,
+    bootstrapClasses: {
+        container: 'container',
+        containerFluid: 'container-fluid',
+        row: 'row',
+    },
     onContentReady: function () {},
     onOpenBefore: function () {},
     onOpen: function () {},
@@ -2586,8 +2642,38 @@ $.confirm({
                                     grid.
                                 </td>
                             </tr>
-
-
+                            <tr>
+                                <td>useBootstrap</td>
+                                <td>Boolean</td>
+                                <td><code>true</code></td>
+                                <td>
+                                    if true, bootstrap classes will be set on the modal. columnClass wil be set on the box.
+                                    if false, bootstrap classes will not be set, instead boxWidth will be set on the box.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>boxWidth</td>
+                                <td>String</td>
+                                <td><code>'50%'</code></td>
+                                <td>
+                                    This options sets the width of the box, when you're not planning to use bootstrap in your project
+                                    <br>
+                                    <i class="fa fa-info"></i> Will only work if useBootstrap is set to false,
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>bootstrapClasses</td>
+                                <td>object</td>
+                                <td><code>{
+                                    container: 'container',
+                                    containerFluid: 'container-fluid',
+                                    row: 'row',
+                                    }</code></td>
+                                <td>
+                                    These are the default classes that are set when bootstrap is used,
+                                    this option is available to folks who use namespaced bootstrap classes.
+                                </td>
+                            </tr>
                             <tr>
                                 <td>onContentReady</td>
                                 <td>Function</td>
