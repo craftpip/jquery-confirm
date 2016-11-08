@@ -187,7 +187,7 @@ var jconfirm, Jconfirm;
              * Append html.
              */
             var template = $(this.template);
-            template.find('.jconfirm-box').addClass(this.animationParsed).addClass(this.backgroundDismissAnimationParsed);
+            template.find('.jconfirm-box').addClass(this.animationParsed).addClass(this.backgroundDismissAnimationParsed).addClass(this.type);
 
             if(this.useBootstrap){
                 template.find('.jc-bs3-row').addClass(this.bootstrapClasses.row);

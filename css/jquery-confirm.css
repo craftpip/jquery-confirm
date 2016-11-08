@@ -72,6 +72,24 @@ body[class*=jconfirm-no-scroll-] {
   padding: 15px 15px 0;
   overflow: hidden;
 }
+.jconfirm .jconfirm-box.blue {
+  border-top: solid 10px #3498db;
+}
+.jconfirm .jconfirm-box.green {
+  border-top: solid 10px #2ecc71;
+}
+.jconfirm .jconfirm-box.red {
+  border-top: solid 10px #e74c3c;
+}
+.jconfirm .jconfirm-box.orange {
+  border-top: solid 10px #f1c40f;
+}
+.jconfirm .jconfirm-box.purple {
+  border-top: solid 10px #9b59b6;
+}
+.jconfirm .jconfirm-box.dark {
+  border-top: solid 10px #34495e;
+}
 .jconfirm .jconfirm-box.loading {
   height: 120px;
 }
