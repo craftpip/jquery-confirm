@@ -189,8 +189,14 @@ var jconfirm, Jconfirm;
              */
             var template = $(this.template);
             template.find('.jconfirm-box').addClass(this.animationParsed).addClass(this.backgroundDismissAnimationParsed);
+
+            template.find('.bs3-row').addClass(this.bootstrapClasses.row);
             if (this.containerFluid)
-                template.find('.container').removeClass('container').addClass('container-fluid');
+                template.find('.bs3-container').addClass(this.bootstrapClasses.containerFluid);
+            else
+                template.find('.bs3-container').addClass(this.bootstrapClasses.container);
+
+
             template.find('.jconfirm-box-container').addClass(this.columnClassParsed);
             template.addClass(this.themeParsed);
             var ariaLabel = 'jconfirm-box' + this._id;
@@ -980,8 +986,8 @@ var jconfirm, Jconfirm;
         '<div class="jconfirm">' +
         '<div class="jconfirm-bg jconfirm-bg-h"></div>' +
         '<div class="jconfirm-scrollpane">' +
-        '<div class="container">' +
-        '<div class="row">' +
+        '<div class="bs3-container">' +
+        '<div class="bs3-row">' +
         '<div class="jconfirm-box-container">' +
         '<div class="jconfirm-box" role="dialog" aria-labelledby="labelled" tabindex="-1">' +
         '<div class="jconfirm-closeIcon">&times;</div>' +
@@ -1028,6 +1034,11 @@ var jconfirm, Jconfirm;
         closeIconClass: false,
         watchInterval: 100,
         columnClass: 'col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1',
+        bootstrapClasses: {
+            container: 'container',
+            containerFluid: 'container-fluid',
+            row: 'row',
+        },
         onContentReady: function () {
 
         },
