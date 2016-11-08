@@ -58,7 +58,7 @@
     <link rel="stylesheet"
           href="demo/demo.css">
     <script>
-        var version = '3.0.0';
+        var version = '3.0.1';
     </script>
     <!-- Add the minified version of files from the /dist/ folder. -->
     <!-- jquery-confirm files -->
@@ -112,6 +112,9 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v3.0.0">v3.0.0</a>
+                        </li>
                         <li>
                             <a href="http://craftpip.github.io/jquery-confirm/v2.5.1">v2.5.1</a>
                         </li>
@@ -204,8 +207,8 @@
                 <div class="row download-btns">
                     <div class="col-md-12">
                         <div style="height: 15px;"></div>
-                        <a href="https://github.com/craftpip/jquery-confirm/releases/download/v3.0.0/jquery-confirm-v3.0.0.zip"
-                           class="btn btn-lg">Download v3
+                        <a href="https://github.com/craftpip/jquery-confirm/releases/download/v3.0.1/jquery-confirm-v3.0.1.zip"
+                           class="btn btn-lg">Download v3.0.1
                         </a>
                         <a href="https://github.com/craftpip/jquery-confirm"
                            class="btn btn-lg"><i class="fa fa-github"></i> View on GitHub
@@ -464,15 +467,19 @@
                         <p class="text-success">Stacked Confirmations</p>
                     </div>
                     <div class="col-md-3">
+                        <button class="btn btn-primary btn-block example-p-70-type">Alert types</button>
+                        <p class="text-success">Success, error, warning</p>
+                    </div>
+                    <div class="col-md-3">
                         <button class="btn btn-primary btn-block example-p-7-1">Prompt</button>
                         <p class="text-success">Need input?</p>
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-md-3">
                         <button class="btn btn-primary btn-block example-p-4">Dialogs</button>
                         <p class="text-success">Its also a Dialog.</p>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-md-3">
                         <button class="btn btn-primary btn-block example-p-3">Background dismiss</button>
                         <p class="text-success">Not so important modal</p>
@@ -485,12 +492,12 @@
                         <button class="btn btn-primary btn-block example-p-6">Auto-close</button>
                         <p class="text-success">Some actions maybe critical</p>
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-md-3">
                         <button class="btn btn-primary btn-block example-p-7">Keystrokes</button>
                         <p class="text-success">Responds to keystrokes</p>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-md-3">
                         <button class="btn btn-primary btn-block example-pc-1">Alignment</button>
                         <p class="text-success">Automatically centered</p>
@@ -594,6 +601,15 @@
                                     // do nothing.
                                 }
                             }
+                        });
+                    });
+
+                    // alert types
+                    $('.example-p-70-type').on('click', function () {
+                        $.alert({
+                            title: 'Oh no',
+                            type: 'red',
+                            content: 'Something bad, bad happened.',
                         });
                     });
 
@@ -767,7 +783,6 @@
                     });
 
                     // animations
-                    // todo: im here
                     $(' .example-pc-3').on('click', function () {
                         $.alert({
                             title: 'Animations',
@@ -800,7 +815,8 @@
                 <h2>Whats new <span style="color: #aaa">in v3.0.1</span></h2>
                 <ul>
                     <li>Support for namespaced bootstrap classes</li>
-                    <li>Using bootstrap is an option now</li>
+                    <li>Jconfirm can be used without bootstrap</li>
+                    <li>Added type for modals (green/success, red/failure, orange/warning, etc)</li>
                 </ul>
             </section>
 
