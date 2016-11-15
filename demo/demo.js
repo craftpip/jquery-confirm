@@ -24,7 +24,7 @@ $(document).ready(function () {
                     text: 'I dont care &gt;:(',
                 }
             }
-        })
+        });
     }, 1000);
 
     $('.change-format-css').click(function(){
