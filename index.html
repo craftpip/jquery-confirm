@@ -448,6 +448,25 @@
                        target="empty"
                        class="btn btn-success"><i class="fa fa-bug fa-fw"></i> Please post your Suggestions here.
                     </a>
+                    <div class="space10"></div>
+                    <!--<a href="https://craftpip.github.io/angular-confirm" target="_blank">-->
+                        <div class="alert alert-info">
+                            <img src="https://craftpip.github.io/angular-confirm/angular-confirm.png"
+                                 style="width: 200px;"
+                                 class="pull-left"
+                                 alt="">
+                            <p>
+                                <strong>Using Angular?</strong>
+                                try out angular-confirm, its a complete re-write of jquery-confirm, and has all the
+                                features currently in jquery-confirm.
+
+                            </p>
+                            <a href="https://craftpip.github.io/angular-confirm"
+                               target="_blank"
+                               class="btn btn-info pull-right">angular-confirm</a>
+                            <div class="clearfix"></div>
+                        </div>
+                    <!--</a>-->
                 </header>
             </section>
             <hr>
@@ -726,7 +745,6 @@
                             title: 'Gracefully center aligned',
                             content: '<p>You can add content and not worry about the alignment. The goal is to make a Interactive dialog!.</p>' +
                             '<button type="button" class="btn btn-success">Click me to add more content</button> <span> <br></span> ',
-                            confirmButtonClass: 'btn-primary',
                             buttons: {
                                 someButton: {
                                     text: 'Add wow',
@@ -1168,12 +1186,11 @@ $.dialog('Just to let you know'); <a href="#"
                     <p class="text-info">
                         Jconfirm comes bundled with <code>btn-blue</code> <code>btn-green</code> <code>btn-red</code>
                         <code>btn-orange</code> <code>btn-purple</code> <code>btn-default</code> <code>btn-dark</code>
-                        or any other class name.
                     </p>
                     <p class="text-info">
                         Other bootstrap options are <code>btn-primary</code> <code>btn-inverse</code>
                         <code>btn-warning</code>
-                        <code>btn-info</code> <code>btn-danger</code> <code>btn-success</code> or any other class name.
+                        <code>btn-info</code> <code>btn-danger</code> <code>btn-success</code>.
                     </p>
                     <button class="btn btn-primary example3-1-jc">Using buttons that come with jconfirm!</button>
                     <button class="btn btn-primary example3-1">Using bootstrap buttons!</button>
@@ -2414,7 +2431,6 @@ $.confirm({
                             $.alert({
                                 title: 'پیغام',
                                 content: 'این یک متن به زبان شیرین فارسی است',
-                                confirmButtonClass: 'btn-primary',
                                 rtl: true,
                                 closeIcon: true,
                                 buttons: {
@@ -2439,7 +2455,6 @@ $.confirm({
                     <pre class="prettyprint linenums"><code>$.alert({
     title: 'پیغام',
     content: 'این یک متن به زبان شیرین فارسی است',
-    confirmButtonClass: 'btn-primary',
     rtl: true,
     closeIcon: true,
     buttons: {
