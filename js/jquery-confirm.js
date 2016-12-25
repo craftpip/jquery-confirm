@@ -182,27 +182,14 @@ var jconfirm, Jconfirm;
             this._parseBgDismissAnimation(this.backgroundDismissAnimation);
             this._parseColumnClass(this.columnClass);
             this._parseTheme(this.theme);
+            this._parseType(this.type);
 
             /*
              * Append html.
              */
             var template = $(this.template);
-            var type = '';
-            switch (this.type) {
-                case 'default':
-                case 'blue':
-                case 'green':
-                case 'red':
-                case 'orange':
-                case 'purple':
-                case 'dark':
-                    type = 'jconfirm-' + this.type;
-                    break;
-                default:
-                    console.warn('Invalid dialog type: ' + this.type);
-            }
+            template.find('.jconfirm-box').addClass(this.animationParsed).addClass(this.backgroundDismissAnimationParsed).addClass(this.typeParsed);
 
-            template.find('.jconfirm-box').addClass(this.animationParsed).addClass(this.backgroundDismissAnimationParsed).addClass(type);
             if (this.typeAnimated)
                 template.find('.jconfirm-box').addClass('jconfirm-type-animated');
 
@@ -296,6 +283,11 @@ var jconfirm, Jconfirm;
             this.$body.css(this._getCSS(this.animationSpeed, this.animationBounce));
             this.$contentPane.css(this._getCSS(this.animationSpeed, 1));
             this.$jconfirmBg.css(this._getCSS(this.animationSpeed, 1));
+        },
+        _typePrefix: 'jconfirm-type-',
+        typeParsed: '',
+        _parseType: function (type) {
+            this.typeParsed = this._typePrefix + type;
         },
         themeParsed: '',
         _themePrefix: 'jconfirm-',
@@ -957,7 +949,7 @@ var jconfirm, Jconfirm;
             var closeTimer = (this.closeAnimation == 'none') ? 1 : this.animationSpeed;
             setTimeout(function () {
                 that.$el.remove();
-                
+
                 if (that._lastFocused.length && $.contains(document, that._lastFocused[0])) {
                     var st = $(window).scrollTop();
                     var ot = that._lastFocused.offset().top;
