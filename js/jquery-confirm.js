@@ -289,6 +289,11 @@ var jconfirm, Jconfirm;
         _parseType: function (type) {
             this.typeParsed = this._typePrefix + type;
         },
+        setType: function (type) {
+            var oldClass = this.typeParsed;
+            this._parseType(type);
+            this.$jconfirmBox.removeClass(oldClass).addClass(this.typeParsed);
+        },
         themeParsed: '',
         _themePrefix: 'jconfirm-',
         setTheme: function (theme) {
