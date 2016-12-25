@@ -130,13 +130,13 @@ var jconfirm, Jconfirm;
             /*
              * Merge global defaults with plugin defaults
              */
-            $.extend(jconfirm.pluginDefaults, jconfirm.defaults);
+            $.extend(true, jconfirm.pluginDefaults, jconfirm.defaults);
         }
 
         /*
          * merge options with plugin defaults.
          */
-        options = $.extend({}, jconfirm.pluginDefaults, options);
+        options = $.extend(true, {}, jconfirm.pluginDefaults, options);
         var instance = new Jconfirm(options);
         jconfirm.instances.push(instance);
         return instance;
