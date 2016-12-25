@@ -41,12 +41,7 @@ var jconfirm, Jconfirm;
 
                 jcOption['$target'] = $this;
                 if ($this.attr('href') && Object.keys(jcOption['buttons']).length == 0) {
-                    var buttons = {};
-                    if (jconfirm.defaults && jconfirm.defaults.defaultButtons) {
-                        buttons = $.extend({}, jconfirm.pluginDefaults.defaultButtons, jconfirm.defaults.defaultButtons || {});
-                    } else {
-                        buttons = $.extend({}, jconfirm.pluginDefaults.defaultButtons);
-                    }
+                    var buttons = $.extend(true, {}, jconfirm.pluginDefaults.defaultButtons, (jconfirm.defaults || {}).defaultButtons || {});
                     var firstBtn = Object.keys(buttons)[0];
                     jcOption['buttons'] = buttons;
                     jcOption.buttons[firstBtn].action = function () {
@@ -71,12 +66,7 @@ var jconfirm, Jconfirm;
             options['buttons'] = {};
 
         if (Object.keys(options['buttons']).length == 0) {
-            var buttons = {};
-            if (jconfirm.defaults && jconfirm.defaults.defaultButtons) {
-                buttons = $.extend({}, jconfirm.pluginDefaults.defaultButtons, jconfirm.defaults.defaultButtons || {});
-            } else {
-                buttons = $.extend({}, jconfirm.pluginDefaults.defaultButtons);
-            }
+            var buttons = $.extend(true, {}, jconfirm.pluginDefaults.defaultButtons, (jconfirm.defaults || {}).defaultButtons || {});
             options['buttons'] = buttons;
         }
 
@@ -97,11 +87,7 @@ var jconfirm, Jconfirm;
             options.buttons = {};
 
         if (Object.keys(options['buttons']).length == 0) {
-            var buttons = {};
-            if (jconfirm.defaults && jconfirm.defaults.defaultButtons)
-                buttons = $.extend({}, jconfirm.pluginDefaults.defaultButtons, jconfirm.defaults.defaultButtons || {});
-            else
-                buttons = $.extend({}, jconfirm.pluginDefaults.defaultButtons);
+            var buttons = $.extend(true, {}, jconfirm.pluginDefaults.defaultButtons, (jconfirm.defaults || {}).defaultButtons || {});
             var firstBtn = Object.keys(buttons)[0];
             options['buttons'][firstBtn] = buttons[firstBtn];
         }
