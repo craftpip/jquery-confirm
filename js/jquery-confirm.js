@@ -957,8 +957,7 @@ var jconfirm, Jconfirm;
             var closeTimer = (this.closeAnimation == 'none') ? 1 : this.animationSpeed;
             setTimeout(function () {
                 that.$el.remove();
-
-                console.log(that._lastFocused);
+                
                 if (that._lastFocused.length && $.contains(document, that._lastFocused[0])) {
                     var st = $(window).scrollTop();
                     var ot = that._lastFocused.offset().top;
