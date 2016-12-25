@@ -310,10 +310,22 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="animations.html"> Animations <span class="v"><i class="fa fa-external-link-square"></i></span></a>
+                        <a href="animations.html"> Animations <span style="margin-left: 5px;"><i
+                                class="fa fa-external-link"></i></span></a>
+                        <ul class="nav nav-list">
+                            <li>
+                                <a href="#animations">Animations</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
-                        <a href="themes.html"> Themes <span class="v"><i class="fa fa-external-link-square"></i></span></a>
+                        <a href="themes.html"> Themes <span style="margin-left: 5px;"><i
+                                class="fa fa-external-link"></i></span></a>
+                        <ul class="nav nav-list">
+                            <li>
+                                <a href="#themes">Themes</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="#ajaxloading"> Ajax loading</a>
@@ -450,22 +462,22 @@
                     </a>
                     <div class="space10"></div>
                     <!--<a href="https://craftpip.github.io/angular-confirm" target="_blank">-->
+                    <a href="https://craftpip.github.io/angular-confirm"
+                       target="_blank"
+                       class="">
                         <div class="alert alert-info">
                             <img src="https://craftpip.github.io/angular-confirm/angular-confirm.png"
                                  style="width: 200px;"
                                  class="pull-left"
                                  alt="">
                             <p>
-                                <strong>Using Angular?</strong>
-                                try out angular-confirm, its a complete re-write of jquery-confirm, and has all the
-                                features currently in jquery-confirm.
-
+                                <strong>angular-confirm is here</strong>
+                                <br> Use angular scope within your confirm modal, with all the features of jquery-confirm
                             </p>
-                            <a href="https://craftpip.github.io/angular-confirm"
-                               target="_blank"
-                               class="btn btn-info pull-right">angular-confirm</a>
+                        
                             <div class="clearfix"></div>
                         </div>
+                    </a>
                     <!--</a>-->
                 </header>
             </section>
@@ -1941,6 +1953,29 @@ $.confirm({
                 </div>
             </section>
 
+            <section id="animations">
+                <h2>Animations</h2>
+                <div class="well">
+                    <p>
+                        The animations section is moved to the animations.html page. <br>
+                        This page has docs for animations for modal open/close and backgroundDismiss <br>
+                        It also describes how to create a custom animation.
+                    </p>
+                    <a class="btn btn-warning" href="animations.html">see Animations</a>
+                </div>
+            </section>
+
+            <section id="themes">
+                <h2>Themes</h2>
+                <div class="well">
+                    <p>
+                        The themes section is moved to the themes.html page <br>
+                        This page has docs for themes & how to create custom themes
+                    </p>
+                    <a class="btn btn-warning" href="themes.html">see Themes</a>
+                </div>
+            </section>
+
             <section id="ajaxloading">
                 <h2>Ajax loading</h2>
 
@@ -3221,10 +3256,10 @@ $.confirm({
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
         i[r] = i[r] || function () {
-                    (i[r].q = i[r].q || []).push(arguments)
-                }, i[r].l = 1 * new Date();
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
         a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
+            m = s.getElementsByTagName(o)[0];
         a.async = 1;
         a.src = g;
         m.parentNode.insertBefore(a, m)
