@@ -475,9 +475,10 @@
                                  alt="">
                             <p>
                                 <strong>angular-confirm is here</strong>
-                                <br> Use angular scope within your confirm modal, with all the features of jquery-confirm
+                                <br> Use angular scope within your confirm modal, with all the features of
+                                jquery-confirm
                             </p>
-                        
+
                             <div class="clearfix"></div>
                         </div>
                     </a>
@@ -995,7 +996,93 @@
     }
 });
                                 </code></pre>
+
+                            <h5>Showing prompt using confirm</h5>
+                            <p>
+                                Simply add form to the content and bind the events you want. <br>
+                                This form can also be loaded via ajax.
+                            </p>
+                            <button class="example2-2 btn btn-primary">example prompt</button>
+                            <script type="text/javascript">
+                                $('.example2-2').on('click', function () {
+                                    $.confirm({
+                                        title: 'Prompt!',
+                                        content: '' +
+                                        '<form action="" class="formName">' +
+                                        '<div class="form-group">' +
+                                        '<label>Enter something here</label>' +
+                                        '<input type="text" placeholder="Your name" class="name form-control" required />' +
+                                        '</div>' +
+                                        '</form>',
+                                        buttons: {
+                                            formSubmit: {
+                                                text: 'Submit',
+                                                btnClass: 'btn-blue',
+                                                action: function () {
+                                                    var name = this.$content.find('.name').val();
+                                                    if(!name){
+                                                        $.alert('provide a valid name');
+                                                        return false;
+                                                    }
+                                                    $.alert('Your name is ' + name);
+                                                }
+                                            },
+                                            cancel: function () {
+                                                //close
+                                            },
+                                        },
+                                        onContentReady: function () {
+                                            // you can bind to the form
+                                            var jc = this;
+                                            this.$content.find('form').on('submit', function (e) { // if the user submits the form by pressing enter in the field.
+                                                e.preventDefault();
+                                                jc.$$formSubmit.trigger('click'); // reference the button and click it
+                                            });
+                                        }
+                                    });
+                                });
+                            </script>
+                            <div class="space10"></div>
+                            <pre class="prettyprint linenums"><code class="js">$.confirm({
+    title: 'Prompt!',
+    content: '' +
+    '&lt;form action="" class="formName"&gt;' +
+    '&lt;div class="form-group"&gt;' +
+    '&lt;label&gt;Enter something here&lt;/label&gt;' +
+    '&lt;input type="text" placeholder="Your name" class="name form-control" required /&gt;' +
+    '&lt;/div&gt;' +
+    '&lt;/form&gt;',
+    buttons: {
+        formSubmit: {
+            text: 'Submit',
+            btnClass: 'btn-blue',
+            action: function () {
+                var name = this.$content.find('.name').val();
+                if(!name){
+                    $.alert('provide a valid name');
+                    return false;
+                }
+                $.alert('Your name is ' + name);
+            }
+        },
+        cancel: function () {
+            //close
+        },
+    },
+    onContentReady: function () {
+        // bind to events
+        var jc = this;
+        this.$content.find('form').on('submit', function (e) {
+            // if the user submits the form by pressing enter in the field.
+            e.preventDefault();
+            jc.$$formSubmit.trigger('click'); // reference the button and click it
+        });
+    }
+});</code></pre>
+
                         </div>
+
+
                         <div class="col-md-12">
                             <h4 id="dialog">
                                 <code>$.dialog</code>
