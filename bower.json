@@ -23,7 +23,6 @@
         "tests"
     ],
     "dependencies": {
-        "bootstrap": "3.*",
         "jquery": ">=1.6"
     }
 }
