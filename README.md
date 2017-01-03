@@ -26,7 +26,7 @@ Showing a confirm box.
 ```js
 $.confirm({
     title: 'What is up?',
-    content: 'Here goes a little content',
+    text: 'Here goes a little content',
     buttons: {   
         ok: {
             text: "ok!",
