@@ -281,7 +281,6 @@ var jconfirm, Jconfirm;
         themeParsed: '',
         _themePrefix: 'jconfirm-',
         setTheme: function (theme) {
-            var that = this;
             var previous = this.theme;
             this.theme = theme || this.theme;
             this._parseTheme(this.theme);
@@ -624,7 +623,7 @@ var jconfirm, Jconfirm;
                 } else
                     this.title = false;
 
-            if (this.isAjax && !force)
+            if (this.isAjaxLoading && !force)
                 return;
 
             this.$title.html(this.title || '');
@@ -645,7 +644,7 @@ var jconfirm, Jconfirm;
                 else
                     this.icon = false;
 
-            if (this.isAjax && !force)
+            if (this.isAjaxLoading && !force)
                 return;
 
             this.$icon.html(this.icon ? '<i class="' + this.icon + '"></i>' : '');

@@ -2117,8 +2117,16 @@ $.confirm({
 
                 <div class="space10"></div>
                 <pre class="prettyprint linenums"><code>$.confirm({
-    content: 'url:text.txt',
     title: 'Title',
+    content: 'url:text.txt',
+    onContentReady: function () {
+        var self = this;
+        this.setContentPrepend('&lt;div&gt;Prepended text&lt;/div&gt;');
+        setTimeout(function () {
+            self.setContentAppend('&lt;div&gt;Appended text after 2 seconds&lt;/div&gt;');
+        }, 2000);
+    },
+    columnClass: 'medium',
 });</code></pre>
 
                 <script type="text/javascript">
@@ -2126,7 +2134,7 @@ $.confirm({
                         $.confirm({
                             title: 'Title',
                             content: 'url:text.txt',
-                            contentLoaded: function () {
+                            onContentReady: function () {
                                 var self = this;
                                 this.setContentPrepend('<div>Prepended text</div>');
                                 setTimeout(function () {
@@ -2134,7 +2142,7 @@ $.confirm({
                                 }, 2000);
                             },
                             animation: 'zoom',
-                            columnClass: 'col-md-6 col-md-offset-3',
+                            columnClass: 'medium',
                             closeAnimation: 'scale',
                         });
                     });
@@ -2166,18 +2174,18 @@ $.confirm({
                         $.confirm({
                             content: function () {
                                 var self = this;
+                                self.setContent('This plugin\'s bower file');
                                 return $.ajax({
                                     url: 'bower.json',
                                     dataType: 'json',
                                     method: 'get'
                                 }).done(function (response) {
-                                    self.setContent('Description: ' + response.description);
+                                    self.setContentAppend('<br>Description: ' + response.description);
                                     self.setContentAppend('<br>Version: ' + response.version);
-                                    alert('done');
+                                    self.setTitle(response.name);
                                 }).fail(function () {
                                     self.setContent('Something went wrong.');
                                 }).always(function () {
-                                    alert('always');
                                 });
                             },
                         });
