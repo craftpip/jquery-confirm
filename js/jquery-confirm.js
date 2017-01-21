@@ -1,5 +1,5 @@
 /*!
- * jquery-confirm v3.0.1 (http://craftpip.github.io/jquery-confirm/)
+ * jquery-confirm v3.0.3 (http://craftpip.github.io/jquery-confirm/)
  * Author: Boniface Pereira
  * Website: www.craftpip.com
  * Contact: hey@craftpip.com
@@ -41,12 +41,7 @@ var jconfirm, Jconfirm;
 
                 jcOption['$target'] = $this;
                 if ($this.attr('href') && Object.keys(jcOption['buttons']).length == 0) {
-                    var buttons = {};
-                    if (jconfirm.defaults && jconfirm.defaults.defaultButtons) {
-                        buttons = $.extend({}, jconfirm.pluginDefaults.defaultButtons, jconfirm.defaults.defaultButtons || {});
-                    } else {
-                        buttons = $.extend({}, jconfirm.pluginDefaults.defaultButtons);
-                    }
+                    var buttons = $.extend(true, {}, jconfirm.pluginDefaults.defaultButtons, (jconfirm.defaults || {}).defaultButtons || {});
                     var firstBtn = Object.keys(buttons)[0];
                     jcOption['buttons'] = buttons;
                     jcOption.buttons[firstBtn].action = function () {
@@ -71,12 +66,7 @@ var jconfirm, Jconfirm;
             options['buttons'] = {};
 
         if (Object.keys(options['buttons']).length == 0) {
-            var buttons = {};
-            if (jconfirm.defaults && jconfirm.defaults.defaultButtons) {
-                buttons = $.extend({}, jconfirm.pluginDefaults.defaultButtons, jconfirm.defaults.defaultButtons || {});
-            } else {
-                buttons = $.extend({}, jconfirm.pluginDefaults.defaultButtons);
-            }
+            var buttons = $.extend(true, {}, jconfirm.pluginDefaults.defaultButtons, (jconfirm.defaults || {}).defaultButtons || {});
             options['buttons'] = buttons;
         }
 
@@ -97,11 +87,7 @@ var jconfirm, Jconfirm;
             options.buttons = {};
 
         if (Object.keys(options['buttons']).length == 0) {
-            var buttons = {};
-            if (jconfirm.defaults && jconfirm.defaults.defaultButtons)
-                buttons = $.extend({}, jconfirm.pluginDefaults.defaultButtons, jconfirm.defaults.defaultButtons || {});
-            else
-                buttons = $.extend({}, jconfirm.pluginDefaults.defaultButtons);
+            var buttons = $.extend(true, {}, jconfirm.pluginDefaults.defaultButtons, (jconfirm.defaults || {}).defaultButtons || {});
             var firstBtn = Object.keys(buttons)[0];
             options['buttons'][firstBtn] = buttons[firstBtn];
         }
@@ -140,18 +126,16 @@ var jconfirm, Jconfirm;
         /*
          * initial function for calling.
          */
+        var pluginOptions = $.extend(true, {}, jconfirm.pluginDefaults);
         if (jconfirm.defaults) {
-            /*
-             * Merge global defaults with plugin defaults
-             */
-            $.extend(jconfirm.pluginDefaults, jconfirm.defaults);
+            pluginOptions = $.extend(true, pluginOptions, jconfirm.defaults);
         }
 
         /*
          * merge options with plugin defaults.
          */
-        options = $.extend({}, jconfirm.pluginDefaults, options);
-        var instance = new Jconfirm(options);
+        pluginOptions = $.extend(true, {}, pluginOptions, options);
+        var instance = new Jconfirm(pluginOptions);
         jconfirm.instances.push(instance);
         return instance;
     };
@@ -182,27 +166,14 @@ var jconfirm, Jconfirm;
             this._parseBgDismissAnimation(this.backgroundDismissAnimation);
             this._parseColumnClass(this.columnClass);
             this._parseTheme(this.theme);
+            this._parseType(this.type);
 
             /*
              * Append html.
              */
             var template = $(this.template);
-            var type = '';
-            switch (this.type) {
-                case 'default':
-                case 'blue':
-                case 'green':
-                case 'red':
-                case 'orange':
-                case 'purple':
-                case 'dark':
-                    type = 'jconfirm-' + this.type;
-                    break;
-                default:
-                    console.warn('Invalid dialog type: ' + this.type);
-            }
+            template.find('.jconfirm-box').addClass(this.animationParsed).addClass(this.backgroundDismissAnimationParsed).addClass(this.typeParsed);
 
-            template.find('.jconfirm-box').addClass(this.animationParsed).addClass(this.backgroundDismissAnimationParsed).addClass(type);
             if (this.typeAnimated)
                 template.find('.jconfirm-box').addClass('jconfirm-type-animated');
 
@@ -297,10 +268,19 @@ var jconfirm, Jconfirm;
             this.$contentPane.css(this._getCSS(this.animationSpeed, 1));
             this.$jconfirmBg.css(this._getCSS(this.animationSpeed, 1));
         },
+        _typePrefix: 'jconfirm-type-',
+        typeParsed: '',
+        _parseType: function (type) {
+            this.typeParsed = this._typePrefix + type;
+        },
+        setType: function (type) {
+            var oldClass = this.typeParsed;
+            this._parseType(type);
+            this.$jconfirmBox.removeClass(oldClass).addClass(this.typeParsed);
+        },
         themeParsed: '',
         _themePrefix: 'jconfirm-',
         setTheme: function (theme) {
-            var that = this;
             var previous = this.theme;
             this.theme = theme || this.theme;
             this._parseTheme(this.theme);
@@ -643,7 +623,7 @@ var jconfirm, Jconfirm;
                 } else
                     this.title = false;
 
-            if (this.isAjax && !force)
+            if (this.isAjaxLoading && !force)
                 return;
 
             this.$title.html(this.title || '');
@@ -664,7 +644,7 @@ var jconfirm, Jconfirm;
                 else
                     this.icon = false;
 
-            if (this.isAjax && !force)
+            if (this.isAjaxLoading && !force)
                 return;
 
             this.$icon.html(this.icon ? '<i class="' + this.icon + '"></i>' : '');
@@ -958,7 +938,6 @@ var jconfirm, Jconfirm;
             setTimeout(function () {
                 that.$el.remove();
 
-                console.log(that._lastFocused);
                 if (that._lastFocused.length && $.contains(document, that._lastFocused[0])) {
                     var st = $(window).scrollTop();
                     var ot = that._lastFocused.offset().top;

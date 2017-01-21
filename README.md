@@ -1,7 +1,7 @@
 ### ![jquery-confirm](https://raw.githubusercontent.com/craftpip/jquery-confirm/master/jquery-confirm.png "jquery-confirm")
 *alerts, confirms and dialogs in* ***one.***
 
-v3.0.1
+v3.0.3
 
 A multipurpose plugin for alert, confirm & dialog, with Super powers.
 
@@ -62,6 +62,14 @@ The `$.alert()` , `$.confirm()` & `$.dialog()` are alias of `jconfirm();`.
 Checkout the [documentation](http://craftpip.github.io/jquery-confirm) for further information.
 
 ## Version changes
+
+(new in 3.0.3)
+* Setting defaults fixed
+* added docs for prompt dialog
+* added setType method
+* users can now create custom type styles
+* removed the annoying debug console log
+* other fixes
 
 (new in 3.0.1)
 * Removed bootstrap as dependency

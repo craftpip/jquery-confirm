@@ -1,5 +1,5 @@
 /*!
- * jquery-confirm v3.0.1 (http://craftpip.github.io/jquery-confirm/)
+ * jquery-confirm v3.0.3 (http://craftpip.github.io/jquery-confirm/)
  * Author: boniface pereira
  * Website: www.craftpip.com
  * Contact: hey@craftpip.com
@@ -70,6 +70,7 @@ body[class*=jconfirm-no-scroll-] {
   position: relative;
   outline: none;
   padding: 15px 15px 0;
+  margin: 0 auto;
   overflow: hidden;
 }
 @-webkit-keyframes type-blue {
@@ -186,32 +187,32 @@ body[class*=jconfirm-no-scroll-] {
   -webkit-animation-iteration-count: infinite;
           animation-iteration-count: infinite;
 }
-.jconfirm .jconfirm-box.jconfirm-blue {
+.jconfirm .jconfirm-box.jconfirm-type-blue {
   border-top: solid 7px #3498db;
   -webkit-animation-name: type-blue;
           animation-name: type-blue;
 }
-.jconfirm .jconfirm-box.jconfirm-green {
+.jconfirm .jconfirm-box.jconfirm-type-green {
   border-top: solid 7px #2ecc71;
   -webkit-animation-name: type-green;
           animation-name: type-green;
 }
-.jconfirm .jconfirm-box.jconfirm-red {
+.jconfirm .jconfirm-box.jconfirm-type-red {
   border-top: solid 7px #e74c3c;
   -webkit-animation-name: type-red;
           animation-name: type-red;
 }
-.jconfirm .jconfirm-box.jconfirm-orange {
+.jconfirm .jconfirm-box.jconfirm-type-orange {
   border-top: solid 7px #f1c40f;
   -webkit-animation-name: type-orange;
           animation-name: type-orange;
 }
-.jconfirm .jconfirm-box.jconfirm-purple {
+.jconfirm .jconfirm-box.jconfirm-type-purple {
   border-top: solid 7px #9b59b6;
   -webkit-animation-name: type-purple;
           animation-name: type-purple;
 }
-.jconfirm .jconfirm-box.jconfirm-dark {
+.jconfirm .jconfirm-box.jconfirm-type-dark {
   border-top: solid 7px #34495e;
   -webkit-animation-name: type-dark;
           animation-name: type-dark;
@@ -452,7 +453,6 @@ body[class*=jconfirm-no-scroll-] {
 }
 .jconfirm.jconfirm-white .jconfirm-box,
 .jconfirm.jconfirm-light .jconfirm-box {
-  margin: 0 auto;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
 }

@@ -58,7 +58,7 @@
     <link rel="stylesheet"
           href="demo/demo.css">
     <script>
-        var version = '3.0.1';
+        var version = '3.0.3';
     </script>
     <!-- Add the minified version of files from the /dist/ folder. -->
     <!-- jquery-confirm files -->
@@ -112,6 +112,9 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v3.0.1">v3.0.1</a>
+                        </li>
                         <li>
                             <a href="http://craftpip.github.io/jquery-confirm/v3.0.0">v3.0.0</a>
                         </li>
@@ -207,8 +210,8 @@
                 <div class="row download-btns">
                     <div class="col-md-12">
                         <div style="height: 15px;"></div>
-                        <a href="https://github.com/craftpip/jquery-confirm/releases/download/v3.0.1/jquery-confirm-v3.0.1.zip"
-                           class="btn btn-lg">Download v3.0.1
+                        <a href="https://github.com/craftpip/jquery-confirm/releases/download/v3.0.3/jquery-confirm-v3.0.3.zip"
+                           class="btn btn-lg">Download v3.0.3
                         </a>
                         <a href="https://github.com/craftpip/jquery-confirm"
                            class="btn btn-lg"><i class="fa fa-github"></i> View on GitHub
@@ -310,10 +313,22 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="animations.html"> Animations <span class="v"><i class="fa fa-external-link-square"></i></span></a>
+                        <a href="animations.html"> Animations <span style="margin-left: 5px;"><i
+                                class="fa fa-external-link"></i></span></a>
+                        <ul class="nav nav-list">
+                            <li>
+                                <a href="#animations">Animations</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
-                        <a href="themes.html"> Themes <span class="v"><i class="fa fa-external-link-square"></i></span></a>
+                        <a href="themes.html"> Themes <span style="margin-left: 5px;"><i
+                                class="fa fa-external-link"></i></span></a>
+                        <ul class="nav nav-list">
+                            <li>
+                                <a href="#themes">Themes</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="#ajaxloading"> Ajax loading</a>
@@ -372,6 +387,9 @@
                             </li>
                             <li>
                                 <a href="#api-setcontentappend"> .setContentAppend()</a>
+                            </li>
+                            <li>
+                                <a href="#api-set-type"> .setType()</a>
                             </li>
                             <li>
                                 <a href="#api-button-settext"> .&lt;buttonName&gt;.setText()</a>
@@ -450,22 +468,23 @@
                     </a>
                     <div class="space10"></div>
                     <!--<a href="https://craftpip.github.io/angular-confirm" target="_blank">-->
+                    <a href="https://craftpip.github.io/angular-confirm"
+                       target="_blank"
+                       class="">
                         <div class="alert alert-info">
                             <img src="https://craftpip.github.io/angular-confirm/angular-confirm.png"
                                  style="width: 200px;"
                                  class="pull-left"
                                  alt="">
                             <p>
-                                <strong>Using Angular?</strong>
-                                try out angular-confirm, its a complete re-write of jquery-confirm, and has all the
-                                features currently in jquery-confirm.
-
+                                <strong>angular-confirm is here</strong>
+                                <br> Use angular scope within your confirm modal, with all the features of
+                                jquery-confirm
                             </p>
-                            <a href="https://craftpip.github.io/angular-confirm"
-                               target="_blank"
-                               class="btn btn-info pull-right">angular-confirm</a>
+
                             <div class="clearfix"></div>
                         </div>
+                    </a>
                     <!--</a>-->
                 </header>
             </section>
@@ -830,11 +849,13 @@
             </section>
 
             <section>
-                <h2>Whats new <span style="color: #aaa">in v3.0.1</span></h2>
+                <h2>Whats new <span style="color: #aaa">in v3.0.3</span></h2>
                 <ul>
                     <li>Support for namespaced bootstrap classes</li>
                     <li>Jconfirm can be used without bootstrap</li>
                     <li>Added type for modals (green/success, red/failure, orange/warning, etc)</li>
+                    <li>Added setType method</li>
+                    <li>bug fixes</li>
                 </ul>
             </section>
 
@@ -848,9 +869,9 @@
                 </div>
 
 
-                <h4 id="installation">
+                <h3 id="installation">
                     Installation
-                </h4>
+                </h3>
                 <div class="section">
                     <p>
                         <strong>Download</strong>
@@ -859,19 +880,22 @@
                     </p>
 
                     <p>
-                        <strong>via Bower:</strong>
+                        <strong>via CDN:</strong>
+                    <pre class="prettyprint"><code class="html">&lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.0.3/jquery-confirm.min.css"&gt;
+&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.0.3/jquery-confirm.min.js"&gt;&lt;/script&gt;</code></pre>
+                    </p>
+
+                    <p>
+                        <strong>via Bower:</strong> <br>
+                        <span>Simply copy these links</span>
                         <br>
-                        <code>
-                            $ bower install craftpip/jquery-confirm
-                        </code>
+                    <pre class="prettyprint"><code class="terminal">$ bower install craftpip/jquery-confirm</code></pre>
                     </p>
 
                     <p>
                         <strong>via Npm:</strong>
                         <br>
-                        <code>
-                            $ npm install jquery-confirm
-                        </code>
+                    <pre class="prettyprint"><code class="terminal">$ npm install jquery-confirm</code></pre>
                     </p>
 
                     <p>
@@ -980,7 +1004,93 @@
     }
 });
                                 </code></pre>
+
+                            <h5>Showing prompt using confirm</h5>
+                            <p>
+                                Simply add form to the content and bind the events you want. <br>
+                                This form can also be loaded via ajax.
+                            </p>
+                            <button class="example2-2 btn btn-primary">example prompt</button>
+                            <script type="text/javascript">
+                                $('.example2-2').on('click', function () {
+                                    $.confirm({
+                                        title: 'Prompt!',
+                                        content: '' +
+                                        '<form action="" class="formName">' +
+                                        '<div class="form-group">' +
+                                        '<label>Enter something here</label>' +
+                                        '<input type="text" placeholder="Your name" class="name form-control" required />' +
+                                        '</div>' +
+                                        '</form>',
+                                        buttons: {
+                                            formSubmit: {
+                                                text: 'Submit',
+                                                btnClass: 'btn-blue',
+                                                action: function () {
+                                                    var name = this.$content.find('.name').val();
+                                                    if (!name) {
+                                                        $.alert('provide a valid name');
+                                                        return false;
+                                                    }
+                                                    $.alert('Your name is ' + name);
+                                                }
+                                            },
+                                            cancel: function () {
+                                                //close
+                                            },
+                                        },
+                                        onContentReady: function () {
+                                            // you can bind to the form
+                                            var jc = this;
+                                            this.$content.find('form').on('submit', function (e) { // if the user submits the form by pressing enter in the field.
+                                                e.preventDefault();
+                                                jc.$$formSubmit.trigger('click'); // reference the button and click it
+                                            });
+                                        }
+                                    });
+                                });
+                            </script>
+                            <div class="space10"></div>
+                            <pre class="prettyprint linenums"><code class="js">$.confirm({
+    title: 'Prompt!',
+    content: '' +
+    '&lt;form action="" class="formName"&gt;' +
+    '&lt;div class="form-group"&gt;' +
+    '&lt;label&gt;Enter something here&lt;/label&gt;' +
+    '&lt;input type="text" placeholder="Your name" class="name form-control" required /&gt;' +
+    '&lt;/div&gt;' +
+    '&lt;/form&gt;',
+    buttons: {
+        formSubmit: {
+            text: 'Submit',
+            btnClass: 'btn-blue',
+            action: function () {
+                var name = this.$content.find('.name').val();
+                if(!name){
+                    $.alert('provide a valid name');
+                    return false;
+                }
+                $.alert('Your name is ' + name);
+            }
+        },
+        cancel: function () {
+            //close
+        },
+    },
+    onContentReady: function () {
+        // bind to events
+        var jc = this;
+        this.$content.find('form').on('submit', function (e) {
+            // if the user submits the form by pressing enter in the field.
+            e.preventDefault();
+            jc.$$formSubmit.trigger('click'); // reference the button and click it
+        });
+    }
+});</code></pre>
+
                         </div>
+
+
                         <div class="col-md-12">
                             <h4 id="dialog">
                                 <code>$.dialog</code>
@@ -1941,6 +2051,29 @@ $.confirm({
                 </div>
             </section>
 
+            <section id="animations">
+                <h2>Animations</h2>
+                <div class="well">
+                    <p>
+                        The animations section is moved to the animations.html page. <br>
+                        This page has docs for animations for modal open/close and backgroundDismiss <br>
+                        It also describes how to create a custom animation.
+                    </p>
+                    <a class="btn btn-warning" href="animations.html">see Animations</a>
+                </div>
+            </section>
+
+            <section id="themes">
+                <h2>Themes</h2>
+                <div class="well">
+                    <p>
+                        The themes section is moved to the themes.html page <br>
+                        This page has docs for themes & how to create custom themes
+                    </p>
+                    <a class="btn btn-warning" href="themes.html">see Themes</a>
+                </div>
+            </section>
+
             <section id="ajaxloading">
                 <h2>Ajax loading</h2>
 
@@ -1984,8 +2117,16 @@ $.confirm({
 
                 <div class="space10"></div>
                 <pre class="prettyprint linenums"><code>$.confirm({
-    content: 'url:text.txt',
     title: 'Title',
+    content: 'url:text.txt',
+    onContentReady: function () {
+        var self = this;
+        this.setContentPrepend('&lt;div&gt;Prepended text&lt;/div&gt;');
+        setTimeout(function () {
+            self.setContentAppend('&lt;div&gt;Appended text after 2 seconds&lt;/div&gt;');
+        }, 2000);
+    },
+    columnClass: 'medium',
 });</code></pre>
 
                 <script type="text/javascript">
@@ -1993,7 +2134,7 @@ $.confirm({
                         $.confirm({
                             title: 'Title',
                             content: 'url:text.txt',
-                            contentLoaded: function () {
+                            onContentReady: function () {
                                 var self = this;
                                 this.setContentPrepend('<div>Prepended text</div>');
                                 setTimeout(function () {
@@ -2001,7 +2142,7 @@ $.confirm({
                                 }, 2000);
                             },
                             animation: 'zoom',
-                            columnClass: 'col-md-6 col-md-offset-3',
+                            columnClass: 'medium',
                             closeAnimation: 'scale',
                         });
                     });
@@ -2033,18 +2174,18 @@ $.confirm({
                         $.confirm({
                             content: function () {
                                 var self = this;
+                                self.setContent('This plugin\'s bower file');
                                 return $.ajax({
                                     url: 'bower.json',
                                     dataType: 'json',
                                     method: 'get'
                                 }).done(function (response) {
-                                    self.setContent('Description: ' + response.description);
+                                    self.setContentAppend('<br>Description: ' + response.description);
                                     self.setContentAppend('<br>Version: ' + response.version);
-                                    alert('done');
+                                    self.setTitle(response.name);
                                 }).fail(function () {
                                     self.setContent('Something went wrong.');
                                 }).always(function () {
-                                    alert('always');
                                 });
                             },
                         });
@@ -3008,6 +3149,15 @@ $.confirm({
                     </div>
                 </div>
                 <div>
+                    <h4 id="api-set-type">
+                        <code>jc.setType(string)</code>
+                    </h4>
+                    <p><kbd>function</kbd></p>
+                    <div class="section">
+                        <p>Sets a new type class</p>
+                    </div>
+                </div>
+                <div>
                     <h4 id="api-button-settext">
                         <code>jc.&lt;buttonName&gt;.setText(text)</code>
                     </h4>
@@ -3036,7 +3186,7 @@ $.confirm({
                 </div>
                 <div>
                     <h4 id="api-button-disable">
-                        <code>jc.&lt;buttonName&gt;.disable()</code>
+                        <code>jc.buttons.&lt;buttonName&gt;.disable()</code>
                     </h4>
                     <p><kbd>function</kbd></p>
                     <div class="section">
@@ -3045,7 +3195,7 @@ $.confirm({
                 </div>
                 <div>
                     <h4 id="api-button-enable">
-                        <code>jc.&lt;buttonName&gt;.enable()</code>
+                        <code>jc.buttons.&lt;buttonName&gt;.enable()</code>
                     </h4>
                     <p><kbd>function</kbd></p>
                     <div class="section">
@@ -3054,7 +3204,7 @@ $.confirm({
                 </div>
                 <div>
                     <h4 id="api-button-hide">
-                        <code>jc.&lt;buttonName&gt;.hide()</code>
+                        <code>jc.buttons.&lt;buttonName&gt;.hide()</code>
                     </h4>
                     <p><kbd>function</kbd></p>
                     <div class="section">
@@ -3063,7 +3213,7 @@ $.confirm({
                 </div>
                 <div>
                     <h4 id="api-button-show">
-                        <code>jc.&lt;buttonName&gt;.show()</code>
+                        <code>jc.buttons.&lt;buttonName&gt;.show()</code>
                     </h4>
                     <p><kbd>function</kbd></p>
                     <div class="section">
@@ -3221,10 +3371,10 @@ $.confirm({
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
         i[r] = i[r] || function () {
-                    (i[r].q = i[r].q || []).push(arguments)
-                }, i[r].l = 1 * new Date();
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
         a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
+            m = s.getElementsByTagName(o)[0];
         a.async = 1;
         a.src = g;
         m.parentNode.insertBefore(a, m)
