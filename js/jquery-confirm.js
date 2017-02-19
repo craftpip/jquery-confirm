@@ -55,7 +55,6 @@ var jconfirm, Jconfirm;
         return $(this);
     };
     $.confirm = function (options, option2) {
-        var shortMode = (typeof options != 'object');
         if (typeof options === 'undefined') options = {};
         if (typeof options === 'string')
             options = {
@@ -66,14 +65,7 @@ var jconfirm, Jconfirm;
         if (typeof options['buttons'] != 'object')
             options['buttons'] = {};
 
-        /**
-         * Add buttons only when the user is using shortcode
-         * $.confirm({}) -> keep the buttons empty, as the user did not define it
-         * $.confirm('title', 'desc') -> auto insert buttons as its shortcode mode.
-         *
-         * Same applies for $.alert
-         */
-        if (Object.keys(options['buttons']).length == 0 && shortMode) {
+        if (Object.keys(options['buttons']).length == 0) {
             var buttons = $.extend(true, {}, jconfirm.pluginDefaults.defaultButtons, (jconfirm.defaults || {}).defaultButtons || {});
             options['buttons'] = buttons;
         }
@@ -84,7 +76,6 @@ var jconfirm, Jconfirm;
         return jconfirm(options);
     };
     $.alert = function (options, option2) {
-        var shortMode = (typeof options != 'object');
         if (typeof options === 'undefined') options = {};
         if (typeof options === 'string')
             options = {
@@ -95,7 +86,7 @@ var jconfirm, Jconfirm;
         if (typeof options.buttons != 'object')
             options.buttons = {};
 
-        if (Object.keys(options['buttons']).length == 0 && shortMode) {
+        if (Object.keys(options['buttons']).length == 0) {
             var buttons = $.extend(true, {}, jconfirm.pluginDefaults.defaultButtons, (jconfirm.defaults || {}).defaultButtons || {});
             var firstBtn = Object.keys(buttons)[0];
             options['buttons'][firstBtn] = buttons[firstBtn];
@@ -217,6 +208,7 @@ var jconfirm, Jconfirm;
             this.$jconfirmBox = this.$body = this.$el.find('.jconfirm-box');
             this.$jconfirmBg = this.$el.find('.jconfirm-bg');
             this.$title = this.$el.find('.jconfirm-title');
+            this.$titleContainer = this.$el.find('.jconfirm-title-c');
             this.$content = this.$el.find('div.jconfirm-content');
             this.$contentPane = this.$el.find('.jconfirm-content-pane');
             this.$icon = this.$el.find('.jconfirm-icon-c');
@@ -388,52 +380,80 @@ var jconfirm, Jconfirm;
             this.columnClassParsed = p;
         },
         initDraggable: function () {
-            var $t = this.$title;
-            var isDrag = false;
-            var initialX = 0;
-            var initialY = 0;
-            var movingX = 0;
-            var movingY = 0;
-            var movingXCurrent = 0;
-            var movingYCurrent = 0;
-            var mouseX = 0;
-            var mouseY = 0;
             var that = this;
-            if (this.draggable) {
-                $t.on('mousedown', function (e) {
-                    mouseX = e.clientX;
-                    mouseY = e.clientY;
-                    isDrag = true;
-                    console.log('mouse down');
+            var $t = this.$titleContainer;
 
+            this.resetDrag();
+            if (this.draggable) {
+                $t.addClass('jconfirm-hand');
+                $t.on('mousedown', function (e) {
+                    that.mouseX = e.clientX;
+                    that.mouseY = e.clientY;
+                    that.isDrag = true;
+                    console.log('mouse down');
                 });
                 $(window).on('mousemove', function (e) {
-                    if (isDrag) {
-                        movingX = e.clientX - mouseX + initialX;
-                        movingY = e.clientY - mouseY + initialY;
-                        console.log('mouse move', movingX, movingY, that._boxTopMargin + movingY, that._boxWidth);
-
-                        // if (movingX % 2 == 0 || movingY % 2 == 0){
-                            if(that._boxTopMargin + movingY < 0){
-                                movingY = -that._boxTopMargin;
-                            }else{
-                                movingYCurrent = movingY;
-                            }
-                            that.$jconfirmBoxContainer.css('transform', 'translate(' + movingX + 'px, ' + movingY + 'px)');
-                            movingXCurrent = movingX;
-                        // }
+                    if (that.isDrag) {
+                        that.movingX = e.clientX - that.mouseX + that.initialX;
+                        that.movingY = e.clientY - that.mouseY + that.initialY;
+                        that.setDrag();
                     }
                 });
+
                 $(window).on('mouseup', function () {
-                    if (isDrag) {
-                        isDrag = false;
-                        initialX = movingX;
-                        initialY = movingY;
+                    if (that.isDrag) {
+                        that.isDrag = false;
+                        that.initialX = that.movingX;
+                        that.initialY = that.movingY;
                         console.log('mouse up');
                     }
                 })
-            } else {
+            }
+        },
+        resetDrag: function () {
+            this.isDrag = false;
+            this.initialX = 0;
+            this.initialY = 0;
+            this.movingX = 0;
+            this.movingY = 0;
+            this.movingXCurrent = 0;
+            this.movingYCurrent = 0;
+            this.mouseX = 0;
+            this.mouseY = 0;
+            this.$jconfirmBoxContainer.css('transform', 'translate(' + 0 + 'px, ' + 0 + 'px)');
+        },
+        setDrag: function () {
+            if (!this.draggable)
+                return;
 
+            this.alignMiddle = false;
+            this._boxWidth = this.$jconfirmBox.outerWidth();
+            var ww = $(window).width();
+            var that = this;
+            if (that.movingX % 2 == 0 || that.movingY % 2 == 0) {
+                var tb = that._boxTopMargin - that.dragWindowGap;
+                console.log('mouse move', that.movingX, that.movingY);
+
+                if (tb + that.movingY < 0) {
+                    that.movingY = -tb;
+                } else {
+                    that.movingYCurrent = that.movingY;
+                }
+                var lb = (ww / 2) - that._boxWidth / 2;
+                var rb = (ww / 2) + (that._boxWidth / 2) - that._boxWidth;
+                rb -= that.dragWindowGap;
+                lb -= that.dragWindowGap;
+                console.log('mouse move', that.movingX, that.movingY);
+
+                if (lb + that.movingX < 0) {
+                    that.movingX = -lb;
+                } else if (rb - that.movingX < 0) {
+                    that.movingX = rb;
+                } else {
+                    that.movingXCurrent = that.movingX;
+                }
+
+                that.$jconfirmBoxContainer.css('transform', 'translate(' + that.movingX + 'px, ' + that.movingY + 'px)');
             }
         },
         _hash: function (a) {
@@ -521,6 +541,9 @@ var jconfirm, Jconfirm;
 
             $(window).on('resize.' + this._id, function () {
                 that.setDialogCenter(true);
+                setTimeout(function () {
+                    that.resetDrag();
+                }, 100);
             });
         },
         _cubic_bezier: '0.36, 0.55, 0.19',
@@ -953,26 +976,25 @@ var jconfirm, Jconfirm;
 
             var windowHeight = $(window).height();
             var boxHeight;
-            this._boxWidth = this.$jconfirmBox.width();
 
             boxHeight = (this.$body.outerHeight() - paneHeight) + contentHeight;
 
             var topMargin = (windowHeight - boxHeight) / 2;
-            var minMargin = 100; // todo: include this in options
-            if (boxHeight > (windowHeight - minMargin)) {
+            if (boxHeight > (windowHeight - (this.offsetTop + this.offsetBottom)) || !this.alignMiddle) {
                 style = {
-                    'margin-top': minMargin / 2,
-                    'margin-bottom': minMargin / 2
+                    'margin-top': this.offsetTop,
+                    'margin-bottom': this.offsetBottom
                 };
-                this._boxBottomMargin = this._boxTopMargin = minMargin;
+                this._boxTopMargin = this.offsetTop;
+                this._boxBottomMargin = this.offsetBottom;
                 $('body').addClass('jconfirm-no-scroll-' + this._id);
             } else {
                 style = {
                     'margin-top': topMargin,
-                    'margin-bottom': minMargin / 2,
+                    'margin-bottom': this.offsetBottom,
                 };
                 this._boxTopMargin = topMargin;
-                this._boxBottomMargin = minMargin / 2;
+                this._boxBottomMargin = this.offsetBottom;
                 $('body').removeClass('jconfirm-no-scroll-' + this._id);
             }
 
@@ -980,6 +1002,8 @@ var jconfirm, Jconfirm;
                 'height': contentHeight
             }).scrollTop(0);
             this.$body.css(style);
+
+            this.setDrag();
         },
         _unwatchContent: function () {
             clearInterval(this._timer);
@@ -1099,6 +1123,7 @@ var jconfirm, Jconfirm;
         titleClass: '',
         type: 'default',
         draggable: true,
+        alignMiddle: true,
         typeAnimated: true,
         content: 'Are you sure to continue?',
         buttons: {},
@@ -1136,6 +1161,9 @@ var jconfirm, Jconfirm;
         scrollToPreviousElement: true,
         scrollToPreviousElementAnimate: true,
         useBootstrap: true,
+        offsetTop: 50,
+        offsetBottom: 50,
+        dragWindowGap: 15,
         bootstrapClasses: {
             container: 'container',
             containerFluid: 'container-fluid',

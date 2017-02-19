@@ -219,6 +219,11 @@ body[class*=jconfirm-no-scroll-] {
       display: block;
       font-size: 22px;
       line-height: 20px;
+      user-select: none;
+
+      &.jconfirm-hand{
+        cursor: move;
+      }
 
       .jconfirm-icon-c {
         font-size: inherit;
@@ -234,6 +239,7 @@ body[class*=jconfirm-no-scroll-] {
         }
       }
       .jconfirm-title {
+        user-select: none;
         font-size: inherit;
         font-family: inherit;
         display: inline-block;
