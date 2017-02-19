@@ -390,9 +390,8 @@ var jconfirm, Jconfirm;
                     that.mouseX = e.clientX;
                     that.mouseY = e.clientY;
                     that.isDrag = true;
-                    console.log('mouse down');
                 });
-                $(window).on('mousemove', function (e) {
+                $(window).on('mousemove.' + this._id, function (e) {
                     if (that.isDrag) {
                         that.movingX = e.clientX - that.mouseX + that.initialX;
                         that.movingY = e.clientY - that.mouseY + that.initialY;
@@ -400,12 +399,11 @@ var jconfirm, Jconfirm;
                     }
                 });
 
-                $(window).on('mouseup', function () {
+                $(window).on('mouseup.' + this._id, function () {
                     if (that.isDrag) {
                         that.isDrag = false;
                         that.initialX = that.movingX;
                         that.initialY = that.movingY;
-                        console.log('mouse up');
                     }
                 })
             }
@@ -443,7 +441,6 @@ var jconfirm, Jconfirm;
                 var rb = (ww / 2) + (that._boxWidth / 2) - that._boxWidth;
                 rb -= that.dragWindowGap;
                 lb -= that.dragWindowGap;
-                console.log('mouse move', that.movingX, that.movingY);
 
                 if (lb + that.movingX < 0) {
                     that.movingX = -lb;
@@ -1022,6 +1019,11 @@ var jconfirm, Jconfirm;
              */
             $(window).unbind('resize.' + this._id);
             $(window).unbind('keyup.' + this._id);
+            if (this.draggable) {
+                $(window).unbind('mousemove.' + this._id);
+                $(window).unbind('mouseup.' + this._id);
+                this.$titleContainer.unbind('mousedown');
+            }
             $('body').removeClass('jconfirm-no-scroll-' + this._id);
             this.$body.addClass(this.closeAnimationParsed);
             this.$jconfirmBg.addClass('jconfirm-bg-h');
@@ -1122,9 +1124,9 @@ var jconfirm, Jconfirm;
         title: 'Hello',
         titleClass: '',
         type: 'default',
+        typeAnimated: true,
         draggable: true,
         alignMiddle: true,
-        typeAnimated: true,
         content: 'Are you sure to continue?',
         buttons: {},
         defaultButtons: {
