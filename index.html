@@ -60,7 +60,7 @@
     <link rel="stylesheet"
           href="demo/demo.css">
     <script>
-        var version = '3.0.3';
+        var version = '3.1.0';
     </script>
     <!-- Add the minified version of files from the /dist/ folder. -->
     <!-- jquery-confirm files -->
@@ -114,6 +114,9 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v3.0.3">v3.0.3</a>
+                        </li>
                         <li>
                             <a href="http://craftpip.github.io/jquery-confirm/v3.0.1">v3.0.1</a>
                         </li>
@@ -213,7 +216,7 @@
                     <div class="col-md-12">
                         <div style="height: 15px;"></div>
                         <a href="https://github.com/craftpip/jquery-confirm/releases/download/v3.0.3/jquery-confirm-v3.0.3.zip"
-                           class="btn btn-lg">Download v3.0.3
+                           class="btn btn-lg">Download v3.1.0
                         </a>
                         <a href="https://github.com/craftpip/jquery-confirm"
                            class="btn btn-lg"><i class="fa fa-github"></i> View on GitHub
@@ -565,6 +568,12 @@
                         <p class="text-success">Clean animations</p>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <button class="btn btn-primary btn-block example-p-7-2">Draggable</button>
+                        <p class="text-success">Drag me around</p>
+                    </div>
+                </div>
                 <script type="text/javascript">
                     // alert
                     $('.example-p-1').on('click', function () {
@@ -861,17 +870,24 @@
                             },
                         });
                     });
+
+                    $('.example-p-7-2').on('click', function () {
+                        $.alert({
+                            title: 'A draggable dialog',
+                            content: 'This dialog is draggable, use the title to drag it around. It wont touch the screen borders',
+                            type: 'blue',
+                            draggable: true,
+                        });
+                    })
                 </script>
             </section>
 
             <section>
-                <h2>Whats new <span style="color: #aaa">in v3.0.3</span></h2>
+                <h2>Whats new <span style="color: #aaa">in v3.1.0</span></h2>
                 <ul>
-                    <li>Support for namespaced bootstrap classes</li>
-                    <li>Jconfirm can be used without bootstrap</li>
-                    <li>Added type for modals (green/success, red/failure, orange/warning, etc)</li>
-                    <li>Added setType method</li>
-                    <li>bug fixes</li>
+                    <li>Support for bootstrap v4</li>
+                    <li>Draggable dialogs</li>
+                    <li>Added options animateScrollToElement, alignMiddle, offsetTop, drawWindowGap and more</li>
                 </ul>
             </section>
 
@@ -897,8 +913,8 @@
 
                     <p>
                         <strong>via CDN:</strong>
-                    <pre class="prettyprint"><code class="html">&lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.0.3/jquery-confirm.min.css"&gt;
-&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.0.3/jquery-confirm.min.js"&gt;&lt;/script&gt;</code></pre>
+                    <pre class="prettyprint"><code class="html">&lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.1.0/jquery-confirm.min.css"&gt;
+&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.1.0/jquery-confirm.min.js"&gt;&lt;/script&gt;</code></pre>
                     </p>
 
                     <p>
