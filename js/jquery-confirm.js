@@ -13,7 +13,7 @@ if (typeof jQuery === 'undefined') {
 }
 
 var jconfirm, Jconfirm;
-(function ($) {
+(function ($, window) {
     "use strict";
 
     $.fn.confirm = function (options, option2) {
@@ -233,6 +233,7 @@ var jconfirm, Jconfirm;
             this.setIcon();
             this._setButtons();
             this._parseContent();
+            this.initDraggable();
 
             if (this.isAjax)
                 this.showLoading(false);
@@ -385,6 +386,55 @@ var jconfirm, Jconfirm;
                     p = colClass;
             }
             this.columnClassParsed = p;
+        },
+        initDraggable: function () {
+            var $t = this.$title;
+            var isDrag = false;
+            var initialX = 0;
+            var initialY = 0;
+            var movingX = 0;
+            var movingY = 0;
+            var movingXCurrent = 0;
+            var movingYCurrent = 0;
+            var mouseX = 0;
+            var mouseY = 0;
+            var that = this;
+            if (this.draggable) {
+                $t.on('mousedown', function (e) {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                    isDrag = true;
+                    console.log('mouse down');
+
+                });
+                $(window).on('mousemove', function (e) {
+                    if (isDrag) {
+                        movingX = e.clientX - mouseX + initialX;
+                        movingY = e.clientY - mouseY + initialY;
+                        console.log('mouse move', movingX, movingY, that._boxTopMargin + movingY, that._boxWidth);
+
+                        // if (movingX % 2 == 0 || movingY % 2 == 0){
+                            if(that._boxTopMargin + movingY < 0){
+                                movingY = -that._boxTopMargin;
+                            }else{
+                                movingYCurrent = movingY;
+                            }
+                            that.$jconfirmBoxContainer.css('transform', 'translate(' + movingX + 'px, ' + movingY + 'px)');
+                            movingXCurrent = movingX;
+                        // }
+                    }
+                });
+                $(window).on('mouseup', function () {
+                    if (isDrag) {
+                        isDrag = false;
+                        initialX = movingX;
+                        initialY = movingY;
+                        console.log('mouse up');
+                    }
+                })
+            } else {
+
+            }
         },
         _hash: function (a) {
             return btoa((encodeURIComponent(a)));
@@ -876,11 +926,13 @@ var jconfirm, Jconfirm;
                 }
             });
         },
+        _boxTopMargin: 0,
+        _boxBottomMargin: 0,
+        _boxWidth: 0,
         setDialogCenter: function () {
             var contentHeight;
             var paneHeight;
             var style;
-
             contentHeight = 0;
             paneHeight = 0;
             if (this.$contentPane.css('display') != 'none') {
@@ -901,6 +953,7 @@ var jconfirm, Jconfirm;
 
             var windowHeight = $(window).height();
             var boxHeight;
+            this._boxWidth = this.$jconfirmBox.width();
 
             boxHeight = (this.$body.outerHeight() - paneHeight) + contentHeight;
 
@@ -911,12 +964,15 @@ var jconfirm, Jconfirm;
                     'margin-top': minMargin / 2,
                     'margin-bottom': minMargin / 2
                 };
+                this._boxBottomMargin = this._boxTopMargin = minMargin;
                 $('body').addClass('jconfirm-no-scroll-' + this._id);
             } else {
                 style = {
                     'margin-top': topMargin,
                     'margin-bottom': minMargin / 2,
                 };
+                this._boxTopMargin = topMargin;
+                this._boxBottomMargin = minMargin / 2;
                 $('body').removeClass('jconfirm-no-scroll-' + this._id);
             }
 
@@ -1042,6 +1098,7 @@ var jconfirm, Jconfirm;
         title: 'Hello',
         titleClass: '',
         type: 'default',
+        draggable: true,
         typeAnimated: true,
         content: 'Are you sure to continue?',
         buttons: {},
@@ -1103,4 +1160,4 @@ var jconfirm, Jconfirm;
 
         }
     };
-})(jQuery);
+})(jQuery, window);
