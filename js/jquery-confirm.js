@@ -55,6 +55,7 @@ var jconfirm, Jconfirm;
         return $(this);
     };
     $.confirm = function (options, option2) {
+        var shortMode = (typeof options != 'object');
         if (typeof options === 'undefined') options = {};
         if (typeof options === 'string')
             options = {
@@ -65,7 +66,14 @@ var jconfirm, Jconfirm;
         if (typeof options['buttons'] != 'object')
             options['buttons'] = {};
 
-        if (Object.keys(options['buttons']).length == 0) {
+        /**
+         * Add buttons only when the user is using shortcode
+         * $.confirm({}) -> keep the buttons empty, as the user did not define it
+         * $.confirm('title', 'desc') -> auto insert buttons as its shortcode mode.
+         *
+         * Same applies for $.alert
+         */
+        if (Object.keys(options['buttons']).length == 0 && shortMode) {
             var buttons = $.extend(true, {}, jconfirm.pluginDefaults.defaultButtons, (jconfirm.defaults || {}).defaultButtons || {});
             options['buttons'] = buttons;
         }
@@ -76,6 +84,7 @@ var jconfirm, Jconfirm;
         return jconfirm(options);
     };
     $.alert = function (options, option2) {
+        var shortMode = (typeof options != 'object');
         if (typeof options === 'undefined') options = {};
         if (typeof options === 'string')
             options = {
@@ -86,7 +95,7 @@ var jconfirm, Jconfirm;
         if (typeof options.buttons != 'object')
             options.buttons = {};
 
-        if (Object.keys(options['buttons']).length == 0) {
+        if (Object.keys(options['buttons']).length == 0 && shortMode) {
             var buttons = $.extend(true, {}, jconfirm.pluginDefaults.defaultButtons, (jconfirm.defaults || {}).defaultButtons || {});
             var firstBtn = Object.keys(buttons)[0];
             options['buttons'][firstBtn] = buttons[firstBtn];
