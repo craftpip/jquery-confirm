@@ -943,11 +943,19 @@ var jconfirm, Jconfirm;
                     var ot = that._lastFocused.offset().top;
                     var wh = $(window).height();
                     if (!(ot > st && ot < (st + wh))) {
-                        $('html, body').animate({
-                            scrollTop: (ot - Math.round((wh / 3))),
-                        }, that.animationSpeed, 'swing', function () {
-                            that._lastFocused.focus();
-                        });
+                        var scrollTo = (ot - Math.round((wh / 3)));
+
+                        if(that.scrollToPreviousElement && that.scrollToPreviousElementAnimate){
+                            $('html, body').animate({
+                                scrollTop: scrollTo,
+                            }, that.animationSpeed, 'swing', function () {
+                                that._lastFocused.focus();
+                            });
+                        }else if(that.scrollToPreviousElement){
+                            $('html, body').scrollTop(scrollTo);
+                        }else{
+                            // do nothing.
+                        }
                     } else {
                         that._lastFocused.focus();
                     }
@@ -1057,6 +1065,8 @@ var jconfirm, Jconfirm;
         columnClass: 'col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1',
         boxWidth: '50%',
         useBootstrap: true,
+        scrollToPreviousElement: true,
+        scrollToPreviousElementAnimate: true,
         bootstrapClasses: {
             container: 'container',
             containerFluid: 'container-fluid',
