@@ -179,6 +179,8 @@ var jconfirm, Jconfirm;
 
             if (this.useBootstrap) {
                 template.find('.jc-bs3-row').addClass(this.bootstrapClasses.row);
+                template.find('.jc-bs3-row').addClass('justify-content-md-center justify-content-sm-center justify-content-xs-center justify-content-lg-center');
+
                 template.find('.jconfirm-box-container').addClass(this.columnClassParsed);
 
                 if (this.containerFluid)
@@ -945,15 +947,15 @@ var jconfirm, Jconfirm;
                     if (!(ot > st && ot < (st + wh))) {
                         var scrollTo = (ot - Math.round((wh / 3)));
 
-                        if(that.scrollToPreviousElement && that.scrollToPreviousElementAnimate){
+                        if (that.scrollToPreviousElement && that.scrollToPreviousElementAnimate) {
                             $('html, body').animate({
                                 scrollTop: scrollTo,
                             }, that.animationSpeed, 'swing', function () {
                                 that._lastFocused.focus();
                             });
-                        }else if(that.scrollToPreviousElement){
+                        } else if (that.scrollToPreviousElement) {
                             $('html, body').scrollTop(scrollTo);
-                        }else{
+                        } else {
                             // do nothing.
                         }
                     } else {
@@ -963,6 +965,7 @@ var jconfirm, Jconfirm;
 
                 if (typeof that.onDestroy == 'function')
                     that.onDestroy();
+
             }, closeTimer * 0.40);
 
             return true;
@@ -1064,9 +1067,9 @@ var jconfirm, Jconfirm;
         watchInterval: 100,
         columnClass: 'col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1',
         boxWidth: '50%',
-        useBootstrap: true,
         scrollToPreviousElement: true,
         scrollToPreviousElementAnimate: true,
+        useBootstrap: true,
         bootstrapClasses: {
             container: 'container',
             containerFluid: 'container-fluid',
