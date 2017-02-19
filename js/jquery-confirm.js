@@ -1125,7 +1125,7 @@ var jconfirm, Jconfirm;
         titleClass: '',
         type: 'default',
         typeAnimated: true,
-        draggable: true,
+        draggable: false,
         alignMiddle: true,
         content: 'Are you sure to continue?',
         buttons: {},
