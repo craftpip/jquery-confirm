@@ -17,8 +17,15 @@ View Detailed [Documentation & Examples](http://craftpip.github.io/jquery-confir
 
 Download the latest release [here](https://github.com/craftpip/jquery-confirm/archive/master.zip) and use the files within `dist` folder.
 
-via Bower: <br>
+via CDN:  
+`<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.1.0/jquery-confirm.min.css">`  
+`<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.1.0/jquery-confirm.min.css"></script>`
+
+via Bower:  
 `$ bower install craftpip/jquery-confirm`
+
+via NPM:  
+`$ npm install jquery-confirm`
 
 ##Basic Usage
 
