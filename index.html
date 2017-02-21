@@ -55,10 +55,12 @@
           href="demo/libs/bundled.css">
     <script src="demo/libs/bundled.js"></script>
 
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
     <link rel="stylesheet"
           href="demo/demo.css">
     <script>
-        var version = '3.0.3';
+        var version = '3.1.0';
     </script>
     <!-- Add the minified version of files from the /dist/ folder. -->
     <!-- jquery-confirm files -->
@@ -112,6 +114,9 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v3.0.3">v3.0.3</a>
+                        </li>
                         <li>
                             <a href="http://craftpip.github.io/jquery-confirm/v3.0.1">v3.0.1</a>
                         </li>
@@ -211,7 +216,7 @@
                     <div class="col-md-12">
                         <div style="height: 15px;"></div>
                         <a href="https://github.com/craftpip/jquery-confirm/releases/download/v3.0.3/jquery-confirm-v3.0.3.zip"
-                           class="btn btn-lg">Download v3.0.3
+                           class="btn btn-lg">Download v3.1.0
                         </a>
                         <a href="https://github.com/craftpip/jquery-confirm"
                            class="btn btn-lg"><i class="fa fa-github"></i> View on GitHub
@@ -311,6 +316,9 @@
                                 <a href="#namespaced-bootstrap"> Namespaced bootstrap</a>
                             </li>
                         </ul>
+                    </li>
+                    <li>
+                        <a href="#draggable"> Draggable</a>
                     </li>
                     <li>
                         <a href="animations.html"> Animations <span style="margin-left: 5px;"><i
@@ -451,7 +459,18 @@
             </div>
         </div>
         <div class="col-md-9 col-sm-12">
-            <!-- introduction -->
+
+            <!-- jquery-confirm home top -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-9535136378177592"
+                 data-ad-slot="2289264865"
+                 data-ad-format="auto"></ins>
+
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+
             <section>
                 <header>
                     <h3>Welcome to jquery-confirm!</h3>
@@ -549,6 +568,12 @@
                         <p class="text-success">Clean animations</p>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <button class="btn btn-primary btn-block example-p-7-2">Draggable</button>
+                        <p class="text-success">Drag me around</p>
+                    </div>
+                </div>
                 <script type="text/javascript">
                     // alert
                     $('.example-p-1').on('click', function () {
@@ -561,7 +586,7 @@
                             buttons: {
                                 okay: {
                                     text: 'Okay',
-                                    btnClass: 'btn-primary'
+                                    btnClass: 'btn-blue'
                                 }
                             }
                         });
@@ -579,7 +604,7 @@
                             buttons: {
                                 'confirm': {
                                     text: 'Proceed',
-                                    btnClass: 'btn-info',
+                                    btnClass: 'btn-blue',
                                     action: function () {
                                         $.confirm({
                                             title: 'This maybe critical',
@@ -590,7 +615,7 @@
                                             buttons: {
                                                 confirm: {
                                                     text: 'Yes, sure!',
-                                                    btnClass: 'btn-warning',
+                                                    btnClass: 'btn-orange',
                                                     action: function () {
                                                         $.alert('A very critical action <strong>triggered!</strong>');
                                                     }
@@ -623,7 +648,7 @@
                             buttons: {
                                 sayMyName: {
                                     text: 'Say my name',
-                                    btnClass: 'btn-warning',
+                                    btnClass: 'btn-orange',
                                     action: function () {
                                         var input = this.$content.find('input#input-name');
                                         var errorText = this.$content.find('.text-danger');
@@ -662,7 +687,7 @@
                             buttons: {
                                 okay: {
                                     text: 'okay',
-                                    btnClass: 'btn-info',
+                                    btnClass: 'btn-blue',
                                     action: function () {
                                         // do nothing
                                     }
@@ -711,7 +736,7 @@
                             escapeKey: 'cancelAction',
                             buttons: {
                                 confirm: {
-                                    btnClass: 'btn-danger',
+                                    btnClass: 'btn-red',
                                     text: 'Delete ben\'s account',
                                     action: function () {
                                         $.alert('You deleted Ben\'s account!');
@@ -767,7 +792,7 @@
                             buttons: {
                                 someButton: {
                                     text: 'Add wow',
-                                    btnClass: 'btn-success',
+                                    btnClass: 'btn-green',
                                     action: function () {
                                         this.$content.find('span').append('<br>Wowww');
                                         return false; // prevent dialog from closing.
@@ -775,7 +800,7 @@
                                 },
                                 someOtherButton: {
                                     text: 'Clear it',
-                                    btnClass: 'btn-warning',
+                                    btnClass: 'btn-orange',
                                     action: function () {
                                         this.$content.find('span').html('');
                                         return false; // prevent dialog from closing.
@@ -806,7 +831,7 @@
                             buttons: {
                                 confirm: {
                                     text: 'Add more',
-                                    class: 'btn-primary',
+                                    btnClass: 'btn-blue',
                                     action: function () {
                                         this.$content.append('<img src="https://c2.staticflickr.com/6/5248/5240523362_8d6d315391_b.jpg">');
                                         return false; // prevent dialog from closing.
@@ -845,17 +870,24 @@
                             },
                         });
                     });
+
+                    $('.example-p-7-2').on('click', function () {
+                        $.alert({
+                            title: 'A draggable dialog',
+                            content: 'This dialog is draggable, use the title to drag it around. It wont touch the screen borders',
+                            type: 'blue',
+                            draggable: true,
+                        });
+                    })
                 </script>
             </section>
 
             <section>
-                <h2>Whats new <span style="color: #aaa">in v3.0.3</span></h2>
+                <h2>Whats new <span style="color: #aaa">in v3.1.0</span></h2>
                 <ul>
-                    <li>Support for namespaced bootstrap classes</li>
-                    <li>Jconfirm can be used without bootstrap</li>
-                    <li>Added type for modals (green/success, red/failure, orange/warning, etc)</li>
-                    <li>Added setType method</li>
-                    <li>bug fixes</li>
+                    <li>Support for bootstrap v4</li>
+                    <li>Draggable dialogs</li>
+                    <li>Added options animateScrollToElement, alignMiddle, offsetTop, drawWindowGap and more</li>
                 </ul>
             </section>
 
@@ -881,8 +913,8 @@
 
                     <p>
                         <strong>via CDN:</strong>
-                    <pre class="prettyprint"><code class="html">&lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.0.3/jquery-confirm.min.css"&gt;
-&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.0.3/jquery-confirm.min.js"&gt;&lt;/script&gt;</code></pre>
+                    <pre class="prettyprint"><code class="html">&lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.1.0/jquery-confirm.min.css"&gt;
+&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.1.0/jquery-confirm.min.js"&gt;&lt;/script&gt;</code></pre>
                     </p>
 
                     <p>
@@ -967,14 +999,13 @@
                                             },
                                             somethingElse: {
                                                 text: 'Something else',
-                                                btnClass: 'btn-primary',
+                                                btnClass: 'btn-blue',
                                                 keys: [
                                                     'enter',
                                                     'shift'
                                                 ],
                                                 action: function () {
-                                                    this.$content
-                                                    // reference to the content
+                                                    this.$content // reference to the content
                                                     $.alert('Something else?');
                                                 }
                                             }
@@ -995,7 +1026,7 @@
         },
         somethingElse: {
             text: 'Something else',
-            btnClass: 'btn-primary',
+            btnClass: 'btn-blue',
             keys: ['enter', 'shift'],
             action: function(){
                 $.alert('Something else?');
@@ -1241,7 +1272,7 @@ $.dialog('Just to let you know'); <a href="#"
         },
         heyThere: {
             text: 'Hey there!',
-            btnClass: 'btn-primary',
+            btnClass: 'btn-blue',
             keys: ['enter', 'a'],
             action: function(){
                 // button action.
@@ -2051,6 +2082,34 @@ $.confirm({
                 </div>
             </section>
 
+            <section id="draggable">
+                <h2>Draggable</h2>
+                <div class="section">
+                    <p>
+                        Make the dialog draggable. simple.
+                    </p>
+                    <div class="alert alert-info">
+                        alignMiddle will be disabled if draggable is enabled. Due to jconfirm's nature of centering itself when the content changes causes UX issues when alignMiddle and draggable are enabled.
+                    </div>
+                    <button class="btn btn-primary example-draggable">Draggable</button>
+                    <div class="space10"></div>
+                    <pre class="prettyprint linenums"><code>$.confirm({
+    title: 'Hello there',
+    content: 'click and hold on the title to drag',
+    draggable: true,
+});</code></pre>
+                    <script>
+                        $('.example-draggable').click(function () {
+                            $.alert({
+                                title: 'Hello there',
+                                content: 'click and hold on the title to drag',
+                                draggable: true,
+                            });
+                        })
+                    </script>
+                </div>
+            </section>
+
             <section id="animations">
                 <h2>Animations</h2>
                 <div class="well">
@@ -2073,6 +2132,17 @@ $.confirm({
                     <a class="btn btn-warning" href="themes.html">see Themes</a>
                 </div>
             </section>
+
+            <!-- jquery-confirm home middle -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-9535136378177592"
+                 data-ad-slot="5978835267"
+                 data-ad-format="auto"></ins>
+
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
 
             <section id="ajaxloading">
                 <h2>Ajax loading</h2>
@@ -2577,7 +2647,7 @@ $.confirm({
                                 buttons: {
                                     confirm: {
                                         text: 'تایید',
-                                        btnClass: 'btn-primary',
+                                        btnClass: 'btn-blue',
                                         action: function () {
                                             alert('تایید شد.');
                                         }
@@ -2601,7 +2671,7 @@ $.confirm({
     buttons: {
         confirm: {
             text: 'تایید',
-            btnClass: 'btn-primary',
+            btnClass: 'btn-blue',
             action: function () {
                 alert('تایید شد.');
             }
@@ -2729,7 +2799,11 @@ $.confirm({
                         the plugin has loaded. of course.</p>
                     <pre class="prettyprint linenums"><code>jconfirm.defaults = {
     title: 'Hello',
+    titleClass: '',
     type: 'default',
+    draggable: true,
+    alignMiddle: true,
+    typeAnimated: true,
     content: 'Are you sure to continue?',
     buttons: {},
     defaultButtons: {
@@ -2746,7 +2820,7 @@ $.confirm({
     },
     icon: '',
     bgOpacity: null,
-    theme: 'white',
+    theme: 'light',
     animation: 'zoom',
     closeAnimation: 'scale',
     animationSpeed: 400,
@@ -2759,9 +2833,15 @@ $.confirm({
     autoClose: false,
     closeIcon: null,
     closeIconClass: false,
+    watchInterval: 100,
     columnClass: 'col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1',
     boxWidth: '50%',
+    scrollToPreviousElement: true,
+    scrollToPreviousElementAnimate: true,
     useBootstrap: true,
+    offsetTop: 50,
+    offsetBottom: 50,
+    dragWindowGap: 15,
     bootstrapClasses: {
         container: 'container',
         containerFluid: 'container-fluid',
@@ -2781,7 +2861,7 @@ $.confirm({
                 <h2>Options</h2>
 
                 <div class="section">
-                    <p>Options, their defaults, possibilities and explainations.</p>
+                    <p>Options, their defaults, possibilities and explanations.</p>
 
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped">
@@ -2799,6 +2879,16 @@ $.confirm({
                                 </td>
                                 <td>Title of the dialog. <br>
                                     Also accepts a function that returns a string.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>titleClass</td>
+                                <td>String</td>
+                                <td>
+                                    <code>''</code>
+                                </td>
+                                <td>
+                                    Class that will be applied to the title.
                                 </td>
                             </tr>
                             <tr>
@@ -2823,6 +2913,31 @@ $.confirm({
                                 </td>
                             </tr>
                             <tr>
+                                <td>draggable</td>
+                                <td>Boolean</td>
+                                <td>
+                                    <code>false</code>
+                                </td>
+                                <td>
+                                    Makes the dialog draggable,
+                                    the drag point is the title of the model, if the title is not defined the model
+                                    won't be draggable.
+                                    <br>
+                                    alignMiddle is set to false, when using draggable.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>alignMiddle</td>
+                                <td>Boolean</td>
+                                <td>
+                                    <code>true</code>
+                                </td>
+                                <td>
+                                    The model will be position in center of the screen.
+                                    When the content in the model changes, the model is reposition itself.
+                                </td>
+                            </tr>
+                            <tr>
                                 <td>content</td>
                                 <td>String, Function</td>
                                 <td><code>'Are you sure to continue?'</code></td>
@@ -2838,6 +2953,14 @@ $.confirm({
                                 <td>
                                     In use only when content is loaded via Ajax.
                                     is called on always callback of $.ajax
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>buttons</td>
+                                <td>Object</td>
+                                <td><code>{}</code></td>
+                                <td>
+                                    Multiple definition of buttons
                                 </td>
                             </tr>
                             <tr>
@@ -2985,6 +3108,15 @@ $.confirm({
                                 </td>
                             </tr>
                             <tr>
+                                <td>watchInterval</td>
+                                <td>Number</td>
+                                <td><code>100</code></td>
+                                <td>
+                                    Watch the modal for changes and is centered on screen. <br>
+                                    <i class="fa fa-info"></i> Added in v 2.5.0
+                                </td>
+                            </tr>
+                            <tr>
                                 <td>columnClass</td>
                                 <td>String</td>
                                 <td><code>'col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10
@@ -3000,9 +3132,9 @@ $.confirm({
                                 <td>Boolean</td>
                                 <td><code>true</code></td>
                                 <td>
-                                    if true, bootstrap classes will be set on the modal. columnClass wil be set on the
+                                    if true, bootstrap classes will be set on the modal. 'columnClass' wil be set on the
                                     box.
-                                    if false, bootstrap classes will not be set, instead boxWidth will be set on the
+                                    if false, bootstrap classes will not be set, instead 'boxWidth' will be set on the
                                     box.
                                 </td>
                             </tr>
@@ -3014,7 +3146,47 @@ $.confirm({
                                     This options sets the width of the box, when you're not planning to use bootstrap in
                                     your project
                                     <br>
-                                    <i class="fa fa-info"></i> Will only work if useBootstrap is set to false,
+                                    <i class="fa fa-info"></i> Will only work if 'useBootstrap' is set to false,
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>scrollToPreviousElement/td>
+                                <td>Boolean</td>
+                                <td><code>true</code></td>
+                                <td>
+                                    Scroll back to the element that was focused before jconfirm model opened.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>scrollToPreviousElementAnimate/td>
+                                <td>Boolean</td>
+                                <td><code>true</code></td>
+                                <td>
+                                    Animates the scroll to previous element.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>offsetTop/td>
+                                <td>Number</td>
+                                <td><code>50</code></td>
+                                <td>
+                                    The model will maintain at least 50px from the window's top.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>offsetBottom/td>
+                                <td>Number</td>
+                                <td><code>50</code></td>
+                                <td>
+                                    The model will maintain at least 50px from the window's bottom.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>dragWindowGap/td>
+                                <td>Number</td>
+                                <td><code>15</code></td>
+                                <td>
+                                    The model will maintain at least 15px from the window's top, left, and right side.
                                 </td>
                             </tr>
                             <tr>
@@ -3079,19 +3251,21 @@ $.confirm({
                                     is called when any of the button is clicked. buttonName is provided as argument.
                                 </td>
                             </tr>
-                            <tr>
-                                <td>watchInterval</td>
-                                <td>Number</td>
-                                <td><code>100</code></td>
-                                <td>
-                                    Watch the modal for changes and is centered on screen. <br>
-                                    <i class="fa fa-info"></i> Added in v 2.5.0
-                                </td>
-                            </tr>
                         </table>
                     </div>
                 </div>
             </section>
+
+            <!-- jquery-confirm home bottom -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-9535136378177592"
+                 data-ad-slot="5560032868"
+                 data-ad-format="auto"></ins>
+
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
 
             <section id="api">
                 <h2>Api</h2>
@@ -3367,6 +3541,10 @@ $.confirm({
 </div>
 <script type="text/javascript"
         src="demo/demo.js"></script>
+<!-- javascript for the demo page interface. -->
+
+
+<!--google stuff DO NOT COPY THIS-->
 <script>
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
@@ -3388,6 +3566,7 @@ $.confirm({
         defer
         id="github-bjs"
         src="https://buttons.github.io/buttons.js"></script>
+
 <script> window.twttr = (function (d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0], t = window.twttr || {};
     if (d.getElementById(id))
@@ -3402,8 +3581,9 @@ $.confirm({
     };
     return t;
 }(document, "script", "twitter-wjs"));
-//jconfirm.pluginDefaults.opacity = 0.5;
 </script>
-<!-- javascript for the demo page interface. -->
+
+<!--google stuff DO NOT COPY THIS-->
+
 </body>
 </html>

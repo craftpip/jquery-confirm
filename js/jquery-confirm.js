@@ -1,10 +1,10 @@
 /*!
- * jquery-confirm v3.0.3 (http://craftpip.github.io/jquery-confirm/)
+ * jquery-confirm v3.1.0 (http://craftpip.github.io/jquery-confirm/)
  * Author: Boniface Pereira
  * Website: www.craftpip.com
  * Contact: hey@craftpip.com
  *
- * Copyright 2013-2016 jquery-confirm
+ * Copyright 2013-2017 jquery-confirm
  * Licensed under MIT (https://github.com/craftpip/jquery-confirm/blob/master/LICENSE)
  */
 
@@ -13,7 +13,7 @@ if (typeof jQuery === 'undefined') {
 }
 
 var jconfirm, Jconfirm;
-(function ($) {
+(function ($, window) {
     "use strict";
 
     $.fn.confirm = function (options, option2) {
@@ -179,6 +179,8 @@ var jconfirm, Jconfirm;
 
             if (this.useBootstrap) {
                 template.find('.jc-bs3-row').addClass(this.bootstrapClasses.row);
+                template.find('.jc-bs3-row').addClass('justify-content-md-center justify-content-sm-center justify-content-xs-center justify-content-lg-center');
+
                 template.find('.jconfirm-box-container').addClass(this.columnClassParsed);
 
                 if (this.containerFluid)
@@ -206,6 +208,7 @@ var jconfirm, Jconfirm;
             this.$jconfirmBox = this.$body = this.$el.find('.jconfirm-box');
             this.$jconfirmBg = this.$el.find('.jconfirm-bg');
             this.$title = this.$el.find('.jconfirm-title');
+            this.$titleContainer = this.$el.find('.jconfirm-title-c');
             this.$content = this.$el.find('div.jconfirm-content');
             this.$contentPane = this.$el.find('.jconfirm-content-pane');
             this.$icon = this.$el.find('.jconfirm-icon-c');
@@ -222,6 +225,7 @@ var jconfirm, Jconfirm;
             this.setIcon();
             this._setButtons();
             this._parseContent();
+            this.initDraggable();
 
             if (this.isAjax)
                 this.showLoading(false);
@@ -375,6 +379,80 @@ var jconfirm, Jconfirm;
             }
             this.columnClassParsed = p;
         },
+        initDraggable: function () {
+            var that = this;
+            var $t = this.$titleContainer;
+
+            this.resetDrag();
+            if (this.draggable) {
+                $t.addClass('jconfirm-hand');
+                $t.on('mousedown', function (e) {
+                    that.mouseX = e.clientX;
+                    that.mouseY = e.clientY;
+                    that.isDrag = true;
+                });
+                $(window).on('mousemove.' + this._id, function (e) {
+                    if (that.isDrag) {
+                        that.movingX = e.clientX - that.mouseX + that.initialX;
+                        that.movingY = e.clientY - that.mouseY + that.initialY;
+                        that.setDrag();
+                    }
+                });
+
+                $(window).on('mouseup.' + this._id, function () {
+                    if (that.isDrag) {
+                        that.isDrag = false;
+                        that.initialX = that.movingX;
+                        that.initialY = that.movingY;
+                    }
+                })
+            }
+        },
+        resetDrag: function () {
+            this.isDrag = false;
+            this.initialX = 0;
+            this.initialY = 0;
+            this.movingX = 0;
+            this.movingY = 0;
+            this.movingXCurrent = 0;
+            this.movingYCurrent = 0;
+            this.mouseX = 0;
+            this.mouseY = 0;
+            this.$jconfirmBoxContainer.css('transform', 'translate(' + 0 + 'px, ' + 0 + 'px)');
+        },
+        setDrag: function () {
+            if (!this.draggable)
+                return;
+
+            this.alignMiddle = false;
+            this._boxWidth = this.$jconfirmBox.outerWidth();
+            var ww = $(window).width();
+            var that = this;
+            if (that.movingX % 2 == 0 || that.movingY % 2 == 0) {
+                var tb = that._boxTopMargin - that.dragWindowGap;
+                console.log('mouse move', that.movingX, that.movingY);
+
+                if (tb + that.movingY < 0) {
+                    that.movingY = -tb;
+                } else {
+                    that.movingYCurrent = that.movingY;
+                }
+                var lb = (ww / 2) - that._boxWidth / 2;
+                var rb = (ww / 2) + (that._boxWidth / 2) - that._boxWidth;
+                rb -= that.dragWindowGap;
+                lb -= that.dragWindowGap;
+
+                if (lb + that.movingX < 0) {
+                    that.movingX = -lb;
+                } else if (rb - that.movingX < 0) {
+                    that.movingX = rb;
+                } else {
+                    that.movingXCurrent = that.movingX;
+                }
+
+                that.$jconfirmBoxContainer.css('transform', 'translate(' + that.movingX + 'px, ' + that.movingY + 'px)');
+            }
+        },
         _hash: function (a) {
             return btoa((encodeURIComponent(a)));
         },
@@ -460,6 +538,9 @@ var jconfirm, Jconfirm;
 
             $(window).on('resize.' + this._id, function () {
                 that.setDialogCenter(true);
+                setTimeout(function () {
+                    that.resetDrag();
+                }, 100);
             });
         },
         _cubic_bezier: '0.36, 0.55, 0.19',
@@ -865,11 +946,13 @@ var jconfirm, Jconfirm;
                 }
             });
         },
+        _boxTopMargin: 0,
+        _boxBottomMargin: 0,
+        _boxWidth: 0,
         setDialogCenter: function () {
             var contentHeight;
             var paneHeight;
             var style;
-
             contentHeight = 0;
             paneHeight = 0;
             if (this.$contentPane.css('display') != 'none') {
@@ -894,18 +977,21 @@ var jconfirm, Jconfirm;
             boxHeight = (this.$body.outerHeight() - paneHeight) + contentHeight;
 
             var topMargin = (windowHeight - boxHeight) / 2;
-            var minMargin = 100; // todo: include this in options
-            if (boxHeight > (windowHeight - minMargin)) {
+            if (boxHeight > (windowHeight - (this.offsetTop + this.offsetBottom)) || !this.alignMiddle) {
                 style = {
-                    'margin-top': minMargin / 2,
-                    'margin-bottom': minMargin / 2
+                    'margin-top': this.offsetTop,
+                    'margin-bottom': this.offsetBottom
                 };
+                this._boxTopMargin = this.offsetTop;
+                this._boxBottomMargin = this.offsetBottom;
                 $('body').addClass('jconfirm-no-scroll-' + this._id);
             } else {
                 style = {
                     'margin-top': topMargin,
-                    'margin-bottom': minMargin / 2,
+                    'margin-bottom': this.offsetBottom,
                 };
+                this._boxTopMargin = topMargin;
+                this._boxBottomMargin = this.offsetBottom;
                 $('body').removeClass('jconfirm-no-scroll-' + this._id);
             }
 
@@ -913,6 +999,8 @@ var jconfirm, Jconfirm;
                 'height': contentHeight
             }).scrollTop(0);
             this.$body.css(style);
+
+            this.setDrag();
         },
         _unwatchContent: function () {
             clearInterval(this._timer);
@@ -931,6 +1019,11 @@ var jconfirm, Jconfirm;
              */
             $(window).unbind('resize.' + this._id);
             $(window).unbind('keyup.' + this._id);
+            if (this.draggable) {
+                $(window).unbind('mousemove.' + this._id);
+                $(window).unbind('mouseup.' + this._id);
+                this.$titleContainer.unbind('mousedown');
+            }
             $('body').removeClass('jconfirm-no-scroll-' + this._id);
             this.$body.addClass(this.closeAnimationParsed);
             this.$jconfirmBg.addClass('jconfirm-bg-h');
@@ -943,11 +1036,19 @@ var jconfirm, Jconfirm;
                     var ot = that._lastFocused.offset().top;
                     var wh = $(window).height();
                     if (!(ot > st && ot < (st + wh))) {
-                        $('html, body').animate({
-                            scrollTop: (ot - Math.round((wh / 3))),
-                        }, that.animationSpeed, 'swing', function () {
-                            that._lastFocused.focus();
-                        });
+                        var scrollTo = (ot - Math.round((wh / 3)));
+
+                        if (that.scrollToPreviousElement && that.scrollToPreviousElementAnimate) {
+                            $('html, body').animate({
+                                scrollTop: scrollTo,
+                            }, that.animationSpeed, 'swing', function () {
+                                that._lastFocused.focus();
+                            });
+                        } else if (that.scrollToPreviousElement) {
+                            $('html, body').scrollTop(scrollTo);
+                        } else {
+                            // do nothing.
+                        }
                     } else {
                         that._lastFocused.focus();
                     }
@@ -955,6 +1056,7 @@ var jconfirm, Jconfirm;
 
                 if (typeof that.onDestroy == 'function')
                     that.onDestroy();
+
             }, closeTimer * 0.40);
 
             return true;
@@ -1023,6 +1125,8 @@ var jconfirm, Jconfirm;
         titleClass: '',
         type: 'default',
         typeAnimated: true,
+        draggable: false,
+        alignMiddle: true,
         content: 'Are you sure to continue?',
         buttons: {},
         defaultButtons: {
@@ -1056,7 +1160,12 @@ var jconfirm, Jconfirm;
         watchInterval: 100,
         columnClass: 'col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1',
         boxWidth: '50%',
+        scrollToPreviousElement: true,
+        scrollToPreviousElementAnimate: true,
         useBootstrap: true,
+        offsetTop: 50,
+        offsetBottom: 50,
+        dragWindowGap: 15,
         bootstrapClasses: {
             container: 'container',
             containerFluid: 'container-fluid',
@@ -1081,4 +1190,4 @@ var jconfirm, Jconfirm;
 
         }
     };
-})(jQuery);
+})(jQuery, window);
