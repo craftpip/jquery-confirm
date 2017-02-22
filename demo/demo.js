@@ -13,27 +13,38 @@ $("span.version").html(version || "");
 $(document).ready(function () {
     prettyPrint();
     setTimeout(function () {
-        return;
-        $.confirm({
-            title: 'Ahh, ad blockers',
-            icon: 'fa fa-meh-o',
-            content: "Ads aren't what you're here for. But ads help me support my work. So, please consider to add this domain to your blocker's whitelist. <br>I'd really appreciate it.",
-            closeIcon: false,
-            buttons: {
-                dontCare: {
-                    text: 'I dont care &gt;:(',
+        if (typeof google_jobrunner == 'undefined') {
+            $.confirm({
+                title: 'Hmmm, ad blocker',
+                theme: 'material',
+                content: "Ads aren't what you're here for. But ads help me support my work. So, please consider to add this domain to your blocker's whitelist.",
+                closeIcon: false,
+                buttons: {
+                    done: {
+                        text: 'Did it',
+                        btnClass: 'btn-green',
+                        action: function () {
+                            $.alert('I really appreciate this. Thank you.', 'You\'re awesome');
+                            setTimeout(function () {
+                                location.reload();
+                            }, 1000);
+                        }
+                    },
+                    dontCare: {
+                        text: 'No, maybe later',
+                    }
                 }
-            }
-        });
+            });
+        }
     }, 1000);
 
-    $('.change-format-css').click(function(){
+    $('.change-format-css').click(function () {
         $('.change-format-css').addClass('active');
         $('.change-format-less').removeClass('active');
         $('.format-less').hide();
         $('.format-css').show();
     });
-    $('.change-format-less').click(function(){
+    $('.change-format-less').click(function () {
         $('.change-format-less').addClass('active');
         $('.change-format-css').removeClass('active');
         $('.format-css').hide();
