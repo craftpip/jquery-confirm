@@ -19,7 +19,7 @@ Download the latest release [here](https://github.com/craftpip/jquery-confirm/ar
 
 via CDN:  
 `<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.1.0/jquery-confirm.min.css">`  
-`<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.1.0/jquery-confirm.min.css"></script>`
+`<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.1.0/jquery-confirm.min.js"></script>`
 
 via Bower:  
 `$ bower install craftpip/jquery-confirm`
