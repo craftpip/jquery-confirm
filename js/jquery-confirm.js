@@ -430,7 +430,6 @@ var jconfirm, Jconfirm;
             var that = this;
             if (that.movingX % 2 == 0 || that.movingY % 2 == 0) {
                 var tb = that._boxTopMargin - that.dragWindowGap;
-                console.log('mouse move', that.movingX, that.movingY);
 
                 if (tb + that.movingY < 0) {
                     that.movingY = -tb;
