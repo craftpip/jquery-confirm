@@ -16,7 +16,9 @@
     "url": "https://github.com/craftpip/jquery-confirm.git"
   },
   "main": "dist/jquery-confirm.min.js",
-  "dependencies": {},
+  "dependencies": {
+    "jquery": ">=1.6"
+  },
   "bugs": {
     "url": "https://github.com/craftpip/jquery-confirm/issues"
   },
