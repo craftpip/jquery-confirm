@@ -70,6 +70,9 @@ Checkout the [documentation](http://craftpip.github.io/jquery-confirm) for furth
 
 ## Version changes
 
+(new in 3.1.1)
+* bug fixes
+
 (new in 3.1.0)
 * Support for bootstrap v4
 * Draggable dialogs
