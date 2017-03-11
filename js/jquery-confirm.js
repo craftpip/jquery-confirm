@@ -1,5 +1,5 @@
 /*!
- * jquery-confirm v3.1.0 (http://craftpip.github.io/jquery-confirm/)
+ * jquery-confirm v3.1.1 (http://craftpip.github.io/jquery-confirm/)
  * Author: Boniface Pereira
  * Website: www.craftpip.com
  * Contact: hey@craftpip.com
@@ -430,7 +430,6 @@ var jconfirm, Jconfirm;
             var that = this;
             if (that.movingX % 2 == 0 || that.movingY % 2 == 0) {
                 var tb = that._boxTopMargin - that.dragWindowGap;
-                console.log('mouse move', that.movingX, that.movingY);
 
                 if (tb + that.movingY < 0) {
                     that.movingY = -tb;

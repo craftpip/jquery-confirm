@@ -13,7 +13,7 @@ $("span.version").html(version || "");
 $(document).ready(function () {
     prettyPrint();
     setTimeout(function () {
-        if (typeof google_jobrunner == 'undefined') {
+        if (typeof google_jobrunner == 'undefined' && !localStorage['adsok']) {
             $.confirm({
                 title: 'Hmmm, ad blocker',
                 theme: 'material',
@@ -30,9 +30,21 @@ $(document).ready(function () {
                             }, 1000);
                         }
                     },
-                    dontCare: {
-                        text: 'No, maybe later',
+                    doNotAskAgain: {
+                        text: 'Don\'t ask',
+                        action: function () {
+                            localStorage['adsok'] = true;
+                        }
+                    },
+                    donate: {
+                        text: 'Donate',
+                        btnClass: 'btn-default',
+                        action: function () {
+                            window.open('https://www.paypal.me/bonifacepereira', '_blank');
+                            localStorage['adsok'] = true;
+                        }
                     }
+
                 }
             });
         }
