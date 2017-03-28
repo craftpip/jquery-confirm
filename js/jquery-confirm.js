@@ -453,7 +453,15 @@ var jconfirm, Jconfirm;
             }
         },
         _hash: function (a) {
-            return btoa((encodeURIComponent(a)));
+            var string = a.toString();
+            var hash = 0;
+            if (string.length == 0) return hash;
+            for (var i = 0; i < string.length; i++) {
+                var char = string.toString().charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash; // Convert to 32bit integer
+            }
+            return hash;
         },
         _watchContent: function () {
             var that = this;
