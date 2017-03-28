@@ -537,11 +537,19 @@ var jconfirm, Jconfirm;
                 that.boxClicked = true;
             });
 
-            setTimeout(function () {
-                $(window).on('keyup.' + that._id, function (e) {
+            var isKeyDown = false;
+            $(window).on('jcKeyDown.' + that._id, function (e) {
+                if (!isKeyDown) {
+                    isKeyDown = true;
+                    console.log('keydown' + isKeyDown);
+                }
+            });
+            $(window).on('keyup.' + that._id, function (e) {
+                if (isKeyDown) {
                     that.reactOnKey(e);
-                });
-            }, 10);
+                    isKeyDown = false;
+                }
+            });
 
             $(window).on('resize.' + this._id, function () {
                 that.setDialogCenter(true);
@@ -1026,6 +1034,7 @@ var jconfirm, Jconfirm;
              */
             $(window).unbind('resize.' + this._id);
             $(window).unbind('keyup.' + this._id);
+            $(window).unbind('keydown.' + this._id);
             if (this.draggable) {
                 $(window).unbind('mousemove.' + this._id);
                 $(window).unbind('mouseup.' + this._id);
@@ -1197,4 +1206,33 @@ var jconfirm, Jconfirm;
 
         }
     };
+
+    /**
+     * This refers to the issue #241 and #246
+     *
+     * Problem:
+     * Button A is clicked (keydown) using the Keyboard ENTER key
+     * A opens the jconfirm modal B,
+     * B has registered ENTER key for one of its button C
+     * A is released (keyup), B gets the keyup event and triggers C.
+     *
+     * Solution:
+     * Register a global keydown event, that tells jconfirm if the keydown originated inside jconfirm
+     */
+    var keyDown = false;
+    $(window).on('keydown', function (e) {
+        if (!keyDown) {
+            var $target = $(e.target);
+            var pass = false;
+            if ($target.closest('.jconfirm-box').length)
+                pass = true;
+            if (pass)
+                $(window).trigger('jcKeyDown');
+
+            keyDown = true;
+        }
+    });
+    $(window).on('keyup', function (e) {
+        keyDown = false;
+    });
 })(jQuery, window);
