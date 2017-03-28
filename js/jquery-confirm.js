@@ -1034,7 +1034,8 @@ var jconfirm, Jconfirm;
              */
             $(window).unbind('resize.' + this._id);
             $(window).unbind('keyup.' + this._id);
-            $(window).unbind('keydown.' + this._id);
+            $(window).unbind('jcKeyDown.' + this._id);
+
             if (this.draggable) {
                 $(window).unbind('mousemove.' + this._id);
                 $(window).unbind('mouseup.' + this._id);
