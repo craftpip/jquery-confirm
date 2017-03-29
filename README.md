@@ -27,13 +27,14 @@ via Bower:
 via NPM:  
 `$ npm install jquery-confirm`
 
-##Basic Usage
+## Basic Usage
 
 Showing a confirm box.
 ```js
 $.confirm({
     title: 'What is up?',
     content: 'Here goes a little content',
+    type: 'green',
     buttons: {   
         ok: {
             text: "ok!",
