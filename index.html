@@ -2637,19 +2637,46 @@ $.confirm({
                         If you need to show the confirm box in rtl then you should set the rtl option to true.
                     </p>
                     <button class="btn btn-primary example23-1-1">Try RTL</button>
+                    <button class="btn btn-primary example23-1-1-1">Try RTL with icon</button>
                     <script type="text/javascript">
                         $('.example23-1-1').on('click', function () {
                             $.alert({
                                 title: 'پیغام',
                                 content: 'این یک متن به زبان شیرین فارسی است',
                                 rtl: true,
+                                theme: 'bootstrap',
                                 closeIcon: true,
                                 buttons: {
                                     confirm: {
                                         text: 'تایید',
                                         btnClass: 'btn-blue',
                                         action: function () {
-                                            alert('تایید شد.');
+                                            $.alert('تایید شد.');
+                                        }
+                                    },
+                                    cancel: {
+                                        text: 'انصراف',
+                                        action: function () {
+
+                                        }
+                                    }
+                                }
+                            });
+                        });
+                        $('.example23-1-1-1').on('click', function () {
+                            $.alert({
+                                title: 'پیغام',
+                                icon: 'fa fa-rocket',
+                                content: 'این یک متن به زبان شیرین فارسی است',
+                                rtl: true,
+                                theme: 'bootstrap',
+                                closeIcon: true,
+                                buttons: {
+                                    confirm: {
+                                        text: 'تایید',
+                                        btnClass: 'btn-blue',
+                                        action: function () {
+                                            $.alert('تایید شد.');
                                         }
                                     },
                                     cancel: {
@@ -2673,7 +2700,7 @@ $.confirm({
             text: 'تایید',
             btnClass: 'btn-blue',
             action: function () {
-                alert('تایید شد.');
+                $.alert('تایید شد.');
             }
         },
         cancel: {
