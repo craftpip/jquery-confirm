@@ -1063,6 +1063,7 @@ var jconfirm, Jconfirm;
                 // no instances should be open, lastFocused should be true, the lastFocused element must exists in DOM
                 if (!jconfirm.instances.length) {
                     if (that.scrollToPreviousElement && jconfirm.lastFocused && jconfirm.lastFocused.length && $.contains(document, jconfirm.lastFocused[0])) {
+                        var $lf = jconfirm.lastFocused;
                         if (that.scrollToPreviousElementAnimate) {
                             var st = $(window).scrollTop();
                             var ot = jconfirm.lastFocused.offset().top;
@@ -1073,14 +1074,14 @@ var jconfirm, Jconfirm;
                                     scrollTop: scrollTo,
                                 }, that.animationSpeed, 'swing', function () {
                                     // gracefully scroll and then focus.
-                                    jconfirm.lastFocused.focus();
+                                    $lf.focus();
                                 });
                             } else {
                                 // the element to be focused is already in view.
-                                jconfirm.lastFocused.focus();
+                                $lf.focus();
                             }
                         } else {
-                            jconfirm.lastFocused.focus();
+                            $lf.focus();
                         }
                         jconfirm.lastFocused = false;
                     }
