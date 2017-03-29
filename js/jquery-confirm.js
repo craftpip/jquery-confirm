@@ -151,7 +151,9 @@ var jconfirm, Jconfirm;
         _init: function () {
             var that = this;
 
-            this._lastFocused = $('body').find(':focus');
+            if (!jconfirm.instances.length)
+                jconfirm.lastFocused = $('body').find(':focus');
+
             this._id = Math.round(Math.random() * 99999);
             setTimeout(function () {
                 that.open();
@@ -1057,25 +1059,29 @@ var jconfirm, Jconfirm;
                 }
 
                 // Focusing a element, scrolls automatically to that element.
-                if (that.scrollToPreviousElement && that._lastFocused.length && $.contains(document, that._lastFocused[0])) {
-                    if (that.scrollToPreviousElementAnimate) {
-                        var st = $(window).scrollTop();
-                        var ot = that._lastFocused.offset().top;
-                        var wh = $(window).height();
-                        if (!(ot > st && ot < (st + wh))) {
-                            var scrollTo = (ot - Math.round((wh / 3)));
-                            $('html, body').animate({
-                                scrollTop: scrollTo,
-                            }, that.animationSpeed, 'swing', function () {
-                                // gracefully scroll and then focus.
-                                that._lastFocused.focus();
-                            });
+                // no instances should be open, lastFocused should be true, the lastFocused element must exists in DOM
+                if (!jconfirm.instances.length) {
+                    if (that.scrollToPreviousElement && jconfirm.lastFocused && jconfirm.lastFocused.length && $.contains(document, jconfirm.lastFocused[0])) {
+                        if (that.scrollToPreviousElementAnimate) {
+                            var st = $(window).scrollTop();
+                            var ot = jconfirm.lastFocused.offset().top;
+                            var wh = $(window).height();
+                            if (!(ot > st && ot < (st + wh))) {
+                                var scrollTo = (ot - Math.round((wh / 3)));
+                                $('html, body').animate({
+                                    scrollTop: scrollTo,
+                                }, that.animationSpeed, 'swing', function () {
+                                    // gracefully scroll and then focus.
+                                    jconfirm.lastFocused.focus();
+                                });
+                            } else {
+                                // the element to be focused is already in view.
+                                jconfirm.lastFocused.focus();
+                            }
                         } else {
-                            // the element to be focused is already in view.
-                            that._lastFocused.focus();
+                            jconfirm.lastFocused.focus();
                         }
-                    } else {
-                        that._lastFocused.focus();
+                        jconfirm.lastFocused = false;
                     }
                 }
 
@@ -1126,6 +1132,7 @@ var jconfirm, Jconfirm;
     };
 
     jconfirm.instances = [];
+    jconfirm.lastFocused = false;
     jconfirm.pluginDefaults = {
         template: '' +
         '<div class="jconfirm">' +
