@@ -1048,6 +1048,14 @@ var jconfirm, Jconfirm;
             setTimeout(function () {
                 that.$el.remove();
 
+                var l = jconfirm.instances;
+                var i = jconfirm.instances.length - 1;
+                for (i; i >= 0; i--) {
+                    if (jconfirm.instances[i]._id == that._id) {
+                        jconfirm.instances.splice(i, 1);
+                    }
+                }
+
                 if (that._lastFocused.length && $.contains(document, that._lastFocused[0])) {
                     var st = $(window).scrollTop();
                     var ot = that._lastFocused.offset().top;
