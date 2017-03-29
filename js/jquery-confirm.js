@@ -1056,23 +1056,23 @@ var jconfirm, Jconfirm;
                     }
                 }
 
-                if (that._lastFocused.length && $.contains(document, that._lastFocused[0])) {
-                    var st = $(window).scrollTop();
-                    var ot = that._lastFocused.offset().top;
-                    var wh = $(window).height();
-                    if (!(ot > st && ot < (st + wh))) {
-                        var scrollTo = (ot - Math.round((wh / 3)));
-
-                        if (that.scrollToPreviousElement && that.scrollToPreviousElementAnimate) {
+                // Focusing a element, scrolls automatically to that element.
+                if (that.scrollToPreviousElement && that._lastFocused.length && $.contains(document, that._lastFocused[0])) {
+                    if (that.scrollToPreviousElementAnimate) {
+                        var st = $(window).scrollTop();
+                        var ot = that._lastFocused.offset().top;
+                        var wh = $(window).height();
+                        if (!(ot > st && ot < (st + wh))) {
+                            var scrollTo = (ot - Math.round((wh / 3)));
                             $('html, body').animate({
                                 scrollTop: scrollTo,
                             }, that.animationSpeed, 'swing', function () {
+                                // gracefully scroll and then focus.
                                 that._lastFocused.focus();
                             });
-                        } else if (that.scrollToPreviousElement) {
-                            $('html, body').scrollTop(scrollTo);
                         } else {
-                            // do nothing.
+                            // the element to be focused is already in view.
+                            that._lastFocused.focus();
                         }
                     } else {
                         that._lastFocused.focus();
