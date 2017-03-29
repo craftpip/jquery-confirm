@@ -60,7 +60,7 @@
     <link rel="stylesheet"
           href="demo/demo.css">
     <script>
-        var version = '3.1.1';
+        var version = '3.2.0';
     </script>
     <!-- Add the minified version of files from the /dist/ folder. -->
     <!-- jquery-confirm files -->
@@ -112,6 +112,9 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v3.1.1">v3.1.1</a>
+                        </li>
                         <li>
                             <a href="http://craftpip.github.io/jquery-confirm/v3.0.3">v3.0.3</a>
                         </li>
@@ -289,6 +292,7 @@
 
                     <button class="btn btn-primary example4">Light theme</button>
                     <button class="btn btn-primary example5">Dark theme</button>
+                    <button class="btn btn-primary example5-3-3">Modern</button>
                     <button class="btn btn-primary example5-3">Supervan</button>
                     <button class="btn btn-primary example5-3-1">Material</button>
                     <button class="btn btn-primary example5-3-2">Bootstrap</button>
@@ -296,28 +300,56 @@
                     <script type="text/javascript">
                         $('.example4').on('click', function () {
                             $.confirm({
+                                icon: 'fa fa-question',
                                 theme: 'white',
-                                bgOpacity: .3,
+                                closeIcon: true,
+                                animation: 'scale',
+                                type: 'orange',
                             });
                         });
                         $('.example5').on('click', function () {
                             $.confirm({
-                                theme: 'black'
+                                icon: 'fa fa-question',
+                                theme: 'black',
+                                closeIcon: true,
+                                animation: 'scale',
+                                type: 'orange',
                             });
                         });
                         $('.example5-3').on('click', function () {
                             $.confirm({
-                                theme: 'supervan'
+                                icon: 'fa fa-question',
+                                theme: 'supervan',
+                                closeIcon: true,
+                                animation: 'scale',
+                                type: 'orange',
                             });
                         });
                         $('.example5-3-1').on('click', function () {
                             $.confirm({
-                                theme: 'material'
+                                icon: 'fa fa-question',
+                                theme: 'material',
+                                closeIcon: true,
+                                animation: 'scale',
+                                type: 'orange',
                             });
                         });
                         $('.example5-3-2').on('click', function () {
                             $.confirm({
+                                icon: 'fa fa-question',
                                 theme: 'bootstrap',
+                                closeIcon: true,
+                                animation: 'scale',
+                                type: 'orange',
+                            });
+                        });
+                        $('.example5-3-3').on('click', function () {
+                            $.confirm({
+                                icon: 'fa fa-question',
+                                theme: 'modern',
+                                closeIcon: true,
+                                animation: 'scale',
+                                type: 'orange',
                             });
                         });
                     </script>

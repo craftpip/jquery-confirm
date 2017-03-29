@@ -1,7 +1,7 @@
 ### ![jquery-confirm](https://raw.githubusercontent.com/craftpip/jquery-confirm/master/jquery-confirm.png "jquery-confirm")
 *alerts, confirms and dialogs in* ***one.***
 
-v3.1.1
+v3.2.0
 
 A multipurpose plugin for alert, confirm & dialog, with Super powers.
 
@@ -18,8 +18,8 @@ View Detailed [Documentation & Examples](http://craftpip.github.io/jquery-confir
 Download the latest release [here](https://github.com/craftpip/jquery-confirm/archive/master.zip) and use the files within `dist` folder.
 
 via CDN:  
-`<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.1.1/jquery-confirm.min.css">`  
-`<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.1.1/jquery-confirm.min.js"></script>`
+`<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.2.0/jquery-confirm.min.css">`  
+`<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.2.0/jquery-confirm.min.js"></script>`
 
 via Bower:  
 `$ bower install craftpip/jquery-confirm`
@@ -27,13 +27,14 @@ via Bower:
 via NPM:  
 `$ npm install jquery-confirm`
 
-##Basic Usage
+## Basic Usage
 
 Showing a confirm box.
 ```js
 $.confirm({
     title: 'What is up?',
     content: 'Here goes a little content',
+    type: 'green',
     buttons: {   
         ok: {
             text: "ok!",
@@ -69,6 +70,11 @@ The `$.alert()` , `$.confirm()` & `$.dialog()` are alias of `jconfirm();`.
 Checkout the [documentation](http://craftpip.github.io/jquery-confirm) for further information.
 
 ## Version changes
+
+(new in 3.2.0)
+* new theme Modern added
+* fixed [#242](https://github.com/craftpip/jquery-confirm/issues/242) [#248](https://github.com/craftpip/jquery-confirm/issues/242) 
+* themes RTL & supervan fixes
 
 (new in 3.1.1)
 * bug fixes

@@ -1,5 +1,5 @@
 /*!
- * jquery-confirm v3.1.1 (http://craftpip.github.io/jquery-confirm/)
+ * jquery-confirm v3.2.0 (http://craftpip.github.io/jquery-confirm/)
  * Author: Boniface Pereira
  * Website: www.craftpip.com
  * Contact: hey@craftpip.com
@@ -151,7 +151,9 @@ var jconfirm, Jconfirm;
         _init: function () {
             var that = this;
 
-            this._lastFocused = $('body').find(':focus');
+            if (!jconfirm.instances.length)
+                jconfirm.lastFocused = $('body').find(':focus');
+
             this._id = Math.round(Math.random() * 99999);
             setTimeout(function () {
                 that.open();
@@ -453,7 +455,15 @@ var jconfirm, Jconfirm;
             }
         },
         _hash: function (a) {
-            return btoa((encodeURIComponent(a)));
+            var string = a.toString();
+            var hash = 0;
+            if (string.length == 0) return hash;
+            for (var i = 0; i < string.length; i++) {
+                var char = string.toString().charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash; // Convert to 32bit integer
+            }
+            return hash;
         },
         _watchContent: function () {
             var that = this;
@@ -529,11 +539,19 @@ var jconfirm, Jconfirm;
                 that.boxClicked = true;
             });
 
-            setTimeout(function () {
-                $(window).on('keyup.' + that._id, function (e) {
+            var isKeyDown = false;
+            $(window).on('jcKeyDown.' + that._id, function (e) {
+                if (!isKeyDown) {
+                    isKeyDown = true;
+                    console.log('keydown' + isKeyDown);
+                }
+            });
+            $(window).on('keyup.' + that._id, function (e) {
+                if (isKeyDown) {
                     that.reactOnKey(e);
-                });
-            }, 10);
+                    isKeyDown = false;
+                }
+            });
 
             $(window).on('resize.' + this._id, function () {
                 that.setDialogCenter(true);
@@ -1018,6 +1036,8 @@ var jconfirm, Jconfirm;
              */
             $(window).unbind('resize.' + this._id);
             $(window).unbind('keyup.' + this._id);
+            $(window).unbind('jcKeyDown.' + this._id);
+
             if (this.draggable) {
                 $(window).unbind('mousemove.' + this._id);
                 $(window).unbind('mouseup.' + this._id);
@@ -1027,29 +1047,43 @@ var jconfirm, Jconfirm;
             this.$body.addClass(this.closeAnimationParsed);
             this.$jconfirmBg.addClass('jconfirm-bg-h');
             var closeTimer = (this.closeAnimation == 'none') ? 1 : this.animationSpeed;
+            that.$el.removeClass(that.loadedClass);
             setTimeout(function () {
                 that.$el.remove();
 
-                if (that._lastFocused.length && $.contains(document, that._lastFocused[0])) {
-                    var st = $(window).scrollTop();
-                    var ot = that._lastFocused.offset().top;
-                    var wh = $(window).height();
-                    if (!(ot > st && ot < (st + wh))) {
-                        var scrollTo = (ot - Math.round((wh / 3)));
+                var l = jconfirm.instances;
+                var i = jconfirm.instances.length - 1;
+                for (i; i >= 0; i--) {
+                    if (jconfirm.instances[i]._id == that._id) {
+                        jconfirm.instances.splice(i, 1);
+                    }
+                }
 
-                        if (that.scrollToPreviousElement && that.scrollToPreviousElementAnimate) {
-                            $('html, body').animate({
-                                scrollTop: scrollTo,
-                            }, that.animationSpeed, 'swing', function () {
-                                that._lastFocused.focus();
-                            });
-                        } else if (that.scrollToPreviousElement) {
-                            $('html, body').scrollTop(scrollTo);
+                // Focusing a element, scrolls automatically to that element.
+                // no instances should be open, lastFocused should be true, the lastFocused element must exists in DOM
+                if (!jconfirm.instances.length) {
+                    if (that.scrollToPreviousElement && jconfirm.lastFocused && jconfirm.lastFocused.length && $.contains(document, jconfirm.lastFocused[0])) {
+                        var $lf = jconfirm.lastFocused;
+                        if (that.scrollToPreviousElementAnimate) {
+                            var st = $(window).scrollTop();
+                            var ot = jconfirm.lastFocused.offset().top;
+                            var wh = $(window).height();
+                            if (!(ot > st && ot < (st + wh))) {
+                                var scrollTo = (ot - Math.round((wh / 3)));
+                                $('html, body').animate({
+                                    scrollTop: scrollTo,
+                                }, that.animationSpeed, 'swing', function () {
+                                    // gracefully scroll and then focus.
+                                    $lf.focus();
+                                });
+                            } else {
+                                // the element to be focused is already in view.
+                                $lf.focus();
+                            }
                         } else {
-                            // do nothing.
+                            $lf.focus();
                         }
-                    } else {
-                        that._lastFocused.focus();
+                        jconfirm.lastFocused = false;
                     }
                 }
 
@@ -1083,8 +1117,11 @@ var jconfirm, Jconfirm;
                 that._modalReady.resolve();
                 if (typeof that.onOpen === 'function')
                     that.onOpen();
+
+                that.$el.addClass(that.loadedClass);
             }, this.animationSpeed);
         },
+        loadedClass: 'jconfirm-open',
         isClosed: function () {
             return this.$el.css('display') === '';
         },
@@ -1100,6 +1137,7 @@ var jconfirm, Jconfirm;
     };
 
     jconfirm.instances = [];
+    jconfirm.lastFocused = false;
     jconfirm.pluginDefaults = {
         template: '' +
         '<div class="jconfirm">' +
@@ -1189,4 +1227,33 @@ var jconfirm, Jconfirm;
 
         }
     };
+
+    /**
+     * This refers to the issue #241 and #246
+     *
+     * Problem:
+     * Button A is clicked (keydown) using the Keyboard ENTER key
+     * A opens the jconfirm modal B,
+     * B has registered ENTER key for one of its button C
+     * A is released (keyup), B gets the keyup event and triggers C.
+     *
+     * Solution:
+     * Register a global keydown event, that tells jconfirm if the keydown originated inside jconfirm
+     */
+    var keyDown = false;
+    $(window).on('keydown', function (e) {
+        if (!keyDown) {
+            var $target = $(e.target);
+            var pass = false;
+            if ($target.closest('.jconfirm-box').length)
+                pass = true;
+            if (pass)
+                $(window).trigger('jcKeyDown');
+
+            keyDown = true;
+        }
+    });
+    $(window).on('keyup', function (e) {
+        keyDown = false;
+    });
 })(jQuery, window);
