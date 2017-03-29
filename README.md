@@ -73,8 +73,8 @@ Checkout the [documentation](http://craftpip.github.io/jquery-confirm) for furth
 
 (new in 3.2.0)
 * new theme Modern added
-* bug fixes
-* UX fixes
+* fixed [#242](https://github.com/craftpip/jquery-confirm/issues/242) [#248](https://github.com/craftpip/jquery-confirm/issues/242) 
+* themes RTL & supervan fixes
 
 (new in 3.1.1)
 * bug fixes
