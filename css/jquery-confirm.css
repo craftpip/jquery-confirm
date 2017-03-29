@@ -447,6 +447,24 @@ body[class*=jconfirm-no-scroll-] {
   background-color: #2c3e50;
   color: #FFF;
 }
+.jconfirm .jconfirm-box.jconfirm-type-red .jconfirm-title-c .jconfirm-icon-c {
+  color: #e74c3c !important;
+}
+.jconfirm .jconfirm-box.jconfirm-type-blue .jconfirm-title-c .jconfirm-icon-c {
+  color: #3498db !important;
+}
+.jconfirm .jconfirm-box.jconfirm-type-green .jconfirm-title-c .jconfirm-icon-c {
+  color: #2ecc71 !important;
+}
+.jconfirm .jconfirm-box.jconfirm-type-purple .jconfirm-title-c .jconfirm-icon-c {
+  color: #9b59b6 !important;
+}
+.jconfirm .jconfirm-box.jconfirm-type-orange .jconfirm-title-c .jconfirm-icon-c {
+  color: #f1c40f !important;
+}
+.jconfirm .jconfirm-box.jconfirm-type-dark .jconfirm-title-c .jconfirm-icon-c {
+  color: #34495e !important;
+}
 .jconfirm .jconfirm-clear {
   clear: both;
 }
@@ -736,6 +754,24 @@ body[class*=jconfirm-no-scroll-] {
 .jconfirm.jconfirm-supervan .jconfirm-box {
   background-color: transparent;
 }
+.jconfirm.jconfirm-supervan .jconfirm-box.jconfirm-type-blue {
+  border: none;
+}
+.jconfirm.jconfirm-supervan .jconfirm-box.jconfirm-type-green {
+  border: none;
+}
+.jconfirm.jconfirm-supervan .jconfirm-box.jconfirm-type-red {
+  border: none;
+}
+.jconfirm.jconfirm-supervan .jconfirm-box.jconfirm-type-orange {
+  border: none;
+}
+.jconfirm.jconfirm-supervan .jconfirm-box.jconfirm-type-purple {
+  border: none;
+}
+.jconfirm.jconfirm-supervan .jconfirm-box.jconfirm-type-dark {
+  border: none;
+}
 .jconfirm.jconfirm-supervan .jconfirm-box div.jconfirm-closeIcon {
   color: white;
 }
@@ -851,4 +887,62 @@ body[class*=jconfirm-no-scroll-] {
 .jconfirm.jconfirm-bootstrap.jconfirm-rtl .jconfirm-title-c .jconfirm-icon-c {
   margin-left: 8px;
   margin-right: 0px;
+}
+.jconfirm.jconfirm-modern .jconfirm-bg {
+  background-color: slategray;
+  opacity: .6;
+}
+.jconfirm.jconfirm-modern .jconfirm-box {
+  background-color: white;
+  box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2), 0 13px 19px 2px rgba(0, 0, 0, 0.14), 0 5px 24px 4px rgba(0, 0, 0, 0.12);
+  padding: 30px 30px 15px;
+}
+.jconfirm.jconfirm-modern .jconfirm-box div.jconfirm-closeIcon {
+  color: rgba(0, 0, 0, 0.87);
+  top: 15px;
+  right: 15px;
+}
+.jconfirm.jconfirm-modern .jconfirm-box div.jconfirm-title-c {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.jconfirm.jconfirm-modern .jconfirm-box div.jconfirm-title-c .jconfirm-icon-c {
+  -webkit-transition: -webkit-transform .5s;
+          transition: transform .5s;
+  -webkit-transform: scale(0);
+      -ms-transform: scale(0);
+          transform: scale(0);
+  display: block;
+  margin-right: 0px;
+  margin-left: 0px;
+  margin-bottom: 10px;
+  font-size: 69px;
+  color: #aaa;
+}
+.jconfirm.jconfirm-modern .jconfirm-box div.jconfirm-content {
+  text-align: center;
+  font-size: 15px;
+  color: #777;
+  margin-bottom: 25px;
+}
+.jconfirm.jconfirm-modern .jconfirm-box .jconfirm-buttons {
+  text-align: center;
+}
+.jconfirm.jconfirm-modern .jconfirm-box .jconfirm-buttons button {
+  font-weight: bold;
+  text-transform: uppercase;
+  -webkit-transition: background .1s;
+          transition: background .1s;
+  padding: 10px 20px;
+}
+.jconfirm.jconfirm-modern .jconfirm-box .jconfirm-buttons button + button {
+  margin-left: 4px;
+}
+.jconfirm.jconfirm-modern.jconfirm-open .jconfirm-box .jconfirm-title-c .jconfirm-icon-c {
+  -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+          transform: scale(1);
 }

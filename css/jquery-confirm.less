@@ -389,6 +389,25 @@ body[class*=jconfirm-no-scroll-] {
         }
       }
     }
+
+    &.jconfirm-type-red .jconfirm-title-c .jconfirm-icon-c {
+      color: @red !important;
+    }
+    &.jconfirm-type-blue .jconfirm-title-c .jconfirm-icon-c {
+      color: @blue !important;
+    }
+    &.jconfirm-type-green .jconfirm-title-c .jconfirm-icon-c {
+      color: @green !important;
+    }
+    &.jconfirm-type-purple .jconfirm-title-c .jconfirm-icon-c {
+      color: @purple !important;
+    }
+    &.jconfirm-type-orange .jconfirm-title-c .jconfirm-icon-c {
+      color: @orange !important;
+    }
+    &.jconfirm-type-dark .jconfirm-title-c .jconfirm-icon-c {
+      color: @dark !important;
+    }
   }
 
   .jconfirm-clear {
@@ -597,8 +616,28 @@ body[class*=jconfirm-no-scroll-] {
   .jconfirm-bg {
     background-color: rgba(54, 70, 93, .95);
   }
+
   .jconfirm-box {
     background-color: transparent;
+
+    &.jconfirm-type-blue {
+      border: none;
+    }
+    &.jconfirm-type-green {
+      border: none;
+    }
+    &.jconfirm-type-red {
+      border: none;
+    }
+    &.jconfirm-type-orange {
+      border: none;
+    }
+    &.jconfirm-type-purple {
+      border: none;
+    }
+    &.jconfirm-type-dark {
+      border: none;
+    }
 
     div.jconfirm-closeIcon {
       color: white;
@@ -790,6 +829,82 @@ body[class*=jconfirm-no-scroll-] {
     .jconfirm-title-c .jconfirm-icon-c {
       margin-left: 8px;
       margin-right: 0px;
+    }
+  }
+}
+
+.jconfirm.jconfirm-modern {
+  .jconfirm-bg {
+    background-color: slategray;
+    opacity: .6;
+  }
+
+  .jconfirm-box {
+    background-color: white;
+    box-shadow: 0 7px 8px -4px rgba(0, 0, 0, .2), 0 13px 19px 2px rgba(0, 0, 0, .14), 0 5px 24px 4px rgba(0, 0, 0, .12);
+    padding: 30px 30px 15px;
+
+    div.jconfirm-closeIcon {
+      color: rgba(0, 0, 0, 0.87);
+      top: 15px;
+      right: 15px;
+    }
+
+    div.jconfirm-title-c {
+      color: rgba(0, 0, 0, .87);
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 10px;
+
+      .jconfirm-icon-c {
+        transition: transform .5s;
+        transform: scale(0);
+        display: block;
+        margin-right: 0px;
+        margin-left: 0px;
+        margin-bottom: 10px;
+        font-size: 69px;
+        color: #aaa;
+      }
+    }
+
+    div.jconfirm-content {
+      text-align: center;
+      font-size: 15px;
+      color: #777;
+      margin-bottom: 25px;
+
+      &:empty {
+        &:before {
+
+        }
+        &:after {
+
+        }
+      }
+    }
+    .jconfirm-buttons {
+      text-align: center;
+
+      button {
+        font-weight: bold;
+        text-transform: uppercase;
+        transition: background .1s;
+        padding: 10px 20px;
+
+        &.btn-success {
+
+        }
+      }
+      button + button {
+        margin-left: 4px;
+      }
+    }
+  }
+  &.jconfirm-open {
+    .jconfirm-box .jconfirm-title-c .jconfirm-icon-c {
+      transform: scale(1);
     }
   }
 }

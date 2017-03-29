@@ -1047,6 +1047,7 @@ var jconfirm, Jconfirm;
             this.$body.addClass(this.closeAnimationParsed);
             this.$jconfirmBg.addClass('jconfirm-bg-h');
             var closeTimer = (this.closeAnimation == 'none') ? 1 : this.animationSpeed;
+            that.$el.removeClass(that.loadedClass);
             setTimeout(function () {
                 that.$el.remove();
 
@@ -1115,8 +1116,11 @@ var jconfirm, Jconfirm;
                 that._modalReady.resolve();
                 if (typeof that.onOpen === 'function')
                     that.onOpen();
+
+                that.$el.addClass(that.loadedClass);
             }, this.animationSpeed);
         },
+        loadedClass: 'jconfirm-open',
         isClosed: function () {
             return this.$el.css('display') === '';
         },
