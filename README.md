@@ -71,6 +71,9 @@ Checkout the [documentation](http://craftpip.github.io/jquery-confirm) for furth
 
 ## Version changes
 
+(new in 3.2.1)
+* Fixed autoClose bug decimal point countdown if 1500 milliseconds was provided.
+
 (new in 3.2.0)
 * new theme Modern added
 * fixed [#242](https://github.com/craftpip/jquery-confirm/issues/242) [#248](https://github.com/craftpip/jquery-confirm/issues/242) 
