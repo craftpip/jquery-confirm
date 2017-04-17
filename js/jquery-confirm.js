@@ -543,7 +543,6 @@ var jconfirm, Jconfirm;
             $(window).on('jcKeyDown.' + that._id, function (e) {
                 if (!isKeyDown) {
                     isKeyDown = true;
-                    console.log('keydown' + isKeyDown);
                 }
             });
             $(window).on('keyup.' + that._id, function (e) {
