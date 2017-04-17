@@ -1,7 +1,7 @@
 ### ![jquery-confirm](https://raw.githubusercontent.com/craftpip/jquery-confirm/master/jquery-confirm.png "jquery-confirm")
 *alerts, confirms and dialogs in* ***one.***
 
-v3.2.0
+v3.2.1
 
 A multipurpose plugin for alert, confirm & dialog, with Super powers.
 
@@ -18,8 +18,8 @@ View Detailed [Documentation & Examples](http://craftpip.github.io/jquery-confir
 Download the latest release [here](https://github.com/craftpip/jquery-confirm/archive/master.zip) and use the files within `dist` folder.
 
 via CDN:  
-`<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.2.0/jquery-confirm.min.css">`  
-`<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.2.0/jquery-confirm.min.js"></script>`
+`<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.2.1/jquery-confirm.min.css">`  
+`<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.2.1/jquery-confirm.min.js"></script>`
 
 via Bower:  
 `$ bower install craftpip/jquery-confirm`

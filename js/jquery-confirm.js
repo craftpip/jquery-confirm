@@ -1,5 +1,5 @@
 /*!
- * jquery-confirm v3.2.0 (http://craftpip.github.io/jquery-confirm/)
+ * jquery-confirm v3.2.1 (http://craftpip.github.io/jquery-confirm/)
  * Author: Boniface Pereira
  * Website: www.craftpip.com
  * Contact: hey@craftpip.com
@@ -456,14 +456,14 @@ var jconfirm, Jconfirm;
         },
         _hash: function (a) {
             var string = a.toString();
-            var hash = 0;
-            if (string.length == 0) return hash;
+            var h = 0;
+            if (string.length == 0) return h;
             for (var i = 0; i < string.length; i++) {
-                var char = string.toString().charCodeAt(i);
-                hash = ((hash << 5) - hash) + char;
-                hash = hash & hash; // Convert to 32bit integer
+                var c = string.toString().charCodeAt(i);
+                h = ((h << 5) - h) + c;
+                h = h & h; // Convert to 32bit integer
             }
-            return hash;
+            return h;
         },
         _watchContent: function () {
             var that = this;
