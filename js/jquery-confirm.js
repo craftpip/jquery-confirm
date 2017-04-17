@@ -871,13 +871,13 @@ var jconfirm, Jconfirm;
                 return false;
             }
 
-            var seconds = time / 1000;
+            var seconds = Math.ceil(time / 1000);
             this.$cd = $('<span class="countdown"> (' + seconds + ')</span>')
                 .appendTo(this['$_' + button_key]);
 
             this.autoCloseInterval = setInterval(function () {
                 that.$cd.html(' (' + (seconds -= 1) + ') ');
-                if (seconds === 0) {
+                if (seconds <= 0) {
                     that['$$' + button_key].trigger('click');
                     that._stopCountDown();
                 }
