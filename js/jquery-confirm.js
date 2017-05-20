@@ -18,12 +18,12 @@ var jconfirm, Jconfirm;
 
     $.fn.confirm = function (options, option2) {
         if (typeof options === 'undefined') options = {};
-        if (typeof options === 'string')
+        if (typeof options === 'string') {
             options = {
                 content: options,
                 title: (option2) ? option2 : false
             };
-
+        }
         /*
          *  Alias of $.confirm to emulate native confirm()
          */
@@ -56,11 +56,12 @@ var jconfirm, Jconfirm;
     };
     $.confirm = function (options, option2) {
         if (typeof options === 'undefined') options = {};
-        if (typeof options === 'string')
+        if (typeof options === 'string') {
             options = {
                 content: options,
-                title: (option2) ? option2 : false,
+                title: (option2) ? option2 : false
             };
+        }
 
         if (typeof options['buttons'] != 'object')
             options['buttons'] = {};
@@ -77,11 +78,12 @@ var jconfirm, Jconfirm;
     };
     $.alert = function (options, option2) {
         if (typeof options === 'undefined') options = {};
-        if (typeof options === 'string')
+        if (typeof options === 'string') {
             options = {
                 content: options,
-                title: (option2) ? option2 : false,
+                title: (option2) ? option2 : false
             };
+        }
 
         if (typeof options.buttons != 'object')
             options.buttons = {};
@@ -98,7 +100,7 @@ var jconfirm, Jconfirm;
     };
     $.dialog = function (options, option2) {
         if (typeof options === 'undefined') options = {};
-        if (typeof options === 'string')
+        if (typeof options === 'string') {
             options = {
                 content: options,
                 title: (option2) ? option2 : false,
@@ -106,6 +108,7 @@ var jconfirm, Jconfirm;
                     // Just close the modal
                 }
             };
+        }
 
         options['buttons'] = {}; // purge buttons
 
@@ -984,8 +987,9 @@ var jconfirm, Jconfirm;
                     contentHeight += marginTopChild;
             }
 
-            if (paneHeight == 0)
+            if (paneHeight == 0) {
                 paneHeight = contentHeight;
+            }
 
             var windowHeight = $(window).height();
             var boxHeight;
@@ -1004,7 +1008,7 @@ var jconfirm, Jconfirm;
             } else {
                 style = {
                     'margin-top': topMargin,
-                    'margin-bottom': this.offsetBottom,
+                    'margin-bottom': this.offsetBottom
                 };
                 this._boxTopMargin = topMargin;
                 this._boxBottomMargin = this.offsetBottom;
@@ -1070,7 +1074,7 @@ var jconfirm, Jconfirm;
                             if (!(ot > st && ot < (st + wh))) {
                                 var scrollTo = (ot - Math.round((wh / 3)));
                                 $('html, body').animate({
-                                    scrollTop: scrollTo,
+                                    scrollTop: scrollTo
                                 }, that.animationSpeed, 'swing', function () {
                                     // gracefully scroll and then focus.
                                     $lf.focus();
@@ -1173,7 +1177,7 @@ var jconfirm, Jconfirm;
             close: {
                 action: function () {
                 }
-            },
+            }
         },
         contentLoaded: function () {
         },
@@ -1205,7 +1209,7 @@ var jconfirm, Jconfirm;
         bootstrapClasses: {
             container: 'container',
             containerFluid: 'container-fluid',
-            row: 'row',
+            row: 'row'
         },
         onContentReady: function () {
 
