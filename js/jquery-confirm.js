@@ -361,7 +361,7 @@ var jconfirm, Jconfirm;
         },
         setBoxWidth: function () {
             if (this.useBootstrap) {
-                console.warn("cannot set width, useBootstrap is set to true");
+                console.warn("cannot set boxWidth, useBootstrap is set to true");
                 return;
             }
             this.$jconfirmBox.css('width', this.boxWidth);
