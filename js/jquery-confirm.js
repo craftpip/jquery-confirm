@@ -351,9 +351,20 @@ var jconfirm, Jconfirm;
         },
         columnClassParsed: '',
         setColumnClass: function (colClass) {
+            if (!this.useBootstrap) {
+                console.warn("cannot set columnClass, useBootstrap is set to false");
+                return;
+            }
             this.columnClass = colClass || this.columnClass;
             this._parseColumnClass(this.columnClass);
             this.$jconfirmBoxContainer.addClass(this.columnClassParsed);
+        },
+        setBoxWidth: function () {
+            if (this.useBootstrap) {
+                console.warn("cannot set width, useBootstrap is set to true");
+                return;
+            }
+            this.$jconfirmBox.css('width', this.boxWidth);
         },
         _parseColumnClass: function (colClass) {
             colClass = colClass.toLowerCase();
