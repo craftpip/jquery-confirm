@@ -580,7 +580,65 @@
                         <p class="text-success">Drag me around</p>
                     </div>
                 </div>
+
+                <h2>Themes</h2>
+
+                <p>jquery-confirm comes loaded with themes for all common use cases.</p>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <button class="btn btn-info btn-block example-the-1">Modern</button>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-info btn-block example-the-3">Material</button>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-info btn-block example-the-4">Bootstrap</button>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-info btn-block example-the-2">Supervan</button>
+                    </div>
+                </div>
+
                 <script type="text/javascript">
+
+                    $('.example-the-1').on('click', function () {
+                        $.confirm({
+                            icon: 'fa fa-question',
+                            theme: 'modern',
+                            closeIcon: true,
+                            animation: 'scale',
+                            type: 'orange',
+                        });
+                    });
+                    $('.example-the-2').on('click', function () {
+                        $.confirm({
+                            icon: 'fa fa-question',
+                            theme: 'supervan',
+                            closeIcon: true,
+                            animation: 'scale',
+                            type: 'orange',
+                        });
+                    });
+                    $('.example-the-3').on('click', function () {
+                        $.confirm({
+                            icon: 'fa fa-question',
+                            theme: 'material',
+                            closeIcon: true,
+                            animation: 'scale',
+                            type: 'orange',
+                        });
+                    });
+                    $('.example-the-4').on('click', function () {
+                        $.confirm({
+                            icon: 'fa fa-question',
+                            theme: 'bootstrap',
+                            closeIcon: true,
+                            animation: 'scale',
+                            type: 'orange',
+                        });
+                    });
+
                     // alert
                     $('.example-p-1').on('click', function () {
                         $.alert({
