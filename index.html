@@ -1278,8 +1278,8 @@ $.dialog('Just to let you know'); <a href="#"
             text: 'Hey there!',
             btnClass: 'btn-blue',
             keys: ['enter', 'a'],
-            hide: false, // initially not hidden
-            disabled: false, // initially not disabled
+            isHidden: false, // initially not hidden
+            isDisabled: false, // initially not disabled
             action: function(){
                 // button action.
             }
@@ -1457,7 +1457,7 @@ $.dialog('Just to let you know'); <a href="#"
              'Press &lt;span style="font-size: 20px;"&gt;Y&lt;/span&gt; to proceed.',
     buttons: {
         yes: {
-            hide: true, // hide the button using CSS
+            isHidden: true, // hide the button using CSS
             keys: ['y'],
             action: function () {
                 $.alert('Critical action &lt;strong&gt;was performed&lt;/strong&gt;.');
@@ -1508,7 +1508,7 @@ $.dialog('Just to let you know'); <a href="#"
                                 'Press <span style="font-size: 20px;">Y</span> to proceed.',
                                 buttons: {
                                     yes: {
-                                        hide: true,
+                                        isHidden: true,
                                         keys: ['y'],
                                         action: function () {
                                             $.alert('Critical action <strong>was performed</strong>.');

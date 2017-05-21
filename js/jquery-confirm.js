@@ -622,6 +622,8 @@ var jconfirm, Jconfirm;
                 that.buttons[key].action = button.action || function () {
                     };
                 that.buttons[key].keys = button.keys || [];
+                that.buttons[key].isHidden = button.isHidden || false;
+                that.buttons[key].isDisabled = button.isDisabled || false;
 
                 $.each(that.buttons[key].keys, function (i, a) {
                     that.buttons[key].keys[i] = a.toLowerCase();
@@ -630,8 +632,8 @@ var jconfirm, Jconfirm;
                 var button_element = $('<button type="button" class="btn"></button>')
                     .html(that.buttons[key].text)
                     .addClass(that.buttons[key].btnClass)
-                    .prop('disabled', !!button.disabled)
-                    .css('display', (!!button.hide) ? 'none' : '')
+                    .prop('disabled', that.buttons[key].isDisabled)
+                    .css('display', that.buttons[key].isHidden ? 'none' : '')
                     .click(function (e) {
                         e.preventDefault();
                         var res = that.buttons[key].action.apply(that);
@@ -652,16 +654,20 @@ var jconfirm, Jconfirm;
                     button_element.removeClass(className);
                 };
                 that.buttons[key].disable = function () {
+                    that.buttons[key].isDisabled = true;
                     button_element.prop('disabled', true);
                 };
                 that.buttons[key].enable = function () {
+                    that.buttons[key].isDisabled = false;
                     button_element.prop('disabled', false);
                 };
                 that.buttons[key].show = function () {
+                    that.buttons[key].isHidden = false;
                     button_element.css('display', '');
                     that.setDialogCenter();
                 };
                 that.buttons[key].hide = function () {
+                    that.buttons[key].isHidden = true;
                     button_element.css('display', 'none');
                     that.setDialogCenter();
                 };
@@ -1115,6 +1121,9 @@ var jconfirm, Jconfirm;
             return true;
         },
         open: function () {
+            if (this.isOpen())
+                return false;
+
             // var that = this;
             this._buildHTML();
             this._bindEvents();
@@ -1143,7 +1152,7 @@ var jconfirm, Jconfirm;
         },
         loadedClass: 'jconfirm-open',
         isClosed: function () {
-            return this.$el.css('display') === '';
+            return !this.$el || this.$el.css('display') === '';
         },
         isOpen: function () {
             return !this.isClosed();
