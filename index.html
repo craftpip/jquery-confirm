@@ -1278,6 +1278,8 @@ $.dialog('Just to let you know'); <a href="#"
             text: 'Hey there!',
             btnClass: 'btn-blue',
             keys: ['enter', 'a'],
+            hide: false, // initially not hidden
+            disabled: false, // initially not disabled
             action: function(){
                 // button action.
             }
@@ -1455,7 +1457,7 @@ $.dialog('Just to let you know'); <a href="#"
              'Press &lt;span style="font-size: 20px;"&gt;Y&lt;/span&gt; to proceed.',
     buttons: {
         yes: {
-            btnClass: 'hide', // hide is a bootstrap class to hide elements
+            hide: true, // hide the button using CSS
             keys: ['y'],
             action: function () {
                 $.alert('Critical action &lt;strong&gt;was performed&lt;/strong&gt;.');
@@ -1506,7 +1508,7 @@ $.dialog('Just to let you know'); <a href="#"
                                 'Press <span style="font-size: 20px;">Y</span> to proceed.',
                                 buttons: {
                                     yes: {
-                                        btnClass: 'hide', // hide is a bootstrap class to hide elements
+                                        hide: true,
                                         keys: ['y'],
                                         action: function () {
                                             $.alert('Critical action <strong>was performed</strong>.');
@@ -1549,8 +1551,11 @@ $.dialog('Just to let you know'); <a href="#"
             }
         },
         reset: function () {
+            this.buttons.buttonB.show();
             this.buttons.buttonA.enable();
-            this.buttons.buttonB.setText('button b');
+            this.buttons.buttonB.setText('button B!!');
+            // this.buttons.buttonA.hide();
+            // this.buttons.buttonA.show();
             return false;
         }
     }
@@ -1670,8 +1675,11 @@ $.dialog('Just to let you know'); <a href="#"
                                         }
                                     },
                                     reset: function () {
+                                        this.buttons.buttonB.show();
                                         this.buttons.buttonA.enable();
-                                        this.buttons.buttonB.setText('button a');
+                                        this.buttons.buttonB.setText('button B!!');
+                                        // this.buttons.buttonA.hide();
+                                        // this.buttons.buttonA.show();
                                         return false;
                                     }
                                 }

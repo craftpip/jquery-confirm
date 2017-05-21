@@ -627,14 +627,20 @@ var jconfirm, Jconfirm;
                     that.buttons[key].keys[i] = a.toLowerCase();
                 });
 
-                var button_element = $('<button type="button" class="btn ' + that.buttons[key].btnClass + '">' + that.buttons[key].text + '</button>').click(function (e) {
-                    e.preventDefault();
-                    var res = that.buttons[key].action.apply(that);
-                    that.onAction(key);
-                    that._stopCountDown();
-                    if (typeof res === 'undefined' || res)
-                        that.close();
-                });
+                var button_element = $('<button type="button" class="btn"></button>')
+                    .html(that.buttons[key].text)
+                    .addClass(that.buttons[key].btnClass)
+                    .prop('disabled', !!button.disabled)
+                    .css('display', (!!button.hide) ? 'none' : '')
+                    .click(function (e) {
+                        e.preventDefault();
+                        var res = that.buttons[key].action.apply(that);
+                        that.onAction(key);
+                        that._stopCountDown();
+                        if (typeof res === 'undefined' || res)
+                            that.close();
+                    });
+
                 that.buttons[key].el = button_element;
                 that.buttons[key].setText = function (text) {
                     button_element.html(text);
