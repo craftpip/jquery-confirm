@@ -71,7 +71,12 @@ Checkout the [documentation](http://craftpip.github.io/jquery-confirm) for furth
 
 ## Version changes
 
-(new in 3.2.1)
+(new in 3.2.3)
+* Added lazyOpen option
+* Added button properties isHidden and isDisabled
+* setBoxWidth method added
+
+(new in 3.2.1) *untagged
 * Fixed autoClose bug decimal point countdown if 1500 milliseconds was provided.
 
 (new in 3.2.0)
