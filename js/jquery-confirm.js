@@ -158,9 +158,12 @@ var jconfirm, Jconfirm;
                 jconfirm.lastFocused = $('body').find(':focus');
 
             this._id = Math.round(Math.random() * 99999);
-            setTimeout(function () {
-                that.open();
-            }, 0);
+
+            if (!this.lazyOpen) {
+                setTimeout(function () {
+                    that.open();
+                }, 0);
+            }
         },
         _buildHTML: function () {
             var that = this;
@@ -1208,6 +1211,7 @@ var jconfirm, Jconfirm;
         contentLoaded: function () {
         },
         icon: '',
+        lazyOpen: false,
         bgOpacity: null,
         theme: 'light',
         animation: 'zoom',

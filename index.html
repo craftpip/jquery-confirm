@@ -275,6 +275,9 @@
                             <li>
                                 <a href="#shorthand"> Shorthand usage</a>
                             </li>
+                            <li>
+                                <a href="#lazy-open"> Lazy Open</a>
+                            </li>
                         </ul>
                     </li>
                     <li>
@@ -1219,6 +1222,18 @@ $.dialog('Just to let you know'); <a href="#"
                                 $.dialog('Just to let you know');
                             });
                         </script>
+                        <div class="col-md-12">
+                            <h4 id="lazy-open">Lazy open</h4>
+                            <p>
+                                If you want to create a instance of jconfirm and save it for later use.
+                            </p>
+                            <pre class="prettyprint linenums"><code class="js">var a = $.confirm({
+    lazyOpen: true,
+});
+a.open();
+a.close();
+a.toggle(); // toggle open close.</code></pre>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -2858,6 +2873,7 @@ $.confirm({
     contentLoaded: function(data, status, xhr){
     },
     icon: '',
+    lazyOpen: false,
     bgOpacity: null,
     theme: 'light',
     animation: 'zoom',
@@ -3011,6 +3027,15 @@ $.confirm({
                                 <td>
                                     Icon class prepended before the title.
                                     ex: 'fa fa-icon'
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>lazyOpen</td>
+                                <td>Boolean</td>
+                                <td><code>false</code></td>
+                                <td>
+                                    Does not open the modal instantly. <br>
+                                    requires to call the open() function to open the modal
                                 </td>
                             </tr>
                             <tr>
