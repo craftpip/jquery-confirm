@@ -946,3 +946,79 @@ body[class*=jconfirm-no-scroll-] {
       -ms-transform: scale(1);
           transform: scale(1);
 }
+
+
+.jcbutton {
+    cursor: pointer;
+    display: inline-block;
+    min-height: 1em;
+    outline: 0;
+    border: none;
+    vertical-align: baseline;
+    background: #E0E1E2;
+    color: rgba(0, 0, 0, .6);
+    font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    margin: 0 .25em 0 0;
+	padding: .28em 1em;
+	text-transform: none;
+    text-shadow: none;
+    font-weight: 700;
+    line-height: 1em;
+    font-style: normal;
+    text-align: center;
+    text-decoration: none;
+    border-radius: .28571429rem;
+    box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, .15) inset;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-transition: opacity .1s ease, background-color .1s ease, color .1s ease, box-shadow .1s ease, background .1s ease;
+    transition: opacity .1s ease, background-color .1s ease, color .1s ease, box-shadow .1s ease, background .1s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.blue.jcbutton {
+    background-color: #2185D0;
+    color: #FFF;
+    text-shadow: none;
+    background-image: none;
+}
+
+
+.green.jsbutton {
+    background-color: #21BA45;
+    color: #FFF;
+    text-shadow: none;
+    background-image: none;
+}
+
+.red.jsbutton {
+    background-color: #d81717;
+    color: #FFF;
+    text-shadow: none;
+    background-image: none;
+}
+
+.blue.jcbutton:hover {
+    background-color: #1678c2;
+    color: #FFF;
+    text-shadow: none;
+}
+.green.jcbutton:hover {
+    background-color: #15A437;
+    color: #FFF;
+    text-shadow: none;
+}
+
+.red.jcbutton:hover {
+    background-color: #af1616;
+    color: #FFF;
+    text-shadow: none;
+}
+
+/*Add default jconfirm margin*/
+.jconfirm-container{
+	margin: auto !important;
+	width: 40%;
+}
