@@ -57,7 +57,7 @@ See Detailed Docs + Example [here](http://craftpip.github.io/jquery-confirm).
 
 ## Authors
 
-[Boniface Pereira](https://github.com/craftpip) & Awesome Contributors.
+[Boniface Pereira](https://github.com/craftpip) & [Awesome Contributors](https://github.com/craftpip/jquery-confirm/graphs/contributors).
 
 ## Issues
 
