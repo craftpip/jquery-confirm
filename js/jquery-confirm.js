@@ -620,7 +620,7 @@ var jconfirm, Jconfirm;
                     };
                 }
 
-                that.buttons[key].text = button.text || key;
+                that.buttons[key].text = button.text == undefined ? key : button.text;
                 that.buttons[key].btnClass = button.btnClass || 'btn-default';
                 that.buttons[key].action = button.action || function () {
                     };
