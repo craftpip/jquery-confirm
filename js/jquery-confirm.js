@@ -1,5 +1,5 @@
 /*!
- * jquery-confirm v3.2.0 (http://craftpip.github.io/jquery-confirm/)
+ * jquery-confirm v3.2.3 (http://craftpip.github.io/jquery-confirm/)
  * Author: Boniface Pereira
  * Website: www.craftpip.com
  * Contact: hey@craftpip.com
@@ -18,12 +18,12 @@ var jconfirm, Jconfirm;
 
     $.fn.confirm = function (options, option2) {
         if (typeof options === 'undefined') options = {};
-        if (typeof options === 'string')
+        if (typeof options === 'string') {
             options = {
                 content: options,
                 title: (option2) ? option2 : false
             };
-
+        }
         /*
          *  Alias of $.confirm to emulate native confirm()
          */
@@ -56,11 +56,12 @@ var jconfirm, Jconfirm;
     };
     $.confirm = function (options, option2) {
         if (typeof options === 'undefined') options = {};
-        if (typeof options === 'string')
+        if (typeof options === 'string') {
             options = {
                 content: options,
-                title: (option2) ? option2 : false,
+                title: (option2) ? option2 : false
             };
+        }
 
         if (typeof options['buttons'] != 'object')
             options['buttons'] = {};
@@ -77,11 +78,12 @@ var jconfirm, Jconfirm;
     };
     $.alert = function (options, option2) {
         if (typeof options === 'undefined') options = {};
-        if (typeof options === 'string')
+        if (typeof options === 'string') {
             options = {
                 content: options,
-                title: (option2) ? option2 : false,
+                title: (option2) ? option2 : false
             };
+        }
 
         if (typeof options.buttons != 'object')
             options.buttons = {};
@@ -98,7 +100,7 @@ var jconfirm, Jconfirm;
     };
     $.dialog = function (options, option2) {
         if (typeof options === 'undefined') options = {};
-        if (typeof options === 'string')
+        if (typeof options === 'string') {
             options = {
                 content: options,
                 title: (option2) ? option2 : false,
@@ -106,6 +108,7 @@ var jconfirm, Jconfirm;
                     // Just close the modal
                 }
             };
+        }
 
         options['buttons'] = {}; // purge buttons
 
@@ -155,9 +158,12 @@ var jconfirm, Jconfirm;
                 jconfirm.lastFocused = $('body').find(':focus');
 
             this._id = Math.round(Math.random() * 99999);
-            setTimeout(function () {
-                that.open();
-            }, 0);
+
+            if (!this.lazyOpen) {
+                setTimeout(function () {
+                    that.open();
+                }, 0);
+            }
         },
         _buildHTML: function () {
             var that = this;
@@ -348,9 +354,20 @@ var jconfirm, Jconfirm;
         },
         columnClassParsed: '',
         setColumnClass: function (colClass) {
+            if (!this.useBootstrap) {
+                console.warn("cannot set columnClass, useBootstrap is set to false");
+                return;
+            }
             this.columnClass = colClass || this.columnClass;
             this._parseColumnClass(this.columnClass);
             this.$jconfirmBoxContainer.addClass(this.columnClassParsed);
+        },
+        setBoxWidth: function () {
+            if (this.useBootstrap) {
+                console.warn("cannot set boxWidth, useBootstrap is set to true");
+                return;
+            }
+            this.$jconfirmBox.css('width', this.boxWidth);
         },
         _parseColumnClass: function (colClass) {
             colClass = colClass.toLowerCase();
@@ -456,14 +473,14 @@ var jconfirm, Jconfirm;
         },
         _hash: function (a) {
             var string = a.toString();
-            var hash = 0;
-            if (string.length == 0) return hash;
+            var h = 0;
+            if (string.length == 0) return h;
             for (var i = 0; i < string.length; i++) {
-                var char = string.toString().charCodeAt(i);
-                hash = ((hash << 5) - hash) + char;
-                hash = hash & hash; // Convert to 32bit integer
+                var c = string.toString().charCodeAt(i);
+                h = ((h << 5) - h) + c;
+                h = h & h; // Convert to 32bit integer
             }
-            return hash;
+            return h;
         },
         _watchContent: function () {
             var that = this;
@@ -543,7 +560,6 @@ var jconfirm, Jconfirm;
             $(window).on('jcKeyDown.' + that._id, function (e) {
                 if (!isKeyDown) {
                     isKeyDown = true;
-                    console.log('keydown' + isKeyDown);
                 }
             });
             $(window).on('keyup.' + that._id, function (e) {
@@ -609,19 +625,27 @@ var jconfirm, Jconfirm;
                 that.buttons[key].action = button.action || function () {
                     };
                 that.buttons[key].keys = button.keys || [];
+                that.buttons[key].isHidden = button.isHidden || false;
+                that.buttons[key].isDisabled = button.isDisabled || false;
 
                 $.each(that.buttons[key].keys, function (i, a) {
                     that.buttons[key].keys[i] = a.toLowerCase();
                 });
 
-                var button_element = $('<button type="button" class="btn ' + that.buttons[key].btnClass + '">' + that.buttons[key].text + '</button>').click(function (e) {
-                    e.preventDefault();
-                    var res = that.buttons[key].action.apply(that);
-                    that.onAction(key);
-                    that._stopCountDown();
-                    if (typeof res === 'undefined' || res)
-                        that.close();
-                });
+                var button_element = $('<button type="button" class="btn"></button>')
+                    .html(that.buttons[key].text)
+                    .addClass(that.buttons[key].btnClass)
+                    .prop('disabled', that.buttons[key].isDisabled)
+                    .css('display', that.buttons[key].isHidden ? 'none' : '')
+                    .click(function (e) {
+                        e.preventDefault();
+                        var res = that.buttons[key].action.apply(that);
+                        that.onAction(key);
+                        that._stopCountDown();
+                        if (typeof res === 'undefined' || res)
+                            that.close();
+                    });
+
                 that.buttons[key].el = button_element;
                 that.buttons[key].setText = function (text) {
                     button_element.html(text);
@@ -633,16 +657,20 @@ var jconfirm, Jconfirm;
                     button_element.removeClass(className);
                 };
                 that.buttons[key].disable = function () {
+                    that.buttons[key].isDisabled = true;
                     button_element.prop('disabled', true);
                 };
                 that.buttons[key].enable = function () {
+                    that.buttons[key].isDisabled = false;
                     button_element.prop('disabled', false);
                 };
                 that.buttons[key].show = function () {
+                    that.buttons[key].isHidden = false;
                     button_element.css('display', '');
                     that.setDialogCenter();
                 };
                 that.buttons[key].hide = function () {
+                    that.buttons[key].isHidden = true;
                     button_element.css('display', 'none');
                     that.setDialogCenter();
                 };
@@ -871,13 +899,13 @@ var jconfirm, Jconfirm;
                 return false;
             }
 
-            var seconds = time / 1000;
+            var seconds = Math.ceil(time / 1000);
             this.$cd = $('<span class="countdown"> (' + seconds + ')</span>')
                 .appendTo(this['$_' + button_key]);
 
             this.autoCloseInterval = setInterval(function () {
                 that.$cd.html(' (' + (seconds -= 1) + ') ');
-                if (seconds === 0) {
+                if (seconds <= 0) {
                     that['$$' + button_key].trigger('click');
                     that._stopCountDown();
                 }
@@ -985,8 +1013,9 @@ var jconfirm, Jconfirm;
                     contentHeight += marginTopChild;
             }
 
-            if (paneHeight == 0)
+            if (paneHeight == 0) {
                 paneHeight = contentHeight;
+            }
 
             var windowHeight = $(window).height();
             var boxHeight;
@@ -1005,7 +1034,7 @@ var jconfirm, Jconfirm;
             } else {
                 style = {
                     'margin-top': topMargin,
-                    'margin-bottom': this.offsetBottom,
+                    'margin-bottom': this.offsetBottom
                 };
                 this._boxTopMargin = topMargin;
                 this._boxBottomMargin = this.offsetBottom;
@@ -1071,7 +1100,7 @@ var jconfirm, Jconfirm;
                             if (!(ot > st && ot < (st + wh))) {
                                 var scrollTo = (ot - Math.round((wh / 3)));
                                 $('html, body').animate({
-                                    scrollTop: scrollTo,
+                                    scrollTop: scrollTo
                                 }, that.animationSpeed, 'swing', function () {
                                     // gracefully scroll and then focus.
                                     $lf.focus();
@@ -1095,6 +1124,9 @@ var jconfirm, Jconfirm;
             return true;
         },
         open: function () {
+            if (this.isOpen())
+                return false;
+
             // var that = this;
             this._buildHTML();
             this._bindEvents();
@@ -1123,7 +1155,7 @@ var jconfirm, Jconfirm;
         },
         loadedClass: 'jconfirm-open',
         isClosed: function () {
-            return this.$el.css('display') === '';
+            return !this.$el || this.$el.css('display') === '';
         },
         isOpen: function () {
             return !this.isClosed();
@@ -1174,11 +1206,12 @@ var jconfirm, Jconfirm;
             close: {
                 action: function () {
                 }
-            },
+            }
         },
         contentLoaded: function () {
         },
         icon: '',
+        lazyOpen: false,
         bgOpacity: null,
         theme: 'light',
         animation: 'zoom',
@@ -1206,7 +1239,7 @@ var jconfirm, Jconfirm;
         bootstrapClasses: {
             container: 'container',
             containerFluid: 'container-fluid',
-            row: 'row',
+            row: 'row'
         },
         onContentReady: function () {
 

@@ -60,7 +60,7 @@
     <link rel="stylesheet"
           href="demo/demo.css">
     <script>
-        var version = '3.2.0';
+        var version = '3.2.3';
     </script>
     <!-- Add the minified version of files from the /dist/ folder. -->
     <!-- jquery-confirm files -->
@@ -114,6 +114,9 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v3.2.0">v3.2.0</a>
+                        </li>
                         <li>
                             <a href="http://craftpip.github.io/jquery-confirm/v3.1.1">v3.1.1</a>
                         </li>
@@ -218,8 +221,8 @@
                 <div class="row download-btns">
                     <div class="col-md-12">
                         <div style="height: 15px;"></div>
-                        <a href="https://github.com/craftpip/jquery-confirm/releases/download/v3.2.0/jquery-confirm-v3.2.0.zip"
-                           class="btn btn-lg">Download v3.2.0
+                        <a href="https://github.com/craftpip/jquery-confirm/releases/download/v3.2.3/jquery-confirm-v3.2.3.zip"
+                           class="btn btn-lg">Download v3.2.3
                         </a>
                         <a href="https://github.com/craftpip/jquery-confirm"
                            class="btn btn-lg"><i class="fa fa-github"></i> View on GitHub
@@ -274,6 +277,9 @@
                             </li>
                             <li>
                                 <a href="#shorthand"> Shorthand usage</a>
+                            </li>
+                            <li>
+                                <a href="#lazy-open"> Lazy Open</a>
                             </li>
                         </ul>
                     </li>
@@ -577,7 +583,65 @@
                         <p class="text-success">Drag me around</p>
                     </div>
                 </div>
+
+                <h2>Themes</h2>
+
+                <p>jquery-confirm comes loaded with themes for all common use cases.</p>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <button class="btn btn-info btn-block example-the-1">Modern</button>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-info btn-block example-the-3">Material</button>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-info btn-block example-the-4">Bootstrap</button>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-info btn-block example-the-2">Supervan</button>
+                    </div>
+                </div>
+
                 <script type="text/javascript">
+
+                    $('.example-the-1').on('click', function () {
+                        $.confirm({
+                            icon: 'fa fa-question',
+                            theme: 'modern',
+                            closeIcon: true,
+                            animation: 'scale',
+                            type: 'orange',
+                        });
+                    });
+                    $('.example-the-2').on('click', function () {
+                        $.confirm({
+                            icon: 'fa fa-question',
+                            theme: 'supervan',
+                            closeIcon: true,
+                            animation: 'scale',
+                            type: 'orange',
+                        });
+                    });
+                    $('.example-the-3').on('click', function () {
+                        $.confirm({
+                            icon: 'fa fa-question',
+                            theme: 'material',
+                            closeIcon: true,
+                            animation: 'scale',
+                            type: 'orange',
+                        });
+                    });
+                    $('.example-the-4').on('click', function () {
+                        $.confirm({
+                            icon: 'fa fa-question',
+                            theme: 'bootstrap',
+                            closeIcon: true,
+                            animation: 'scale',
+                            type: 'orange',
+                        });
+                    });
+
                     // alert
                     $('.example-p-1').on('click', function () {
                         $.alert({
@@ -886,11 +950,12 @@
             </section>
 
             <section>
-                <h2>Whats new <span style="color: #aaa">in v3.2.0</span></h2>
+                <h2>Whats new <span style="color: #aaa">in v3.2.3</span></h2>
                 <ul>
-                    <li>Added theme modern</li>
-                    <li>Fixed RTL and UI elements</li>
-                    <li>scrollToElement fixed</li>
+                    <li>Added lazyOpen option</li>
+                    <li>Added button properties isHidden and isDisabled</li>
+                    <li>setBoxWidth method added</li>
+                    <li>Bug fixes</li>
                 </ul>
             </section>
 
@@ -916,8 +981,8 @@
 
                     <p>
                         <strong>via CDN:</strong>
-                    <pre class="prettyprint"><code class="html">&lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.2.0/jquery-confirm.min.css"&gt;
-&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.2.0/jquery-confirm.min.js"&gt;&lt;/script&gt;</code></pre>
+                    <pre class="prettyprint"><code class="html">&lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.2.3/jquery-confirm.min.css"&gt;
+&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.2.3/jquery-confirm.min.js"&gt;&lt;/script&gt;</code></pre>
                     </p>
 
                     <p>
@@ -1218,6 +1283,18 @@ $.dialog('Just to let you know'); <a href="#"
                                 $.dialog('Just to let you know');
                             });
                         </script>
+                        <div class="col-md-12">
+                            <h4 id="lazy-open">Lazy open</h4>
+                            <p>
+                                If you want to create a instance of jconfirm and save it for later use.
+                            </p>
+                            <pre class="prettyprint linenums"><code class="js">var a = $.confirm({
+    lazyOpen: true,
+});
+a.open();
+a.close();
+a.toggle(); // toggle open close.</code></pre>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -1277,6 +1354,8 @@ $.dialog('Just to let you know'); <a href="#"
             text: 'Hey there!',
             btnClass: 'btn-blue',
             keys: ['enter', 'a'],
+            isHidden: false, // initially not hidden
+            isDisabled: false, // initially not disabled
             action: function(){
                 // button action.
             }
@@ -1454,7 +1533,7 @@ $.dialog('Just to let you know'); <a href="#"
              'Press &lt;span style="font-size: 20px;"&gt;Y&lt;/span&gt; to proceed.',
     buttons: {
         yes: {
-            btnClass: 'hide', // hide is a bootstrap class to hide elements
+            isHidden: true, // hide the button using CSS
             keys: ['y'],
             action: function () {
                 $.alert('Critical action &lt;strong&gt;was performed&lt;/strong&gt;.');
@@ -1505,7 +1584,7 @@ $.dialog('Just to let you know'); <a href="#"
                                 'Press <span style="font-size: 20px;">Y</span> to proceed.',
                                 buttons: {
                                     yes: {
-                                        btnClass: 'hide', // hide is a bootstrap class to hide elements
+                                        isHidden: true,
                                         keys: ['y'],
                                         action: function () {
                                             $.alert('Critical action <strong>was performed</strong>.');
@@ -1548,8 +1627,11 @@ $.dialog('Just to let you know'); <a href="#"
             }
         },
         reset: function () {
+            this.buttons.buttonB.show();
             this.buttons.buttonA.enable();
-            this.buttons.buttonB.setText('button b');
+            this.buttons.buttonB.setText('button B!!');
+            // this.buttons.buttonA.hide();
+            // this.buttons.buttonA.show();
             return false;
         }
     }
@@ -1669,8 +1751,11 @@ $.dialog('Just to let you know'); <a href="#"
                                         }
                                     },
                                     reset: function () {
+                                        this.buttons.buttonB.show();
                                         this.buttons.buttonA.enable();
-                                        this.buttons.buttonB.setText('button a');
+                                        this.buttons.buttonB.setText('button B!!');
+                                        // this.buttons.buttonA.hide();
+                                        // this.buttons.buttonA.show();
                                         return false;
                                     }
                                 }
@@ -2119,7 +2204,7 @@ $.confirm({
                     <p>
                         The animations section is moved to the animations.html page. <br>
                         This page has docs for animations for modal open/close and backgroundDismiss <br>
-                        It also describes how to create a custom animation.
+                        It also describes how to create custom animations.
                     </p>
                     <a class="btn btn-warning" href="animations.html">see Animations</a>
                 </div>
@@ -2849,6 +2934,7 @@ $.confirm({
     contentLoaded: function(data, status, xhr){
     },
     icon: '',
+    lazyOpen: false,
     bgOpacity: null,
     theme: 'light',
     animation: 'zoom',
@@ -2991,6 +3077,8 @@ $.confirm({
                                 <td><code>{}</code></td>
                                 <td>
                                     Multiple definition of buttons
+                                    <br>
+                                    please see <a href="#defining-buttons">button definition</a> for button properties
                                 </td>
                             </tr>
                             <tr>
@@ -3000,6 +3088,15 @@ $.confirm({
                                 <td>
                                     Icon class prepended before the title.
                                     ex: 'fa fa-icon'
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>lazyOpen</td>
+                                <td>Boolean</td>
+                                <td><code>false</code></td>
+                                <td>
+                                    Does not open the modal instantly. <br>
+                                    requires to call the open() function to open the modal
                                 </td>
                             </tr>
                             <tr>
