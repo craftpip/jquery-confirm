@@ -612,6 +612,7 @@
                             closeIcon: true,
                             animation: 'scale',
                             type: 'orange',
+                            animateFromElement: $(this),
                         });
                     });
                     $('.example-the-2').on('click', function () {
@@ -621,6 +622,7 @@
                             closeIcon: true,
                             animation: 'scale',
                             type: 'orange',
+                            animateFromElement: $(this),
                         });
                     });
                     $('.example-the-3').on('click', function () {
@@ -629,6 +631,7 @@
                             theme: 'material',
                             closeIcon: true,
                             animation: 'scale',
+                            animateFromElement: $(this),
                             type: 'orange',
                         });
                     });
@@ -638,6 +641,7 @@
                             theme: 'bootstrap',
                             closeIcon: true,
                             animation: 'scale',
+                            animateFromElement: $(this),
                             type: 'orange',
                         });
                     });
@@ -648,8 +652,9 @@
                             title: 'Alert alert!',
                             content: 'This is a simple alert. <br> with some <strong>HTML</strong> <em>contents</em>',
                             icon: 'fa fa-rocket',
-                            animation: 'zoom',
+                            animation: 'scale',
                             closeAnimation: 'zoom',
+                            animateFromElement: $(this),
                             buttons: {
                                 okay: {
                                     text: 'Okay',
@@ -667,6 +672,7 @@
                             icon: 'fa fa-question-circle',
                             animation: 'scale',
                             closeAnimation: 'scale',
+                            animateFromElement: $(this),
                             opacity: 0.5,
                             buttons: {
                                 'confirm': {
@@ -712,6 +718,7 @@
                         $.confirm({
                             title: 'A simple form',
                             content: 'url:form.html',
+                            animateFromElement: $(this),
                             buttons: {
                                 sayMyName: {
                                     text: 'Say my name',
@@ -739,6 +746,7 @@
                         $.alert({
                             title: 'Oh no',
                             type: 'red',
+                            animateFromElement: $(this),
                             content: 'Something bad, bad happened.',
                         });
                     });
@@ -748,8 +756,9 @@
                         $.alert({
                             title: 'Background dismiss',
                             content: 'Click outside the modal to close it.',
-                            animation: 'top',
+                            animation: 'scale',
                             closeAnimation: 'bottom',
+                            animateFromElement: $(this),
                             backgroundDismiss: true,
                             buttons: {
                                 okay: {
@@ -773,6 +782,7 @@
                             '<h5><em>Well, that close icon is shown if no buttons are here (u need something to close the modal right), u can explicitly control that too.</em></h5>' +
                             '<button type="button" class="btn btn-success">Click me to change the content</button>',
                             animation: 'scale',
+                            animateFromElement: $(this),
                             onOpen: function () {
                                 var that = this;
                                 this.$content.find('button').click(function () {
@@ -787,8 +797,9 @@
                         $.dialog({
                             title: 'Asynchronous content',
                             content: 'url:table.html',
-                            animation: 'zoom',
+                            animation: 'scale',
                             columnClass: 'medium',
+                            animateFromElement: $(this),
                             closeAnimation: 'scale',
                             backgroundDismiss: true,
                         });
@@ -801,6 +812,7 @@
                             content: 'Some actions maybe critical, prevent it with the Auto close. This dialog will automatically trigger cancel after the timer runs out.',
                             autoClose: 'cancelAction|10000',
                             escapeKey: 'cancelAction',
+                            animateFromElement: $(this),
                             buttons: {
                                 confirm: {
                                     btnClass: 'btn-red',
@@ -846,7 +858,8 @@
                                         $.alert('<strong>Cancel button</strong> was triggered.');
                                     }
                                 }
-                            }
+                            },
+                            animateFromElement: $(this),
                         });
                     });
 
@@ -884,6 +897,7 @@
                                     that.$content.find('span').append('<br>This is awesome!!!!');
                                 });
                             },
+                            animateFromElement: $(this),
                         });
                     });
 
@@ -893,8 +907,9 @@
                         $.confirm({
                             title: 'Adding images',
                             content: 'Images from flickr <br><img src="https://c2.staticflickr.com/4/3891/14354989289_2eec0ba724_b.jpg">',
-                            animation: 'zoom',
+                            animation: 'scale',
                             animationClose: 'top',
+                            animateFromElement: $(this),
                             buttons: {
                                 confirm: {
                                     text: 'Add more',
@@ -916,8 +931,9 @@
                         $.alert({
                             title: 'Animations',
                             content: 'jquery-confirm provides a lot of open &amp; close animations out of the box. <br>The best part is, you can add custom ones too.',
-                            animation: 'rotate',
+                            animation: 'scale',
                             closeAnimation: 'right',
+                            animateFromElement: $(this),
                             buttons: {
                                 zoom: function () {
                                     this.setCloseAnimation('zoom');
@@ -943,7 +959,9 @@
                             title: 'A draggable dialog',
                             content: 'This dialog is draggable, use the title to drag it around. It wont touch the screen borders',
                             type: 'blue',
+                            animation: 'scale',
                             draggable: true,
+                            animateFromElement: $(this),
                         });
                     })
                 </script>

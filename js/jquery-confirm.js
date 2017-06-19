@@ -206,7 +206,7 @@ var jconfirm, Jconfirm;
             var ariaLabel = 'jconfirm-box' + this._id;
             template.find('.jconfirm-box').attr('aria-labelledby', ariaLabel).attr('tabindex', -1);
             template.find('.jconfirm-content').attr('id', ariaLabel);
-            if (this.bgOpacity != null)
+            if (this.bgOpacity !== null)
                 template.find('.jconfirm-bg').css('opacity', this.bgOpacity);
             if (this.rtl)
                 template.addClass('jconfirm-rtl');
@@ -224,6 +224,8 @@ var jconfirm, Jconfirm;
             // this.$content.css(this._getCSS(this.animationSpeed, this.animationBounce));
             this.$btnc = this.$el.find('.jconfirm-buttons');
             this.$scrollPane = this.$el.find('.jconfirm-scrollpane');
+
+            that.setStartingPoint();
 
             // for loading content via URL
             this._contentReady = $.Deferred();
@@ -248,14 +250,14 @@ var jconfirm, Jconfirm;
                         setTimeout(function () {
                             that.hideLoading(false);
                         }, 100);
-                        if (typeof that.onContentReady == 'function')
+                        if (typeof that.onContentReady === 'function')
                             that.onContentReady();
                     }, 50);
                 else {
                     that.setContent();
                     that.setTitle();
                     that.setIcon();
-                    if (typeof that.onContentReady == 'function')
+                    if (typeof that.onContentReady === 'function')
                         that.onContentReady();
                 }
 
@@ -264,14 +266,9 @@ var jconfirm, Jconfirm;
                     that._startCountDown();
             });
 
-            // initial hash for comparison
-            that._contentHash = this._hash(that.$content.html());
-            that._contentHeight = this.$content.height();
-
             this._watchContent();
-            this.setDialogCenter();
 
-            if (this.animation == 'none') {
+            if (this.animation === 'none') {
                 this.animationSpeed = 1;
                 this.animationBounce = 1;
             }
@@ -279,6 +276,7 @@ var jconfirm, Jconfirm;
             this.$body.css(this._getCSS(this.animationSpeed, this.animationBounce));
             this.$contentPane.css(this._getCSS(this.animationSpeed, 1));
             this.$jconfirmBg.css(this._getCSS(this.animationSpeed, 1));
+            this.$jconfirmBoxContainer.css(this._getCSS(this.animationSpeed, 1));
         },
         _typePrefix: 'jconfirm-type-',
         typeParsed: '',
@@ -305,7 +303,7 @@ var jconfirm, Jconfirm;
             var that = this;
             theme = theme.split(',');
             $.each(theme, function (k, a) {
-                if (a.indexOf(that._themePrefix) == -1)
+                if (a.indexOf(that._themePrefix) === -1)
                     theme[k] = that._themePrefix + $.trim(a);
             });
             this.themeParsed = theme.join(' ').toLowerCase();
@@ -316,7 +314,7 @@ var jconfirm, Jconfirm;
             var animation = bgDismissAnimation.split(',');
             var that = this;
             $.each(animation, function (k, a) {
-                if (a.indexOf(that._bgDismissPrefix) == -1)
+                if (a.indexOf(that._bgDismissPrefix) === -1)
                     animation[k] = that._bgDismissPrefix + $.trim(a);
             });
             this.backgroundDismissAnimationParsed = animation.join(' ').toLowerCase();
@@ -333,11 +331,11 @@ var jconfirm, Jconfirm;
             var animations = animation.split(',');
             var that = this;
             $.each(animations, function (k, a) {
-                if (a.indexOf(that._animationPrefix) == -1)
+                if (a.indexOf(that._animationPrefix) === -1)
                     animations[k] = that._animationPrefix + $.trim(a);
             });
             var a_string = animations.join(' ').toLowerCase();
-            if (which == 'o')
+            if (which === 'o')
                 this.animationParsed = a_string;
             else
                 this.closeAnimationParsed = a_string;
@@ -404,8 +402,8 @@ var jconfirm, Jconfirm;
 
             this.resetDrag();
             if (this.draggable) {
-                $t.addClass('jconfirm-hand');
                 $t.on('mousedown', function (e) {
+                    $t.addClass('jconfirm-hand');
                     that.mouseX = e.clientX;
                     that.mouseY = e.clientY;
                     that.isDrag = true;
@@ -419,6 +417,7 @@ var jconfirm, Jconfirm;
                 });
 
                 $(window).on('mouseup.' + this._id, function () {
+                    $t.removeClass('jconfirm-hand');
                     if (that.isDrag) {
                         that.isDrag = false;
                         that.initialX = that.movingX;
@@ -433,8 +432,6 @@ var jconfirm, Jconfirm;
             this.initialY = 0;
             this.movingX = 0;
             this.movingY = 0;
-            this.movingXCurrent = 0;
-            this.movingYCurrent = 0;
             this.mouseX = 0;
             this.mouseY = 0;
             this.$jconfirmBoxContainer.css('transform', 'translate(' + 0 + 'px, ' + 0 + 'px)');
@@ -444,58 +441,57 @@ var jconfirm, Jconfirm;
                 return;
 
             this.alignMiddle = false;
-            this._boxWidth = this.$jconfirmBox.outerWidth();
-            var ww = $(window).width();
+            var boxWidth = this.$jconfirmBox.outerWidth();
+            var boxHeight = this.$jconfirmBox.outerHeight();
+            var windowWidth = $(window).width();
+            var windowHeight = $(window).height();
             var that = this;
-            if (that.movingX % 2 == 0 || that.movingY % 2 == 0) {
-                var tb = that._boxTopMargin - that.dragWindowGap;
+            var dragUpdate = 1;
+            if (that.movingX % dragUpdate === 0 || that.movingY % dragUpdate === 0) {
+                if (that.dragWindowBorder) {
+                    var leftDistance = (windowWidth / 2) - boxWidth / 2;
+                    var topDistance = (windowHeight / 2) - boxHeight / 2;
+                    topDistance -= that.dragWindowGap;
+                    leftDistance -= that.dragWindowGap;
 
-                if (tb + that.movingY < 0) {
-                    that.movingY = -tb;
-                } else {
-                    that.movingYCurrent = that.movingY;
-                }
-                var lb = (ww / 2) - that._boxWidth / 2;
-                var rb = (ww / 2) + (that._boxWidth / 2) - that._boxWidth;
-                rb -= that.dragWindowGap;
-                lb -= that.dragWindowGap;
+                    if (leftDistance + that.movingX < 0) {
+                        that.movingX = -leftDistance;
+                    } else if (leftDistance - that.movingX < 0) {
+                        that.movingX = leftDistance;
+                    }
 
-                if (lb + that.movingX < 0) {
-                    that.movingX = -lb;
-                } else if (rb - that.movingX < 0) {
-                    that.movingX = rb;
-                } else {
-                    that.movingXCurrent = that.movingX;
+                    if (topDistance + that.movingY < 0) {
+                        that.movingY = -topDistance;
+                    } else if (topDistance - that.movingY < 0) {
+                        that.movingY = topDistance;
+                    }
                 }
 
                 that.$jconfirmBoxContainer.css('transform', 'translate(' + that.movingX + 'px, ' + that.movingY + 'px)');
             }
         },
-        _hash: function (a) {
-            var string = a.toString();
-            var h = 0;
-            if (string.length == 0) return h;
-            for (var i = 0; i < string.length; i++) {
-                var c = string.toString().charCodeAt(i);
-                h = ((h << 5) - h) + c;
-                h = h & h; // Convert to 32bit integer
-            }
-            return h;
-        },
         _watchContent: function () {
             var that = this;
             if (this._timer) clearInterval(this._timer);
             this._timer = setInterval(function () {
-                var now = that._hash(that.$content.html());
-                var nowHeight = that.$content.height();
-                if (that._contentHash != now || that._contentHeight != nowHeight) {
-                    that._contentHash = now;
-                    that._contentHeight = nowHeight;
-                    that.setDialogCenter();
-                    that._imagesLoaded();
+                var contentHeight = that.$content.outerHeight() || 0;
+                that.$contentPane.css({
+                    'height': contentHeight
+                }).scrollTop(0);
+
+                var c = that.$el.find('.jconfirm-c').outerHeight();
+                var cl = that.$el.find('.jconfirm-scrollpane').outerHeight();
+                console.log(c, cl);
+                if (c >= cl) {
+                    $('body').addClass('jconfirm-no-scroll-' + that._id);
+                    that.$el.addClass(that._overflowClass);
+                } else {
+                    $('body').removeClass('jconfirm-no-scroll-' + that._id);
+                    that.$el.removeClass(that._overflowClass);
                 }
             }, this.watchInterval);
         },
+        _overflowClass: 'jconfirm-overflow',
         _hilightAnimating: false,
         _hiLightModal: function () {
             var that = this;
@@ -570,7 +566,6 @@ var jconfirm, Jconfirm;
             });
 
             $(window).on('resize.' + this._id, function () {
-                that.setDialogCenter(true);
                 setTimeout(function () {
                     that.resetDrag();
                 }, 100);
@@ -584,23 +579,6 @@ var jconfirm, Jconfirm;
                 '-webkit-transition-timing-function': 'cubic-bezier(' + this._cubic_bezier + ', ' + bounce + ')',
                 'transition-timing-function': 'cubic-bezier(' + this._cubic_bezier + ', ' + bounce + ')'
             };
-        },
-        _imagesLoaded: function () {
-            // detect if the image is loaded by checking on its height.
-            var that = this;
-            if (that.imageLoadInterval)
-                clearInterval(that.imageLoadInterval);
-
-            $.each(this.$content.find('img:not(.loaded)'), function (i, a) {
-                that.imageLoadInterval = setInterval(function () {
-                    var h = $(a).css('height');
-                    if (h !== '0px') {
-                        $(a).addClass('loaded');
-                        clearInterval(that.imageLoadInterval);
-                        that.setDialogCenter();
-                    }
-                }, 40);
-            });
         },
         _setButtons: function () {
             var that = this;
@@ -667,12 +645,10 @@ var jconfirm, Jconfirm;
                 that.buttons[key].show = function () {
                     that.buttons[key].isHidden = false;
                     button_element.css('display', '');
-                    that.setDialogCenter();
                 };
                 that.buttons[key].hide = function () {
                     that.buttons[key].isHidden = true;
                     button_element.css('display', 'none');
-                    that.setDialogCenter();
                 };
                 /*
                  Buttons are prefixed with $_ or $$ for quick access
@@ -797,7 +773,6 @@ var jconfirm, Jconfirm;
                 return;
 
             this.$content.html(this.contentParsed);
-            this.setDialogCenter();
             setTimeout(function () {
                 that.$body.find('input[autofocus]:visible:first').focus();
             }, 100);
@@ -809,7 +784,6 @@ var jconfirm, Jconfirm;
             if (disableButtons)
                 this.$btnc.find('button').prop('disabled', true);
 
-            this.setDialogCenter();
         },
         hideLoading: function (enableButtons) {
             this.loadingSpinner = false;
@@ -817,7 +791,6 @@ var jconfirm, Jconfirm;
             if (enableButtons)
                 this.$btnc.find('button').prop('disabled', false);
 
-            this.setDialogCenter();
         },
         ajaxResponse: false,
         contentParsed: '',
@@ -991,62 +964,8 @@ var jconfirm, Jconfirm;
                 }
             });
         },
-        _boxTopMargin: 0,
-        _boxBottomMargin: 0,
-        _boxWidth: 0,
         setDialogCenter: function () {
-            var contentHeight;
-            var paneHeight;
-            var style;
-            contentHeight = 0;
-            paneHeight = 0;
-            if (this.$contentPane.css('display') != 'none') {
-                contentHeight = this.$content.outerHeight() || 0;
-                paneHeight = this.$contentPane.height() || 0;
-            }
-
-            // if the child has margin top
-            var children = this.$content.children();
-            if (children.length != 0) {
-                var marginTopChild = parseInt(children.eq(0).css('margin-top'));
-                if (marginTopChild)
-                    contentHeight += marginTopChild;
-            }
-
-            if (paneHeight == 0) {
-                paneHeight = contentHeight;
-            }
-
-            var windowHeight = $(window).height();
-            var boxHeight;
-
-            boxHeight = (this.$body.outerHeight() - paneHeight) + contentHeight;
-
-            var topMargin = (windowHeight - boxHeight) / 2;
-            if (boxHeight > (windowHeight - (this.offsetTop + this.offsetBottom)) || !this.alignMiddle) {
-                style = {
-                    'margin-top': this.offsetTop,
-                    'margin-bottom': this.offsetBottom
-                };
-                this._boxTopMargin = this.offsetTop;
-                this._boxBottomMargin = this.offsetBottom;
-                $('body').addClass('jconfirm-no-scroll-' + this._id);
-            } else {
-                style = {
-                    'margin-top': topMargin,
-                    'margin-bottom': this.offsetBottom
-                };
-                this._boxTopMargin = topMargin;
-                this._boxBottomMargin = this.offsetBottom;
-                $('body').removeClass('jconfirm-no-scroll-' + this._id);
-            }
-
-            this.$contentPane.css({
-                'height': contentHeight
-            }).scrollTop(0);
-            this.$body.css(style);
-
-            this.setDrag();
+            console.info('setDialogCenter is deprecated, dialogs are centered with CSS3 tables');
         },
         _unwatchContent: function () {
             clearInterval(this._timer);
@@ -1058,7 +977,6 @@ var jconfirm, Jconfirm;
                 this.onClose();
 
             this._unwatchContent();
-            clearInterval(this.imageLoadInterval);
 
             /*
              unbind the window resize & keyup event.
@@ -1072,54 +990,60 @@ var jconfirm, Jconfirm;
                 $(window).unbind('mouseup.' + this._id);
                 this.$titleContainer.unbind('mousedown');
             }
-            $('body').removeClass('jconfirm-no-scroll-' + this._id);
-            this.$body.addClass(this.closeAnimationParsed);
-            this.$jconfirmBg.addClass('jconfirm-bg-h');
-            var closeTimer = (this.closeAnimation == 'none') ? 1 : this.animationSpeed;
+
             that.$el.removeClass(that.loadedClass);
+            $('body').removeClass('jconfirm-no-scroll-' + that._id);
+            that.$jconfirmBoxContainer.removeClass('jconfirm-no-transition');
+
             setTimeout(function () {
-                that.$el.remove();
+                that.$body.addClass(that.closeAnimationParsed);
+                that.$jconfirmBg.addClass('jconfirm-bg-h');
+                var closeTimer = (that.closeAnimation === 'none') ? 1 : that.animationSpeed;
 
-                var l = jconfirm.instances;
-                var i = jconfirm.instances.length - 1;
-                for (i; i >= 0; i--) {
-                    if (jconfirm.instances[i]._id == that._id) {
-                        jconfirm.instances.splice(i, 1);
+                setTimeout(function () {
+                    that.$el.remove();
+
+                    var l = jconfirm.instances;
+                    var i = jconfirm.instances.length - 1;
+                    for (i; i >= 0; i--) {
+                        if (jconfirm.instances[i]._id === that._id) {
+                            jconfirm.instances.splice(i, 1);
+                        }
                     }
-                }
 
-                // Focusing a element, scrolls automatically to that element.
-                // no instances should be open, lastFocused should be true, the lastFocused element must exists in DOM
-                if (!jconfirm.instances.length) {
-                    if (that.scrollToPreviousElement && jconfirm.lastFocused && jconfirm.lastFocused.length && $.contains(document, jconfirm.lastFocused[0])) {
-                        var $lf = jconfirm.lastFocused;
-                        if (that.scrollToPreviousElementAnimate) {
-                            var st = $(window).scrollTop();
-                            var ot = jconfirm.lastFocused.offset().top;
-                            var wh = $(window).height();
-                            if (!(ot > st && ot < (st + wh))) {
-                                var scrollTo = (ot - Math.round((wh / 3)));
-                                $('html, body').animate({
-                                    scrollTop: scrollTo
-                                }, that.animationSpeed, 'swing', function () {
-                                    // gracefully scroll and then focus.
+                    // Focusing a element, scrolls automatically to that element.
+                    // no instances should be open, lastFocused should be true, the lastFocused element must exists in DOM
+                    if (!jconfirm.instances.length) {
+                        if (that.scrollToPreviousElement && jconfirm.lastFocused && jconfirm.lastFocused.length && $.contains(document, jconfirm.lastFocused[0])) {
+                            var $lf = jconfirm.lastFocused;
+                            if (that.scrollToPreviousElementAnimate) {
+                                var st = $(window).scrollTop();
+                                var ot = jconfirm.lastFocused.offset().top;
+                                var wh = $(window).height();
+                                if (!(ot > st && ot < (st + wh))) {
+                                    var scrollTo = (ot - Math.round((wh / 3)));
+                                    $('html, body').animate({
+                                        scrollTop: scrollTo
+                                    }, that.animationSpeed, 'swing', function () {
+                                        // gracefully scroll and then focus.
+                                        $lf.focus();
+                                    });
+                                } else {
+                                    // the element to be focused is already in view.
                                     $lf.focus();
-                                });
+                                }
                             } else {
-                                // the element to be focused is already in view.
                                 $lf.focus();
                             }
-                        } else {
-                            $lf.focus();
+                            jconfirm.lastFocused = false;
                         }
-                        jconfirm.lastFocused = false;
                     }
-                }
 
-                if (typeof that.onDestroy == 'function')
-                    that.onDestroy();
+                    if (typeof that.onDestroy === 'function')
+                        that.onDestroy();
 
-            }, closeTimer * 0.40);
+                }, closeTimer * 0.40);
+            }, 50);
 
             return true;
         },
@@ -1134,18 +1058,46 @@ var jconfirm, Jconfirm;
 
             return true;
         },
+        setStartingPoint: function () {
+            if (!this.animateFromElement)
+                return false;
+
+            var offset = this.animateFromElement.offset();
+            var iTop = this.animateFromElement.outerHeight() / 2;
+            var iLeft = this.animateFromElement.outerWidth() / 2;
+
+            iTop -= this.$jconfirmBox.outerHeight() / 2;
+            iLeft -= this.$jconfirmBox.outerWidth() / 2;
+
+            var sourceTop = offset.top + iTop;
+            sourceTop = sourceTop - $('body').scrollTop();
+            var sourceLeft = offset.left + iLeft;
+
+            var targetH = $(window).height() / 2 - this.$jconfirmBox.outerHeight() / 2;
+            var targetW = $(window).width() / 2 - this.$jconfirmBox.outerWidth() / 2;
+
+            sourceTop -= targetH;
+            sourceLeft -= targetW;
+
+            this.$jconfirmBoxContainer.css('transform', 'translate(' + sourceLeft + 'px, ' + sourceTop + 'px)');
+        },
         _open: function () {
             var that = this;
-            if (typeof that.onOpenBefore == 'function')
+            if (typeof that.onOpenBefore === 'function')
                 that.onOpenBefore();
+
             this.$body.removeClass(this.animationParsed);
             this.$jconfirmBg.removeClass('jconfirm-bg-h');
             this.$body.focus();
+
+            that.$jconfirmBoxContainer.css('transform', 'translate(' + 0 + 'px, ' + 0 + 'px)');
+
             setTimeout(function () {
                 that.$body.css(that._getCSS(that.animationSpeed, 1));
                 that.$body.css({
                     'transition-property': that.$body.css('transition-property') + ', margin'
                 });
+                that.$jconfirmBoxContainer.addClass('jconfirm-no-transition');
                 that._modalReady.resolve();
                 if (typeof that.onOpen === 'function')
                     that.onOpen();
@@ -1175,9 +1127,11 @@ var jconfirm, Jconfirm;
         '<div class="jconfirm">' +
         '<div class="jconfirm-bg jconfirm-bg-h"></div>' +
         '<div class="jconfirm-scrollpane">' +
+        '<div class="jconfirm-cell">' +
+        '<div class="jconfirm-c">' +
         '<div class="jc-bs3-container">' +
         '<div class="jc-bs3-row">' +
-        '<div class="jconfirm-box-container">' +
+        '<div class="jconfirm-box-container jconfirm-animated">' +
         '<div class="jconfirm-box" role="dialog" aria-labelledby="labelled" tabindex="-1">' +
         '<div class="jconfirm-closeIcon">&times;</div>' +
         '<div class="jconfirm-title-c">' +
@@ -1189,12 +1143,21 @@ var jconfirm, Jconfirm;
         '<div class="jconfirm-buttons">' +
         '</div>' +
         '<div class="jconfirm-clear">' +
-        '</div></div></div></div></div></div></div>',
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div></div>',
         title: 'Hello',
         titleClass: '',
         type: 'default',
         typeAnimated: true,
-        draggable: false,
+        draggable: true,
+        dragWindowGap: 15,
+        dragWindowBorder: true,
         alignMiddle: true,
         content: 'Are you sure to continue?',
         buttons: {},
@@ -1214,10 +1177,10 @@ var jconfirm, Jconfirm;
         lazyOpen: false,
         bgOpacity: null,
         theme: 'light',
-        animation: 'zoom',
+        animation: 'scale',
         closeAnimation: 'scale',
         animationSpeed: 400,
-        animationBounce: 1.2,
+        animationBounce: 1,
         escapeKey: true,
         rtl: false,
         container: 'body',
@@ -1235,7 +1198,6 @@ var jconfirm, Jconfirm;
         useBootstrap: true,
         offsetTop: 50,
         offsetBottom: 50,
-        dragWindowGap: 15,
         bootstrapClasses: {
             container: 'container',
             containerFluid: 'container-fluid',
@@ -1286,7 +1248,7 @@ var jconfirm, Jconfirm;
             keyDown = true;
         }
     });
-    $(window).on('keyup', function (e) {
+    $(window).on('keyup', function () {
         keyDown = false;
     });
 })(jQuery, window);
