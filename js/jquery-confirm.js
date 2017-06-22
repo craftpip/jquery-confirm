@@ -221,6 +221,7 @@ var jconfirm, Jconfirm;
             this.$contentPane = this.$el.find('.jconfirm-content-pane');
             this.$icon = this.$el.find('.jconfirm-icon-c');
             this.$closeIcon = this.$el.find('.jconfirm-closeIcon');
+            this.$holder = this.$el.find('.jconfirm-holder');
             // this.$content.css(this._getCSS(this.animationSpeed, this.animationBounce));
             this.$btnc = this.$el.find('.jconfirm-buttons');
             this.$scrollPane = this.$el.find('.jconfirm-scrollpane');
@@ -230,6 +231,10 @@ var jconfirm, Jconfirm;
             // for loading content via URL
             this._contentReady = $.Deferred();
             this._modalReady = $.Deferred();
+            this.$holder.css({
+                'padding-top': this.offsetTop,
+                'padding-bottom': this.offsetBottom,
+            });
 
             this.setTitle();
             this.setIcon();
@@ -249,12 +254,14 @@ var jconfirm, Jconfirm;
                         that.setIcon();
                         setTimeout(function () {
                             that.hideLoading(false);
+                            that._updateContentMaxHeight();
                         }, 100);
                         if (typeof that.onContentReady === 'function')
                             that.onContentReady();
                     }, 50);
                 else {
                     that.setContent();
+                    that._updateContentMaxHeight();
                     that.setTitle();
                     that.setIcon();
                     if (typeof that.onContentReady === 'function')
@@ -359,6 +366,14 @@ var jconfirm, Jconfirm;
             this.columnClass = colClass || this.columnClass;
             this._parseColumnClass(this.columnClass);
             this.$jconfirmBoxContainer.addClass(this.columnClassParsed);
+        },
+        _updateContentMaxHeight: function () {
+            var height = $(window).height() - (this.$jconfirmBox.outerHeight() - this.$contentPane.outerHeight()) - (this.offsetTop + this.offsetBottom);
+            console.log($(window).height(), this.$jconfirmBox.outerHeight() - this.$contentPane.outerHeight());
+
+            this.$contentPane.css({
+                'max-height': height + 'px'
+            });
         },
         setBoxWidth: function () {
             if (this.useBootstrap) {
@@ -494,15 +509,15 @@ var jconfirm, Jconfirm;
                     }).scrollTop(0);
                 }
 
-                var c = that.$el.find('.jconfirm-c').outerHeight();
-                var cl = that.$el.find('.jconfirm-scrollpane').outerHeight();
-                if (c >= cl) {
-                    $('body').addClass('jconfirm-no-scroll-' + that._id);
-                    that.$el.addClass(that._overflowClass);
-                } else {
-                    $('body').removeClass('jconfirm-no-scroll-' + that._id);
-                    that.$el.removeClass(that._overflowClass);
-                }
+                // var c = that.$el.find('.jconfirm-c').outerHeight();
+                // var cl = that.$el.find('.jconfirm-scrollpane').outerHeight();
+                // if (c >= cl) {
+                //     $('body').addClass('jconfirm-no-scroll-' + that._id);
+                //     that.$el.addClass(that._overflowClass);
+                // } else {
+                //     $('body').removeClass('jconfirm-no-scroll-' + that._id);
+                //     that.$el.removeClass(that._overflowClass);
+                // }
             }, this.watchInterval);
         },
         _overflowClass: 'jconfirm-overflow',
@@ -580,6 +595,7 @@ var jconfirm, Jconfirm;
             });
 
             $(window).on('resize.' + this._id, function () {
+                that._updateContentMaxHeight();
                 setTimeout(function () {
                     that.resetDrag();
                 }, 100);
@@ -1094,14 +1110,14 @@ var jconfirm, Jconfirm;
                 return false;
             }
 
-            console.log(el);
-            console.log(jconfirm.lastClicked);
+            // console.log(el);
+            // console.log(jconfirm.lastClicked);
 
             if (!el)
                 return false;
 
             var offset = el.offset();
-            console.log(offset.top, offset.left);
+            // console.log(offset.top, offset.left);
 
             // originate from center of the clicked element
             var iTop = el.outerHeight() / 2;
@@ -1180,7 +1196,7 @@ var jconfirm, Jconfirm;
         '<div class="jconfirm-scrollpane">' +
         '<div class="jconfirm-row">' +
         '<div class="jconfirm-cell">' +
-        '<div class="jconfirm-c">' +
+        '<div class="jconfirm-holder">' +
         '<div class="jc-bs3-container">' +
         '<div class="jc-bs3-row">' +
         '<div class="jconfirm-box-container jconfirm-animated">' +

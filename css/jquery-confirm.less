@@ -58,7 +58,7 @@ body[class*=jconfirm-no-scroll-] {
     }
   }
   .jconfirm-scrollpane {
-    overflow-y: auto;
+    //overflow-y: auto;
     perspective: 500px;
     perspective-origin: center;
 
@@ -75,13 +75,9 @@ body[class*=jconfirm-no-scroll-] {
     display: table-cell;
     vertical-align: middle;
   }
-  .jconfirm-c {
+  .jconfirm-holder {
     max-height: 100%;
     padding: 50px 0;
-  }
-  &.jconfirm-overflow .jconfirm-c {
-    overflow-x: hidden;
-    //overflow-y: auto;
   }
   .jconfirm-box-container {
     transition: transform;
@@ -220,6 +216,7 @@ body[class*=jconfirm-no-scroll-] {
       font-size: 27px !important;
       line-height: 14px !important;
       display: none;
+      z-index: 1;
 
       &:empty {
         display: none;
@@ -282,7 +279,21 @@ body[class*=jconfirm-no-scroll-] {
       display: inline-block;
       width: 100%;
       position: relative;
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
+
+      &::-webkit-scrollbar {
+        width: 3px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: rgba(0,0,0,.1);
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #666;
+        border-radius: 3px;
+      }
 
       .jconfirm-content {
         //position: absolute;

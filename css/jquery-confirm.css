@@ -53,7 +53,6 @@ body[class*=jconfirm-no-scroll-] {
   opacity: 0 !important;
 }
 .jconfirm .jconfirm-scrollpane {
-  overflow-y: auto;
   -webkit-perspective: 500px;
           perspective: 500px;
   -webkit-perspective-origin: center;
@@ -70,12 +69,9 @@ body[class*=jconfirm-no-scroll-] {
   display: table-cell;
   vertical-align: middle;
 }
-.jconfirm .jconfirm-c {
+.jconfirm .jconfirm-holder {
   max-height: 100%;
   padding: 50px 0;
-}
-.jconfirm.jconfirm-overflow .jconfirm-c {
-  overflow-x: hidden;
 }
 .jconfirm .jconfirm-box-container {
   -webkit-transition: -webkit-transform;
@@ -284,6 +280,7 @@ body[class*=jconfirm-no-scroll-] {
   font-size: 27px !important;
   line-height: 14px !important;
   display: none;
+  z-index: 1;
 }
 .jconfirm .jconfirm-box div.jconfirm-closeIcon:empty {
   display: none;
@@ -346,7 +343,18 @@ body[class*=jconfirm-no-scroll-] {
   display: inline-block;
   width: 100%;
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.jconfirm .jconfirm-box div.jconfirm-content-pane::-webkit-scrollbar {
+  width: 3px;
+}
+.jconfirm .jconfirm-box div.jconfirm-content-pane::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+.jconfirm .jconfirm-box div.jconfirm-content-pane::-webkit-scrollbar-thumb {
+  background: #666;
+  border-radius: 3px;
 }
 .jconfirm .jconfirm-box div.jconfirm-content-pane .jconfirm-content img {
   max-width: 100%;
