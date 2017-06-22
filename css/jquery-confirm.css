@@ -655,8 +655,8 @@ body[class*=jconfirm-no-scroll-] {
 @-webkit-keyframes glow {
   0%,
   100% {
-    -webkit-box-shadow: 0 0 3px red;
-            box-shadow: 0 0 3px red;
+    -webkit-box-shadow: 0 0 0px red;
+            box-shadow: 0 0 0px red;
   }
   50% {
     -webkit-box-shadow: 0 0 30px red;
@@ -666,8 +666,8 @@ body[class*=jconfirm-no-scroll-] {
 @keyframes glow {
   0%,
   100% {
-    -webkit-box-shadow: 0 0 3px red;
-            box-shadow: 0 0 3px red;
+    -webkit-box-shadow: 0 0 0px red;
+            box-shadow: 0 0 0px red;
   }
   50% {
     -webkit-box-shadow: 0 0 30px red;

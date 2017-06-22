@@ -522,7 +522,7 @@ var jconfirm, Jconfirm;
         },
         _overflowClass: 'jconfirm-overflow',
         _hilightAnimating: false,
-        _hiLightModal: function () {
+        hiLightModal: function () {
             var that = this;
             if (this._hilightAnimating)
                 return;
@@ -572,7 +572,7 @@ var jconfirm, Jconfirm;
                     if (shouldClose)
                         that.close();
                     else
-                        that._hiLightModal();
+                        that.hiLightModal();
                 }
                 that.boxClicked = false;
             });
