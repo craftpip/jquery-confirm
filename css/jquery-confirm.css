@@ -356,6 +356,9 @@ body[class*=jconfirm-no-scroll-] {
   background: #666;
   border-radius: 3px;
 }
+.jconfirm .jconfirm-box div.jconfirm-content-pane .jconfirm-content {
+  overflow: auto;
+}
 .jconfirm .jconfirm-box div.jconfirm-content-pane .jconfirm-content img {
   max-width: 100%;
   height: auto;

@@ -369,7 +369,7 @@ var jconfirm, Jconfirm;
         },
         _updateContentMaxHeight: function () {
             var height = $(window).height() - (this.$jconfirmBox.outerHeight() - this.$contentPane.outerHeight()) - (this.offsetTop + this.offsetBottom);
-            console.log($(window).height(), this.$jconfirmBox.outerHeight() - this.$contentPane.outerHeight());
+            // console.log($(window).height(), this.$jconfirmBox.outerHeight() - this.$contentPane.outerHeight());
 
             this.$contentPane.css({
                 'max-height': height + 'px'
@@ -501,12 +501,16 @@ var jconfirm, Jconfirm;
             var that = this;
             if (this._timer) clearInterval(this._timer);
 
+            var prevContentHeight = 0;
             this._timer = setInterval(function () {
-                if (this.smoothContent) {
+                if (that.smoothContent) {
                     var contentHeight = that.$content.outerHeight() || 0;
-                    that.$contentPane.css({
-                        'height': contentHeight
-                    }).scrollTop(0);
+                    if (contentHeight !== prevContentHeight) {
+                        that.$contentPane.css({
+                            'height': contentHeight
+                        }).scrollTop(0);
+                        prevContentHeight = contentHeight;
+                    }
                 }
 
                 // var c = that.$el.find('.jconfirm-c').outerHeight();
@@ -1226,10 +1230,10 @@ var jconfirm, Jconfirm;
         typeAnimated: true,
         draggable: true,
         dragWindowGap: 15,
-        dragWindowBorder: false,
+        dragWindowBorder: true,
         animateFromElement: true,
         alignMiddle: true,
-        smoothContent: false,
+        smoothContent: true,
         content: 'Are you sure to continue?',
         buttons: {},
         defaultButtons: {
