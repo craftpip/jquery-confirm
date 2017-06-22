@@ -607,22 +607,20 @@
 
                     $('.example-the-1').on('click', function () {
                         $.confirm({
-                            icon: 'fa fa-question',
+                            icon: 'fa fa-smile-o',
                             theme: 'modern',
                             closeIcon: true,
                             animation: 'scale',
-                            type: 'orange',
-                            animateFromElement: $(this),
+                            type: 'blue',
                         });
                     });
                     $('.example-the-2').on('click', function () {
                         $.confirm({
-                            icon: 'fa fa-question',
+                            icon: 'fa fa-question-circle-o',
                             theme: 'supervan',
                             closeIcon: true,
                             animation: 'scale',
                             type: 'orange',
-                            animateFromElement: $(this),
                         });
                     });
                     $('.example-the-3').on('click', function () {
@@ -631,7 +629,6 @@
                             theme: 'material',
                             closeIcon: true,
                             animation: 'scale',
-                            animateFromElement: $(this),
                             type: 'orange',
                         });
                     });
@@ -641,7 +638,6 @@
                             theme: 'bootstrap',
                             closeIcon: true,
                             animation: 'scale',
-                            animateFromElement: $(this),
                             type: 'orange',
                         });
                     });
@@ -653,8 +649,7 @@
                             content: 'This is a simple alert. <br> with some <strong>HTML</strong> <em>contents</em>',
                             icon: 'fa fa-rocket',
                             animation: 'scale',
-                            closeAnimation: 'zoom',
-                            animateFromElement: $(this),
+                            closeAnimation: 'scale',
                             buttons: {
                                 okay: {
                                     text: 'Okay',
@@ -672,7 +667,6 @@
                             icon: 'fa fa-question-circle',
                             animation: 'scale',
                             closeAnimation: 'scale',
-                            animateFromElement: $(this),
                             opacity: 0.5,
                             buttons: {
                                 'confirm': {
@@ -683,7 +677,7 @@
                                             title: 'This maybe critical',
                                             content: 'Critical actions can have multiple confirmations like this one.',
                                             icon: 'fa fa-warning',
-                                            animation: 'zoom',
+                                            animation: 'scale',
                                             closeAnimation: 'zoom',
                                             buttons: {
                                                 confirm: {
@@ -718,7 +712,6 @@
                         $.confirm({
                             title: 'A simple form',
                             content: 'url:form.html',
-                            animateFromElement: $(this),
                             buttons: {
                                 sayMyName: {
                                     text: 'Say my name',
@@ -726,8 +719,11 @@
                                     action: function () {
                                         var input = this.$content.find('input#input-name');
                                         var errorText = this.$content.find('.text-danger');
-                                        if (input.val() == '') {
-                                            errorText.html('Please don\'t keep the name field empty!').slideDown(200);
+                                        if (!input.val().trim()) {
+                                            $.alert({
+                                                content: "Please don't keep the name field empty.",
+                                                type: 'red'
+                                            });
                                             return false;
                                         } else {
                                             $.alert('Hello ' + input.val() + ', i hope you have a great day!');
@@ -744,10 +740,12 @@
                     // alert types
                     $('.example-p-70-type').on('click', function () {
                         $.alert({
-                            title: 'Oh no',
-                            type: 'red',
-                            animateFromElement: $(this),
-                            content: 'Something bad, bad happened.',
+                            title: 'Error',
+                            icon: 'fa fa-warning',
+                            type: 'orange',
+                            content: 'Something went wrong, please retry again after sometime.' +
+                            '<hr>' +
+                            'More types: red, green, orange, blue, purple, dark',
                         });
                     });
 
@@ -755,10 +753,10 @@
                     $('.example-p-3').on('click', function () {
                         $.alert({
                             title: 'Background dismiss',
-                            content: 'Click outside the modal to close it.',
+                            content: 'Click outside the modal to close it.' +
+                            '<br>this modal has the `bottom` close animation',
                             animation: 'scale',
                             closeAnimation: 'bottom',
-                            animateFromElement: $(this),
                             backgroundDismiss: true,
                             buttons: {
                                 okay: {
@@ -782,7 +780,6 @@
                             '<h5><em>Well, that close icon is shown if no buttons are here (u need something to close the modal right), u can explicitly control that too.</em></h5>' +
                             '<button type="button" class="btn btn-success">Click me to change the content</button>',
                             animation: 'scale',
-                            animateFromElement: $(this),
                             onOpen: function () {
                                 var that = this;
                                 this.$content.find('button').click(function () {
@@ -799,7 +796,6 @@
                             content: 'url:table.html',
                             animation: 'scale',
                             columnClass: 'medium',
-                            animateFromElement: $(this),
                             closeAnimation: 'scale',
                             backgroundDismiss: true,
                         });
@@ -812,7 +808,6 @@
                             content: 'Some actions maybe critical, prevent it with the Auto close. This dialog will automatically trigger cancel after the timer runs out.',
                             autoClose: 'cancelAction|10000',
                             escapeKey: 'cancelAction',
-                            animateFromElement: $(this),
                             buttons: {
                                 confirm: {
                                     btnClass: 'btn-red',
@@ -859,7 +854,6 @@
                                     }
                                 }
                             },
-                            animateFromElement: $(this),
                         });
                     });
 
@@ -897,7 +891,6 @@
                                     that.$content.find('span').append('<br>This is awesome!!!!');
                                 });
                             },
-                            animateFromElement: $(this),
                         });
                     });
 
@@ -909,7 +902,6 @@
                             content: 'Images from flickr <br><img src="https://c2.staticflickr.com/4/3891/14354989289_2eec0ba724_b.jpg">',
                             animation: 'scale',
                             animationClose: 'top',
-                            animateFromElement: $(this),
                             buttons: {
                                 confirm: {
                                     text: 'Add more',
@@ -933,7 +925,6 @@
                             content: 'jquery-confirm provides a lot of open &amp; close animations out of the box. <br>The best part is, you can add custom ones too.',
                             animation: 'scale',
                             closeAnimation: 'right',
-                            animateFromElement: $(this),
                             buttons: {
                                 zoom: function () {
                                     this.setCloseAnimation('zoom');
@@ -961,7 +952,6 @@
                             type: 'blue',
                             animation: 'scale',
                             draggable: true,
-                            animateFromElement: $(this),
                         });
                     })
                 </script>
@@ -2317,7 +2307,7 @@ $.confirm({
                                     self.setContentAppend('<div>Appended text after 2 seconds</div>');
                                 }, 2000);
                             },
-                            animation: 'zoom',
+                            animation: 'scale',
                             columnClass: 'medium',
                             closeAnimation: 'scale',
                         });
@@ -2955,7 +2945,7 @@ $.confirm({
     lazyOpen: false,
     bgOpacity: null,
     theme: 'light',
-    animation: 'zoom',
+    animation: 'scale',
     closeAnimation: 'scale',
     animationSpeed: 400,
     animationBounce: 1.2,

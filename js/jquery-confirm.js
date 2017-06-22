@@ -470,18 +470,32 @@ var jconfirm, Jconfirm;
                 that.$jconfirmBoxContainer.css('transform', 'translate(' + that.movingX + 'px, ' + that.movingY + 'px)');
             }
         },
+        _scrollTop: function () {
+            if (typeof pageYOffset !== 'undefined') {
+                //most browsers except IE before #9
+                return pageYOffset;
+            }
+            else {
+                var B = document.body; //IE 'quirks'
+                var D = document.documentElement; //IE with doctype
+                D = (D.clientHeight) ? D : B;
+                return D.scrollTop;
+            }
+        },
         _watchContent: function () {
             var that = this;
             if (this._timer) clearInterval(this._timer);
+
             this._timer = setInterval(function () {
-                var contentHeight = that.$content.outerHeight() || 0;
-                that.$contentPane.css({
-                    'height': contentHeight
-                }).scrollTop(0);
+                if (this.smoothContent) {
+                    var contentHeight = that.$content.outerHeight() || 0;
+                    that.$contentPane.css({
+                        'height': contentHeight
+                    }).scrollTop(0);
+                }
 
                 var c = that.$el.find('.jconfirm-c').outerHeight();
                 var cl = that.$el.find('.jconfirm-scrollpane').outerHeight();
-                console.log(c, cl);
                 if (c >= cl) {
                     $('body').addClass('jconfirm-no-scroll-' + that._id);
                     that.$el.addClass(that._overflowClass);
@@ -729,6 +743,7 @@ var jconfirm, Jconfirm;
                 return;
 
             this.$title.html(this.title || '');
+            this.updateTitleContainer();
         },
         setIcon: function (iconClass, force) {
             force = force || false;
@@ -750,6 +765,14 @@ var jconfirm, Jconfirm;
                 return;
 
             this.$icon.html(this.icon ? '<i class="' + this.icon + '"></i>' : '');
+            this.updateTitleContainer();
+        },
+        updateTitleContainer: function () {
+            if (!this.title && !this.icon) {
+                this.$titleContainer.hide();
+            } else {
+                this.$titleContainer.show();
+            }
         },
         setContentPrepend: function (string, force) {
             this.contentParsed = string + this.contentParsed;
@@ -1059,25 +1082,53 @@ var jconfirm, Jconfirm;
             return true;
         },
         setStartingPoint: function () {
-            if (!this.animateFromElement)
+            var el = false;
+
+            if (this.animateFromElement !== true && this.animateFromElement) {
+                el = this.animateFromElement;
+                jconfirm.lastClicked = false;
+            } else if (jconfirm.lastClicked && this.animateFromElement === true) {
+                el = jconfirm.lastClicked;
+                jconfirm.lastClicked = false;
+            } else {
+                return false;
+            }
+
+            console.log(el);
+            console.log(jconfirm.lastClicked);
+
+            if (!el)
                 return false;
 
-            var offset = this.animateFromElement.offset();
-            var iTop = this.animateFromElement.outerHeight() / 2;
-            var iLeft = this.animateFromElement.outerWidth() / 2;
+            var offset = el.offset();
+            console.log(offset.top, offset.left);
 
+            // originate from center of the clicked element
+            var iTop = el.outerHeight() / 2;
+            var iLeft = el.outerWidth() / 2;
+
+            // placing position of jconfirm modal in center of clicked element
             iTop -= this.$jconfirmBox.outerHeight() / 2;
             iLeft -= this.$jconfirmBox.outerWidth() / 2;
 
+            // absolute position on screen
             var sourceTop = offset.top + iTop;
-            sourceTop = sourceTop - $('body').scrollTop();
+            sourceTop = sourceTop - this._scrollTop();
             var sourceLeft = offset.left + iLeft;
 
-            var targetH = $(window).height() / 2 - this.$jconfirmBox.outerHeight() / 2;
-            var targetW = $(window).width() / 2 - this.$jconfirmBox.outerWidth() / 2;
+            // window halved
+            var wh = $(window).height() / 2;
+            var ww = $(window).width() / 2;
+
+            var targetH = wh - this.$jconfirmBox.outerHeight() / 2;
+            var targetW = ww - this.$jconfirmBox.outerWidth() / 2;
 
             sourceTop -= targetH;
             sourceLeft -= targetW;
+
+            // Check if the element is inside the viewable window.
+            if (Math.abs(sourceTop) > wh || Math.abs(sourceLeft) > ww)
+                return false;
 
             this.$jconfirmBoxContainer.css('transform', 'translate(' + sourceLeft + 'px, ' + sourceTop + 'px)');
         },
@@ -1127,6 +1178,7 @@ var jconfirm, Jconfirm;
         '<div class="jconfirm">' +
         '<div class="jconfirm-bg jconfirm-bg-h"></div>' +
         '<div class="jconfirm-scrollpane">' +
+        '<div class="jconfirm-row">' +
         '<div class="jconfirm-cell">' +
         '<div class="jconfirm-c">' +
         '<div class="jc-bs3-container">' +
@@ -1136,13 +1188,15 @@ var jconfirm, Jconfirm;
         '<div class="jconfirm-closeIcon">&times;</div>' +
         '<div class="jconfirm-title-c">' +
         '<span class="jconfirm-icon-c"></span>' +
-        '<span class="jconfirm-title"></span></div>' +
+        '<span class="jconfirm-title"></span>' +
+        '</div>' +
         '<div class="jconfirm-content-pane">' +
         '<div class="jconfirm-content"></div>' +
         '</div>' +
         '<div class="jconfirm-buttons">' +
         '</div>' +
         '<div class="jconfirm-clear">' +
+        '</div>' +
         '</div>' +
         '</div>' +
         '</div>' +
@@ -1157,8 +1211,10 @@ var jconfirm, Jconfirm;
         typeAnimated: true,
         draggable: true,
         dragWindowGap: 15,
-        dragWindowBorder: true,
+        dragWindowBorder: false,
+        animateFromElement: true,
         alignMiddle: true,
+        smoothContent: false,
         content: 'Are you sure to continue?',
         buttons: {},
         defaultButtons: {
@@ -1250,5 +1306,11 @@ var jconfirm, Jconfirm;
     });
     $(window).on('keyup', function () {
         keyDown = false;
+    });
+
+    jconfirm.lastClicked = false;
+    $(document).on('mousedown', 'button, a', function () {
+        console.log('hey clicked', this);
+        jconfirm.lastClicked = $(this);
     });
 })(jQuery, window);

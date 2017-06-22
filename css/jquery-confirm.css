@@ -62,6 +62,10 @@ body[class*=jconfirm-no-scroll-] {
   width: 100%;
   height: 100%;
 }
+.jconfirm .jconfirm-row {
+  display: table-row;
+  width: 100%;
+}
 .jconfirm .jconfirm-cell {
   display: table-cell;
   vertical-align: middle;
@@ -272,13 +276,11 @@ body[class*=jconfirm-no-scroll-] {
   height: 20px;
   width: 20px;
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: 10px;
+  right: 10px;
   cursor: pointer;
   opacity: .6;
   text-align: center;
-  -webkit-transition: opacity 0.3s ease-in;
-  transition: opacity 0.3s ease-in;
   font-size: 27px !important;
   line-height: 14px !important;
   display: none;
@@ -307,13 +309,13 @@ body[class*=jconfirm-no-scroll-] {
       -ms-user-select: none;
           user-select: none;
   cursor: default;
+  padding-bottom: 15px;
 }
 .jconfirm .jconfirm-box div.jconfirm-title-c.jconfirm-hand {
   cursor: move;
 }
 .jconfirm .jconfirm-box div.jconfirm-title-c .jconfirm-icon-c {
   font-size: inherit;
-  padding-bottom: 15px;
   display: inline-block;
   vertical-align: middle;
 }
@@ -332,7 +334,6 @@ body[class*=jconfirm-no-scroll-] {
   font-family: inherit;
   display: inline-block;
   vertical-align: middle;
-  padding-bottom: 15px;
 }
 .jconfirm .jconfirm-box div.jconfirm-title-c .jconfirm-title:empty {
   display: none;
