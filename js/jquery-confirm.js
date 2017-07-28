@@ -375,12 +375,13 @@ var jconfirm, Jconfirm;
                 'max-height': height + 'px'
             });
         },
-        setBoxWidth: function () {
+        setBoxWidth: function (width) {
             if (this.useBootstrap) {
                 console.warn("cannot set boxWidth, useBootstrap is set to true");
                 return;
             }
-            this.$jconfirmBox.css('width', this.boxWidth);
+            this.boxWidth = width;
+            this.$jconfirmBox.css('width', width);
         },
         _parseColumnClass: function (colClass) {
             colClass = colClass.toLowerCase();
