@@ -655,8 +655,8 @@ var jconfirm, Jconfirm;
                     .css('display', that.buttons[key].isHidden ? 'none' : '')
                     .click(function (e) {
                         e.preventDefault();
-                        var res = that.buttons[key].action.apply(that);
-                        that.onAction(key);
+                        var res = that.buttons[key].action.apply(that, that.buttons[key]);
+                        that.onAction.apply(that, key, that.buttons[key]);
                         that._stopCountDown();
                         if (typeof res === 'undefined' || res)
                             that.close();
