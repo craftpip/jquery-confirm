@@ -29,6 +29,11 @@ var jconfirm, Jconfirm;
          */
         $(this).each(function () {
             var $this = $(this);
+            if ($this.attr('jc-attached')) {
+                console.warn('jConfirm has already binded to this element ', $this[0]);
+                return;
+            }
+
             $this.on('click', function (e) {
                 e.preventDefault();
                 var jcOption = $.extend({}, options);
@@ -49,8 +54,10 @@ var jconfirm, Jconfirm;
                     };
                 }
                 jcOption['closeIcon'] = false;
-                $.confirm(jcOption);
+                var instance = $.confirm(jcOption);
             });
+
+            $this.attr('jc-attached', true);
         });
         return $(this);
     };
@@ -1324,10 +1331,8 @@ var jconfirm, Jconfirm;
     $(window).on('keyup', function () {
         keyDown = false;
     });
-
     jconfirm.lastClicked = false;
     $(document).on('mousedown', 'button, a', function () {
-        console.log('hey clicked', this);
         jconfirm.lastClicked = $(this);
     });
 })(jQuery, window);
