@@ -512,17 +512,14 @@ var jconfirm, Jconfirm;
                         }).scrollTop(0);
                         prevContentHeight = contentHeight;
                     }
+                    var wh = $(window).height();
+                    var total = that.offsetTop + that.offsetBottom + that.$jconfirmBox.height() - that.$contentPane.height() + that.$content.height();
+                    if (total < wh) {
+                        that.$contentPane.addClass('no-scroll');
+                    } else {
+                        that.$contentPane.removeClass('no-scroll');
+                    }
                 }
-
-                // var c = that.$el.find('.jconfirm-c').outerHeight();
-                // var cl = that.$el.find('.jconfirm-scrollpane').outerHeight();
-                // if (c >= cl) {
-                //     $('body').addClass('jconfirm-no-scroll-' + that._id);
-                //     that.$el.addClass(that._overflowClass);
-                // } else {
-                //     $('body').removeClass('jconfirm-no-scroll-' + that._id);
-                //     that.$el.removeClass(that._overflowClass);
-                // }
             }, this.watchInterval);
         },
         _overflowClass: 'jconfirm-overflow',
@@ -1272,8 +1269,8 @@ var jconfirm, Jconfirm;
         scrollToPreviousElement: true,
         scrollToPreviousElementAnimate: true,
         useBootstrap: true,
-        offsetTop: 50,
-        offsetBottom: 50,
+        offsetTop: 40,
+        offsetBottom: 40,
         bootstrapClasses: {
             container: 'container',
             containerFluid: 'container-fluid',

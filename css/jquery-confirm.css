@@ -346,6 +346,9 @@ body[class*=jconfirm-no-scroll-] {
   overflow-x: hidden;
   overflow-y: auto;
 }
+.jconfirm .jconfirm-box div.jconfirm-content-pane.no-scroll {
+  overflow-y: hidden;
+}
 .jconfirm .jconfirm-box div.jconfirm-content-pane::-webkit-scrollbar {
   width: 3px;
 }

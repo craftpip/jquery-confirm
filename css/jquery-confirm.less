@@ -282,6 +282,9 @@ body[class*=jconfirm-no-scroll-] {
       overflow-x: hidden;
       overflow-y: auto;
 
+      &.no-scroll {
+        overflow-y: hidden;
+      }
       &::-webkit-scrollbar {
         width: 3px;
       }
@@ -297,7 +300,7 @@ body[class*=jconfirm-no-scroll-] {
 
       .jconfirm-content {
         overflow: auto;
-        
+
         img {
           max-width: 100%;
           height: auto;
