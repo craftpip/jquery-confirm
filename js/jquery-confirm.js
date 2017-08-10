@@ -533,6 +533,9 @@ var jconfirm, Jconfirm;
         },
         _overflowClass: 'jconfirm-overflow',
         _hilightAnimating: false,
+        highlight: function () {
+            this.hiLightModal();
+        },
         hiLightModal: function () {
             var that = this;
             if (this._hilightAnimating)

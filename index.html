@@ -406,6 +406,9 @@
                                 <a href="#api-settitle"> .setTitle()</a>
                             </li>
                             <li>
+                                <a href="#api-seticon"> .setIcon()</a>
+                            </li>
+                            <li>
                                 <a href="#api-setcontent"> .setContent()</a>
                             </li>
                             <li>
@@ -418,34 +421,31 @@
                                 <a href="#api-set-type"> .setType()</a>
                             </li>
                             <li>
-                                <a href="#api-button-settext"> .&lt;buttonName&gt;.setText()</a>
+                                <a href="#api-show-loading"> .showLoading()</a>
                             </li>
                             <li>
-                                <a href="#api-button-addclass"> .&lt;buttonName&gt;.addClass()</a>
-                            </li>
-                            <li>
-                                <a href="#api-button-removeclass"> .&lt;buttonName&gt;.removeClass()</a>
-                            </li>
-                            <li>
-                                <a href="#api-button-disable"> .&lt;buttonName&gt;.disable()</a>
-                            </li>
-                            <li>
-                                <a href="#api-button-enable"> .&lt;buttonName&gt;.enable()</a>
-                            </li>
-                            <li>
-                                <a href="#api-button-hide"> .&lt;buttonName&gt;.hide()</a>
-                            </li>
-                            <li>
-                                <a href="#api-button-show"> .&lt;buttonName&gt;.show()</a>
-                            </li>
-                            <li>
-                                <a href="#api-seticon"> .setIcon()</a>
+                                <a href="#api-hide-loading"> .hideLoading()</a>
                             </li>
                             <li>
                                 <a href="#api-close"> .close()</a>
                             </li>
                             <li>
                                 <a href="#api-open"> .open()</a>
+                            </li>
+                            <li>
+                                <a href="#api-toggle"> .toggle()</a>
+                            </li>
+                            <li>
+                                <a href="#api-highlight"> .highlight()</a>
+                            </li>
+                            <li>
+                                <a href="#api-set-boxwidth"> .setBoxWidth()</a>
+                            </li>
+                            <li>
+                                <a href="#api-set-columnclass"> .setColumnClass()</a>
+                            </li>
+                            <li>
+                                <a href="#api-set-theme"> .setTheme()</a>
                             </li>
                             <li>
                                 <a href="#api-isclosed"> .isClosed()</a>
@@ -456,6 +456,28 @@
                             <li>
                                 <a href="#api-setdialogcenter"> .setDialogCenter()</a>
                             </li>
+                            <li>
+                                <a href="#api-button-settext"> &lt;button&gt;.setText()</a>
+                            </li>
+                            <li>
+                                <a href="#api-button-addclass"> &lt;button&gt;.addClass()</a>
+                            </li>
+                            <li>
+                                <a href="#api-button-removeclass"> &lt;button&gt;.removeClass()</a>
+                            </li>
+                            <li>
+                                <a href="#api-button-disable"> &lt;button&gt;.disable()</a>
+                            </li>
+                            <li>
+                                <a href="#api-button-enable"> &lt;button&gt;.enable()</a>
+                            </li>
+                            <li>
+                                <a href="#api-button-hide"> &lt;button&gt;.hide()</a>
+                            </li>
+                            <li>
+                                <a href="#api-button-show"> &lt;button&gt;.show()</a>
+                            </li>
+
                             <li>
                                 <a href="#api-body"> .$body</a>
                             </li>
@@ -3483,7 +3505,18 @@ $.confirm({
 
                 <div>
                     <h4 id="api-settitle">
-                        <code>jc.setTitle(string)</code>
+                        <code>jc.setTitle(title: string)</code>
+                    </h4>
+
+                    <p><kbd>function</kbd></p>
+
+                    <div class="section">
+                        <p>Sets the title and overwrites jc.title</p>
+                    </div>
+                </div>
+                <div>
+                    <h4 id="api-seticon">
+                        <code>jc.setIcon(iconClass: string)</code>
                     </h4>
 
                     <p><kbd>function</kbd></p>
@@ -3494,7 +3527,7 @@ $.confirm({
                 </div>
                 <div>
                     <h4 id="api-setcontent">
-                        <code>jc.setContent(string)</code>
+                        <code>jc.setContent(content: string | jQuery)</code>
                     </h4>
 
                     <p><kbd>function</kbd></p>
@@ -3505,7 +3538,7 @@ $.confirm({
                 </div>
                 <div>
                     <h4 id="api-setcontentprepend">
-                        <code>jc.setContentPrepend(string)</code>
+                        <code>jc.setContentPrepend(content: string | jQuery)</code>
                     </h4>
 
                     <p><kbd>function</kbd></p>
@@ -3516,7 +3549,7 @@ $.confirm({
                 </div>
                 <div>
                     <h4 id="api-setcontentappend">
-                        <code>jc.setContentAppend(string)</code>
+                        <code>jc.setContentAppend(content: string | jQuery)</code>
                     </h4>
                     <p><kbd>function</kbd></p>
                     <div class="section">
@@ -3525,7 +3558,7 @@ $.confirm({
                 </div>
                 <div>
                     <h4 id="api-set-type">
-                        <code>jc.setType(string)</code>
+                        <code>jc.setType(typeClass: string)</code>
                     </h4>
                     <p><kbd>function</kbd></p>
                     <div class="section">
@@ -3533,8 +3566,139 @@ $.confirm({
                     </div>
                 </div>
                 <div>
+                    <h4 id="api-show-loading">
+                        <code>jc.showLoading(disableButtons: boolean)</code>
+                    </h4>
+                    <p><kbd>function</kbd></p>
+                    <div class="section">
+                        <p>Show loading spinner inside modal, disableButtons if set to true will disable the buttons.</p>
+                    </div>
+                </div>
+                <div>
+                    <h4 id="api-hide-loading">
+                        <code>jc.hideLoading(enableButtons: boolean)</code>
+                    </h4>
+                    <p><kbd>function</kbd></p>
+                    <div class="section">
+                        <p>Hide loading spinner inside modal, enableButtons if set to true will enable the buttons.</p>
+                    </div>
+                </div>
+                <div>
+                    <h4 id="api-close">
+                        <code>jc.close() : boolean</code>
+                    </h4>
+                    <p><kbd>function</kbd></p>
+                    <div class="section">
+                        <p>The close method closes/destroys the dialog.</p>
+                    </div>
+                </div>
+                <div>
+                    <h4 id="api-open">
+                        <code>jc.open() : boolean</code>
+                    </h4>
+
+                    <p><kbd>function</kbd></p>
+
+                    <div class="section">
+                        <p>Opens the modal again, if it is closed. (Added in v3.0.0)</p>
+                    </div>
+                </div>
+                <div>
+                    <h4 id="api-toggle">
+                        <code>jc.toggle()</code>
+                    </h4>
+
+                    <p><kbd>function</kbd></p>
+
+                    <div class="section">
+                        <p>Toggle between open and close modal</p>
+                    </div>
+                </div>
+                <div>
+                    <h4 id="api-highlight">
+                        <code>jc.highlight()</code>
+                    </h4>
+
+                    <p><kbd>function</kbd></p>
+
+                    <div class="section">
+                        <p>Trigger background dismiss animation</p>
+                    </div>
+                </div>
+                <div>
+                    <h4 id="api-set-boxwidth">
+                        <code>jc.setBoxWidth(width: string)</code>
+                    </h4>
+
+                    <p><kbd>function</kbd></p>
+
+                    <div class="section">
+                        <p>Set the box width of the modal. Only if useBootstrap is set to false</p>
+                    </div>
+                </div>
+                <div>
+                    <h4 id="api-set-columnclass">
+                        <code>jc.setColumnClass(className: string)</code>
+                    </h4>
+
+                    <p><kbd>function</kbd></p>
+
+                    <div class="section">
+                        <p>Set the bootstrap column class of the modal. Only if useBootstrap is set to true</p>
+                    </div>
+                </div>
+                <div>
+                    <h4 id="api-set-theme">
+                        <code>jc.setTheme(themeName: string)</code>
+                    </h4>
+
+                    <p><kbd>function</kbd></p>
+
+                    <div class="section">
+                        <p>Set the theme class of the modal.</p>
+                    </div>
+                </div>
+                <div>
+                    <h4 id="api-isclosed">
+                        <code>jc.isClosed() : boolean</code>
+                    </h4>
+
+                    <p><kbd>function</kbd></p>
+
+                    <div class="section">
+                        <p>
+                            returns true if the modal is closed, else false.
+                        </p>
+                    </div>
+                </div>
+                <div>
+                    <h4 id="api-isopen">
+                        <code>jc.isOpen() : boolean</code>
+                    </h4>
+
+                    <p><kbd>function</kbd></p>
+
+                    <div class="section">
+                        <p>
+                            returns true if the modal is open, else false.
+                        </p>
+                    </div>
+                </div>
+                <div>
+                    <h4 id="api-setdialogcenter">
+                        <code style="text-decoration: line-through">jc.setDialogCenter()</code> <kbd>Deprecated</kbd>
+                    </h4>
+
+                    <p><kbd>function</kbd></p>
+
+                    <div class="section">
+                        <p>Centers the dialog on screen. This is done for you by the watch timer when the content
+                            changes.</p>
+                    </div>
+                </div>
+                <div>
                     <h4 id="api-button-settext">
-                        <code>jc.&lt;buttonName&gt;.setText(text)</code>
+                        <code>jc.buttons.&lt;buttonName&gt;.setText(text: string)</code>
                     </h4>
                     <p><kbd>function</kbd></p>
                     <div class="section">
@@ -3543,7 +3707,7 @@ $.confirm({
                 </div>
                 <div>
                     <h4 id="api-button-addclass">
-                        <code>jc.&lt;buttonName&gt;.addClass(text)</code>
+                        <code>jc.buttons.&lt;buttonName&gt;.addClass(className: string)</code>
                     </h4>
                     <p><kbd>function</kbd></p>
                     <div class="section">
@@ -3552,7 +3716,7 @@ $.confirm({
                 </div>
                 <div>
                     <h4 id="api-button-removeclass">
-                        <code>jc.&lt;buttonName&gt;.removeClass(text)</code>
+                        <code>jc.buttons.&lt;buttonName&gt;.removeClass(className: string)</code>
                     </h4>
                     <p><kbd>function</kbd></p>
                     <div class="section">
@@ -3593,73 +3757,6 @@ $.confirm({
                     <p><kbd>function</kbd></p>
                     <div class="section">
                         <p>Shows a previously hidden button</p>
-                    </div>
-                </div>
-                <div>
-                    <h4 id="api-seticon">
-                        <code>jc.setIcon(iconClass)</code>
-                    </h4>
-                    <p><kbd>function</kbd></p>
-                    <div class="section">
-                        <p>Sets the icon and overwrites jc.icon</p>
-                    </div>
-                </div>
-                <div>
-                    <h4 id="api-close">
-                        <code>jc.close()</code>
-                    </h4>
-                    <p><kbd>function</kbd></p>
-                    <div class="section">
-                        <p>The close method closes/destroys the dialog.</p>
-                    </div>
-                </div>
-                <div>
-                    <h4 id="api-open">
-                        <code>jc.open()</code>
-                    </h4>
-
-                    <p><kbd>function</kbd></p>
-
-                    <div class="section">
-                        <p>Opens the modal again, if it is closed. (Added in v3.0.0)</p>
-                    </div>
-                </div>
-                <div>
-                    <h4 id="api-isclosed">
-                        <code>jc.isClosed()</code>
-                    </h4>
-
-                    <p><kbd>function</kbd></p>
-
-                    <div class="section">
-                        <p>
-                            returns true if the modal is closed, else false.
-                        </p>
-                    </div>
-                </div>
-                <div>
-                    <h4 id="api-isopen">
-                        <code>jc.isOpen()</code>
-                    </h4>
-
-                    <p><kbd>function</kbd></p>
-
-                    <div class="section">
-                        <p>
-                            returns true if the modal is open, else false.
-                        </p>
-                    </div>
-                </div>
-                <div>
-                    <h4 id="api-setdialogcenter">
-                        <code>jc.setDialogCenter()</code>
-                    </h4>
-
-                    <p><kbd>function</kbd></p>
-
-                    <div class="section">
-                        <p>Centers the dialog on screen. This is done for you by the watch timer when the content
-                            changes.</p>
                     </div>
                 </div>
                 <div>
