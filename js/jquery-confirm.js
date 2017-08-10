@@ -70,10 +70,12 @@ var jconfirm, Jconfirm;
             };
         }
 
+        var putDefaultButtons = !(options['buttons'] == false);
+
         if (typeof options['buttons'] != 'object')
             options['buttons'] = {};
 
-        if (Object.keys(options['buttons']).length == 0) {
+        if (Object.keys(options['buttons']).length == 0 && putDefaultButtons) {
             var buttons = $.extend(true, {}, jconfirm.pluginDefaults.defaultButtons, (jconfirm.defaults || {}).defaultButtons || {});
             options['buttons'] = buttons;
         }
@@ -92,10 +94,12 @@ var jconfirm, Jconfirm;
             };
         }
 
+        var putDefaultButtons = !(options['buttons'] == false);
+
         if (typeof options.buttons != 'object')
             options.buttons = {};
 
-        if (Object.keys(options['buttons']).length == 0) {
+        if (Object.keys(options['buttons']).length == 0 && putDefaultButtons) {
             var buttons = $.extend(true, {}, jconfirm.pluginDefaults.defaultButtons, (jconfirm.defaults || {}).defaultButtons || {});
             var firstBtn = Object.keys(buttons)[0];
             options['buttons'][firstBtn] = buttons[firstBtn];
