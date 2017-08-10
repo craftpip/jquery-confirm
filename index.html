@@ -1434,10 +1434,11 @@ a.toggle(); // toggle open close.</code></pre>
                 <h4 id="buttonstyle">Button style</h4>
 
                 <div class="section">
-                    <p>Simply applying classes to buttons.</p>
+                    <p>Simply apply classes to buttons to style them.</p>
                     <p class="text-info">
                         Jconfirm comes bundled with <code>btn-blue</code> <code>btn-green</code> <code>btn-red</code>
                         <code>btn-orange</code> <code>btn-purple</code> <code>btn-default</code> <code>btn-dark</code>
+                        <br> <i class="fa fa-info"></i> These classes only work inside jquery-confirm's modal
                     </p>
                     <p class="text-info">
                         Other bootstrap options are <code>btn-primary</code> <code>btn-inverse</code>
@@ -1519,15 +1520,18 @@ a.toggle(); // toggle open close.</code></pre>
 
                 <div class="section">
                     <p>
-                        Listen to keyup events for individual buttons. A button can listen for multiple keys at a time.
+                        A 'key' feature of jquery-confirm! (pun intended)
+                        <br> Listen to keyup events for individual buttons. A button can listen for multiple keys at a time.
+                        <br> If multiple modals are stacked together, only the topmost modal will listen for keyboard event.
                     </p>
                     <div class="alert alert-info">
-                        Available options are: <br>
-                        a to Z, tilde, enter, shift, tab, capslock, ctrl, win, alt, esc, space.
+                        Available key options are: <br>
+                        a to Z, tilde (the ` key), enter, shift, tab, capslock, ctrl, win, alt, esc, space.
                     </div>
                     <button class="btn btn-primary example3-1-a">Click me!</button>
                     <div class="space10"></div>
                     <pre class="prettyprint linenums"><code class="html">$.confirm({
+    content: 'Time to use your keyboard, press shift, alert, A or B',
     buttons: {
         specialKey: {
             text: 'On behalf of shift',
@@ -1547,22 +1551,19 @@ a.toggle(); // toggle open close.</code></pre>
 });</code></pre>
 
                     <button type="button"
-                            class="btn btn-primary example3-1-1">Another important example
+                            class="btn btn-primary example3-1-1">Another example
                     </button>
                     <div class="space10"></div>
                     <p>
-                        In this example, the YES button is hidden using bootstrap's hide class, thus the user can only
-                        use keys to proceed.
+                        In this example, the YES button is hidden, The user can only use the keyboard to click the button!
                     </p>
                     <pre class="prettyprint linenums"><code class="html">$.confirm({
     title: false,
-    content: 'A very very critical action here! &lt;br&gt; ' +
-             'the proceed button is hidden.' +
-             'The only way to proceed is to press the key &lt;strong&gt;Y&lt;/strong&gt;.&lt;br&gt;' +
-             'Press &lt;span style="font-size: 20px;"&gt;Y&lt;/span&gt; to proceed.',
+    content: 'Imagine a very critical action here! &lt;br&gt; ' +
+             'Please press &lt;strong style="font-size: 20px;"&gt;Y&lt;/strong&gt; to proceed.',
     buttons: {
         yes: {
-            isHidden: true, // hide the button using CSS
+            isHidden: true, // hide the button
             keys: ['y'],
             action: function () {
                 $.alert('Critical action &lt;strong&gt;was performed&lt;/strong&gt;.');
@@ -1579,6 +1580,8 @@ a.toggle(); // toggle open close.</code></pre>
                     <script type="text/javascript">
                         $('.example3-1-a').on('click', function () {
                             $.confirm({
+                                title: 'Keyboard wins',
+                                content: 'Time to use your keyboard, press shift, alert, A or B',
                                 buttons: {
                                     specialKey: {
                                         text: 'On behalf of shift',
@@ -1607,10 +1610,8 @@ a.toggle(); // toggle open close.</code></pre>
                         $('.example3-1-1').on('click', function () {
                             $.confirm({
                                 title: false,
-                                content: 'A very very critical action here! <br> ' +
-                                'the proceed button is hidden.' +
-                                'The only way to proceed is to press the key <strong>Y</strong>.<br>' +
-                                'Press <span style="font-size: 20px;">Y</span> to proceed.',
+                                content: 'Imagine a very critical action here! <br> ' +
+                                'Please press <strong style="font-size: 20px;">Y</strong> to proceed.',
                                 buttons: {
                                     yes: {
                                         isHidden: true,
@@ -1634,51 +1635,25 @@ a.toggle(); // toggle open close.</code></pre>
                 <h4 id="button-functions">Button functions</h4>
                 <div class="section">
                     <p>
-                        Button functions provide a nice and clean way to alter your buttons in run-time. <br>
-                        if this is not enough you can use <code>this.$$&lt;buttonName&gt;</code> to get the DOM element
+                        jquery-confirm provides a set of functions for a nice and clean way to alter your buttons in run-time. <br>
+                        if this is not enough you can use <code>this.$$&lt;buttonName&gt;</code> to get the jquery DOM element
                     </p>
-                    <button class="btn btn-primary example3-1-a-f-1">Try me</button>
-                    <div class="space10"></div>
-                    <pre class="prettyprint linenums"><code class="html">$.confirm({
-    buttons: {
-       buttonA: {
-            text: 'button a',
-            action: function () {
-                this.buttons.buttonB.setText('Changed it!');
-                return false;
-            }
-        },
-        buttonB: {
-            text: 'button b',
-            action: function () {
-                this.buttons.buttonA.disable();
-                return false;
-            }
-        },
-        reset: function () {
-            this.buttons.buttonB.show();
-            this.buttons.buttonA.enable();
-            this.buttons.buttonB.setText('button B!!');
-            // this.buttons.buttonA.hide();
-            // this.buttons.buttonA.show();
-            return false;
-        }
-    }
-});</code></pre>
+                    <!--<button class="btn btn-primary example3-1-a-f-1">Try me</button>-->
+                    <!--<div class="space10"></div>-->
                     <p>
                         A full list of functions for buttons.
                     </p>
                     <table class="table table-bordered table-condensed">
                         <tr>
-                            <td>
+                            <th>
                                 Function
-                            </td>
-                            <td>
+                            </th>
+                            <th>
                                 Code
-                            </td>
-                            <td>
+                            </th>
+                            <th>
                                 Description
-                            </td>
+                            </th>
                         </tr>
                         <tr>
                             <td>
@@ -1759,39 +1734,35 @@ a.toggle(); // toggle open close.</code></pre>
                         </tr>
                     </table>
 
-                    <script type="text/javascript">
-                        $('.example3-1-a-f-1').on('click', function () {
-                            $.confirm({
-                                content: 'Click on the buttons to test it out, ' +
-                                '<br>Click on the close icon to close the modal',
-                                closeIcon: true, // explicitly show the close icon
-                                buttons: {
-                                    buttonA: {
-                                        text: 'button a',
-                                        action: function (buttonA) {
-                                            this.buttons.buttonB.setText('Hey there!');
-                                            return false;
-                                        }
-                                    },
-                                    buttonB: {
-                                        text: 'button b',
-                                        action: function (buttonB) {
-                                            this.buttons.buttonA.disable();
-                                            return false;
-                                        }
-                                    },
-                                    reset: function (buttonReset) {
-                                        this.buttons.buttonB.setText('button b');
-                                        this.buttons.buttonA.setText('button a');
-                                        this.buttons.buttonA.enable();
-                                        return false;
-                                    }
-                                }
-                            });
-                        });
-                    </script>
-                </div>
+                    <pre class="prettyprint linenums"><code class="html">$.confirm({
+    closeIcon: true, // explicitly show the close icon
+    buttons: {
+        buttonA: {
+            text: 'button a',
+            action: function (buttonA) {
+                this.buttons.resetButton.setText('reset button!!!');
+                this.buttons.resetButton.disable();
+                this.buttons.resetButton.enable();
+                this.buttons.resetButton.hide();
+                this.buttons.resetButton.show();
+                this.buttons.resetButton.addClass('btn-red');
+                this.buttons.resetButton.removeClass('btn-red');
 
+                // or
+                this.$$resetButton // button's jquery element reference, go crazy
+
+                this.buttons.buttonA == buttonA // both are the same.
+
+                return false; // prevent the modal from closing
+            }
+        },
+        resetButton: function (resetButton) {
+
+        }
+    }
+});</code></pre>
+
+                </div>
 
             </section>
 
@@ -1819,6 +1790,7 @@ a.toggle(); // toggle open close.</code></pre>
                             $.confirm({
                                 title: 'Encountered an error!',
                                 content: 'Something went downhill, this may be serious',
+                                icon: 'fa fa-warning',
                                 type: 'red',
                                 buttons: {
                                     omg: {
@@ -1891,7 +1863,7 @@ a.toggle(); // toggle open close.</code></pre>
                         });
                     </script>
                     <div class="space10"></div>
-                    <pre class="prettyprint linenums"><code>  $.confirm({
+                    <pre class="prettyprint linenums"><code>$.confirm({
     title: 'Encountered an error!',
     content: 'Something went downhill, this may be serious',
     type: 'red',
@@ -2983,9 +2955,12 @@ $.confirm({
     title: 'Hello',
     titleClass: '',
     type: 'default',
-    draggable: true,
-    alignMiddle: true,
     typeAnimated: true,
+    draggable: true,
+    dragWindowGap: 15,
+    dragWindowBorder: true,
+    animateFromElement: true,
+    smoothContent: true,
     content: 'Are you sure to continue?',
     buttons: {},
     defaultButtons: {
@@ -3007,7 +2982,7 @@ $.confirm({
     animation: 'scale',
     closeAnimation: 'scale',
     animationSpeed: 400,
-    animationBounce: 1.2,
+    animationBounce: 1,
     rtl: false,
     container: 'body',
     containerFluid: false,
@@ -3022,9 +2997,8 @@ $.confirm({
     scrollToPreviousElement: true,
     scrollToPreviousElementAnimate: true,
     useBootstrap: true,
-    offsetTop: 50,
-    offsetBottom: 50,
-    dragWindowGap: 15,
+    offsetTop: 40,
+    offsetBottom: 40,
     bootstrapClasses: {
         container: 'container',
         containerFluid: 'container-fluid',
@@ -3099,7 +3073,7 @@ $.confirm({
                                 <td>draggable</td>
                                 <td>Boolean</td>
                                 <td>
-                                    <code>false</code>
+                                    <code>true</code>
                                 </td>
                                 <td>
                                     Makes the dialog draggable,
@@ -3110,15 +3084,55 @@ $.confirm({
                                 </td>
                             </tr>
                             <tr>
+                                <td>dragWindowGap</td>
+                                <td>Number</td>
+                                <td>
+                                    <code>15</code>
+                                </td>
+                                <td>
+                                    Draggable gap between the modal and window, defaults to 15px
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>dragWindowBorder</td>
+                                <td>Boolean</td>
+                                <td>
+                                    <code>true</code>
+                                </td>
+                                <td>
+                                    If the modal should be restricted inside the window
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>animateFromElement</td>
+                                <td>Boolean</td>
+                                <td>
+                                    <code>true</code>
+                                </td>
+                                <td>
+                                    Animates the modal from the clicked element
+                                </td>
+                            </tr>
+                            <tr>
                                 <td>alignMiddle</td>
                                 <td>Boolean</td>
                                 <td>
                                     <code>true</code>
                                 </td>
                                 <td>
-                                    <code>@deprecated</code>
+                                    IMPORTANT <code>@deprecated</code>
                                     The model will be position in center of the screen.
                                     When the content in the model changes, the model is reposition itself.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>smoothContent</td>
+                                <td>Boolean</td>
+                                <td>
+                                    <code>true</code>
+                                </td>
+                                <td>
+                                    Smooth height transition when content in modal changes.
                                 </td>
                             </tr>
                             <tr>
@@ -3206,13 +3220,13 @@ $.confirm({
                             <tr>
                                 <td>animationSpeed</td>
                                 <td>Number</td>
-                                <td><code>500</code></td>
+                                <td><code>400</code></td>
                                 <td>Animation duration in milliseconds.</td>
                             </tr>
                             <tr>
                                 <td>animationBounce</td>
                                 <td>Float</td>
-                                <td><code>1.2</code></td>
+                                <td><code>1</code></td>
                                 <td>Adds a Bounce open animation, <br>1 = No bounce</td>
                             </tr>
                             <tr>
@@ -3363,7 +3377,7 @@ $.confirm({
                             <tr>
                                 <td>offsetTop</td>
                                 <td>Number</td>
-                                <td><code>50</code></td>
+                                <td><code>40</code></td>
                                 <td>
                                     The model will maintain at least 50px from the window's top.
                                 </td>
@@ -3371,17 +3385,9 @@ $.confirm({
                             <tr>
                                 <td>offsetBottom</td>
                                 <td>Number</td>
-                                <td><code>50</code></td>
+                                <td><code>40</code></td>
                                 <td>
                                     The model will maintain at least 50px from the window's bottom.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>dragWindowGap</td>
-                                <td>Number</td>
-                                <td><code>15</code></td>
-                                <td>
-                                    The model will maintain at least 15px from the window's top, left, and right side.
                                 </td>
                             </tr>
                             <tr>
