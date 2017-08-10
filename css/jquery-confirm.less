@@ -1,5 +1,5 @@
 /*!
- * jquery-confirm v3.2.3 (http://craftpip.github.io/jquery-confirm/)
+ * jquery-confirm v3.3.0 (http://craftpip.github.io/jquery-confirm/)
  * Author: boniface pereira
  * Website: www.craftpip.com
  * Contact: hey@craftpip.com
@@ -58,14 +58,33 @@ body[class*=jconfirm-no-scroll-] {
     }
   }
   .jconfirm-scrollpane {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow-y: auto;
+    //overflow-y: auto;
     perspective: 500px;
     perspective-origin: center;
+
+    display: table;
+    width: 100%;
+    height: 100%;
+  }
+  .jconfirm-row {
+    display: table-row;
+    width: 100%;
+  }
+  .jconfirm-cell {
+    //height: 100%;
+    display: table-cell;
+    vertical-align: middle;
+  }
+  .jconfirm-holder {
+    max-height: 100%;
+    padding: 50px 0;
+  }
+  .jconfirm-box-container {
+    transition: transform;
+
+    &.jconfirm-no-transition {
+      transition: none !important;
+    }
   }
   .jconfirm-box {
     background: white;
@@ -189,15 +208,15 @@ body[class*=jconfirm-no-scroll-] {
       height: 20px;
       width: 20px;
       position: absolute;
-      top: 5px;
-      right: 5px;
+      top: 10px;
+      right: 10px;
       cursor: pointer;
       opacity: .6;
       text-align: center;
-      transition: opacity .3s ease-in;
       font-size: 27px !important;
       line-height: 14px !important;
       display: none;
+      z-index: 1;
 
       &:empty {
         display: none;
@@ -222,14 +241,15 @@ body[class*=jconfirm-no-scroll-] {
       font-size: 22px;
       line-height: 20px;
       user-select: none;
+      cursor: default;
+      padding-bottom: 15px;
 
       &.jconfirm-hand {
         cursor: move;
       }
-
       .jconfirm-icon-c {
         font-size: inherit;
-        padding-bottom: 15px;
+        //padding-bottom: 15px;
         display: inline-block;
         vertical-align: middle;
         i {
@@ -245,7 +265,7 @@ body[class*=jconfirm-no-scroll-] {
         font-family: inherit;
         display: inline-block;
         vertical-align: middle;
-        padding-bottom: 15px;
+        //padding-bottom: 15px;
         &:empty {
           display: none;
         }
@@ -259,14 +279,27 @@ body[class*=jconfirm-no-scroll-] {
       display: inline-block;
       width: 100%;
       position: relative;
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
+
+      &.no-scroll {
+        overflow-y: hidden;
+      }
+      &::-webkit-scrollbar {
+        width: 3px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, .1);
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #666;
+        border-radius: 3px;
+      }
 
       .jconfirm-content {
-        //position: absolute;
-        //top: 0;
-        //left: 0;
-        //transition: all .2s ease-in;
-        //right: 0;
+        overflow: auto;
 
         img {
           max-width: 100%;
@@ -304,8 +337,8 @@ body[class*=jconfirm-no-scroll-] {
         user-select: none;
         border-radius: 4px;
         min-height: 1em;
-        outline: 0;
-        user-select: none;
+        //outline: blue;
+        //user-select: none;
         transition: opacity .1s ease, background-color .1s ease, color .1s ease, box-shadow .1s ease, background .1s ease;
         -webkit-tap-highlight-color: transparent;
         border: none;
@@ -540,7 +573,7 @@ body[class*=jconfirm-no-scroll-] {
 
 @keyframes glow {
   0%, 100% {
-    box-shadow: 0 0 3px red;
+    box-shadow: 0 0 0px red;
   }
   50% {
     box-shadow: 0 0 30px red;

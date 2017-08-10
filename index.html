@@ -55,12 +55,13 @@
           href="demo/libs/bundled.css">
     <script src="demo/libs/bundled.js"></script>
 
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async
+            src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     <link rel="stylesheet"
           href="demo/demo.css">
     <script>
-        var version = '3.2.3';
+        var version = '3.3.0';
     </script>
     <!-- Add the minified version of files from the /dist/ folder. -->
     <!-- jquery-confirm files -->
@@ -114,6 +115,9 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v3.2.3">v3.2.3</a>
+                        </li>
                         <li>
                             <a href="http://craftpip.github.io/jquery-confirm/v3.2.0">v3.2.0</a>
                         </li>
@@ -221,8 +225,8 @@
                 <div class="row download-btns">
                     <div class="col-md-12">
                         <div style="height: 15px;"></div>
-                        <a href="https://github.com/craftpip/jquery-confirm/releases/download/v3.2.3/jquery-confirm-v3.2.3.zip"
-                           class="btn btn-lg">Download v3.2.3
+                        <a href="https://github.com/craftpip/jquery-confirm/releases/download/v3.3.0/jquery-confirm-v3.3.0.zip"
+                           class="btn btn-lg">Download v3.3.0
                         </a>
                         <a href="https://github.com/craftpip/jquery-confirm"
                            class="btn btn-lg"><i class="fa fa-github"></i> View on GitHub
@@ -328,6 +332,14 @@
                     </li>
                     <li>
                         <a href="#draggable"> Draggable</a>
+                        <ul class="nav nav-list">
+                            <li>
+                                <a href="#draggable-border"> Draggable border</a>
+                            </li>
+                            <li>
+                                <a href="#draggable-gap"> Draggable gap</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="animations.html"> Animations <span style="margin-left: 5px;"><i
@@ -397,6 +409,9 @@
                                 <a href="#api-settitle"> .setTitle()</a>
                             </li>
                             <li>
+                                <a href="#api-seticon"> .setIcon()</a>
+                            </li>
+                            <li>
                                 <a href="#api-setcontent"> .setContent()</a>
                             </li>
                             <li>
@@ -409,34 +424,31 @@
                                 <a href="#api-set-type"> .setType()</a>
                             </li>
                             <li>
-                                <a href="#api-button-settext"> .&lt;buttonName&gt;.setText()</a>
+                                <a href="#api-show-loading"> .showLoading()</a>
                             </li>
                             <li>
-                                <a href="#api-button-addclass"> .&lt;buttonName&gt;.addClass()</a>
-                            </li>
-                            <li>
-                                <a href="#api-button-removeclass"> .&lt;buttonName&gt;.removeClass()</a>
-                            </li>
-                            <li>
-                                <a href="#api-button-disable"> .&lt;buttonName&gt;.disable()</a>
-                            </li>
-                            <li>
-                                <a href="#api-button-enable"> .&lt;buttonName&gt;.enable()</a>
-                            </li>
-                            <li>
-                                <a href="#api-button-hide"> .&lt;buttonName&gt;.hide()</a>
-                            </li>
-                            <li>
-                                <a href="#api-button-show"> .&lt;buttonName&gt;.show()</a>
-                            </li>
-                            <li>
-                                <a href="#api-seticon"> .setIcon()</a>
+                                <a href="#api-hide-loading"> .hideLoading()</a>
                             </li>
                             <li>
                                 <a href="#api-close"> .close()</a>
                             </li>
                             <li>
                                 <a href="#api-open"> .open()</a>
+                            </li>
+                            <li>
+                                <a href="#api-toggle"> .toggle()</a>
+                            </li>
+                            <li>
+                                <a href="#api-highlight"> .highlight()</a>
+                            </li>
+                            <li>
+                                <a href="#api-set-boxwidth"> .setBoxWidth()</a>
+                            </li>
+                            <li>
+                                <a href="#api-set-columnclass"> .setColumnClass()</a>
+                            </li>
+                            <li>
+                                <a href="#api-set-theme"> .setTheme()</a>
                             </li>
                             <li>
                                 <a href="#api-isclosed"> .isClosed()</a>
@@ -447,6 +459,28 @@
                             <li>
                                 <a href="#api-setdialogcenter"> .setDialogCenter()</a>
                             </li>
+                            <li>
+                                <a href="#api-button-settext"> &lt;button&gt;.setText()</a>
+                            </li>
+                            <li>
+                                <a href="#api-button-addclass"> &lt;button&gt;.addClass()</a>
+                            </li>
+                            <li>
+                                <a href="#api-button-removeclass"> &lt;button&gt;.removeClass()</a>
+                            </li>
+                            <li>
+                                <a href="#api-button-disable"> &lt;button&gt;.disable()</a>
+                            </li>
+                            <li>
+                                <a href="#api-button-enable"> &lt;button&gt;.enable()</a>
+                            </li>
+                            <li>
+                                <a href="#api-button-hide"> &lt;button&gt;.hide()</a>
+                            </li>
+                            <li>
+                                <a href="#api-button-show"> &lt;button&gt;.show()</a>
+                            </li>
+
                             <li>
                                 <a href="#api-body"> .$body</a>
                             </li>
@@ -607,16 +641,16 @@
 
                     $('.example-the-1').on('click', function () {
                         $.confirm({
-                            icon: 'fa fa-question',
+                            icon: 'fa fa-smile-o',
                             theme: 'modern',
                             closeIcon: true,
                             animation: 'scale',
-                            type: 'orange',
+                            type: 'blue',
                         });
                     });
                     $('.example-the-2').on('click', function () {
                         $.confirm({
-                            icon: 'fa fa-question',
+                            icon: 'fa fa-question-circle-o',
                             theme: 'supervan',
                             closeIcon: true,
                             animation: 'scale',
@@ -648,8 +682,8 @@
                             title: 'Alert alert!',
                             content: 'This is a simple alert. <br> with some <strong>HTML</strong> <em>contents</em>',
                             icon: 'fa fa-rocket',
-                            animation: 'zoom',
-                            closeAnimation: 'zoom',
+                            animation: 'scale',
+                            closeAnimation: 'scale',
                             buttons: {
                                 okay: {
                                     text: 'Okay',
@@ -677,7 +711,7 @@
                                             title: 'This maybe critical',
                                             content: 'Critical actions can have multiple confirmations like this one.',
                                             icon: 'fa fa-warning',
-                                            animation: 'zoom',
+                                            animation: 'scale',
                                             closeAnimation: 'zoom',
                                             buttons: {
                                                 confirm: {
@@ -719,8 +753,11 @@
                                     action: function () {
                                         var input = this.$content.find('input#input-name');
                                         var errorText = this.$content.find('.text-danger');
-                                        if (input.val() == '') {
-                                            errorText.html('Please don\'t keep the name field empty!').slideDown(200);
+                                        if (!input.val().trim()) {
+                                            $.alert({
+                                                content: "Please don't keep the name field empty.",
+                                                type: 'red'
+                                            });
                                             return false;
                                         } else {
                                             $.alert('Hello ' + input.val() + ', i hope you have a great day!');
@@ -737,9 +774,12 @@
                     // alert types
                     $('.example-p-70-type').on('click', function () {
                         $.alert({
-                            title: 'Oh no',
-                            type: 'red',
-                            content: 'Something bad, bad happened.',
+                            title: 'Error',
+                            icon: 'fa fa-warning',
+                            type: 'orange',
+                            content: 'Something went wrong, please retry again after sometime.' +
+                            '<hr>' +
+                            'More types: red, green, orange, blue, purple, dark',
                         });
                     });
 
@@ -747,8 +787,9 @@
                     $('.example-p-3').on('click', function () {
                         $.alert({
                             title: 'Background dismiss',
-                            content: 'Click outside the modal to close it.',
-                            animation: 'top',
+                            content: 'Click outside the modal to close it.' +
+                            '<br>this modal has the `bottom` close animation',
+                            animation: 'scale',
                             closeAnimation: 'bottom',
                             backgroundDismiss: true,
                             buttons: {
@@ -787,7 +828,7 @@
                         $.dialog({
                             title: 'Asynchronous content',
                             content: 'url:table.html',
-                            animation: 'zoom',
+                            animation: 'scale',
                             columnClass: 'medium',
                             closeAnimation: 'scale',
                             backgroundDismiss: true,
@@ -846,7 +887,7 @@
                                         $.alert('<strong>Cancel button</strong> was triggered.');
                                     }
                                 }
-                            }
+                            },
                         });
                     });
 
@@ -855,13 +896,13 @@
                         $.confirm({
                             title: 'Gracefully center aligned',
                             content: '<p>You can add content and not worry about the alignment. The goal is to make a Interactive dialog!.</p>' +
-                            '<button type="button" class="btn btn-success">Click me to add more content</button> <span> <br></span> ',
+                            '<button type="button" class="btn btn-success">Click me to add more content</button> <div id="contentArea"></div> ',
                             buttons: {
                                 someButton: {
                                     text: 'Add wow',
                                     btnClass: 'btn-green',
                                     action: function () {
-                                        this.$content.find('span').append('<br>Wowww');
+                                        this.$content.find('#contentArea').append('<br>Wowww');
                                         return false; // prevent dialog from closing.
                                     }
                                 },
@@ -869,7 +910,7 @@
                                     text: 'Clear it',
                                     btnClass: 'btn-orange',
                                     action: function () {
-                                        this.$content.find('span').html('');
+                                        this.$content.find('#contentArea').html('');
                                         return false; // prevent dialog from closing.
                                     }
                                 },
@@ -881,7 +922,7 @@
                                 // onOpen attach the events.
                                 var that = this;
                                 this.$content.find('button').click(function () {
-                                    that.$content.find('span').append('<br>This is awesome!!!!');
+                                    that.$content.find('#contentArea').append('<br>This is awesome!!!!');
                                 });
                             },
                         });
@@ -892,8 +933,9 @@
                     $('.example-pc-2').on('click', function () {
                         $.confirm({
                             title: 'Adding images',
-                            content: 'Images from flickr <br><img src="https://c2.staticflickr.com/4/3891/14354989289_2eec0ba724_b.jpg">',
-                            animation: 'zoom',
+                            content: '<p>Images from flickr</p>' +
+                            '<img src="https://c2.staticflickr.com/4/3891/14354989289_2eec0ba724_b.jpg">',
+                            animation: 'scale',
                             animationClose: 'top',
                             buttons: {
                                 confirm: {
@@ -916,7 +958,7 @@
                         $.alert({
                             title: 'Animations',
                             content: 'jquery-confirm provides a lot of open &amp; close animations out of the box. <br>The best part is, you can add custom ones too.',
-                            animation: 'rotate',
+                            animation: 'scale',
                             closeAnimation: 'right',
                             buttons: {
                                 zoom: function () {
@@ -943,19 +985,40 @@
                             title: 'A draggable dialog',
                             content: 'This dialog is draggable, use the title to drag it around. It wont touch the screen borders',
                             type: 'blue',
+                            animation: 'scale',
                             draggable: true,
                         });
                     })
                 </script>
             </section>
 
-            <section>
-                <h2>Whats new <span style="color: #aaa">in v3.2.3</span></h2>
+            <section id="whats-new">
+                <h2>Whats new <span style="color: #aaa">in v3.3.0</span></h2>
+                <p>
+                    Major changes
+                </p>
                 <ul>
-                    <li>Added lazyOpen option</li>
-                    <li>Added button properties isHidden and isDisabled</li>
-                    <li>setBoxWidth method added</li>
-                    <li>Bug fixes</li>
+                    <li>Moved overflow scroll inside modal <a target="_empty" href="https://github.com/craftpip/jquery-confirm/issues/286">#286</a></li>
+                </ul>
+                <p>
+                    Improvements
+                </p>
+                <ul>
+                    <li>'draggable' improved</li>
+                    <li>Added 'animateFromElement' option</li>
+                    <li>Added 'smoothScroll' option</li>
+                    <li>Added 'hilight' option</li>
+                    <li>Added 'showLoading','hideLoading' option</li>
+                    <li>Accept jquery dom element in content <a target="_empty" href="https://github.com/craftpip/jquery-confirm/issues/313">#313</a></li>
+                    <li>Updated docs</li>
+                    <li>Fixes <a target="_empty" href="https://github.com/craftpip/jquery-confirm/issues/255">#255</a> <a target="_empty" href="https://github.com/craftpip/jquery-confirm/issues/307">#307</a> <a target="_empty" href="https://github.com/craftpip/jquery-confirm/issues/290">#290</a></li>
+                </ul>
+                <p>
+                    Removals
+                </p>
+                <ul>
+                    <li>'setDialogCenter' method deprecated, dialog centered with CSS tables</li>
+                    <li>'alignMiddle' method deprecated</li>
                 </ul>
             </section>
 
@@ -965,7 +1028,8 @@
 
                 <div class="alert alert-info">
                     Notes on migrating from v2 to v3. <br>
-                    <a href="https://github.com/craftpip/jquery-confirm/wiki/Migrate-from-v2-to-v3" target="_blank">https://github.com/craftpip/jquery-confirm/wiki/Migrate-from-v2-to-v3</a>
+                    <a href="https://github.com/craftpip/jquery-confirm/wiki/Migrate-from-v2-to-v3"
+                       target="_blank">https://github.com/craftpip/jquery-confirm/wiki/Migrate-from-v2-to-v3</a>
                 </div>
 
 
@@ -981,8 +1045,8 @@
 
                     <p>
                         <strong>via CDN:</strong>
-                    <pre class="prettyprint"><code class="html">&lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.2.3/jquery-confirm.min.css"&gt;
-&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.2.3/jquery-confirm.min.js"&gt;&lt;/script&gt;</code></pre>
+                    <pre class="prettyprint"><code class="html">&lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css"&gt;
+&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"&gt;&lt;/script&gt;</code></pre>
                     </p>
 
                     <p>
@@ -1339,47 +1403,56 @@ a.toggle(); // toggle open close.</code></pre>
                     </p>
                     <pre class="prettyprint linenums"><code class="html">$.confirm({
     buttons: {
-        hello: function(){
-            // button action
+        hello: function(helloButton){
+            // shorthand method to define a button
+            // the button key will be used as button name
         },
-        hey: function(){
-            this.$$hello.trigger('click'); // click the other button
-            this.buttons.hello.setText('Helloooo'); // do whatever
+        hey: function(heyButton){
+            // access the button using jquery
+            this.$$hello.trigger('click'); // click the 'hello' button
+            this.$$hey.prop('disabled', true); // disable the current button using jquery method
+                        
+            // jconfirm button methods, all methods listed <a href="#button-functions">here</a>
+            this.buttons.hello.setText('Helloooo'); // setText for 'hello' button
+            this.buttons.hey.disable(); // disable with button function provided by jconfirm
+            this.buttons.hey.enable(); // enable with button function provided by jconfirm
 
-            this.$$hey.prop('disabled', true); // disable the current button
-            // or
-            this.buttons.hey.disable();
+            // the button's instance is passed as the first argument, for quick access
+            heyButton === this.buttons.hey
         },
         heyThere: {
-            text: 'Hey there!',
-            btnClass: 'btn-blue',
-            keys: ['enter', 'a'],
+            text: 'Hey there!', // text for button
+            btnClass: 'btn-blue', // class for the button
+            keys: ['enter', 'a'], // keyboard event for button
             isHidden: false, // initially not hidden
             isDisabled: false, // initially not disabled
-            action: function(){
-                // button action.
+            action: function(heyThereButton){
+                // longhand method to define a button
+                // provides more features
             }
         },
     }
-});</code></pre>
+});
+
+</code></pre>
 
 
                 </div>
                 <h4 id="buttontext">Button text</h4>
                 <div class="section">
-                    <button class="btn btn-primary example3">click me!</button>
+                    <button class="btn btn-primary example3">Button text test</button>
                     <script type="text/javascript">
                         $('.example3').on('click', function () {
                             $.confirm({
                                 buttons: {
-                                    something: function () {
-                                        // here the button key 'something' will be used as the text.
-                                        $.alert('You clicked on something.');
+                                    hey: function () {
+                                        // here the button key 'hey' will be used as the text.
+                                        $.alert('You clicked on "hey".');
                                     },
-                                    somethingElse: {
-                                        text: 'Something else &*', // Some Non-Alphanumeric characters
+                                    heyThere: {
+                                        text: 'hey there!', // With spaces and symbols
                                         action: function () {
-                                            $.alert('You clicked on something else');
+                                            $.alert('You clicked on "heyThere"');
                                         }
                                     }
                                 }
@@ -1389,14 +1462,14 @@ a.toggle(); // toggle open close.</code></pre>
                     <div class="space10"></div>
                     <pre class="prettyprint linenums"><code class="html">$.confirm({
     buttons: {
-        something: function(){
-            // here the key 'something' will be used as the text.
-            $.alert('You clicked on something.');
+        hey: function () {
+            // here the button key 'hey' will be used as the text.
+            $.alert('You clicked on "hey".');
         },
-        somethingElse: {
-            text: 'Something else &*', // Some Non-Alphanumeric characters
-            action: function(){
-                $.alert('You clicked on something else');
+        heyThere: {
+            text: 'hey there!', // With spaces and symbols
+            action: function () {
+                $.alert('You clicked on "heyThere"');
             }
         }
     }
@@ -1405,10 +1478,11 @@ a.toggle(); // toggle open close.</code></pre>
                 <h4 id="buttonstyle">Button style</h4>
 
                 <div class="section">
-                    <p>Simply applying classes to buttons.</p>
+                    <p>Simply apply classes to buttons to style them.</p>
                     <p class="text-info">
                         Jconfirm comes bundled with <code>btn-blue</code> <code>btn-green</code> <code>btn-red</code>
                         <code>btn-orange</code> <code>btn-purple</code> <code>btn-default</code> <code>btn-dark</code>
+                        <br> <i class="fa fa-info"></i> These classes only work inside jquery-confirm's modal
                     </p>
                     <p class="text-info">
                         Other bootstrap options are <code>btn-primary</code> <code>btn-inverse</code>
@@ -1490,15 +1564,18 @@ a.toggle(); // toggle open close.</code></pre>
 
                 <div class="section">
                     <p>
-                        Listen to keyup events for individual buttons. A button can listen for multiple keys at a time.
+                        A 'key' feature of jquery-confirm! (pun intended)
+                        <br> Listen to keyup events for individual buttons. A button can listen for multiple keys at a time.
+                        <br> If multiple modals are stacked together, only the topmost modal will listen for keyboard event.
                     </p>
                     <div class="alert alert-info">
-                        Available options are: <br>
-                        a to Z, tilde, enter, shift, tab, capslock, ctrl, win, alt, esc, space.
+                        Available key options are: <br>
+                        a to Z, tilde (the ` key), enter, shift, tab, capslock, ctrl, win, alt, esc, space.
                     </div>
                     <button class="btn btn-primary example3-1-a">Click me!</button>
                     <div class="space10"></div>
                     <pre class="prettyprint linenums"><code class="html">$.confirm({
+    content: 'Time to use your keyboard, press shift, alert, A or B',
     buttons: {
         specialKey: {
             text: 'On behalf of shift',
@@ -1518,22 +1595,19 @@ a.toggle(); // toggle open close.</code></pre>
 });</code></pre>
 
                     <button type="button"
-                            class="btn btn-primary example3-1-1">Another important example
+                            class="btn btn-primary example3-1-1">Another example
                     </button>
                     <div class="space10"></div>
                     <p>
-                        In this example, the YES button is hidden using bootstrap's hide class, thus the user can only
-                        use keys to proceed.
+                        In this example, the YES button is hidden, The user can only use the keyboard to click the button!
                     </p>
                     <pre class="prettyprint linenums"><code class="html">$.confirm({
     title: false,
-    content: 'A very very critical action here! &lt;br&gt; ' +
-             'the proceed button is hidden.' +
-             'The only way to proceed is to press the key &lt;strong&gt;Y&lt;/strong&gt;.&lt;br&gt;' +
-             'Press &lt;span style="font-size: 20px;"&gt;Y&lt;/span&gt; to proceed.',
+    content: 'Imagine a very critical action here! &lt;br&gt; ' +
+             'Please press &lt;strong style="font-size: 20px;"&gt;Y&lt;/strong&gt; to proceed.',
     buttons: {
         yes: {
-            isHidden: true, // hide the button using CSS
+            isHidden: true, // hide the button
             keys: ['y'],
             action: function () {
                 $.alert('Critical action &lt;strong&gt;was performed&lt;/strong&gt;.');
@@ -1550,6 +1624,8 @@ a.toggle(); // toggle open close.</code></pre>
                     <script type="text/javascript">
                         $('.example3-1-a').on('click', function () {
                             $.confirm({
+                                title: 'Keyboard wins',
+                                content: 'Time to use your keyboard, press shift, alert, A or B',
                                 buttons: {
                                     specialKey: {
                                         text: 'On behalf of shift',
@@ -1578,10 +1654,8 @@ a.toggle(); // toggle open close.</code></pre>
                         $('.example3-1-1').on('click', function () {
                             $.confirm({
                                 title: false,
-                                content: 'A very very critical action here! <br> ' +
-                                'the proceed button is hidden.' +
-                                'The only way to proceed is to press the key <strong>Y</strong>.<br>' +
-                                'Press <span style="font-size: 20px;">Y</span> to proceed.',
+                                content: 'Imagine a very critical action here! <br> ' +
+                                'Please press <strong style="font-size: 20px;">Y</strong> to proceed.',
                                 buttons: {
                                     yes: {
                                         isHidden: true,
@@ -1605,51 +1679,25 @@ a.toggle(); // toggle open close.</code></pre>
                 <h4 id="button-functions">Button functions</h4>
                 <div class="section">
                     <p>
-                        Button functions provide a nice and clean way to alter your buttons in run-time. <br>
-                        if this is not enough you can use <code>this.$$&lt;buttonName&gt;</code> to get the DOM element
+                        jquery-confirm provides a set of functions for a nice and clean way to alter your buttons in run-time. <br>
+                        if this is not enough you can use <code>this.$$&lt;buttonName&gt;</code> to get the jquery DOM element
                     </p>
-                    <button class="btn btn-primary example3-1-a-f-1">Try me</button>
-                    <div class="space10"></div>
-                    <pre class="prettyprint linenums"><code class="html">$.confirm({
-    buttons: {
-       buttonA: {
-            text: 'button a',
-            action: function () {
-                this.buttons.buttonB.setText('Changed it!');
-                return false;
-            }
-        },
-        buttonB: {
-            text: 'button b',
-            action: function () {
-                this.buttons.buttonA.disable();
-                return false;
-            }
-        },
-        reset: function () {
-            this.buttons.buttonB.show();
-            this.buttons.buttonA.enable();
-            this.buttons.buttonB.setText('button B!!');
-            // this.buttons.buttonA.hide();
-            // this.buttons.buttonA.show();
-            return false;
-        }
-    }
-});</code></pre>
+                    <!--<button class="btn btn-primary example3-1-a-f-1">Try me</button>-->
+                    <!--<div class="space10"></div>-->
                     <p>
                         A full list of functions for buttons.
                     </p>
                     <table class="table table-bordered table-condensed">
                         <tr>
-                            <td>
+                            <th>
                                 Function
-                            </td>
-                            <td>
+                            </th>
+                            <th>
                                 Code
-                            </td>
-                            <td>
+                            </th>
+                            <th>
                                 Description
-                            </td>
+                            </th>
                         </tr>
                         <tr>
                             <td>
@@ -1730,40 +1778,35 @@ a.toggle(); // toggle open close.</code></pre>
                         </tr>
                     </table>
 
-                    <script type="text/javascript">
-                        $('.example3-1-a-f-1').on('click', function () {
-                            $.confirm({
-                                content: 'Click on the buttons to test it out, <br>Click on the close icon to close the modal',
-                                closeIcon: true, // to close the modal
-                                buttons: {
-                                    buttonA: {
-                                        text: 'button a',
-                                        action: function () {
-                                            this.buttons.buttonB.setText('Changed it!');
-                                            return false;
-                                        }
-                                    },
-                                    buttonB: {
-                                        text: 'button b',
-                                        action: function () {
-                                            this.buttons.buttonA.disable();
-                                            return false;
-                                        }
-                                    },
-                                    reset: function () {
-                                        this.buttons.buttonB.show();
-                                        this.buttons.buttonA.enable();
-                                        this.buttons.buttonB.setText('button B!!');
-                                        // this.buttons.buttonA.hide();
-                                        // this.buttons.buttonA.show();
-                                        return false;
-                                    }
-                                }
-                            });
-                        });
-                    </script>
-                </div>
+                    <pre class="prettyprint linenums"><code class="html">$.confirm({
+    closeIcon: true, // explicitly show the close icon
+    buttons: {
+        buttonA: {
+            text: 'button a',
+            action: function (buttonA) {
+                this.buttons.resetButton.setText('reset button!!!');
+                this.buttons.resetButton.disable();
+                this.buttons.resetButton.enable();
+                this.buttons.resetButton.hide();
+                this.buttons.resetButton.show();
+                this.buttons.resetButton.addClass('btn-red');
+                this.buttons.resetButton.removeClass('btn-red');
 
+                // or
+                this.$$resetButton // button's jquery element reference, go crazy
+
+                this.buttons.buttonA == buttonA // both are the same.
+
+                return false; // prevent the modal from closing
+            }
+        },
+        resetButton: function (resetButton) {
+
+        }
+    }
+});</code></pre>
+
+                </div>
 
             </section>
 
@@ -1791,6 +1834,7 @@ a.toggle(); // toggle open close.</code></pre>
                             $.confirm({
                                 title: 'Encountered an error!',
                                 content: 'Something went downhill, this may be serious',
+                                icon: 'fa fa-warning',
                                 type: 'red',
                                 buttons: {
                                     omg: {
@@ -1863,7 +1907,7 @@ a.toggle(); // toggle open close.</code></pre>
                         });
                     </script>
                     <div class="space10"></div>
-                    <pre class="prettyprint linenums"><code>  $.confirm({
+                    <pre class="prettyprint linenums"><code>$.confirm({
     title: 'Encountered an error!',
     content: 'Something went downhill, this may be serious',
     type: 'red',
@@ -1954,7 +1998,6 @@ $.confirm({
                             <p>
                                 Using other libraries for icons
                             </p>
-                            <button class="example15-1-3-5 btn btn-primary">Using glyphicon</button>
                             <button class="example15-1-3-6 btn btn-primary">Using font awesome</button>
                             <div class="space10"></div>
                             <pre class="prettyprint linenums"><code>$.confirm({
@@ -1995,12 +2038,6 @@ $.confirm({
                         $('.example15-1-3-4').click(function () {
                             $.alert({
                                 closeIcon: true,
-                            });
-                        });
-                        $('.example15-1-3-5').click(function () {
-                            $.alert({
-                                closeIcon: true,
-                                closeIconClass: 'glyphicon glyphicon-remove',
                             });
                         });
                         $('.example15-1-3-6').click(function () {
@@ -2054,8 +2091,6 @@ $.confirm({
 
                     <button class="btn btn-primary grid-1">medium</button>
                     <button class="btn btn-primary grid-2">small (default)</button>
-                    <button class="btn btn-primary grid-3">col-md-4</button>
-                    <button class="btn btn-primary grid-4">col-md-4 col-md-offset-8</button>
                     <button class="btn btn-primary grid-5">xlarge</button>
                     <button class="btn btn-primary grid-6">xlarge (fluid)</button>
                     <div class="space10"></div>
@@ -2068,16 +2103,6 @@ $.confirm({
                         $('.grid-2').on('click', function () {
                             $.confirm({
                                 columnClass: 'small',
-                            });
-                        });
-                        $('.grid-3').on('click', function () {
-                            $.confirm({
-                                columnClass: 'col-md-4',
-                            });
-                        });
-                        $('.grid-4').on('click', function () {
-                            $.confirm({
-                                columnClass: 'col-md-4 col-md-offset-8'
                             });
                         });
                         $('.grid-5').on('click', function () {
@@ -2096,10 +2121,10 @@ $.confirm({
     columnClass: 'small'
 });
 $.confirm({
-    columnClass: 'col-md-4'
+    columnClass: 'col-md-4 col-md-offset-4',
 });
 $.confirm({
-    columnClass: 'col-md-4 col-md-offset-8 col-xs-4 col-xs-offset-8'
+    columnClass: 'col-md-12'
 });
 $.confirm({
     columnClass: 'col-md-4 col-md-offset-8 col-xs-4 col-xs-offset-8',
@@ -2117,7 +2142,7 @@ $.confirm({
 
                     <div class="alert alert-warning">
                         <code>useBootstrap</code> must be set to <code>false</code> to use this feature <br>
-                        you can globally disable bootstrap by setting jconfirm.defaults
+                        you can globally disable bootstrap by setting <code>jconfirm.defaults.useBootstrap = false</code>
                     </div>
 
                     <button class="btn btn-primary grid-wo-bootstrap-1">30%</button>
@@ -2174,11 +2199,9 @@ $.confirm({
                 <h2>Draggable</h2>
                 <div class="section">
                     <p>
-                        Make the dialog draggable. simple.
+                        Make the dialog draggable. simple. <br>
+                        Draggable is set to TRUE by default.
                     </p>
-                    <div class="alert alert-info">
-                        alignMiddle will be disabled if draggable is enabled. Due to jconfirm's nature of centering itself when the content changes causes UX issues when alignMiddle and draggable are enabled.
-                    </div>
                     <button class="btn btn-primary example-draggable">Draggable</button>
                     <div class="space10"></div>
                     <pre class="prettyprint linenums"><code>$.confirm({
@@ -2196,6 +2219,64 @@ $.confirm({
                         })
                     </script>
                 </div>
+                <h4 id="draggable-border">Window border</h4>
+                <div class="section">
+                    <p>
+                        By default jconfirm's modal is prevented from being dragged out of the window.
+                    </p>
+                    <button class="btn btn-primary example-draggable-border">Window border</button>
+                    <div class="space10"></div>
+                    <pre class="prettyprint linenums"><code>$.confirm({
+    title: 'Hello there',
+    content: 'Drag this modal out of the window',
+    draggable: true,
+    dragWindowBorder: false,
+});</code></pre>
+                    <script>
+                        $('.example-draggable-border').click(function () {
+                            $.alert({
+                                title: 'Hello there',
+                                content: 'Drag this modal out of the window',
+                                draggable: true,
+                                dragWindowBorder: false,
+                            });
+                        })
+                    </script>
+                </div>
+                <h4 id="draggable-gap">Window gap</h4>
+                <div class="section">
+                    <p>
+                        If <code>dragWindowBorder</code> is set to <code>true</code> a defined space is maintained between the modal and the window.
+                        <br> this distance can be changed with this feature.
+                    </p>
+                    <button class="btn btn-primary example-draggable-gap-0">Window gap 0px</button>
+                    <button class="btn btn-primary example-draggable-gap-100">Window gap 100px</button>
+                    <div class="space10"></div>
+                    <pre class="prettyprint linenums"><code>$.confirm({
+    title: 'Hello there',
+    content: 'try to drag this modal out of the window',
+    draggable: true,
+    dragWindowGap: 0, // number of px of distance
+});</code></pre>
+                    <script>
+                        $('.example-draggable-gap-0').click(function () {
+                            $.alert({
+                                title: 'Hello there',
+                                content: 'try to drag this modal out of the window',
+                                draggable: true,
+                                dragWindowGap: 0,
+                            });
+                        });
+                        $('.example-draggable-gap-100').click(function () {
+                            $.alert({
+                                title: 'Hello there',
+                                content: 'try to drag this modal out of the window',
+                                draggable: true,
+                                dragWindowGap: 100,
+                            });
+                        });
+                    </script>
+                </div>
             </section>
 
             <section id="animations">
@@ -2206,7 +2287,8 @@ $.confirm({
                         This page has docs for animations for modal open/close and backgroundDismiss <br>
                         It also describes how to create custom animations.
                     </p>
-                    <a class="btn btn-warning" href="animations.html">see Animations</a>
+                    <a class="btn btn-warning"
+                       href="animations.html">see Animations</a>
                 </div>
             </section>
 
@@ -2217,7 +2299,8 @@ $.confirm({
                         The themes section is moved to the themes.html page <br>
                         This page has docs for themes & how to create custom themes
                     </p>
-                    <a class="btn btn-warning" href="themes.html">see Themes</a>
+                    <a class="btn btn-warning"
+                       href="themes.html">see Themes</a>
                 </div>
             </section>
 
@@ -2264,7 +2347,7 @@ $.confirm({
                     To use, prepend your URL with "URL:" ends up like "URL:http://example.com/file.extension". <br/>
                 </p>
                 <p class="text-info">
-                    <i class="fa fa-lightbulb-o"></i> NOTE: the returned data is set as content automatically before
+                    <i class="fa fa-lightbulb-o"></i> NOTE: the returned data <u>is set as content automatically</u> before
                     contentLoaded callback is called.
                 </p>
                 <button class="btn btn-primary example18-1">Load from text.txt</button>
@@ -2299,7 +2382,7 @@ $.confirm({
                                     self.setContentAppend('<div>Appended text after 2 seconds</div>');
                                 }, 2000);
                             },
-                            animation: 'zoom',
+                            animation: 'scale',
                             columnClass: 'medium',
                             closeAnimation: 'scale',
                         });
@@ -2317,7 +2400,7 @@ $.confirm({
                     In this example a json object is requested, and a part of it is set as content.
                 </p>
                 <p class="text-info">
-                    <i class="fa fa-lightbulb-o"></i> NOTE: the returned data is NOT set as content automatically, you
+                    <i class="fa fa-lightbulb-o"></i> NOTE: the returned data <u>is NOT set as content automatically</u>, you
                     must set the content yourself.
                 </p>
                 <button class="btn btn-primary example18-2">Load from bower.json</button>
@@ -2405,18 +2488,18 @@ $.confirm({
             dataType: 'json',
             method: 'get'
         }).done(function (response) {
-            self.setContentAppend('&lt;br&gt;Done!');
+            self.setContentAppend('&lt;div&gt;Done!&lt;/div&gt;');
         }).fail(function(){
-            self.setContentAppend('&lt;br&gt;Fail!');
+            self.setContentAppend('&lt;div&gt;Fail!&lt;/div&gt;');
         }).always(function(){
-            self.setContentAppend('&lt;br&gt;Always!');
+            self.setContentAppend('&lt;div&gt;Always!&lt;/div&gt;');
         });
     },
     contentLoaded: function(data, status, xhr){
-        self.setContentAppend('&lt;br&gt;Content loaded!');
+        self.setContentAppend('&lt;div&gt;Content loaded!&lt;/div&gt;');
     },
     onContentReady: function(){
-        this.setContentAppend('&lt;br&gt;Content ready!');
+        this.setContentAppend('&lt;div&gt;Content ready!&lt;/div&gt;');
     }
 });</code></pre>
                     </div>
@@ -2424,7 +2507,7 @@ $.confirm({
                         <p>
                             Using the Ajax promise method
                         </p>
-                        <button class="btn btn-primary example18-1-1-1 btn-block">Using contentLoaded callback</button>
+                        <button class="btn btn-primary example18-1-1-1 btn-block">Demo content callbacks</button>
                         <div style="height: 10px;"></div>
                         <p>
                             You can set your content in any of the callbacks.
@@ -2459,18 +2542,18 @@ $.confirm({
                                     dataType: 'json',
                                     method: 'get'
                                 }).done(function (response) {
-                                    self.setContentAppend('<br>Done!');
+                                    self.setContentAppend('<div>Done!</div>');
                                 }).fail(function () {
-                                    self.setContentAppend('<br>Fail!');
+                                    self.setContentAppend('<div>Fail!</div>');
                                 }).always(function () {
-                                    self.setContentAppend('<br>Always!');
+                                    self.setContentAppend('<div>Always!</div>');
                                 });
                             },
                             contentLoaded: function (data, status, xhr) {
-                                this.setContentAppend('<br>Content loaded!');
+                                this.setContentAppend('<div>Content loaded!</div>');
                             },
                             onContentReady: function () {
-                                this.setContentAppend('<br>Content ready!');
+                                this.setContentAppend('<div>Content ready!</div>');
                             }
                         });
                     });
@@ -2916,9 +2999,12 @@ $.confirm({
     title: 'Hello',
     titleClass: '',
     type: 'default',
-    draggable: true,
-    alignMiddle: true,
     typeAnimated: true,
+    draggable: true,
+    dragWindowGap: 15,
+    dragWindowBorder: true,
+    animateFromElement: true,
+    smoothContent: true,
     content: 'Are you sure to continue?',
     buttons: {},
     defaultButtons: {
@@ -2937,10 +3023,10 @@ $.confirm({
     lazyOpen: false,
     bgOpacity: null,
     theme: 'light',
-    animation: 'zoom',
+    animation: 'scale',
     closeAnimation: 'scale',
     animationSpeed: 400,
-    animationBounce: 1.2,
+    animationBounce: 1,
     rtl: false,
     container: 'body',
     containerFluid: false,
@@ -2955,9 +3041,8 @@ $.confirm({
     scrollToPreviousElement: true,
     scrollToPreviousElementAnimate: true,
     useBootstrap: true,
-    offsetTop: 50,
-    offsetBottom: 50,
-    dragWindowGap: 15,
+    offsetTop: 40,
+    offsetBottom: 40,
     bootstrapClasses: {
         container: 'container',
         containerFluid: 'container-fluid',
@@ -3032,7 +3117,7 @@ $.confirm({
                                 <td>draggable</td>
                                 <td>Boolean</td>
                                 <td>
-                                    <code>false</code>
+                                    <code>true</code>
                                 </td>
                                 <td>
                                     Makes the dialog draggable,
@@ -3043,14 +3128,55 @@ $.confirm({
                                 </td>
                             </tr>
                             <tr>
+                                <td>dragWindowGap</td>
+                                <td>Number</td>
+                                <td>
+                                    <code>15</code>
+                                </td>
+                                <td>
+                                    Draggable gap between the modal and window, defaults to 15px
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>dragWindowBorder</td>
+                                <td>Boolean</td>
+                                <td>
+                                    <code>true</code>
+                                </td>
+                                <td>
+                                    If the modal should be restricted inside the window
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>animateFromElement</td>
+                                <td>Boolean</td>
+                                <td>
+                                    <code>true</code>
+                                </td>
+                                <td>
+                                    Animates the modal from the clicked element
+                                </td>
+                            </tr>
+                            <tr>
                                 <td>alignMiddle</td>
                                 <td>Boolean</td>
                                 <td>
                                     <code>true</code>
                                 </td>
                                 <td>
+                                    IMPORTANT <code>@deprecated</code>
                                     The model will be position in center of the screen.
                                     When the content in the model changes, the model is reposition itself.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>smoothContent</td>
+                                <td>Boolean</td>
+                                <td>
+                                    <code>true</code>
+                                </td>
+                                <td>
+                                    Smooth height transition when content in modal changes.
                                 </td>
                             </tr>
                             <tr>
@@ -3138,13 +3264,13 @@ $.confirm({
                             <tr>
                                 <td>animationSpeed</td>
                                 <td>Number</td>
-                                <td><code>500</code></td>
+                                <td><code>400</code></td>
                                 <td>Animation duration in milliseconds.</td>
                             </tr>
                             <tr>
                                 <td>animationBounce</td>
                                 <td>Float</td>
-                                <td><code>1.2</code></td>
+                                <td><code>1</code></td>
                                 <td>Adds a Bounce open animation, <br>1 = No bounce</td>
                             </tr>
                             <tr>
@@ -3295,7 +3421,7 @@ $.confirm({
                             <tr>
                                 <td>offsetTop</td>
                                 <td>Number</td>
-                                <td><code>50</code></td>
+                                <td><code>40</code></td>
                                 <td>
                                     The model will maintain at least 50px from the window's top.
                                 </td>
@@ -3303,17 +3429,9 @@ $.confirm({
                             <tr>
                                 <td>offsetBottom</td>
                                 <td>Number</td>
-                                <td><code>50</code></td>
+                                <td><code>40</code></td>
                                 <td>
                                     The model will maintain at least 50px from the window's bottom.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>dragWindowGap</td>
-                                <td>Number</td>
-                                <td><code>15</code></td>
-                                <td>
-                                    The model will maintain at least 15px from the window's top, left, and right side.
                                 </td>
                             </tr>
                             <tr>
@@ -3409,7 +3527,18 @@ $.confirm({
 
                 <div>
                     <h4 id="api-settitle">
-                        <code>jc.setTitle(string)</code>
+                        <code>jc.setTitle(title: string)</code>
+                    </h4>
+
+                    <p><kbd>function</kbd></p>
+
+                    <div class="section">
+                        <p>Sets the title and overwrites jc.title</p>
+                    </div>
+                </div>
+                <div>
+                    <h4 id="api-seticon">
+                        <code>jc.setIcon(iconClass: string)</code>
                     </h4>
 
                     <p><kbd>function</kbd></p>
@@ -3420,7 +3549,7 @@ $.confirm({
                 </div>
                 <div>
                     <h4 id="api-setcontent">
-                        <code>jc.setContent(string)</code>
+                        <code>jc.setContent(content: string | jQuery)</code>
                     </h4>
 
                     <p><kbd>function</kbd></p>
@@ -3431,7 +3560,7 @@ $.confirm({
                 </div>
                 <div>
                     <h4 id="api-setcontentprepend">
-                        <code>jc.setContentPrepend(string)</code>
+                        <code>jc.setContentPrepend(content: string | jQuery)</code>
                     </h4>
 
                     <p><kbd>function</kbd></p>
@@ -3442,7 +3571,7 @@ $.confirm({
                 </div>
                 <div>
                     <h4 id="api-setcontentappend">
-                        <code>jc.setContentAppend(string)</code>
+                        <code>jc.setContentAppend(content: string | jQuery)</code>
                     </h4>
                     <p><kbd>function</kbd></p>
                     <div class="section">
@@ -3451,7 +3580,7 @@ $.confirm({
                 </div>
                 <div>
                     <h4 id="api-set-type">
-                        <code>jc.setType(string)</code>
+                        <code>jc.setType(typeClass: string)</code>
                     </h4>
                     <p><kbd>function</kbd></p>
                     <div class="section">
@@ -3459,8 +3588,139 @@ $.confirm({
                     </div>
                 </div>
                 <div>
+                    <h4 id="api-show-loading">
+                        <code>jc.showLoading(disableButtons: boolean)</code>
+                    </h4>
+                    <p><kbd>function</kbd></p>
+                    <div class="section">
+                        <p>Show loading spinner inside modal, disableButtons if set to true will disable the buttons.</p>
+                    </div>
+                </div>
+                <div>
+                    <h4 id="api-hide-loading">
+                        <code>jc.hideLoading(enableButtons: boolean)</code>
+                    </h4>
+                    <p><kbd>function</kbd></p>
+                    <div class="section">
+                        <p>Hide loading spinner inside modal, enableButtons if set to true will enable the buttons.</p>
+                    </div>
+                </div>
+                <div>
+                    <h4 id="api-close">
+                        <code>jc.close() : boolean</code>
+                    </h4>
+                    <p><kbd>function</kbd></p>
+                    <div class="section">
+                        <p>The close method closes/destroys the dialog.</p>
+                    </div>
+                </div>
+                <div>
+                    <h4 id="api-open">
+                        <code>jc.open() : boolean</code>
+                    </h4>
+
+                    <p><kbd>function</kbd></p>
+
+                    <div class="section">
+                        <p>Opens the modal again, if it is closed. (Added in v3.0.0)</p>
+                    </div>
+                </div>
+                <div>
+                    <h4 id="api-toggle">
+                        <code>jc.toggle()</code>
+                    </h4>
+
+                    <p><kbd>function</kbd></p>
+
+                    <div class="section">
+                        <p>Toggle between open and close modal</p>
+                    </div>
+                </div>
+                <div>
+                    <h4 id="api-highlight">
+                        <code>jc.highlight()</code>
+                    </h4>
+
+                    <p><kbd>function</kbd></p>
+
+                    <div class="section">
+                        <p>Trigger background dismiss animation</p>
+                    </div>
+                </div>
+                <div>
+                    <h4 id="api-set-boxwidth">
+                        <code>jc.setBoxWidth(width: string)</code>
+                    </h4>
+
+                    <p><kbd>function</kbd></p>
+
+                    <div class="section">
+                        <p>Set the box width of the modal. Only if useBootstrap is set to false</p>
+                    </div>
+                </div>
+                <div>
+                    <h4 id="api-set-columnclass">
+                        <code>jc.setColumnClass(className: string)</code>
+                    </h4>
+
+                    <p><kbd>function</kbd></p>
+
+                    <div class="section">
+                        <p>Set the bootstrap column class of the modal. Only if useBootstrap is set to true</p>
+                    </div>
+                </div>
+                <div>
+                    <h4 id="api-set-theme">
+                        <code>jc.setTheme(themeName: string)</code>
+                    </h4>
+
+                    <p><kbd>function</kbd></p>
+
+                    <div class="section">
+                        <p>Set the theme class of the modal.</p>
+                    </div>
+                </div>
+                <div>
+                    <h4 id="api-isclosed">
+                        <code>jc.isClosed() : boolean</code>
+                    </h4>
+
+                    <p><kbd>function</kbd></p>
+
+                    <div class="section">
+                        <p>
+                            returns true if the modal is closed, else false.
+                        </p>
+                    </div>
+                </div>
+                <div>
+                    <h4 id="api-isopen">
+                        <code>jc.isOpen() : boolean</code>
+                    </h4>
+
+                    <p><kbd>function</kbd></p>
+
+                    <div class="section">
+                        <p>
+                            returns true if the modal is open, else false.
+                        </p>
+                    </div>
+                </div>
+                <div>
+                    <h4 id="api-setdialogcenter">
+                        <code style="text-decoration: line-through">jc.setDialogCenter()</code> <kbd>Deprecated</kbd>
+                    </h4>
+
+                    <p><kbd>function</kbd></p>
+
+                    <div class="section">
+                        <p>Centers the dialog on screen. This is done for you by the watch timer when the content
+                            changes.</p>
+                    </div>
+                </div>
+                <div>
                     <h4 id="api-button-settext">
-                        <code>jc.&lt;buttonName&gt;.setText(text)</code>
+                        <code>jc.buttons.&lt;buttonName&gt;.setText(text: string)</code>
                     </h4>
                     <p><kbd>function</kbd></p>
                     <div class="section">
@@ -3469,7 +3729,7 @@ $.confirm({
                 </div>
                 <div>
                     <h4 id="api-button-addclass">
-                        <code>jc.&lt;buttonName&gt;.addClass(text)</code>
+                        <code>jc.buttons.&lt;buttonName&gt;.addClass(className: string)</code>
                     </h4>
                     <p><kbd>function</kbd></p>
                     <div class="section">
@@ -3478,7 +3738,7 @@ $.confirm({
                 </div>
                 <div>
                     <h4 id="api-button-removeclass">
-                        <code>jc.&lt;buttonName&gt;.removeClass(text)</code>
+                        <code>jc.buttons.&lt;buttonName&gt;.removeClass(className: string)</code>
                     </h4>
                     <p><kbd>function</kbd></p>
                     <div class="section">
@@ -3519,73 +3779,6 @@ $.confirm({
                     <p><kbd>function</kbd></p>
                     <div class="section">
                         <p>Shows a previously hidden button</p>
-                    </div>
-                </div>
-                <div>
-                    <h4 id="api-seticon">
-                        <code>jc.setIcon(iconClass)</code>
-                    </h4>
-                    <p><kbd>function</kbd></p>
-                    <div class="section">
-                        <p>Sets the icon and overwrites jc.icon</p>
-                    </div>
-                </div>
-                <div>
-                    <h4 id="api-close">
-                        <code>jc.close()</code>
-                    </h4>
-                    <p><kbd>function</kbd></p>
-                    <div class="section">
-                        <p>The close method closes/destroys the dialog.</p>
-                    </div>
-                </div>
-                <div>
-                    <h4 id="api-open">
-                        <code>jc.open()</code>
-                    </h4>
-
-                    <p><kbd>function</kbd></p>
-
-                    <div class="section">
-                        <p>Opens the modal again, if it is closed. (Added in v3.0.0)</p>
-                    </div>
-                </div>
-                <div>
-                    <h4 id="api-isclosed">
-                        <code>jc.isClosed()</code>
-                    </h4>
-
-                    <p><kbd>function</kbd></p>
-
-                    <div class="section">
-                        <p>
-                            returns true if the modal is closed, else false.
-                        </p>
-                    </div>
-                </div>
-                <div>
-                    <h4 id="api-isopen">
-                        <code>jc.isOpen()</code>
-                    </h4>
-
-                    <p><kbd>function</kbd></p>
-
-                    <div class="section">
-                        <p>
-                            returns true if the modal is open, else false.
-                        </p>
-                    </div>
-                </div>
-                <div>
-                    <h4 id="api-setdialogcenter">
-                        <code>jc.setDialogCenter()</code>
-                    </h4>
-
-                    <p><kbd>function</kbd></p>
-
-                    <div class="section">
-                        <p>Centers the dialog on screen. This is done for you by the watch timer when the content
-                            changes.</p>
                     </div>
                 </div>
                 <div>

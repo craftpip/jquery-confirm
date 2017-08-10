@@ -1,7 +1,9 @@
 ### ![jquery-confirm](https://raw.githubusercontent.com/craftpip/jquery-confirm/master/jquery-confirm.png "jquery-confirm")
 *alerts, confirms and dialogs in* ***one.***
 
-v3.2.3
+v3.3.0
+
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/bonifacepereira)
 
 A multipurpose plugin for alert, confirm & dialog, with Super powers.
 
@@ -18,8 +20,8 @@ View Detailed [Documentation & Examples](http://craftpip.github.io/jquery-confir
 Download the latest release [here](https://github.com/craftpip/jquery-confirm/archive/master.zip) and use the files within `dist` folder.
 
 via CDN:  
-`<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.2.3/jquery-confirm.min.css">`  
-`<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.2.3/jquery-confirm.min.js"></script>`
+`<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">`  
+`<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>`
 
 via Bower:  
 `$ bower install craftpip/jquery-confirm`
@@ -57,7 +59,7 @@ See Detailed Docs + Example [here](http://craftpip.github.io/jquery-confirm).
 
 ## Authors
 
-[Boniface Pereira](https://github.com/craftpip) & Awesome Contributors.
+[Boniface Pereira](https://github.com/craftpip) & [Awesome Contributors](https://github.com/craftpip/jquery-confirm/graphs/contributors).
 
 ## Issues
 
@@ -70,6 +72,19 @@ The `$.alert()` , `$.confirm()` & `$.dialog()` are alias of `jconfirm();`.
 Checkout the [documentation](http://craftpip.github.io/jquery-confirm) for further information.
 
 ## Version changes
+
+(new in 3.3.0)
+* Moved overflow scroll inside modal [#286](https://github.com/craftpip/jquery-confirm/issues/2860)
+* Improved draggable
+* Added 'animateFromElement' method 
+* Added 'smoothScroll' option 
+* Added 'hilight' option 
+* Added 'showLoading','hideLoading' option 
+* Accept jquery dom element in content [#313](https://github.com/craftpip/jquery-confirm/issues/313) 
+* Updated docs 
+* 'setDialogCenter' method deprecated, dialog centered with CSS tables
+* 'alignMiddle' method deprecated
+* fixes [#255](https://github.com/craftpip/jquery-confirm/issues/255) [#307](https://github.com/craftpip/jquery-confirm/issues/307) [290](https://github.com/craftpip/jquery-confirm/issues/290)
 
 (new in 3.2.3)
 * Added lazyOpen option
@@ -205,6 +220,6 @@ Checkout the [documentation](http://craftpip.github.io/jquery-confirm) for furth
 
 ## Copyright and license
 
-Copyright (C) 2014-2016 jquery-confirm
+Copyright (C) 2014-2017 jquery-confirm
 
 Licensed under [the MIT license](LICENSE).
