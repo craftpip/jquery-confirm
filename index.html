@@ -863,13 +863,13 @@
                         $.confirm({
                             title: 'Gracefully center aligned',
                             content: '<p>You can add content and not worry about the alignment. The goal is to make a Interactive dialog!.</p>' +
-                            '<button type="button" class="btn btn-success">Click me to add more content</button> <span> <br></span> ',
+                            '<button type="button" class="btn btn-success">Click me to add more content</button> <div id="contentArea"></div> ',
                             buttons: {
                                 someButton: {
                                     text: 'Add wow',
                                     btnClass: 'btn-green',
                                     action: function () {
-                                        this.$content.find('span').append('<br>Wowww');
+                                        this.$content.find('#contentArea').append('<br>Wowww');
                                         return false; // prevent dialog from closing.
                                     }
                                 },
@@ -877,7 +877,7 @@
                                     text: 'Clear it',
                                     btnClass: 'btn-orange',
                                     action: function () {
-                                        this.$content.find('span').html('');
+                                        this.$content.find('#contentArea').html('');
                                         return false; // prevent dialog from closing.
                                     }
                                 },
@@ -889,7 +889,7 @@
                                 // onOpen attach the events.
                                 var that = this;
                                 this.$content.find('button').click(function () {
-                                    that.$content.find('span').append('<br>This is awesome!!!!');
+                                    that.$content.find('#contentArea').append('<br>This is awesome!!!!');
                                 });
                             },
                         });
@@ -959,7 +959,7 @@
                 </script>
             </section>
 
-            <section>
+            <section id="whats-new">
                 <h2>Whats new <span style="color: #aaa">in v3.2.3</span></h2>
                 <ul>
                     <li>Added lazyOpen option</li>
@@ -1068,7 +1068,8 @@
                                 $('.example2').on('click', function () {
                                     $.confirm({
                                         title: 'Confirm!',
-                                        content: 'Simple confirm!',
+//                                        content: 'Simple confirm!',
+                                        content: $('#whats-new').clone(),
                                         buttons: {
                                             confirm: function () {
                                                 $.alert('Confirmed!');

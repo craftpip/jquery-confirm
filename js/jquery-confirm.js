@@ -30,7 +30,7 @@ var jconfirm, Jconfirm;
         $(this).each(function () {
             var $this = $(this);
             if ($this.attr('jc-attached')) {
-                console.warn('jConfirm has already binded to this element ', $this[0]);
+                console.warn('jConfirm has already been attached to this element ', $this[0]);
                 return;
             }
 
@@ -165,6 +165,10 @@ var jconfirm, Jconfirm;
                 jconfirm.lastFocused = $('body').find(':focus');
 
             this._id = Math.round(Math.random() * 99999);
+            /**
+             * contentParsed maintains the contents for $content, before it is put in DOM
+             */
+            this.contentParsed = $(document.createElement('div'));
 
             if (!this.lazyOpen) {
                 setTimeout(function () {
@@ -267,7 +271,7 @@ var jconfirm, Jconfirm;
                             that.onContentReady();
                     }, 50);
                 else {
-                    that.setContent();
+                    // that.setContent();
                     that._updateContentMaxHeight();
                     that.setTitle();
                     that.setIcon();
@@ -376,8 +380,6 @@ var jconfirm, Jconfirm;
         },
         _updateContentMaxHeight: function () {
             var height = $(window).height() - (this.$jconfirmBox.outerHeight() - this.$contentPane.outerHeight()) - (this.offsetTop + this.offsetBottom);
-            // console.log($(window).height(), this.$jconfirmBox.outerHeight() - this.$contentPane.outerHeight());
-
             this.$contentPane.css({
                 'max-height': height + 'px'
             });
@@ -655,8 +657,8 @@ var jconfirm, Jconfirm;
                     .css('display', that.buttons[key].isHidden ? 'none' : '')
                     .click(function (e) {
                         e.preventDefault();
-                        var res = that.buttons[key].action.apply(that, that.buttons[key]);
-                        that.onAction.apply(that, key, that.buttons[key]);
+                        var res = that.buttons[key].action.apply(that, [that.buttons[key]]);
+                        that.onAction.apply(that, [key, that.buttons[key]]);
                         that._stopCountDown();
                         if (typeof res === 'undefined' || res)
                             that.close();
@@ -798,28 +800,28 @@ var jconfirm, Jconfirm;
                 this.$titleContainer.show();
             }
         },
-        setContentPrepend: function (string, force) {
-            this.contentParsed = string + this.contentParsed;
-            if (this.isAjaxLoading && !force)
+        setContentPrepend: function (content, force) {
+            if (!content)
                 return;
 
-            this.$content.prepend(string);
+            this.contentParsed.prepend(content);
         },
-        setContentAppend: function (string, force) {
-            this.contentParsed = this.contentParsed + string;
-            if (this.isAjaxLoading && !force)
+        setContentAppend: function (content) {
+            if (!content)
                 return;
 
-            this.$content.append(string);
+            this.contentParsed.append(content);
         },
-        setContent: function (string, force) {
-            force = force || false;
+        setContent: function (content, force) {
+            force = !!force;
             var that = this;
-            this.contentParsed = (typeof string == 'undefined') ? this.contentParsed : string;
+            if (content)
+                this.contentParsed.html('').append(content);
             if (this.isAjaxLoading && !force)
                 return;
 
-            this.$content.html(this.contentParsed);
+            this.$content.html('');
+            this.$content.append(this.contentParsed);
             setTimeout(function () {
                 that.$body.find('input[autofocus]:visible:first').focus();
             }, 100);
@@ -877,7 +879,7 @@ var jconfirm, Jconfirm;
                 this.isAjaxLoading = true;
                 var u = this.content.substring(4, this.content.length);
                 $.get(u).done(function (html) {
-                    that.contentParsed = html;
+                    that.contentParsed.html(html);
                 }).always(function (data, status, xhr) {
                     that.ajaxResponse = {
                         data: data,
@@ -894,8 +896,8 @@ var jconfirm, Jconfirm;
                 this.content = e;
 
             if (!this.isAjax) {
-                this.contentParsed = this.content;
-                this.setContent(this.contentParsed);
+                this.contentParsed.html(this.content);
+                this.setContent();
                 that._contentReady.resolve();
             }
         },
@@ -1118,16 +1120,11 @@ var jconfirm, Jconfirm;
                 return false;
             }
 
-            // console.log(el);
-            // console.log(jconfirm.lastClicked);
-
             if (!el)
                 return false;
 
             var offset = el.offset();
-            // console.log(offset.top, offset.left);
 
-            // originate from center of the clicked element
             var iTop = el.outerHeight() / 2;
             var iLeft = el.outerWidth() / 2;
 
@@ -1237,6 +1234,9 @@ var jconfirm, Jconfirm;
         dragWindowGap: 15,
         dragWindowBorder: true,
         animateFromElement: true,
+        /**
+         * @deprecated
+         */
         alignMiddle: true,
         smoothContent: true,
         content: 'Are you sure to continue?',
