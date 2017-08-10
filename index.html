@@ -1359,47 +1359,56 @@ a.toggle(); // toggle open close.</code></pre>
                     </p>
                     <pre class="prettyprint linenums"><code class="html">$.confirm({
     buttons: {
-        hello: function(){
-            // button action
+        hello: function(helloButton){
+            // shorthand method to define a button
+            // the button key will be used as button name
         },
-        hey: function(){
-            this.$$hello.trigger('click'); // click the other button
-            this.buttons.hello.setText('Helloooo'); // do whatever
+        hey: function(heyButton){
+            // access the button using jquery
+            this.$$hello.trigger('click'); // click the 'hello' button
+            this.$$hey.prop('disabled', true); // disable the current button using jquery method
+                        
+            // jconfirm button methods, all methods listed <a href="#button-functions">here</a>
+            this.buttons.hello.setText('Helloooo'); // setText for 'hello' button
+            this.buttons.hey.disable(); // disable with button function provided by jconfirm
+            this.buttons.hey.enable(); // enable with button function provided by jconfirm
 
-            this.$$hey.prop('disabled', true); // disable the current button
-            // or
-            this.buttons.hey.disable();
+            // the button's instance is passed as the first argument, for quick access
+            heyButton === this.buttons.hey
         },
         heyThere: {
-            text: 'Hey there!',
-            btnClass: 'btn-blue',
-            keys: ['enter', 'a'],
+            text: 'Hey there!', // text for button
+            btnClass: 'btn-blue', // class for the button
+            keys: ['enter', 'a'], // keyboard event for button
             isHidden: false, // initially not hidden
             isDisabled: false, // initially not disabled
-            action: function(){
-                // button action.
+            action: function(heyThereButton){
+                // longhand method to define a button
+                // provides more features
             }
         },
     }
-});</code></pre>
+});
+
+</code></pre>
 
 
                 </div>
                 <h4 id="buttontext">Button text</h4>
                 <div class="section">
-                    <button class="btn btn-primary example3">click me!</button>
+                    <button class="btn btn-primary example3">Button text test</button>
                     <script type="text/javascript">
                         $('.example3').on('click', function () {
                             $.confirm({
                                 buttons: {
-                                    something: function () {
-                                        // here the button key 'something' will be used as the text.
-                                        $.alert('You clicked on something.');
+                                    hey: function () {
+                                        // here the button key 'hey' will be used as the text.
+                                        $.alert('You clicked on "hey".');
                                     },
-                                    somethingElse: {
-                                        text: 'Something else &*', // Some Non-Alphanumeric characters
+                                    heyThere: {
+                                        text: 'hey there!', // With spaces and symbols
                                         action: function () {
-                                            $.alert('You clicked on something else');
+                                            $.alert('You clicked on "heyThere"');
                                         }
                                     }
                                 }
@@ -1409,14 +1418,14 @@ a.toggle(); // toggle open close.</code></pre>
                     <div class="space10"></div>
                     <pre class="prettyprint linenums"><code class="html">$.confirm({
     buttons: {
-        something: function(){
-            // here the key 'something' will be used as the text.
-            $.alert('You clicked on something.');
+        hey: function () {
+            // here the button key 'hey' will be used as the text.
+            $.alert('You clicked on "hey".');
         },
-        somethingElse: {
-            text: 'Something else &*', // Some Non-Alphanumeric characters
-            action: function(){
-                $.alert('You clicked on something else');
+        heyThere: {
+            text: 'hey there!', // With spaces and symbols
+            action: function () {
+                $.alert('You clicked on "heyThere"');
             }
         }
     }
@@ -1753,29 +1762,28 @@ a.toggle(); // toggle open close.</code></pre>
                     <script type="text/javascript">
                         $('.example3-1-a-f-1').on('click', function () {
                             $.confirm({
-                                content: 'Click on the buttons to test it out, <br>Click on the close icon to close the modal',
-                                closeIcon: true, // to close the modal
+                                content: 'Click on the buttons to test it out, ' +
+                                '<br>Click on the close icon to close the modal',
+                                closeIcon: true, // explicitly show the close icon
                                 buttons: {
                                     buttonA: {
                                         text: 'button a',
-                                        action: function () {
-                                            this.buttons.buttonB.setText('Changed it!');
+                                        action: function (buttonA) {
+                                            this.buttons.buttonB.setText('Hey there!');
                                             return false;
                                         }
                                     },
                                     buttonB: {
                                         text: 'button b',
-                                        action: function () {
+                                        action: function (buttonB) {
                                             this.buttons.buttonA.disable();
                                             return false;
                                         }
                                     },
-                                    reset: function () {
-                                        this.buttons.buttonB.show();
+                                    reset: function (buttonReset) {
+                                        this.buttons.buttonB.setText('button b');
+                                        this.buttons.buttonA.setText('button a');
                                         this.buttons.buttonA.enable();
-                                        this.buttons.buttonB.setText('button B!!');
-                                        // this.buttons.buttonA.hide();
-                                        // this.buttons.buttonA.show();
                                         return false;
                                     }
                                 }
