@@ -61,7 +61,7 @@
     <link rel="stylesheet"
           href="demo/demo.css">
     <script>
-        var version = '3.2.3';
+        var version = '3.3.0';
     </script>
     <!-- Add the minified version of files from the /dist/ folder. -->
     <!-- jquery-confirm files -->
@@ -222,8 +222,8 @@
                 <div class="row download-btns">
                     <div class="col-md-12">
                         <div style="height: 15px;"></div>
-                        <a href="https://github.com/craftpip/jquery-confirm/releases/download/v3.2.3/jquery-confirm-v3.2.3.zip"
-                           class="btn btn-lg">Download v3.2.3
+                        <a href="https://github.com/craftpip/jquery-confirm/releases/download/v3.3.0/jquery-confirm-v3.3.0.zip"
+                           class="btn btn-lg">Download v3.3.0
                         </a>
                         <a href="https://github.com/craftpip/jquery-confirm"
                            class="btn btn-lg"><i class="fa fa-github"></i> View on GitHub
@@ -990,12 +990,32 @@
             </section>
 
             <section id="whats-new">
-                <h2>Whats new <span style="color: #aaa">in v3.2.3</span></h2>
+                <h2>Whats new <span style="color: #aaa">in v3.3.0</span></h2>
+                <p>
+                    Major changes
+                </p>
                 <ul>
-                    <li>Added lazyOpen option</li>
-                    <li>Added button properties isHidden and isDisabled</li>
-                    <li>setBoxWidth method added</li>
-                    <li>Bug fixes</li>
+                    <li>Moved overflow scroll inside modal <a target="_empty" href="https://github.com/craftpip/jquery-confirm/issues/286">#286</a></li>
+                </ul>
+                <p>
+                    Improvements
+                </p>
+                <ul>
+                    <li>'draggable' improved</li>
+                    <li>Added 'animateFromElement' option</li>
+                    <li>Added 'smoothScroll' option</li>
+                    <li>Added 'hilight' option</li>
+                    <li>Added 'showLoading','hideLoading' option</li>
+                    <li>Accept jquery dom element in content <a target="_empty" href="https://github.com/craftpip/jquery-confirm/issues/313">#313</a></li>
+                    <li>Updated docs</li>
+                    <li>Fixes <a target="_empty" href="https://github.com/craftpip/jquery-confirm/issues/255">#255</a> <a target="_empty" href="https://github.com/craftpip/jquery-confirm/issues/307">#307</a> <a target="_empty" href="https://github.com/craftpip/jquery-confirm/issues/290">#290</a></li>
+                </ul>
+                <p>
+                    Removals
+                </p>
+                <ul>
+                    <li>'setDialogCenter' method deprecated, dialog centered with CSS tables</li>
+                    <li>'alignMiddle' method deprecated</li>
                 </ul>
             </section>
 
@@ -1022,8 +1042,8 @@
 
                     <p>
                         <strong>via CDN:</strong>
-                    <pre class="prettyprint"><code class="html">&lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.2.3/jquery-confirm.min.css"&gt;
-&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.2.3/jquery-confirm.min.js"&gt;&lt;/script&gt;</code></pre>
+                    <pre class="prettyprint"><code class="html">&lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css"&gt;
+&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"&gt;&lt;/script&gt;</code></pre>
                     </p>
 
                     <p>
@@ -1098,8 +1118,7 @@
                                 $('.example2').on('click', function () {
                                     $.confirm({
                                         title: 'Confirm!',
-//                                        content: 'Simple confirm!',
-                                        content: $('#whats-new').clone(),
+                                        content: 'Simple confirm!',
                                         buttons: {
                                             confirm: function () {
                                                 $.alert('Confirmed!');
