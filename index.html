@@ -329,6 +329,14 @@
                     </li>
                     <li>
                         <a href="#draggable"> Draggable</a>
+                        <ul class="nav nav-list">
+                            <li>
+                                <a href="#draggable-border"> Draggable border</a>
+                            </li>
+                            <li>
+                                <a href="#draggable-gap"> Draggable gap</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="animations.html"> Animations <span style="margin-left: 5px;"><i
@@ -1966,7 +1974,6 @@ $.confirm({
                             <p>
                                 Using other libraries for icons
                             </p>
-                            <button class="example15-1-3-5 btn btn-primary">Using glyphicon</button>
                             <button class="example15-1-3-6 btn btn-primary">Using font awesome</button>
                             <div class="space10"></div>
                             <pre class="prettyprint linenums"><code>$.confirm({
@@ -2007,12 +2014,6 @@ $.confirm({
                         $('.example15-1-3-4').click(function () {
                             $.alert({
                                 closeIcon: true,
-                            });
-                        });
-                        $('.example15-1-3-5').click(function () {
-                            $.alert({
-                                closeIcon: true,
-                                closeIconClass: 'glyphicon glyphicon-remove',
                             });
                         });
                         $('.example15-1-3-6').click(function () {
@@ -2066,8 +2067,6 @@ $.confirm({
 
                     <button class="btn btn-primary grid-1">medium</button>
                     <button class="btn btn-primary grid-2">small (default)</button>
-                    <button class="btn btn-primary grid-3">col-md-4</button>
-                    <button class="btn btn-primary grid-4">col-md-4 col-md-offset-8</button>
                     <button class="btn btn-primary grid-5">xlarge</button>
                     <button class="btn btn-primary grid-6">xlarge (fluid)</button>
                     <div class="space10"></div>
@@ -2080,16 +2079,6 @@ $.confirm({
                         $('.grid-2').on('click', function () {
                             $.confirm({
                                 columnClass: 'small',
-                            });
-                        });
-                        $('.grid-3').on('click', function () {
-                            $.confirm({
-                                columnClass: 'col-md-4',
-                            });
-                        });
-                        $('.grid-4').on('click', function () {
-                            $.confirm({
-                                columnClass: 'col-md-4 col-md-offset-8'
                             });
                         });
                         $('.grid-5').on('click', function () {
@@ -2108,10 +2097,10 @@ $.confirm({
     columnClass: 'small'
 });
 $.confirm({
-    columnClass: 'col-md-4'
+    columnClass: 'col-md-4 col-md-offset-4',
 });
 $.confirm({
-    columnClass: 'col-md-4 col-md-offset-8 col-xs-4 col-xs-offset-8'
+    columnClass: 'col-md-12'
 });
 $.confirm({
     columnClass: 'col-md-4 col-md-offset-8 col-xs-4 col-xs-offset-8',
@@ -2129,7 +2118,7 @@ $.confirm({
 
                     <div class="alert alert-warning">
                         <code>useBootstrap</code> must be set to <code>false</code> to use this feature <br>
-                        you can globally disable bootstrap by setting jconfirm.defaults
+                        you can globally disable bootstrap by setting <code>jconfirm.defaults.useBootstrap = false</code>
                     </div>
 
                     <button class="btn btn-primary grid-wo-bootstrap-1">30%</button>
@@ -2186,11 +2175,9 @@ $.confirm({
                 <h2>Draggable</h2>
                 <div class="section">
                     <p>
-                        Make the dialog draggable. simple.
+                        Make the dialog draggable. simple. <br>
+                        Draggable is set to TRUE by default.
                     </p>
-                    <div class="alert alert-info">
-                        alignMiddle will be disabled if draggable is enabled. Due to jconfirm's nature of centering itself when the content changes causes UX issues when alignMiddle and draggable are enabled.
-                    </div>
                     <button class="btn btn-primary example-draggable">Draggable</button>
                     <div class="space10"></div>
                     <pre class="prettyprint linenums"><code>$.confirm({
@@ -2206,6 +2193,64 @@ $.confirm({
                                 draggable: true,
                             });
                         })
+                    </script>
+                </div>
+                <h4 id="draggable-border">Window border</h4>
+                <div class="section">
+                    <p>
+                        By default jconfirm's modal is prevented from being dragged out of the window.
+                    </p>
+                    <button class="btn btn-primary example-draggable-border">Window border</button>
+                    <div class="space10"></div>
+                    <pre class="prettyprint linenums"><code>$.confirm({
+    title: 'Hello there',
+    content: 'Drag this modal out of the window',
+    draggable: true,
+    dragWindowBorder: false,
+});</code></pre>
+                    <script>
+                        $('.example-draggable-border').click(function () {
+                            $.alert({
+                                title: 'Hello there',
+                                content: 'Drag this modal out of the window',
+                                draggable: true,
+                                dragWindowBorder: false,
+                            });
+                        })
+                    </script>
+                </div>
+                <h4 id="draggable-gap">Window gap</h4>
+                <div class="section">
+                    <p>
+                        If <code>dragWindowBorder</code> is set to <code>true</code> a defined space is maintained between the modal and the window.
+                        <br> this distance can be changed with this feature.
+                    </p>
+                    <button class="btn btn-primary example-draggable-gap-0">Window gap 0px</button>
+                    <button class="btn btn-primary example-draggable-gap-100">Window gap 100px</button>
+                    <div class="space10"></div>
+                    <pre class="prettyprint linenums"><code>$.confirm({
+    title: 'Hello there',
+    content: 'try to drag this modal out of the window',
+    draggable: true,
+    dragWindowGap: 0, // number of px of distance
+});</code></pre>
+                    <script>
+                        $('.example-draggable-gap-0').click(function () {
+                            $.alert({
+                                title: 'Hello there',
+                                content: 'try to drag this modal out of the window',
+                                draggable: true,
+                                dragWindowGap: 0,
+                            });
+                        });
+                        $('.example-draggable-gap-100').click(function () {
+                            $.alert({
+                                title: 'Hello there',
+                                content: 'try to drag this modal out of the window',
+                                draggable: true,
+                                dragWindowGap: 100,
+                            });
+                        });
                     </script>
                 </div>
             </section>
@@ -2278,7 +2323,7 @@ $.confirm({
                     To use, prepend your URL with "URL:" ends up like "URL:http://example.com/file.extension". <br/>
                 </p>
                 <p class="text-info">
-                    <i class="fa fa-lightbulb-o"></i> NOTE: the returned data is set as content automatically before
+                    <i class="fa fa-lightbulb-o"></i> NOTE: the returned data <u>is set as content automatically</u> before
                     contentLoaded callback is called.
                 </p>
                 <button class="btn btn-primary example18-1">Load from text.txt</button>
@@ -2331,7 +2376,7 @@ $.confirm({
                     In this example a json object is requested, and a part of it is set as content.
                 </p>
                 <p class="text-info">
-                    <i class="fa fa-lightbulb-o"></i> NOTE: the returned data is NOT set as content automatically, you
+                    <i class="fa fa-lightbulb-o"></i> NOTE: the returned data <u>is NOT set as content automatically</u>, you
                     must set the content yourself.
                 </p>
                 <button class="btn btn-primary example18-2">Load from bower.json</button>
@@ -2419,18 +2464,18 @@ $.confirm({
             dataType: 'json',
             method: 'get'
         }).done(function (response) {
-            self.setContentAppend('&lt;br&gt;Done!');
+            self.setContentAppend('&lt;div&gt;Done!&lt;/div&gt;');
         }).fail(function(){
-            self.setContentAppend('&lt;br&gt;Fail!');
+            self.setContentAppend('&lt;div&gt;Fail!&lt;/div&gt;');
         }).always(function(){
-            self.setContentAppend('&lt;br&gt;Always!');
+            self.setContentAppend('&lt;div&gt;Always!&lt;/div&gt;');
         });
     },
     contentLoaded: function(data, status, xhr){
-        self.setContentAppend('&lt;br&gt;Content loaded!');
+        self.setContentAppend('&lt;div&gt;Content loaded!&lt;/div&gt;');
     },
     onContentReady: function(){
-        this.setContentAppend('&lt;br&gt;Content ready!');
+        this.setContentAppend('&lt;div&gt;Content ready!&lt;/div&gt;');
     }
 });</code></pre>
                     </div>
@@ -2438,7 +2483,7 @@ $.confirm({
                         <p>
                             Using the Ajax promise method
                         </p>
-                        <button class="btn btn-primary example18-1-1-1 btn-block">Using contentLoaded callback</button>
+                        <button class="btn btn-primary example18-1-1-1 btn-block">Demo content callbacks</button>
                         <div style="height: 10px;"></div>
                         <p>
                             You can set your content in any of the callbacks.
@@ -2473,18 +2518,18 @@ $.confirm({
                                     dataType: 'json',
                                     method: 'get'
                                 }).done(function (response) {
-                                    self.setContentAppend('<br>Done!');
+                                    self.setContentAppend('<div>Done!</div>');
                                 }).fail(function () {
-                                    self.setContentAppend('<br>Fail!');
+                                    self.setContentAppend('<div>Fail!</div>');
                                 }).always(function () {
-                                    self.setContentAppend('<br>Always!');
+                                    self.setContentAppend('<div>Always!</div>');
                                 });
                             },
                             contentLoaded: function (data, status, xhr) {
-                                this.setContentAppend('<br>Content loaded!');
+                                this.setContentAppend('<div>Content loaded!</div>');
                             },
                             onContentReady: function () {
-                                this.setContentAppend('<br>Content ready!');
+                                this.setContentAppend('<div>Content ready!</div>');
                             }
                         });
                     });
@@ -3063,6 +3108,7 @@ $.confirm({
                                     <code>true</code>
                                 </td>
                                 <td>
+                                    <code>@deprecated</code>
                                     The model will be position in center of the screen.
                                     When the content in the model changes, the model is reposition itself.
                                 </td>
