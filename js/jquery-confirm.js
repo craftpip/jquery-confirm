@@ -1,5 +1,5 @@
 /*!
- * jquery-confirm v3.3.1 (http://craftpip.github.io/jquery-confirm/)
+ * jquery-confirm v3.3.2 (http://craftpip.github.io/jquery-confirm/)
  * Author: Boniface Pereira
  * Website: www.craftpip.com
  * Contact: hey@craftpip.com
@@ -1026,11 +1026,11 @@ var jconfirm, Jconfirm;
         _unwatchContent: function () {
             clearInterval(this._timer);
         },
-        close: function () {
+        close: function (onClosePayload) {
             var that = this;
 
             if (typeof this.onClose === 'function')
-                this.onClose();
+                this.onClose(onClosePayload);
 
             this._unwatchContent();
 
