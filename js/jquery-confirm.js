@@ -1186,7 +1186,7 @@ var jconfirm, Jconfirm;
         },
         loadedClass: 'jconfirm-open',
         isClosed: function () {
-            return !this.$el || this.$el.css('display') === '';
+            return !this.$el || this.$el.parent().length === 0;
         },
         isOpen: function () {
             return !this.isClosed();
