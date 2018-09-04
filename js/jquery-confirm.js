@@ -313,11 +313,11 @@
                 // start countdown after content has loaded.
                 if(that.autoClose)
                     that._startCountDown();
+            }).then(function(){
+                that._watchContent();
             });
 
-            this._watchContent();
-
-            if(this.animation === 'none'){
+            if (this.animation === 'none') {
                 this.animationSpeed = 1;
                 this.animationBounce = 1;
             }
