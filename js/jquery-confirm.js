@@ -1212,8 +1212,8 @@
             }, this.animationSpeed);
         },
         loadedClass: 'jconfirm-open',
-        isClosed: function(){
-            return !this.$el || this.$el.css('display') === '';
+        isClosed: function () {
+            return !this.$el || this.$el.parent().length === 0;
         },
         isOpen: function(){
             return !this.isClosed();
