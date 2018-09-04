@@ -4,21 +4,48 @@
  * Website: www.craftpip.com
  * Contact: hey@craftpip.com
  *
- * Copyright 2013-2017 jquery-confirm
+ * Copyright 2013-2018 jquery-confirm
  * Licensed under MIT (https://github.com/craftpip/jquery-confirm/blob/master/LICENSE)
  */
 
-if (typeof jQuery === 'undefined') {
-    throw new Error('jquery-confirm requires jQuery');
-}
 
-var jconfirm, Jconfirm;
-(function ($, window) {
+/**
+ * UMD (Universal Module Definition) to support CommonJS, AMD and browser
+ * Thanks to https://github.com/umdjs/umd
+ */
+(function(factory){
+    if(typeof define === 'function' && define.amd){
+        // AMD. Register as an anonymous module.
+        define(['jquery', 'window'], factory);
+    }else if(typeof module === 'object' && module.exports){
+        // Node/CommonJS
+        module.exports = function(root, jQuery){
+            if(jQuery === undefined){
+                // require('jQuery') returns a factory that requires window to
+                // build a jQuery instance, we normalize how we use modules
+                // that require this pattern but the window provided is a noop
+                // if it's defined (how jquery works)
+                if(typeof window !== 'undefined'){
+                    jQuery = require('jquery');
+                }
+                else{
+                    jQuery = require('jquery')(root);
+                }
+            }
+            factory(jQuery, window);
+            return jQuery;
+        };
+    }else{
+        // Browser globals
+        factory(jQuery, window);
+    }
+}(function($, window){
     "use strict";
+    var jconfirm, Jconfirm;
 
-    $.fn.confirm = function (options, option2) {
-        if (typeof options === 'undefined') options = {};
-        if (typeof options === 'string') {
+    $.fn.confirm = function(options, option2){
+        if(typeof options === 'undefined') options = {};
+        if(typeof options === 'string'){
             options = {
                 content: options,
                 title: (option2) ? option2 : false
@@ -27,29 +54,29 @@ var jconfirm, Jconfirm;
         /*
          *  Alias of $.confirm to emulate native confirm()
          */
-        $(this).each(function () {
+        $(this).each(function(){
             var $this = $(this);
-            if ($this.attr('jc-attached')) {
+            if($this.attr('jc-attached')){
                 console.warn('jConfirm has already been attached to this element ', $this[0]);
                 return;
             }
 
-            $this.on('click', function (e) {
+            $this.on('click', function(e){
                 e.preventDefault();
                 var jcOption = $.extend({}, options);
-                if ($this.attr('data-title'))
+                if($this.attr('data-title'))
                     jcOption['title'] = $this.attr('data-title');
-                if ($this.attr('data-content'))
+                if($this.attr('data-content'))
                     jcOption['content'] = $this.attr('data-content');
-                if (typeof jcOption['buttons'] == 'undefined')
+                if(typeof jcOption['buttons'] === 'undefined')
                     jcOption['buttons'] = {};
 
                 jcOption['$target'] = $this;
-                if ($this.attr('href') && Object.keys(jcOption['buttons']).length == 0) {
+                if($this.attr('href') && Object.keys(jcOption['buttons']).length === 0){
                     var buttons = $.extend(true, {}, jconfirm.pluginDefaults.defaultButtons, (jconfirm.defaults || {}).defaultButtons || {});
                     var firstBtn = Object.keys(buttons)[0];
                     jcOption['buttons'] = buttons;
-                    jcOption.buttons[firstBtn].action = function () {
+                    jcOption.buttons[firstBtn].action = function(){
                         location.href = $this.attr('href');
                     };
                 }
@@ -61,21 +88,21 @@ var jconfirm, Jconfirm;
         });
         return $(this);
     };
-    $.confirm = function (options, option2) {
-        if (typeof options === 'undefined') options = {};
-        if (typeof options === 'string') {
+    $.confirm = function(options, option2){
+        if(typeof options === 'undefined') options = {};
+        if(typeof options === 'string'){
             options = {
                 content: options,
                 title: (option2) ? option2 : false
             };
         }
 
-        var putDefaultButtons = !(options['buttons'] == false);
+        var putDefaultButtons = !(options['buttons'] === false);
 
-        if (typeof options['buttons'] != 'object')
+        if(typeof options['buttons'] !== 'object')
             options['buttons'] = {};
 
-        if (Object.keys(options['buttons']).length == 0 && putDefaultButtons) {
+        if(Object.keys(options['buttons']).length === 0 && putDefaultButtons){
             var buttons = $.extend(true, {}, jconfirm.pluginDefaults.defaultButtons, (jconfirm.defaults || {}).defaultButtons || {});
             options['buttons'] = buttons;
         }
@@ -85,21 +112,21 @@ var jconfirm, Jconfirm;
          */
         return jconfirm(options);
     };
-    $.alert = function (options, option2) {
-        if (typeof options === 'undefined') options = {};
-        if (typeof options === 'string') {
+    $.alert = function(options, option2){
+        if(typeof options === 'undefined') options = {};
+        if(typeof options === 'string'){
             options = {
                 content: options,
                 title: (option2) ? option2 : false
             };
         }
 
-        var putDefaultButtons = !(options['buttons'] == false);
+        var putDefaultButtons = !(options['buttons'] === false);
 
-        if (typeof options.buttons != 'object')
+        if(typeof options.buttons !== 'object')
             options.buttons = {};
 
-        if (Object.keys(options['buttons']).length == 0 && putDefaultButtons) {
+        if(Object.keys(options['buttons']).length === 0 && putDefaultButtons){
             var buttons = $.extend(true, {}, jconfirm.pluginDefaults.defaultButtons, (jconfirm.defaults || {}).defaultButtons || {});
             var firstBtn = Object.keys(buttons)[0];
             options['buttons'][firstBtn] = buttons[firstBtn];
@@ -109,13 +136,13 @@ var jconfirm, Jconfirm;
          */
         return jconfirm(options);
     };
-    $.dialog = function (options, option2) {
-        if (typeof options === 'undefined') options = {};
-        if (typeof options === 'string') {
+    $.dialog = function(options, option2){
+        if(typeof options === 'undefined') options = {};
+        if(typeof options === 'string'){
             options = {
                 content: options,
                 title: (option2) ? option2 : false,
-                closeIcon: function () {
+                closeIcon: function(){
                     // Just close the modal
                 }
             };
@@ -123,9 +150,9 @@ var jconfirm, Jconfirm;
 
         options['buttons'] = {}; // purge buttons
 
-        if (typeof options['closeIcon'] == 'undefined') {
+        if(typeof options['closeIcon'] === 'undefined'){
             // Dialog must have a closeIcon.
-            options['closeIcon'] = function () {
+            options['closeIcon'] = function(){
             }
         }
         /*
@@ -135,13 +162,13 @@ var jconfirm, Jconfirm;
         return jconfirm(options);
     };
 
-    jconfirm = function (options) {
-        if (typeof options === 'undefined') options = {};
+    jconfirm = function(options){
+        if(typeof options === 'undefined') options = {};
         /*
          * initial function for calling.
          */
         var pluginOptions = $.extend(true, {}, jconfirm.pluginDefaults);
-        if (jconfirm.defaults) {
+        if(jconfirm.defaults){
             pluginOptions = $.extend(true, pluginOptions, jconfirm.defaults);
         }
 
@@ -153,7 +180,7 @@ var jconfirm, Jconfirm;
         jconfirm.instances.push(instance);
         return instance;
     };
-    Jconfirm = function (options) {
+    Jconfirm = function(options){
         /*
          * constructor function Jconfirm,
          * options = user options.
@@ -162,10 +189,10 @@ var jconfirm, Jconfirm;
         this._init();
     };
     Jconfirm.prototype = {
-        _init: function () {
+        _init: function(){
             var that = this;
 
-            if (!jconfirm.instances.length)
+            if(!jconfirm.instances.length)
                 jconfirm.lastFocused = $('body').find(':focus');
 
             this._id = Math.round(Math.random() * 99999);
@@ -174,13 +201,13 @@ var jconfirm, Jconfirm;
              */
             this.contentParsed = $(document.createElement('div'));
 
-            if (!this.lazyOpen) {
-                setTimeout(function () {
+            if(!this.lazyOpen){
+                setTimeout(function(){
                     that.open();
                 }, 0);
             }
         },
-        _buildHTML: function () {
+        _buildHTML: function(){
             var that = this;
 
             // prefix the animation string and store in animationParsed
@@ -197,33 +224,33 @@ var jconfirm, Jconfirm;
             var template = $(this.template);
             template.find('.jconfirm-box').addClass(this.animationParsed).addClass(this.backgroundDismissAnimationParsed).addClass(this.typeParsed);
 
-            if (this.typeAnimated)
+            if(this.typeAnimated)
                 template.find('.jconfirm-box').addClass('jconfirm-type-animated');
 
-            if (this.useBootstrap) {
+            if(this.useBootstrap){
                 template.find('.jc-bs3-row').addClass(this.bootstrapClasses.row);
                 template.find('.jc-bs3-row').addClass('justify-content-md-center justify-content-sm-center justify-content-xs-center justify-content-lg-center');
 
                 template.find('.jconfirm-box-container').addClass(this.columnClassParsed);
 
-                if (this.containerFluid)
+                if(this.containerFluid)
                     template.find('.jc-bs3-container').addClass(this.bootstrapClasses.containerFluid);
                 else
                     template.find('.jc-bs3-container').addClass(this.bootstrapClasses.container);
-            } else {
+            }else{
                 template.find('.jconfirm-box').css('width', this.boxWidth);
             }
 
-            if (this.titleClass)
+            if(this.titleClass)
                 template.find('.jconfirm-title-c').addClass(this.titleClass);
 
             template.addClass(this.themeParsed);
             var ariaLabel = 'jconfirm-box' + this._id;
             template.find('.jconfirm-box').attr('aria-labelledby', ariaLabel).attr('tabindex', -1);
             template.find('.jconfirm-content').attr('id', ariaLabel);
-            if (this.bgOpacity !== null)
+            if(this.bgOpacity !== null)
                 template.find('.jconfirm-bg').css('opacity', this.bgOpacity);
-            if (this.rtl)
+            if(this.rtl)
                 template.addClass('jconfirm-rtl');
 
             this.$el = template.appendTo(this.container);
@@ -257,34 +284,34 @@ var jconfirm, Jconfirm;
             this._parseContent();
             this.initDraggable();
 
-            if (this.isAjax)
+            if(this.isAjax)
                 this.showLoading(false);
 
-            $.when(this._contentReady, this._modalReady).then(function () {
-                if (that.isAjaxLoading)
-                    setTimeout(function () {
+            $.when(this._contentReady, this._modalReady).then(function(){
+                if(that.isAjaxLoading)
+                    setTimeout(function(){
                         that.isAjaxLoading = false;
                         that.setContent();
                         that.setTitle();
                         that.setIcon();
-                        setTimeout(function () {
+                        setTimeout(function(){
                             that.hideLoading(false);
                             that._updateContentMaxHeight();
                         }, 100);
-                        if (typeof that.onContentReady === 'function')
+                        if(typeof that.onContentReady === 'function')
                             that.onContentReady();
                     }, 50);
-                else {
+                else{
                     // that.setContent();
                     that._updateContentMaxHeight();
                     that.setTitle();
                     that.setIcon();
-                    if (typeof that.onContentReady === 'function')
+                    if(typeof that.onContentReady === 'function')
                         that.onContentReady();
                 }
 
                 // start countdown after content has loaded.
-                if (that.autoClose)
+                if(that.autoClose)
                     that._startCountDown();
             }).then(function(){
                 that._watchContent();
@@ -302,41 +329,41 @@ var jconfirm, Jconfirm;
         },
         _typePrefix: 'jconfirm-type-',
         typeParsed: '',
-        _parseType: function (type) {
+        _parseType: function(type){
             this.typeParsed = this._typePrefix + type;
         },
-        setType: function (type) {
+        setType: function(type){
             var oldClass = this.typeParsed;
             this._parseType(type);
             this.$jconfirmBox.removeClass(oldClass).addClass(this.typeParsed);
         },
         themeParsed: '',
         _themePrefix: 'jconfirm-',
-        setTheme: function (theme) {
+        setTheme: function(theme){
             var previous = this.theme;
             this.theme = theme || this.theme;
             this._parseTheme(this.theme);
-            if (previous)
+            if(previous)
                 this.$el.removeClass(previous);
             this.$el.addClass(this.themeParsed);
             this.theme = theme;
         },
-        _parseTheme: function (theme) {
+        _parseTheme: function(theme){
             var that = this;
             theme = theme.split(',');
-            $.each(theme, function (k, a) {
-                if (a.indexOf(that._themePrefix) === -1)
+            $.each(theme, function(k, a){
+                if(a.indexOf(that._themePrefix) === -1)
                     theme[k] = that._themePrefix + $.trim(a);
             });
             this.themeParsed = theme.join(' ').toLowerCase();
         },
         backgroundDismissAnimationParsed: '',
         _bgDismissPrefix: 'jconfirm-hilight-',
-        _parseBgDismissAnimation: function (bgDismissAnimation) {
+        _parseBgDismissAnimation: function(bgDismissAnimation){
             var animation = bgDismissAnimation.split(',');
             var that = this;
-            $.each(animation, function (k, a) {
-                if (a.indexOf(that._bgDismissPrefix) === -1)
+            $.each(animation, function(k, a){
+                if(a.indexOf(that._bgDismissPrefix) === -1)
                     animation[k] = that._bgDismissPrefix + $.trim(a);
             });
             this.backgroundDismissAnimationParsed = animation.join(' ').toLowerCase();
@@ -344,37 +371,37 @@ var jconfirm, Jconfirm;
         animationParsed: '',
         closeAnimationParsed: '',
         _animationPrefix: 'jconfirm-animation-',
-        setAnimation: function (animation) {
+        setAnimation: function(animation){
             this.animation = animation || this.animation;
             this._parseAnimation(this.animation, 'o');
         },
-        _parseAnimation: function (animation, which) {
+        _parseAnimation: function(animation, which){
             which = which || 'o'; // parse what animation and store where. open or close?
             var animations = animation.split(',');
             var that = this;
-            $.each(animations, function (k, a) {
-                if (a.indexOf(that._animationPrefix) === -1)
+            $.each(animations, function(k, a){
+                if(a.indexOf(that._animationPrefix) === -1)
                     animations[k] = that._animationPrefix + $.trim(a);
             });
             var a_string = animations.join(' ').toLowerCase();
-            if (which === 'o')
+            if(which === 'o')
                 this.animationParsed = a_string;
             else
                 this.closeAnimationParsed = a_string;
 
             return a_string;
         },
-        setCloseAnimation: function (closeAnimation) {
+        setCloseAnimation: function(closeAnimation){
             this.closeAnimation = closeAnimation || this.closeAnimation;
             this._parseAnimation(this.closeAnimation, 'c');
         },
-        setAnimationSpeed: function (speed) {
+        setAnimationSpeed: function(speed){
             this.animationSpeed = speed || this.animationSpeed;
             // this.$body.css(this._getCSS(this.animationSpeed, this.animationBounce));
         },
         columnClassParsed: '',
-        setColumnClass: function (colClass) {
-            if (!this.useBootstrap) {
+        setColumnClass: function(colClass){
+            if(!this.useBootstrap){
                 console.warn("cannot set columnClass, useBootstrap is set to false");
                 return;
             }
@@ -382,24 +409,24 @@ var jconfirm, Jconfirm;
             this._parseColumnClass(this.columnClass);
             this.$jconfirmBoxContainer.addClass(this.columnClassParsed);
         },
-        _updateContentMaxHeight: function () {
+        _updateContentMaxHeight: function(){
             var height = $(window).height() - (this.$jconfirmBox.outerHeight() - this.$contentPane.outerHeight()) - (this.offsetTop + this.offsetBottom);
             this.$contentPane.css({
                 'max-height': height + 'px'
             });
         },
-        setBoxWidth: function (width) {
-            if (this.useBootstrap) {
+        setBoxWidth: function(width){
+            if(this.useBootstrap){
                 console.warn("cannot set boxWidth, useBootstrap is set to true");
                 return;
             }
             this.boxWidth = width;
             this.$jconfirmBox.css('width', width);
         },
-        _parseColumnClass: function (colClass) {
+        _parseColumnClass: function(colClass){
             colClass = colClass.toLowerCase();
             var p;
-            switch (colClass) {
+            switch(colClass){
                 case 'xl':
                 case 'xlarge':
                     p = 'col-md-12';
@@ -425,29 +452,29 @@ var jconfirm, Jconfirm;
             }
             this.columnClassParsed = p;
         },
-        initDraggable: function () {
+        initDraggable: function(){
             var that = this;
             var $t = this.$titleContainer;
 
             this.resetDrag();
-            if (this.draggable) {
-                $t.on('mousedown', function (e) {
+            if(this.draggable){
+                $t.on('mousedown', function(e){
                     $t.addClass('jconfirm-hand');
                     that.mouseX = e.clientX;
                     that.mouseY = e.clientY;
                     that.isDrag = true;
                 });
-                $(window).on('mousemove.' + this._id, function (e) {
-                    if (that.isDrag) {
+                $(window).on('mousemove.' + this._id, function(e){
+                    if(that.isDrag){
                         that.movingX = e.clientX - that.mouseX + that.initialX;
                         that.movingY = e.clientY - that.mouseY + that.initialY;
                         that.setDrag();
                     }
                 });
 
-                $(window).on('mouseup.' + this._id, function () {
+                $(window).on('mouseup.' + this._id, function(){
                     $t.removeClass('jconfirm-hand');
-                    if (that.isDrag) {
+                    if(that.isDrag){
                         that.isDrag = false;
                         that.initialX = that.movingX;
                         that.initialY = that.movingY;
@@ -455,7 +482,7 @@ var jconfirm, Jconfirm;
                 })
             }
         },
-        resetDrag: function () {
+        resetDrag: function(){
             this.isDrag = false;
             this.initialX = 0;
             this.initialY = 0;
@@ -465,8 +492,8 @@ var jconfirm, Jconfirm;
             this.mouseY = 0;
             this.$jconfirmBoxContainer.css('transform', 'translate(' + 0 + 'px, ' + 0 + 'px)');
         },
-        setDrag: function () {
-            if (!this.draggable)
+        setDrag: function(){
+            if(!this.draggable)
                 return;
 
             this.alignMiddle = false;
@@ -476,22 +503,22 @@ var jconfirm, Jconfirm;
             var windowHeight = $(window).height();
             var that = this;
             var dragUpdate = 1;
-            if (that.movingX % dragUpdate === 0 || that.movingY % dragUpdate === 0) {
-                if (that.dragWindowBorder) {
+            if(that.movingX % dragUpdate === 0 || that.movingY % dragUpdate === 0){
+                if(that.dragWindowBorder){
                     var leftDistance = (windowWidth / 2) - boxWidth / 2;
                     var topDistance = (windowHeight / 2) - boxHeight / 2;
                     topDistance -= that.dragWindowGap;
                     leftDistance -= that.dragWindowGap;
 
-                    if (leftDistance + that.movingX < 0) {
+                    if(leftDistance + that.movingX < 0){
                         that.movingX = -leftDistance;
-                    } else if (leftDistance - that.movingX < 0) {
+                    }else if(leftDistance - that.movingX < 0){
                         that.movingX = leftDistance;
                     }
 
-                    if (topDistance + that.movingY < 0) {
+                    if(topDistance + that.movingY < 0){
                         that.movingY = -topDistance;
-                    } else if (topDistance - that.movingY < 0) {
+                    }else if(topDistance - that.movingY < 0){
                         that.movingY = topDistance;
                     }
                 }
@@ -499,27 +526,27 @@ var jconfirm, Jconfirm;
                 that.$jconfirmBoxContainer.css('transform', 'translate(' + that.movingX + 'px, ' + that.movingY + 'px)');
             }
         },
-        _scrollTop: function () {
-            if (typeof pageYOffset !== 'undefined') {
+        _scrollTop: function(){
+            if(typeof pageYOffset !== 'undefined'){
                 //most browsers except IE before #9
                 return pageYOffset;
             }
-            else {
+            else{
                 var B = document.body; //IE 'quirks'
                 var D = document.documentElement; //IE with doctype
                 D = (D.clientHeight) ? D : B;
                 return D.scrollTop;
             }
         },
-        _watchContent: function () {
+        _watchContent: function(){
             var that = this;
-            if (this._timer) clearInterval(this._timer);
+            if(this._timer) clearInterval(this._timer);
 
             var prevContentHeight = 0;
-            this._timer = setInterval(function () {
-                if (that.smoothContent) {
+            this._timer = setInterval(function(){
+                if(that.smoothContent){
                     var contentHeight = that.$content.outerHeight() || 0;
-                    if (contentHeight !== prevContentHeight) {
+                    if(contentHeight !== prevContentHeight){
                         that.$contentPane.css({
                             'height': contentHeight
                         }).scrollTop(0);
@@ -527,9 +554,9 @@ var jconfirm, Jconfirm;
                     }
                     var wh = $(window).height();
                     var total = that.offsetTop + that.offsetBottom + that.$jconfirmBox.height() - that.$contentPane.height() + that.$content.height();
-                    if (total < wh) {
+                    if(total < wh){
                         that.$contentPane.addClass('no-scroll');
-                    } else {
+                    }else{
                         that.$contentPane.removeClass('no-scroll');
                     }
                 }
@@ -537,28 +564,28 @@ var jconfirm, Jconfirm;
         },
         _overflowClass: 'jconfirm-overflow',
         _hilightAnimating: false,
-        highlight: function () {
+        highlight: function(){
             this.hiLightModal();
         },
-        hiLightModal: function () {
+        hiLightModal: function(){
             var that = this;
-            if (this._hilightAnimating)
+            if(this._hilightAnimating)
                 return;
 
             that.$body.addClass('hilight');
             var duration = parseFloat(that.$body.css('animation-duration')) || 2;
             this._hilightAnimating = true;
-            setTimeout(function () {
+            setTimeout(function(){
                 that._hilightAnimating = false;
                 that.$body.removeClass('hilight');
             }, duration * 1000);
         },
-        _bindEvents: function () {
+        _bindEvents: function(){
             var that = this;
             this.boxClicked = false;
 
-            this.$scrollPane.click(function (e) { // Ignore propagated clicks
-                if (!that.boxClicked) { // Background clicked
+            this.$scrollPane.click(function(e){ // Ignore propagated clicks
+                if(!that.boxClicked){ // Background clicked
                     /*
                      If backgroundDismiss is a function and its return value is truthy
                      proceed to close the modal.
@@ -567,26 +594,26 @@ var jconfirm, Jconfirm;
                     var shouldClose = false;
                     var str;
 
-                    if (typeof that.backgroundDismiss == 'function')
+                    if(typeof that.backgroundDismiss === 'function')
                         str = that.backgroundDismiss();
                     else
                         str = that.backgroundDismiss;
 
-                    if (typeof str == 'string' && typeof that.buttons[str] != 'undefined') {
+                    if(typeof str === 'string' && typeof that.buttons[str] !== 'undefined'){
                         buttonName = str;
                         shouldClose = false;
-                    } else if (typeof str == 'undefined' || !!(str) == true) {
+                    }else if(typeof str === 'undefined' || !!(str) === true){
                         shouldClose = true;
-                    } else {
+                    }else{
                         shouldClose = false;
                     }
 
-                    if (buttonName) {
+                    if(buttonName){
                         var btnResponse = that.buttons[buttonName].action.apply(that);
-                        shouldClose = (typeof btnResponse == 'undefined') || !!(btnResponse);
+                        shouldClose = (typeof btnResponse === 'undefined') || !!(btnResponse);
                     }
 
-                    if (shouldClose)
+                    if(shouldClose)
                         that.close();
                     else
                         that.hiLightModal();
@@ -594,32 +621,32 @@ var jconfirm, Jconfirm;
                 that.boxClicked = false;
             });
 
-            this.$jconfirmBox.click(function (e) {
+            this.$jconfirmBox.click(function(e){
                 that.boxClicked = true;
             });
 
             var isKeyDown = false;
-            $(window).on('jcKeyDown.' + that._id, function (e) {
-                if (!isKeyDown) {
+            $(window).on('jcKeyDown.' + that._id, function(e){
+                if(!isKeyDown){
                     isKeyDown = true;
                 }
             });
-            $(window).on('keyup.' + that._id, function (e) {
-                if (isKeyDown) {
+            $(window).on('keyup.' + that._id, function(e){
+                if(isKeyDown){
                     that.reactOnKey(e);
                     isKeyDown = false;
                 }
             });
 
-            $(window).on('resize.' + this._id, function () {
+            $(window).on('resize.' + this._id, function(){
                 that._updateContentMaxHeight();
-                setTimeout(function () {
+                setTimeout(function(){
                     that.resetDrag();
                 }, 100);
             });
         },
         _cubic_bezier: '0.36, 0.55, 0.19',
-        _getCSS: function (speed, bounce) {
+        _getCSS: function(speed, bounce){
             return {
                 '-webkit-transition-duration': speed / 1000 + 's',
                 'transition-duration': speed / 1000 + 's',
@@ -627,19 +654,19 @@ var jconfirm, Jconfirm;
                 'transition-timing-function': 'cubic-bezier(' + this._cubic_bezier + ', ' + bounce + ')'
             };
         },
-        _setButtons: function () {
+        _setButtons: function(){
             var that = this;
             /*
              * Settings up buttons
              */
 
             var total_buttons = 0;
-            if (typeof this.buttons !== 'object')
+            if(typeof this.buttons !== 'object')
                 this.buttons = {};
 
-            $.each(this.buttons, function (key, button) {
+            $.each(this.buttons, function(key, button){
                 total_buttons += 1;
-                if (typeof button === 'function') {
+                if(typeof button === 'function'){
                     that.buttons[key] = button = {
                         action: button
                     };
@@ -647,13 +674,13 @@ var jconfirm, Jconfirm;
 
                 that.buttons[key].text = button.text || key;
                 that.buttons[key].btnClass = button.btnClass || 'btn-default';
-                that.buttons[key].action = button.action || function () {
-                    };
+                that.buttons[key].action = button.action || function(){
+                };
                 that.buttons[key].keys = button.keys || [];
                 that.buttons[key].isHidden = button.isHidden || false;
                 that.buttons[key].isDisabled = button.isDisabled || false;
 
-                $.each(that.buttons[key].keys, function (i, a) {
+                $.each(that.buttons[key].keys, function(i, a){
                     that.buttons[key].keys[i] = a.toLowerCase();
                 });
 
@@ -662,38 +689,38 @@ var jconfirm, Jconfirm;
                     .addClass(that.buttons[key].btnClass)
                     .prop('disabled', that.buttons[key].isDisabled)
                     .css('display', that.buttons[key].isHidden ? 'none' : '')
-                    .click(function (e) {
+                    .click(function(e){
                         e.preventDefault();
                         var res = that.buttons[key].action.apply(that, [that.buttons[key]]);
                         that.onAction.apply(that, [key, that.buttons[key]]);
                         that._stopCountDown();
-                        if (typeof res === 'undefined' || res)
+                        if(typeof res === 'undefined' || res)
                             that.close();
                     });
 
                 that.buttons[key].el = button_element;
-                that.buttons[key].setText = function (text) {
+                that.buttons[key].setText = function(text){
                     button_element.html(text);
                 };
-                that.buttons[key].addClass = function (className) {
+                that.buttons[key].addClass = function(className){
                     button_element.addClass(className);
                 };
-                that.buttons[key].removeClass = function (className) {
+                that.buttons[key].removeClass = function(className){
                     button_element.removeClass(className);
                 };
-                that.buttons[key].disable = function () {
+                that.buttons[key].disable = function(){
                     that.buttons[key].isDisabled = true;
                     button_element.prop('disabled', true);
                 };
-                that.buttons[key].enable = function () {
+                that.buttons[key].enable = function(){
                     that.buttons[key].isDisabled = false;
                     button_element.prop('disabled', false);
                 };
-                that.buttons[key].show = function () {
+                that.buttons[key].show = function(){
                     that.buttons[key].isHidden = false;
                     button_element.css('display', '');
                 };
-                that.buttons[key].hide = function () {
+                that.buttons[key].hide = function(){
                     that.buttons[key].isHidden = true;
                     button_element.css('display', 'none');
                 };
@@ -704,8 +731,8 @@ var jconfirm, Jconfirm;
                 that.$btnc.append(button_element);
             });
 
-            if (total_buttons === 0) this.$btnc.hide();
-            if (this.closeIcon === null && total_buttons === 0) {
+            if(total_buttons === 0) this.$btnc.hide();
+            if(this.closeIcon === null && total_buttons === 0){
                 /*
                  in case when no buttons are present & closeIcon is null, closeIcon is set to true,
                  set closeIcon to true to explicitly tell to hide the close icon
@@ -713,80 +740,80 @@ var jconfirm, Jconfirm;
                 this.closeIcon = true;
             }
 
-            if (this.closeIcon) {
-                if (this.closeIconClass) {
+            if(this.closeIcon){
+                if(this.closeIconClass){
                     // user requires a custom class.
                     var closeHtml = '<i class="' + this.closeIconClass + '"></i>';
                     this.$closeIcon.html(closeHtml);
                 }
 
-                this.$closeIcon.click(function (e) {
+                this.$closeIcon.click(function(e){
                     e.preventDefault();
 
                     var buttonName = false;
                     var shouldClose = false;
                     var str;
 
-                    if (typeof that.closeIcon == 'function') {
+                    if(typeof that.closeIcon === 'function'){
                         str = that.closeIcon();
-                    } else {
+                    }else{
                         str = that.closeIcon;
                     }
 
-                    if (typeof str == 'string' && typeof that.buttons[str] != 'undefined') {
+                    if(typeof str === 'string' && typeof that.buttons[str] !== 'undefined'){
                         buttonName = str;
                         shouldClose = false;
-                    } else if (typeof str == 'undefined' || !!(str) == true) {
+                    }else if(typeof str === 'undefined' || !!(str) === true){
                         shouldClose = true;
-                    } else {
+                    }else{
                         shouldClose = false;
                     }
-                    if (buttonName) {
+                    if(buttonName){
                         var btnResponse = that.buttons[buttonName].action.apply(that);
-                        shouldClose = (typeof btnResponse == 'undefined') || !!(btnResponse);
+                        shouldClose = (typeof btnResponse === 'undefined') || !!(btnResponse);
                     }
-                    if (shouldClose) {
+                    if(shouldClose){
                         that.close();
                     }
                 });
                 this.$closeIcon.show();
-            } else {
+            }else{
                 this.$closeIcon.hide();
             }
         },
-        setTitle: function (string, force) {
+        setTitle: function(string, force){
             force = force || false;
 
-            if (typeof string !== 'undefined')
-                if (typeof string == 'string')
+            if(typeof string !== 'undefined')
+                if(typeof string === 'string')
                     this.title = string;
-                else if (typeof string == 'function') {
-                    if (typeof string.promise == 'function')
+                else if(typeof string === 'function'){
+                    if(typeof string.promise === 'function')
                         console.error('Promise was returned from title function, this is not supported.');
 
                     var response = string();
-                    if (typeof response == 'string')
+                    if(typeof response === 'string')
                         this.title = response;
                     else
                         this.title = false;
-                } else
+                }else
                     this.title = false;
 
-            if (this.isAjaxLoading && !force)
+            if(this.isAjaxLoading && !force)
                 return;
 
             this.$title.html(this.title || '');
             this.updateTitleContainer();
         },
-        setIcon: function (iconClass, force) {
+        setIcon: function(iconClass, force){
             force = force || false;
 
-            if (typeof iconClass !== 'undefined')
-                if (typeof iconClass == 'string')
+            if(typeof iconClass !== 'undefined')
+                if(typeof iconClass === 'string')
                     this.icon = iconClass;
-                else if (typeof iconClass === 'function') {
+                else if(typeof iconClass === 'function'){
                     var response = iconClass();
-                    if (typeof response == 'string')
+                    if(typeof response === 'string')
                         this.icon = response;
                     else
                         this.icon = false;
@@ -794,57 +821,57 @@ var jconfirm, Jconfirm;
                 else
                     this.icon = false;
 
-            if (this.isAjaxLoading && !force)
+            if(this.isAjaxLoading && !force)
                 return;
 
             this.$icon.html(this.icon ? '<i class="' + this.icon + '"></i>' : '');
             this.updateTitleContainer();
         },
-        updateTitleContainer: function () {
-            if (!this.title && !this.icon) {
+        updateTitleContainer: function(){
+            if(!this.title && !this.icon){
                 this.$titleContainer.hide();
-            } else {
+            }else{
                 this.$titleContainer.show();
             }
         },
-        setContentPrepend: function (content, force) {
-            if (!content)
+        setContentPrepend: function(content, force){
+            if(!content)
                 return;
 
             this.contentParsed.prepend(content);
         },
-        setContentAppend: function (content) {
-            if (!content)
+        setContentAppend: function(content){
+            if(!content)
                 return;
 
             this.contentParsed.append(content);
         },
-        setContent: function (content, force) {
+        setContent: function(content, force){
             force = !!force;
             var that = this;
-            if (content)
+            if(content)
                 this.contentParsed.html('').append(content);
-            if (this.isAjaxLoading && !force)
+            if(this.isAjaxLoading && !force)
                 return;
 
             this.$content.html('');
             this.$content.append(this.contentParsed);
-            setTimeout(function () {
+            setTimeout(function(){
                 that.$body.find('input[autofocus]:visible:first').focus();
             }, 100);
         },
         loadingSpinner: false,
-        showLoading: function (disableButtons) {
+        showLoading: function(disableButtons){
             this.loadingSpinner = true;
             this.$jconfirmBox.addClass('loading');
-            if (disableButtons)
+            if(disableButtons)
                 this.$btnc.find('button').prop('disabled', true);
 
         },
-        hideLoading: function (enableButtons) {
+        hideLoading: function(enableButtons){
             this.loadingSpinner = false;
             this.$jconfirmBox.removeClass('loading');
-            if (enableButtons)
+            if(enableButtons)
                 this.$btnc.find('button').prop('disabled', false);
 
         },
@@ -852,78 +879,78 @@ var jconfirm, Jconfirm;
         contentParsed: '',
         isAjax: false,
         isAjaxLoading: false,
-        _parseContent: function () {
+        _parseContent: function(){
             var that = this;
             var e = '&nbsp;';
 
-            if (typeof this.content == 'function') {
+            if(typeof this.content === 'function'){
                 var res = this.content.apply(this);
-                if (typeof res == 'string') {
+                if(typeof res === 'string'){
                     this.content = res;
                 }
-                else if (typeof res == 'object' && typeof res.always == 'function') {
+                else if(typeof res === 'object' && typeof res.always === 'function'){
                     // this is ajax loading via promise
                     this.isAjax = true;
                     this.isAjaxLoading = true;
-                    res.always(function (data, status, xhr) {
+                    res.always(function(data, status, xhr){
                         that.ajaxResponse = {
                             data: data,
                             status: status,
                             xhr: xhr
                         };
                         that._contentReady.resolve(data, status, xhr);
-                        if (typeof that.contentLoaded == 'function')
+                        if(typeof that.contentLoaded === 'function')
                             that.contentLoaded(data, status, xhr);
                     });
                     this.content = e;
-                } else {
+                }else{
                     this.content = e;
                 }
             }
 
-            if (typeof this.content == 'string' && this.content.substr(0, 4).toLowerCase() === 'url:') {
+            if(typeof this.content === 'string' && this.content.substr(0, 4).toLowerCase() === 'url:'){
                 this.isAjax = true;
                 this.isAjaxLoading = true;
                 var u = this.content.substring(4, this.content.length);
-                $.get(u).done(function (html) {
+                $.get(u).done(function(html){
                     that.contentParsed.html(html);
-                }).always(function (data, status, xhr) {
+                }).always(function(data, status, xhr){
                     that.ajaxResponse = {
                         data: data,
                         status: status,
                         xhr: xhr
                     };
                     that._contentReady.resolve(data, status, xhr);
-                    if (typeof that.contentLoaded == 'function')
+                    if(typeof that.contentLoaded === 'function')
                         that.contentLoaded(data, status, xhr);
                 });
             }
 
-            if (!this.content)
+            if(!this.content)
                 this.content = e;
 
-            if (!this.isAjax) {
+            if(!this.isAjax){
                 this.contentParsed.html(this.content);
                 this.setContent();
                 that._contentReady.resolve();
             }
         },
-        _stopCountDown: function () {
+        _stopCountDown: function(){
             clearInterval(this.autoCloseInterval);
-            if (this.$cd)
+            if(this.$cd)
                 this.$cd.remove();
         },
-        _startCountDown: function () {
+        _startCountDown: function(){
             var that = this;
             var opt = this.autoClose.split('|');
-            if (opt.length !== 2) {
+            if(opt.length !== 2){
                 console.error('Invalid option for autoClose. example \'close|10000\'');
                 return false;
             }
 
             var button_key = opt[0];
             var time = parseInt(opt[1]);
-            if (typeof this.buttons[button_key] === 'undefined') {
+            if(typeof this.buttons[button_key] === 'undefined'){
                 console.error('Invalid button key \'' + button_key + '\' for autoClose');
                 return false;
             }
@@ -932,17 +959,17 @@ var jconfirm, Jconfirm;
             this.$cd = $('<span class="countdown"> (' + seconds + ')</span>')
                 .appendTo(this['$_' + button_key]);
 
-            this.autoCloseInterval = setInterval(function () {
+            this.autoCloseInterval = setInterval(function(){
                 that.$cd.html(' (' + (seconds -= 1) + ') ');
-                if (seconds <= 0) {
+                if(seconds <= 0){
                     that['$$' + button_key].trigger('click');
                     that._stopCountDown();
                 }
             }, 1000);
         },
-        _getKey: function (key) {
+        _getKey: function(key){
             // very necessary keys.
-            switch (key) {
+            switch(key){
                 case 192:
                     return 'tilde';
                 case 13:
@@ -967,69 +994,69 @@ var jconfirm, Jconfirm;
 
             // only trust alphabets with this.
             var initial = String.fromCharCode(key);
-            if (/^[A-z0-9]+$/.test(initial))
+            if(/^[A-z0-9]+$/.test(initial))
                 return initial.toLowerCase();
             else
                 return false;
         },
-        reactOnKey: function (e) {
+        reactOnKey: function(e){
             var that = this;
 
             /*
              Prevent keyup event if the dialog is not last!
              */
             var a = $('.jconfirm');
-            if (a.eq(a.length - 1)[0] !== this.$el[0])
+            if(a.eq(a.length - 1)[0] !== this.$el[0])
                 return false;
 
             var key = e.which;
             /*
              Do not react if Enter or Space is pressed on input elements
              */
-            if (this.$content.find(':input').is(':focus') && /13|32/.test(key))
+            if(this.$content.find(':input').is(':focus') && /13|32/.test(key))
                 return false;
 
             var keyChar = this._getKey(key);
 
             // If esc is pressed
-            if (keyChar === 'esc' && this.escapeKey) {
-                if (this.escapeKey === true) {
+            if(keyChar === 'esc' && this.escapeKey){
+                if(this.escapeKey === true){
                     this.$scrollPane.trigger('click');
                 }
-                else if (typeof this.escapeKey === 'string' || typeof this.escapeKey === 'function') {
+                else if(typeof this.escapeKey === 'string' || typeof this.escapeKey === 'function'){
                     var buttonKey;
-                    if (typeof this.escapeKey === 'function') {
+                    if(typeof this.escapeKey === 'function'){
                         buttonKey = this.escapeKey();
-                    } else {
+                    }else{
                         buttonKey = this.escapeKey;
                     }
 
-                    if (buttonKey)
-                        if (typeof this.buttons[buttonKey] === 'undefined') {
+                    if(buttonKey)
+                        if(typeof this.buttons[buttonKey] === 'undefined'){
                             console.warn('Invalid escapeKey, no buttons found with key ' + buttonKey);
-                        } else {
+                        }else{
                             this['$_' + buttonKey].trigger('click');
                         }
                 }
             }
 
             // check if any button is listening to this key.
-            $.each(this.buttons, function (key, button) {
-                if (button.keys.indexOf(keyChar) != -1) {
+            $.each(this.buttons, function(key, button){
+                if(button.keys.indexOf(keyChar) !== -1){
                     that['$_' + key].trigger('click');
                 }
             });
         },
-        setDialogCenter: function () {
+        setDialogCenter: function(){
             console.info('setDialogCenter is deprecated, dialogs are centered with CSS3 tables');
         },
-        _unwatchContent: function () {
+        _unwatchContent: function(){
             clearInterval(this._timer);
         },
-        close: function (onClosePayload) {
+        close: function(onClosePayload){
             var that = this;
 
-            if (typeof this.onClose === 'function')
+            if(typeof this.onClose === 'function')
                 this.onClose(onClosePayload);
 
             this._unwatchContent();
@@ -1041,7 +1068,7 @@ var jconfirm, Jconfirm;
             $(window).unbind('keyup.' + this._id);
             $(window).unbind('jcKeyDown.' + this._id);
 
-            if (this.draggable) {
+            if(this.draggable){
                 $(window).unbind('mousemove.' + this._id);
                 $(window).unbind('mouseup.' + this._id);
                 this.$titleContainer.unbind('mousedown');
@@ -1051,51 +1078,51 @@ var jconfirm, Jconfirm;
             $('body').removeClass('jconfirm-no-scroll-' + that._id);
             that.$jconfirmBoxContainer.removeClass('jconfirm-no-transition');
 
-            setTimeout(function () {
+            setTimeout(function(){
                 that.$body.addClass(that.closeAnimationParsed);
                 that.$jconfirmBg.addClass('jconfirm-bg-h');
                 var closeTimer = (that.closeAnimation === 'none') ? 1 : that.animationSpeed;
 
-                setTimeout(function () {
+                setTimeout(function(){
                     that.$el.remove();
 
                     var l = jconfirm.instances;
                     var i = jconfirm.instances.length - 1;
-                    for (i; i >= 0; i--) {
-                        if (jconfirm.instances[i]._id === that._id) {
+                    for(i; i >= 0; i--){
+                        if(jconfirm.instances[i]._id === that._id){
                             jconfirm.instances.splice(i, 1);
                         }
                     }
 
                     // Focusing a element, scrolls automatically to that element.
                     // no instances should be open, lastFocused should be true, the lastFocused element must exists in DOM
-                    if (!jconfirm.instances.length) {
-                        if (that.scrollToPreviousElement && jconfirm.lastFocused && jconfirm.lastFocused.length && $.contains(document, jconfirm.lastFocused[0])) {
+                    if(!jconfirm.instances.length){
+                        if(that.scrollToPreviousElement && jconfirm.lastFocused && jconfirm.lastFocused.length && $.contains(document, jconfirm.lastFocused[0])){
                             var $lf = jconfirm.lastFocused;
-                            if (that.scrollToPreviousElementAnimate) {
+                            if(that.scrollToPreviousElementAnimate){
                                 var st = $(window).scrollTop();
                                 var ot = jconfirm.lastFocused.offset().top;
                                 var wh = $(window).height();
-                                if (!(ot > st && ot < (st + wh))) {
+                                if(!(ot > st && ot < (st + wh))){
                                     var scrollTo = (ot - Math.round((wh / 3)));
                                     $('html, body').animate({
                                         scrollTop: scrollTo
-                                    }, that.animationSpeed, 'swing', function () {
+                                    }, that.animationSpeed, 'swing', function(){
                                         // gracefully scroll and then focus.
                                         $lf.focus();
                                     });
-                                } else {
+                                }else{
                                     // the element to be focused is already in view.
                                     $lf.focus();
                                 }
-                            } else {
+                            }else{
                                 $lf.focus();
                             }
                             jconfirm.lastFocused = false;
                         }
                     }
 
-                    if (typeof that.onDestroy === 'function')
+                    if(typeof that.onDestroy === 'function')
                         that.onDestroy();
 
                 }, closeTimer * 0.40);
@@ -1103,8 +1130,8 @@ var jconfirm, Jconfirm;
 
             return true;
         },
-        open: function () {
-            if (this.isOpen())
+        open: function(){
+            if(this.isOpen())
                 return false;
 
             // var that = this;
@@ -1114,20 +1141,20 @@ var jconfirm, Jconfirm;
 
             return true;
         },
-        setStartingPoint: function () {
+        setStartingPoint: function(){
             var el = false;
 
-            if (this.animateFromElement !== true && this.animateFromElement) {
+            if(this.animateFromElement !== true && this.animateFromElement){
                 el = this.animateFromElement;
                 jconfirm.lastClicked = false;
-            } else if (jconfirm.lastClicked && this.animateFromElement === true) {
+            }else if(jconfirm.lastClicked && this.animateFromElement === true){
                 el = jconfirm.lastClicked;
                 jconfirm.lastClicked = false;
-            } else {
+            }else{
                 return false;
             }
 
-            if (!el)
+            if(!el)
                 return false;
 
             var offset = el.offset();
@@ -1155,14 +1182,14 @@ var jconfirm, Jconfirm;
             sourceLeft -= targetW;
 
             // Check if the element is inside the viewable window.
-            if (Math.abs(sourceTop) > wh || Math.abs(sourceLeft) > ww)
+            if(Math.abs(sourceTop) > wh || Math.abs(sourceLeft) > ww)
                 return false;
 
             this.$jconfirmBoxContainer.css('transform', 'translate(' + sourceLeft + 'px, ' + sourceTop + 'px)');
         },
-        _open: function () {
+        _open: function(){
             var that = this;
-            if (typeof that.onOpenBefore === 'function')
+            if(typeof that.onOpenBefore === 'function')
                 that.onOpenBefore();
 
             this.$body.removeClass(this.animationParsed);
@@ -1171,28 +1198,28 @@ var jconfirm, Jconfirm;
 
             that.$jconfirmBoxContainer.css('transform', 'translate(' + 0 + 'px, ' + 0 + 'px)');
 
-            setTimeout(function () {
+            setTimeout(function(){
                 that.$body.css(that._getCSS(that.animationSpeed, 1));
                 that.$body.css({
                     'transition-property': that.$body.css('transition-property') + ', margin'
                 });
                 that.$jconfirmBoxContainer.addClass('jconfirm-no-transition');
                 that._modalReady.resolve();
-                if (typeof that.onOpen === 'function')
+                if(typeof that.onOpen === 'function')
                     that.onOpen();
 
                 that.$el.addClass(that.loadedClass);
             }, this.animationSpeed);
         },
         loadedClass: 'jconfirm-open',
-        isClosed: function () {
+        isClosed: function(){
             return !this.$el || this.$el.css('display') === '';
         },
-        isOpen: function () {
+        isOpen: function(){
             return !this.isClosed();
         },
-        toggle: function () {
-            if (!this.isOpen())
+        toggle: function(){
+            if(!this.isOpen())
                 this.open();
             else
                 this.close();
@@ -1250,15 +1277,15 @@ var jconfirm, Jconfirm;
         buttons: {},
         defaultButtons: {
             ok: {
-                action: function () {
+                action: function(){
                 }
             },
             close: {
-                action: function () {
+                action: function(){
                 }
             }
         },
-        contentLoaded: function () {
+        contentLoaded: function(){
         },
         icon: '',
         lazyOpen: false,
@@ -1290,22 +1317,22 @@ var jconfirm, Jconfirm;
             containerFluid: 'container-fluid',
             row: 'row'
         },
-        onContentReady: function () {
+        onContentReady: function(){
 
         },
-        onOpenBefore: function () {
+        onOpenBefore: function(){
 
         },
-        onOpen: function () {
+        onOpen: function(){
 
         },
-        onClose: function () {
+        onClose: function(){
 
         },
-        onDestroy: function () {
+        onDestroy: function(){
 
         },
-        onAction: function () {
+        onAction: function(){
 
         }
     };
@@ -1323,23 +1350,23 @@ var jconfirm, Jconfirm;
      * Register a global keydown event, that tells jconfirm if the keydown originated inside jconfirm
      */
     var keyDown = false;
-    $(window).on('keydown', function (e) {
-        if (!keyDown) {
+    $(window).on('keydown', function(e){
+        if(!keyDown){
             var $target = $(e.target);
             var pass = false;
-            if ($target.closest('.jconfirm-box').length)
+            if($target.closest('.jconfirm-box').length)
                 pass = true;
-            if (pass)
+            if(pass)
                 $(window).trigger('jcKeyDown');
 
             keyDown = true;
         }
     });
-    $(window).on('keyup', function () {
+    $(window).on('keyup', function(){
         keyDown = false;
     });
     jconfirm.lastClicked = false;
-    $(document).on('mousedown', 'button, a', function () {
+    $(document).on('mousedown', 'button, a', function(){
         jconfirm.lastClicked = $(this);
     });
-})(jQuery, window);
+}));
