@@ -547,9 +547,12 @@
                 if(that.smoothContent){
                     var contentHeight = that.$content.outerHeight() || 0;
                     if(contentHeight !== prevContentHeight){
-                        that.$contentPane.css({
-                            'height': contentHeight
-                        }).scrollTop(0);
+ 
+                       // Commented out to prevent scroll to top when updating the content 
+                       // (for example when using ajax in forms in content) 
+                       // that.$contentPane.css({
+                       //     'height': contentHeight
+                       // }).scrollTop(0);
                         prevContentHeight = contentHeight;
                     }
                     var wh = $(window).height();
