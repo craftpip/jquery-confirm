@@ -1,7 +1,7 @@
 ### ![jquery-confirm](https://raw.githubusercontent.com/craftpip/jquery-confirm/master/jquery-confirm.png "jquery-confirm")
 *alerts, confirms and dialogs in* ***one.***
 
-v3.3.2
+v3.3.3
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/bonifacepereira)
 
@@ -73,7 +73,13 @@ Checkout the [documentation](http://craftpip.github.io/jquery-confirm) for furth
 
 ## Version changes
 
-(new in 3.3.1)
+(new in 3.3.3) 
+* Safari height bug fix. PR by [lanre-ade](https://github.com/lanre-ade)
+* Fix isClosed bug for firefox. PR by [loganm](https://github.com/loganm)
+* Remove scroll to top when content height changes. PR by [amikot](https://github.com/amikot)
+* added support for AMD and commonJS
+
+(new in 3.3.1) 
 * Pass 'false' in buttons property to remove all buttons in $.confirm and $.alert
 
 (new in 3.3.0)
