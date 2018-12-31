@@ -1,0 +1,522 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!-- <meta http-equiv="X-UA-Compatible" content="chrome=1"> -->
+    <title>jquery-confirm.js | Themes</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta name="description"
+          content="A multipurpose alert, confirm plugin, alternative to the native alert() and confirm() functions. Supports features like auto-close, themes, animations, and more.">
+    <link rel="canonical"
+          href="https://craftpip.github.io/jquery-confirm"/>
+    <link rel="icon"
+          type="img/png"
+          href="http://craftpip.com/i/assets/img/fav.png">
+    <meta http-equiv="Content-Type"
+          content="text/html; charset=UTF-8"/>
+    <meta name="robots"
+          content="index,follow,noodp,noydir"/>
+    <meta name="google-site-verification"
+          content="T_M_Ym5DQ-cEQQhx_jswyCBTssIdgtewICcvb3sgh8g"/>
+    <meta name="Keywords"
+          content="jquery.confirm, jquery confirm, jquery alert, jquery prompt, jquery dialog, javascript, bootstrap"/>
+    <link rel="apple-touch-icon"
+          sizes="57x57"
+          href="http://craftpip.com/i/apple-touch-icon-57x57.png"/>
+    <link rel="apple-touch-icon"
+          sizes="72x72"
+          href="http://craftpip.com/i/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon"
+          sizes="114x114"
+          href="http://craftpip.com/i/apple-touch-icon-114x114.png"/>
+    <link rel="apple-touch-icon"
+          sizes="144x144"
+          href="http://craftpip.com/i/apple-touch-icon-144x144.png"/>
+    <link rel="apple-touch-icon"
+          href="http://craftpip.com/i/apple-touch-icon-57x57.png"/>
+    <meta property="og:title"
+          content="jquery-confirm.js | The multipurpose alert &amp; confirm"/>
+    <meta property="og:type"
+          content="website"/>
+    <meta property="og:image"
+          content="http://craftpip.com/i/apple-touch-icon-57x57.png"/>
+    <meta property="og:url"
+          content="https://craftpip.github.io/jquery-confirm"/>
+    <meta property="og:description"
+          content="A multipurpose alert & confirm plugin, alternative to the native alert() and confirm() functions. Supports features like auto-close, themes, animations, and more."/>
+    <meta property="og:site_name"
+          content="craftpip.github.io"/>
+
+    <link rel="stylesheet"
+          href="demo/libs/bundled.css">
+    <script src="demo/libs/bundled.js"></script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+    <link rel="stylesheet"
+          href="demo/demo.css">
+    <script>
+        var version = '3.3.2';
+    </script>
+    <!-- Add the minified version of files from the /dist/ folder. -->
+    <!-- jquery-confirm files -->
+    <link rel="stylesheet"
+          type="text/css"
+          href="css/jquery-confirm.css"/>
+    <script type="text/javascript"
+            src="js/jquery-confirm.js"></script>
+    <!--END jquery-confirm files-->
+</head>
+<body data-spy="scroll"
+      data-target=".navbar">
+<header class="navbar navbar-static-top navbar-default navheader">
+    <div class="container">
+        <div class="navbar-header">
+            <button class="navbar-toggle collapsed"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#bs-navbar"
+                    aria-controls="bs-navbar"
+                    aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand jconfirm-logo"
+               href="http://craftpip.github.io/jquery-confirm">
+            </a>
+        </div>
+        <nav id="bs-navbar"
+             class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="">
+                    <a href="http://github.com/craftpip/jquery-confirm"><i class="fa fa-github"></i> Project home</a>
+                </li>
+                <li class="">
+                    <a href="http://github.com/craftpip/jquery-confirm/issues/new">Suggest feature</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#"
+                       class="dropdown-toggle"
+                       data-toggle="dropdown"
+                       role="button"
+                       aria-haspopup="true"
+                       aria-expanded="false">Versions
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v3.2.3">v3.2.3</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v3.2.0">v3.2.0</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v3.1.1">v3.1.1</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v3.0.3">v3.0.3</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v3.0.3">v3.0.3</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v3.0.1">v3.0.1</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v3.0.0">v3.0.0</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v2.5.1">v2.5.1</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v2.0">v2.0</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v1.8">v1.8</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v1.7.9">v1.7.9</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v1.7.8">v1.7.8</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v1.7.5">v1.7.5</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v1.7.3">v1.7.3</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v1.7">v1.7</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v1.6">v1.6</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v1.5.3">v1.5.3</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v1.5.1">v1.5.1</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v1.5">v1.5</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v1.1.3">v1.1.3</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v1.1">v1.1</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v1.0">v1.0</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="github-button"
+                       href="https://github.com/craftpip/jquery-confirm"
+                       data-style="mega"
+                       data-count-href="/craftpip/jquery-confirm/stargazers"
+                       data-count-api="/repos/craftpip/jquery-confirm#stargazers_count"
+                       data-count-aria-label="# stargazers on GitHub"
+                       aria-label="Star craftpip/jquery-confirm on GitHub">Star
+                    </a>
+                </li>
+                <li>
+                    <a class="twitter-follow-button"
+                       data-show-count="false"
+                       data-size="large"
+                       href="https://twitter.com/craftpip"
+                       data-show-count="false"
+                       data-lang="en">
+                        Follow @craftpip
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<div class="header"
+     id="content"
+     tabindex="-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 style="margin-top: 7px;"
+                    class="text-center">
+                    <img
+                            src="jquery-confirm.png"
+                            alt="JQUERY-CONFIRM"/>
+                </h1>
+
+                <p>
+                    Themes - <em>Use one, or make your own</em>.
+                </p>
+
+                <div class="row download-btns hide">
+                    <div class="col-md-4 col-md-offset-4">
+                        <div style="height: 15px;"></div>
+                        <a href="https://github.com/craftpip/jquery-confirm/zipball/master"
+                           class="btn btn-lg">Download v3
+                        </a>
+                        <a href="https://github.com/craftpip/jquery-confirm"
+                           class="btn btn-lg"><i class="fa fa-github"></i> View on GitHub
+                        </a>
+                        <div style="height: 15px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div style="height:50px"></div>-->
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 col-sm-12">
+            <div class="space10"></div>
+            <div class="space10"></div>
+            <p>
+                <strong>jquery-confirm
+                    v
+                    <span class="version">-</span>
+                    docs
+                </strong>
+                <br>
+                <a href="https://github.com/craftpip/jquery-confirm">
+                    view on <i class="fa fa-github"></i> Github
+                </a>
+            </p>
+            <div class="spacer15"></div>
+            <div id="my-nav">
+                <ul class="nav nav-list">
+                    <li class="no-b-l">
+                        <a href="index.html"> <span class="v"><i class="fa fa-arrow-circle-left"></i></span> back to
+                            Main Docs</a>
+                    </li>
+                    <li>
+                        <a href="#themes"> Themes</a>
+                    </li>
+                    <li>
+                        <a href="#custom-themes"> Custom themes</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-9 col-sm-12">
+            <div class="space10"></div>
+            <p>
+                <a href="index.html"> <span class="v"><i class="fa fa-arrow-circle-left"></i></span> back to
+                    Main Docs</a>
+            </p>
+
+            <section id="themes">
+                <h2>Themes</h2>
+
+                <p>
+                    The Light &amp; Dark themes that suit any website design, <br>
+                </p>
+
+                <div class="section">
+
+                    <button class="btn btn-primary example4">Light theme</button>
+                    <button class="btn btn-primary example5">Dark theme</button>
+                    <button class="btn btn-primary example5-3-3">Modern</button>
+                    <button class="btn btn-primary example5-3">Supervan</button>
+                    <button class="btn btn-primary example5-3-1">Material</button>
+                    <button class="btn btn-primary example5-3-2">Bootstrap</button>
+                    <div class="space10"></div>
+                    <script type="text/javascript">
+                        $('.example4').on('click', function () {
+                            $.confirm({
+                                icon: 'fa fa-question',
+                                theme: 'white',
+                                closeIcon: true,
+                                animation: 'scale',
+                                type: 'orange',
+                            });
+                        });
+                        $('.example5').on('click', function () {
+                            $.confirm({
+                                icon: 'fa fa-question',
+                                theme: 'black',
+                                closeIcon: true,
+                                animation: 'scale',
+                                type: 'orange',
+                            });
+                        });
+                        $('.example5-3').on('click', function () {
+                            $.confirm({
+                                icon: 'fa fa-question',
+                                theme: 'supervan',
+                                closeIcon: true,
+                                animation: 'scale',
+                                type: 'orange',
+                            });
+                        });
+                        $('.example5-3-1').on('click', function () {
+                            $.confirm({
+                                icon: 'fa fa-question',
+                                theme: 'material',
+                                closeIcon: true,
+                                animation: 'scale',
+                                type: 'orange',
+                            });
+                        });
+                        $('.example5-3-2').on('click', function () {
+                            $.confirm({
+                                icon: 'fa fa-question',
+                                theme: 'bootstrap',
+                                closeIcon: true,
+                                animation: 'scale',
+                                type: 'orange',
+                            });
+                        });
+                        $('.example5-3-3').on('click', function () {
+                            $.confirm({
+                                icon: 'fa fa-question',
+                                theme: 'modern',
+                                closeIcon: true,
+                                animation: 'scale',
+                                type: 'orange',
+                            });
+                        });
+                    </script>
+                    <pre class="prettyprint linenums"><code>$.confirm({
+    theme: 'light'
+});
+$.confirm({
+    theme: 'dark'
+});
+$.confirm({
+    theme: 'supervan' // 'material', 'bootstrap'
+});</code></pre>
+                </div>
+            </section>
+
+            <section id="custom-themes">
+                <h2>Make your own themes</h2>
+
+                <p>
+                    Why not? A unique design must have a unique confirm box<br>
+                </p>
+
+                <div class="section">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <p>
+                                This is a CSS boilerplate for defining a theme.
+                            </p>
+                            <div class="btn-group">
+                                <button type="button" class="btn change-format-less btn-primary active">LESS</button>
+                                <button type="button" class="btn change-format-css btn-primary">CSS</button>
+                            </div>
+                            <div class="space10"></div>
+                            <pre class="prettyprint linenums format-less"><code>.jconfirm.jconfirm-my-theme {
+  .jconfirm-bg {
+  }
+  .jconfirm-box {
+    &.loading {
+
+      &:before {
+      }
+      &:after {
+      }
+    }
+    div.jconfirm-closeIcon {
+    }
+    div.jconfirm-title-c {
+    }
+    div.jconfirm-content-pane {
+    }
+    div.jconfirm-content {
+      &:empty {
+
+      }
+    }
+    .jconfirm-buttons {
+      button {
+      }
+      button + button {
+      }
+    }
+    &.hilight {
+    }
+  }
+}</code></pre>
+                            <pre class="prettyprint linenums format-css"><code>.jconfirm.jconfirm-my-theme .jconfirm-bg{
+}
+.jconfirm.jconfirm-my-theme .jconfirm-box{
+}
+.jconfirm.jconfirm-my-theme .jconfirm-box.loading{
+}
+.jconfirm.jconfirm-my-theme .jconfirm-box.loading:before{
+}
+.jconfirm.jconfirm-my-theme .jconfirm-box.loading:after{
+}
+.jconfirm.jconfirm-my-theme .jconfirm-box .jconfirm-closeIcon{
+}
+.jconfirm.jconfirm-my-theme .jconfirm-box .jconfirm-title-c{
+}
+.jconfirm.jconfirm-my-theme .jconfirm-box .jconfirm-content-pane{
+}
+.jconfirm.jconfirm-my-theme .jconfirm-box .jconfirm-content{
+}
+.jconfirm.jconfirm-my-theme .jconfirm-box .jconfirm-buttons{
+}
+.jconfirm.jconfirm-my-theme .jconfirm-box .jconfirm-buttons button{
+}</code></pre>
+                        </div>
+                        <div class="col-md-4">
+                            <p>
+                                JS part of it
+                            </p>
+                            <pre class="prettyprint linenums"><code>$.confirm({
+    theme: 'my-theme'
+});</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="modal-layout">
+                <h2>Layout</h2>
+                <p>
+                    This visualizes the layout for quicker understanding for creating themes.
+                </p>
+                <img src="themelayout.png" alt="" style="width: 100%">
+            </section>
+
+            <section class="text-right footer">
+                <div class="spacer15"></div>
+                <p>
+                    Thanks for making it to the end of the document. <br>
+                    Your support and suggestions matter the most!
+                </p>
+                <a href="https://github.com/craftpip/jquery-confirm/issues/new"
+                   target="empty"
+                   class="btn btn-success">Please post your <br> Questions / Suggestions / Issues.
+                </a>
+
+                <div class="spacer15"></div>
+            </section>
+        </div>
+    </div>
+</div>
+<script type="text/javascript"
+        src="demo/demo.js"></script>
+<!-- javascript for the demo page interface. -->
+
+
+<!--google stuff DO NOT COPY THIS-->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-53264350-2', 'auto');
+    ga('send', 'pageview');
+</script>
+
+<script async
+        defer
+        id="github-bjs"
+        src="https://buttons.github.io/buttons.js"></script>
+<script> window.twttr = (function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0], t = window.twttr || {};
+    if (d.getElementById(id))
+        return t;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "https://platform.twitter.com/widgets.js";
+    fjs.parentNode.insertBefore(js, fjs);
+    t._e = [];
+    t.ready = function (f) {
+        t._e.push(f);
+    };
+    return t;
+}(document, "script", "twitter-wjs"));
+</script>
+
+<script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<!--google stuff DO NOT COPY THIS-->
+
+</body>
+</html>

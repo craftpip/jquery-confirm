@@ -1,0 +1,768 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!-- <meta http-equiv="X-UA-Compatible" content="chrome=1"> -->
+    <title>jquery-confirm.js | Animations</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta name="description"
+          content="A multipurpose alert, confirm plugin, alternative to the native alert() and confirm() functions. Supports features like auto-close, themes, animations, and more.">
+    <link rel="canonical"
+          href="https://craftpip.github.io/jquery-confirm"/>
+    <link rel="icon"
+          type="img/png"
+          href="http://craftpip.com/i/assets/img/fav.png">
+    <meta http-equiv="Content-Type"
+          content="text/html; charset=UTF-8"/>
+    <meta name="robots"
+          content="index,follow,noodp,noydir"/>
+    <meta name="google-site-verification"
+          content="T_M_Ym5DQ-cEQQhx_jswyCBTssIdgtewICcvb3sgh8g"/>
+    <meta name="Keywords"
+          content="jquery.confirm, jquery confirm, jquery alert, jquery prompt, jquery dialog, javascript, bootstrap"/>
+    <link rel="apple-touch-icon"
+          sizes="57x57"
+          href="http://craftpip.com/i/apple-touch-icon-57x57.png"/>
+    <link rel="apple-touch-icon"
+          sizes="72x72"
+          href="http://craftpip.com/i/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon"
+          sizes="114x114"
+          href="http://craftpip.com/i/apple-touch-icon-114x114.png"/>
+    <link rel="apple-touch-icon"
+          sizes="144x144"
+          href="http://craftpip.com/i/apple-touch-icon-144x144.png"/>
+    <link rel="apple-touch-icon"
+          href="http://craftpip.com/i/apple-touch-icon-57x57.png"/>
+    <meta property="og:title"
+          content="jquery-confirm.js | The multipurpose alert &amp; confirm"/>
+    <meta property="og:type"
+          content="website"/>
+    <meta property="og:image"
+          content="http://craftpip.com/i/apple-touch-icon-57x57.png"/>
+    <meta property="og:url"
+          content="https://craftpip.github.io/jquery-confirm"/>
+    <meta property="og:description"
+          content="A multipurpose alert & confirm plugin, alternative to the native alert() and confirm() functions. Supports features like auto-close, themes, animations, and more."/>
+    <meta property="og:site_name"
+          content="craftpip.github.io"/>
+
+    <link rel="stylesheet"
+          href="demo/libs/bundled.css">
+    <script src="demo/libs/bundled.js"></script>
+
+    <script async
+            src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+    <link rel="stylesheet"
+          href="demo/demo.css">
+    <script>
+        var version = '3.3.0';
+    </script>
+    <!-- Add the minified version of files from the /dist/ folder. -->
+    <!-- jquery-confirm files -->
+    <link rel="stylesheet"
+          type="text/css"
+          href="css/jquery-confirm.css"/>
+    <script type="text/javascript"
+            src="js/jquery-confirm.js"></script>
+    <!--END jquery-confirm files-->
+</head>
+<body data-spy="scroll"
+      data-target=".navbar">
+<header class="navbar navbar-static-top navbar-default navheader">
+    <div class="container">
+        <div class="navbar-header">
+            <button class="navbar-toggle collapsed"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#bs-navbar"
+                    aria-controls="bs-navbar"
+                    aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand jconfirm-logo"
+               href="http://craftpip.github.io/jquery-confirm">
+            </a>
+        </div>
+        <nav id="bs-navbar"
+             class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="">
+                    <a href="http://github.com/craftpip/jquery-confirm"><i class="fa fa-github"></i> Project home</a>
+                </li>
+                <li class="">
+                    <a href="http://github.com/craftpip/jquery-confirm/issues/new">Suggest feature</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#"
+                       class="dropdown-toggle"
+                       data-toggle="dropdown"
+                       role="button"
+                       aria-haspopup="true"
+                       aria-expanded="false">Versions
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v3.2.0">v3.2.0</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v3.1.1">v3.1.1</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v3.0.3">v3.0.3</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v3.0.1">v3.0.1</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v3.0.0">v3.0.0</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v2.5.1">v2.5.1</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v2.0">v2.0</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v1.8">v1.8</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v1.7.9">v1.7.9</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v1.7.8">v1.7.8</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v1.7.5">v1.7.5</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v1.7.3">v1.7.3</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v1.7">v1.7</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v1.6">v1.6</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v1.5.3">v1.5.3</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v1.5.1">v1.5.1</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v1.5">v1.5</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v1.1.3">v1.1.3</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v1.1">v1.1</a>
+                        </li>
+                        <li>
+                            <a href="http://craftpip.github.io/jquery-confirm/v1.0">v1.0</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="github-button"
+                       href="https://github.com/craftpip/jquery-confirm"
+                       data-style="mega"
+                       data-count-href="/craftpip/jquery-confirm/stargazers"
+                       data-count-api="/repos/craftpip/jquery-confirm#stargazers_count"
+                       data-count-aria-label="# stargazers on GitHub"
+                       aria-label="Star craftpip/jquery-confirm on GitHub">Star
+                    </a>
+                </li>
+                <li>
+                    <a class="twitter-follow-button"
+                       data-show-count="false"
+                       data-size="large"
+                       href="https://twitter.com/craftpip"
+                       data-show-count="false"
+                       data-lang="en">
+                        Follow @craftpip
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<div class="header"
+     id="content"
+     tabindex="-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 style="margin-top: 7px;"
+                    class="text-center">
+                    <img
+                            src="jquery-confirm.png"
+                            alt="JQUERY-CONFIRM"/>
+                </h1>
+
+                <p>
+                    Animations - <em>Use one, or define your own</em>.
+                </p>
+
+                <div class="row download-btns hide">
+                    <div class="col-md-4 col-md-offset-4">
+                        <div style="height: 15px;"></div>
+                        <a href="https://github.com/craftpip/jquery-confirm/zipball/master"
+                           class="btn btn-lg">Download v3
+                        </a>
+                        <a href="https://github.com/craftpip/jquery-confirm"
+                           class="btn btn-lg"><i class="fa fa-github"></i> View on GitHub
+                        </a>
+                        <div style="height: 15px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 col-sm-12">
+            <div class="space10"></div>
+            <div class="space10"></div>
+            <p>
+                <strong>jquery-confirm
+                    v
+                    <span class="version">-</span>
+                    docs
+                </strong>
+                <br>
+                <a href="https://github.com/craftpip/jquery-confirm">
+                    view on <i class="fa fa-github"></i> Github
+                </a>
+            </p>
+            <div class="spacer15"></div>
+            <div id="my-nav">
+                <ul class="nav nav-list">
+                    <li class="no-b-l">
+                        <a href="index.html"> <span class="v"><i class="fa fa-arrow-circle-left"></i></span> back to
+                            Main Docs</a>
+                    </li>
+                    <li>
+                        <a href="#open-close-animations"> Open/Close Animations</a>
+                        <ul class="nav nav-list">
+                            <li>
+                                <a href="#open-close-animations"> Animations</a>
+                            </li>
+                            <li>
+                                <a href="#animationbounce"> Bounce Effect</a>
+                            </li>
+                            <li>
+                                <a href="#animationspeed"> Animation Speed</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#custom-open-close-animations"> Define Open/Close Animation</a>
+                    </li>
+                    <li>
+                        <a href="#background-dismiss-animation"> Background Dismiss Animations</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-9 col-sm-12">
+            <div class="space10"></div>
+            <p>
+                <a href="index.html"> <span class="v"><i class="fa fa-arrow-circle-left"></i></span> back to
+                    Main Docs</a>
+            </p>
+
+            <!-- introduction -->
+            <section id="open-close-animations">
+                <h2>Open/Close Animations</h2>
+
+                <p>
+                    Impression lies in what we see.<br>
+                    Different animations can be set for open and close events.
+                </p>
+                <div class="alert alert-info">
+                    animateFromElement is added since v3.3.0, which animates the modal from the position of the button that was clicked.
+                    <br> This feature does not play well with all the animation styles.
+                </div>
+                <!--<h3 id="animation">ANIMATION!</h3>-->
+                <div class="section">
+                    <p>Recommended animations for animateFromElement:</p>
+                    <button class="example16-a-1 btn btn-primary">scale</button>
+                    <script type="text/javascript">
+                        $('.example16-a-1').on('click', function () {
+                            $.confirm({
+                                animation: 'scale',
+                                closeAnimation: 'scale',
+                            });
+                        });
+                    </script>
+                    <button class="example17-a-2 btn btn-primary">rotateY</button>
+                    <script type="text/javascript">
+                        $('.example17-a-2').on('click', function () {
+                            $.confirm({
+                                animation: 'rotateY',
+                                closeAnimation: 'rotateY',
+                            });
+                        });
+                    </script>
+                    <button class="example18-a-3 btn btn-primary">rotateYR</button>
+                    <script type="text/javascript">
+                        $('.example18-a-3').on('click', function () {
+                            $.confirm({
+                                animation: 'rotateYR',
+                                closeAnimation: 'rotateYR'
+                            });
+                        });
+                    </script>
+                    <button class="example19-a-4 btn btn-primary">rotateX</button>
+                    <script type="text/javascript">
+                        $('.example19-a-4').on('click', function () {
+                            $.confirm({
+                                animation: 'rotateX',
+                                closeAnimation: 'rotateX'
+                            });
+                        });
+                    </script>
+                    <button class="example19-a-5 btn btn-primary">rotateXR</button>
+                    <script type="text/javascript">
+                        $('.example19-a-5').on('click', function () {
+                            $.confirm({
+                                animation: 'rotateXR',
+                                closeAnimation: 'rotateXR'
+                            });
+                        });
+                    </script>
+                    <div class="space10"></div>
+                    <p>2D animations: (animateFromElement disabled)</p>
+                    <button class="example16 btn btn-primary">right</button>
+                    <script type="text/javascript">
+                        $('.example16').on('click', function () {
+                            $.confirm({
+                                animation: 'right',
+                                closeAnimation: 'right',
+                                animateFromElement: false,
+                            });
+                        });
+                    </script>
+                    <button class="example17 btn btn-primary">left</button>
+                    <script type="text/javascript">
+                        $('.example17').on('click', function () {
+                            $.confirm({
+                                animation: 'left',
+                                closeAnimation: 'left',
+                                animateFromElement: false,
+                            });
+                        });
+                    </script>
+                    <button class="example18 btn btn-primary">bottom</button>
+                    <script type="text/javascript">
+                        $('.example18').on('click', function () {
+                            $.confirm({
+                                animation: 'bottom',
+                                closeAnimation: 'bottom',
+                                animateFromElement: false,
+                            });
+                        });
+                    </script>
+                    <button class="example19 btn btn-primary">top</button>
+                    <script type="text/javascript">
+                        $('.example19').on('click', function () {
+                            $.confirm({
+                                animation: 'top',
+                                closeAnimation: 'top',
+                                animateFromElement: false,
+                            });
+                        });
+                    </script>
+                    <button class="example11 btn btn-primary">Rotate</button>
+                    <script type="text/javascript">
+                        $('.example11').on('click', function () {
+                            $.confirm({
+                                animation: 'Rotate',
+                                closeAnimation: 'Rotate',
+                                animateFromElement: false,
+                            });
+                        });
+                    </script>
+                    <button class="example12 btn btn-primary">none</button>
+                    <script type="text/javascript">
+                        $('.example12').on('click', function () {
+                            $.confirm({
+                                animation: 'none',
+                                animateFromElement: false,
+                            });
+                        });
+                    </script>
+                    <button class="example13 btn btn-primary">opacity</button>
+                    <script type="text/javascript">
+                        $('.example13').on('click', function () {
+                            $.confirm({
+                                animation: 'opacity',
+                                closeAnimation: 'opacity',
+                                animateFromElement: false,
+                            });
+                        });
+                    </script>
+                    <div class="space10"></div>
+                    <p>3D animations: (animateFromElement disabled)</p>
+                    <button class="example15 btn btn-primary">scale (default)</button>
+                    <script type="text/javascript">
+                        $('.example15').on('click', function () {
+                            $.confirm({
+                                animation: 'scale',
+                                closeAnimation: 'scale',
+                                animateFromElement: false,
+                            });
+                        });
+                    </script>
+                    <button class="example14 btn btn-primary">zoom</button>
+                    <script type="text/javascript">
+                        $('.example14').on('click', function () {
+                            $.confirm({
+                                animation: 'zoom',
+                                closeAnimation: 'zoom',
+                                animateFromElement: false,
+                            });
+                        });
+                    </script>
+                    <button class="example7 btn btn-primary">scaleY</button>
+                    <script type="text/javascript">
+                        $('.example7').on('click', function () {
+                            $.confirm({
+                                animation: 'scaleY',
+                                closeAnimation: 'scaleY',
+                                animateFromElement: false,
+                            })
+                        });
+                    </script>
+                    <button class="example8 btn btn-primary">scaleX</button>
+                    <script type="text/javascript">
+                        $('.example8').on('click', function () {
+                            $.confirm({
+                                animation: 'scaleX',
+                                closeAnimation: 'scaleX',
+                                animateFromElement: false,
+                            })
+                        });
+                    </script>
+                    <button class="example9 btn btn-primary">RotateY</button>
+                    <script type="text/javascript">
+                        $('.example9').on('click', function () {
+                            $.confirm({
+                                animation: 'rotateY',
+                                closeAnimation: 'rotateY',
+                                animateFromElement: false,
+                            });
+                        });
+                    </script>
+                    <button class="example9-2 btn btn-primary">RotateYR</button>
+                    <script type="text/javascript">
+                        $('.example9-2').on('click', function () {
+                            $.confirm({
+                                animation: 'rotateYR',
+                                closeAnimation: 'rotateYR',
+                                animateFromElement: false,
+                            });
+                        });
+                    </script>
+                    <button class="example10 btn btn-primary">RotateX</button>
+                    <script type="text/javascript">
+                        $('.example10').on('click', function () {
+                            $.confirm({
+                                animation: 'rotateX',
+                                closeAnimation: 'rotateX',
+                                animateFromElement: false,
+                            });
+                        });
+                    </script>
+                    <button class="example10-2 btn btn-primary">RotateXR</button>
+                    <script type="text/javascript">
+                        $('.example10-2').on('click', function () {
+                            $.confirm({
+                                animation: 'rotateXR',
+                                closeAnimation: 'rotateXR',
+                                animateFromElement: false,
+                            });
+                        });
+                    </script>
+                    <div class="space10"></div>
+                    <p>
+                        You can also <a href="#custom-open-close-animations">create/define your own animations</a>
+                    </p>
+                    <pre class="prettyprint linenums"><code>$.confirm({
+    animation: 'zoom',
+    closeAnimation: 'scale'
+});
+// Available animations:
+// right, left, bottom, top, rotate, none, opacity, scale, zoom,
+// scaleY, scaleX, rotateY, rotateYR (reverse), rotateX, rotateXR (reverse)</code></pre>
+                </div>
+
+                <h4 id="animationbounce">Animation bounce</h4>
+
+                <div class="section">
+                    <p>Some eye candy thats in fashion.</p>
+                    <button class="btn btn-primary example-bounce-1">No bounce</button>
+                    <button class="btn btn-primary example-bounce-2">1.5 bounce</button>
+                    <button class="btn btn-primary example-bounce-3">2 bounce</button>
+                    <button class="btn btn-primary example-bounce-4">2.5 bounce</button>
+                    <script type="text/javascript">
+                        $('.example-bounce-1').on('click', function () {
+                            $.confirm({
+                                animationBounce: 1
+                            });
+                        });
+                        $('.example-bounce-2').on('click', function () {
+                            $.confirm({
+                                animationBounce: 1.5
+                            });
+                        });
+                        $('.example-bounce-3').on('click', function () {
+                            $.confirm({
+                                animationBounce: 2
+                            });
+                        });
+                        $('.example-bounce-4').on('click', function () {
+                            $.confirm({
+                                animationBounce: 2.5
+                            });
+                        });
+                    </script>
+                    <div class="space10"></div>
+                    <pre class="prettyprint linenums"><code class="html">$.confirm({
+    animationBounce: 1.5, // default is 1.2 whereas 1 is no bounce.
+});</code></pre>
+                </div>
+
+                <h4 id="animationspeed">Animation speed</h4>
+
+                <div class="section">
+                    <p>Adjust the duration of animation.</p>
+                    <button class="btn btn-primary example19-1">I'm too Late</button>
+                    <button class="btn btn-primary example19-2">I'm too Quick</button>
+                    <div class="space10"></div>
+                    <script type="text/javascript">
+                        $('.example19-1').on('click', function () {
+                            $.confirm({
+                                animationSpeed: 2000
+                            });
+                        });
+                        $('.example19-2').on('click', function () {
+                            $.confirm({
+                                animationSpeed: 200
+                            });
+                        });
+                    </script>
+                    <pre class="prettyprint linenums"><code>$.confirm({
+    animationSpeed: 2000 // 2 seconds
+});
+$.confirm({
+    animationSpeed: 200 // 0.2 seconds
+});</code></pre>
+                </div>
+            </section>
+
+            <section id="custom-open-close-animations">
+                <h2>Define your custom animations</h2>
+                <p>
+                    Defining your custom animations lets you match your existing user interface.
+                </p>
+                <div class="section">
+                    <p>Example for a newsflash animation. <br>These animations are define the starting point of the
+                        openAnimation and ending point of the closeAnimation</p>
+                    <button class="btn btn-primary custom-anim-1">Custom animation</button>
+                </div>
+                <style>
+                    .jconfirm .jconfirm-box.jconfirm-animation-news {
+                        /*the animation name is bob*/
+                        transform: rotate(400deg) scale(0);
+                    }
+                </style>
+                <script>
+                    $('.custom-anim-1').on('click', function () {
+                        $.confirm({
+                            animation: 'news',
+                            closeAnimation: 'news',
+                        });
+                    });
+                </script>
+                <div class="space10"></div>
+                <div class="row">
+                    <div class="col-md-7">
+                <pre class="prettyprint linenums"><code>.jconfirm .jconfirm-box.jconfirm-animation-news{
+    // the animation name is bob
+    transform: rotate(400deg) scale(0);
+}</code></pre>
+                    </div>
+                    <div class="col-md-5">
+                <pre class="prettyprint linenums"><code>$.confirm({
+    animation: 'news',
+    closeAnimation: 'news',
+});</code></pre>
+                    </div>
+                </div>
+                <p>
+                    The animation name should be lowercase, or they wont work.
+                </p>
+                <ul>
+                    <li>
+                        <code>.jconfirm-animation-animation-name</code> translates to 'animation-name'
+                    </li>
+                    <li>
+                        <code>.jconfirm-animation-animationhere</code> translates to 'animationhere'
+                    </li>
+                </ul>
+            </section>
+
+            <section id="background-dismiss-animation">
+                <h2>Background dismiss animation</h2>
+                <p>
+                    This animation takes place when backgroundDismiss is false, or returns a falsy value.
+                </p>
+                <div class="section">
+                    <p>Example for a newsflash animation. <br>These animations are define the starting point of the
+                        openAnimation and ending point of the closeAnimation</p>
+                    <button class="btn btn-primary custom-bg-1">Custom animation</button>
+                </div>
+                <style>
+                    .jconfirm .jconfirm-box.hilight.jconfirm-hilight-random {
+                        /*the animation name is bob*/
+                        transform: translate3d(0, 0, 0);
+                        animation: random 2s;
+                    }
+
+                    @keyframes random {
+                        10%, 90% {
+                            transform: rotate(-2deg);
+                        }
+                        20%, 80% {
+                            transform: rotate(4deg);
+                        }
+                        30%, 50%, 70% {
+                            transform: rotate(-8deg);
+                        }
+                        40%, 60% {
+                            transform: rotate(8deg);
+                        }
+                    }
+                </style>
+                <script>
+                    $('.custom-bg-1').on('click', function () {
+                        $.confirm({
+                            backgroundDismissAnimation: 'random'
+                        });
+                    });
+                </script>
+                <div class="space10"></div>
+                <div class="row">
+                    <div class="col-md-7">
+                <pre class="prettyprint linenums"><code>.jconfirm .jconfirm-box.hilight.jconfirm-hilight-random {
+    /*the animation name is bob*/
+    transform: translate3d(0,0,0);
+    animation: random 2s;
+}
+@keyframes random{
+    10%, 90% {
+        transform: rotate(-2deg);
+    }
+    20%, 80% {
+        transform: rotate(4deg);
+    }
+    30%, 50%, 70% {
+        transform: rotate(-8deg);
+    }
+    40%, 60% {
+        transform: rotate(8deg);
+    }
+}</code></pre>
+                    </div>
+                    <div class="col-md-5">
+                <pre class="prettyprint linenums"><code>$.confirm({
+    backgroundDismissAnimation: 'random',
+});</code></pre>
+                    </div>
+                </div>
+                <p>
+                    The animation name should be lowercase, or they wont work.
+                </p>
+            </section>
+
+            <section class="text-right footer">
+                <div class="spacer15"></div>
+                <p>
+                    Thanks for making it to the end of the document. <br>
+                    Your support and suggestions matter the most!
+                </p>
+                <a href="https://github.com/craftpip/jquery-confirm/issues/new"
+                   target="empty"
+                   class="btn btn-success">Please post your <br> Questions / Suggestions / Issues.
+                </a>
+
+                <div class="spacer15"></div>
+            </section>
+        </div>
+    </div>
+</div>
+<script type="text/javascript"
+        src="demo/demo.js"></script>
+<!-- javascript for the demo page interface. -->
+
+
+<!--google stuff DO NOT COPY THIS-->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-53264350-2', 'auto');
+    ga('send', 'pageview');
+</script>
+
+<script async
+        defer
+        id="github-bjs"
+        src="https://buttons.github.io/buttons.js"></script>
+<script> window.twttr = (function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0], t = window.twttr || {};
+    if (d.getElementById(id))
+        return t;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "https://platform.twitter.com/widgets.js";
+    fjs.parentNode.insertBefore(js, fjs);
+    t._e = [];
+    t.ready = function (f) {
+        t._e.push(f);
+    };
+    return t;
+}(document, "script", "twitter-wjs"));
+</script>
+
+<script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<!--google stuff DO NOT COPY THIS-->
+
+</body>
+</html>
