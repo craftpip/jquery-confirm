@@ -1,7 +1,7 @@
 ### ![jquery-confirm](https://raw.githubusercontent.com/craftpip/jquery-confirm/master/jquery-confirm.png "jquery-confirm")
 *alerts, confirms and dialogs in* ***one.***
 
-v3.3.0
+v3.3.3
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/bonifacepereira)
 
@@ -20,8 +20,8 @@ View Detailed [Documentation & Examples](http://craftpip.github.io/jquery-confir
 Download the latest release [here](https://github.com/craftpip/jquery-confirm/archive/master.zip) and use the files within `dist` folder.
 
 via CDN:  
-`<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">`  
-`<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>`
+`<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">`  
+`<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>`
 
 via Bower:  
 `$ bower install craftpip/jquery-confirm`
@@ -72,6 +72,15 @@ The `$.alert()` , `$.confirm()` & `$.dialog()` are alias of `jconfirm();`.
 Checkout the [documentation](http://craftpip.github.io/jquery-confirm) for further information.
 
 ## Version changes
+
+(new in 3.3.3) 
+* Safari height bug fix. PR by [lanre-ade](https://github.com/lanre-ade)
+* Fix isClosed bug for firefox. PR by [loganm](https://github.com/loganm)
+* Remove scroll to top when content height changes. PR by [amikot](https://github.com/amikot)
+* added support for AMD and commonJS
+
+(new in 3.3.1) 
+* Pass 'false' in buttons property to remove all buttons in $.confirm and $.alert
 
 (new in 3.3.0)
 * Moved overflow scroll inside modal [#286](https://github.com/craftpip/jquery-confirm/issues/2860)
