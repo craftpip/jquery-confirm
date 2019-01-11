@@ -16,7 +16,7 @@
 (function(factory){
     if(typeof define === 'function' && define.amd){
         // AMD. Register as an anonymous module.
-        define(['jquery', 'window'], factory);
+        define(['jquery'], factory);
     }else if(typeof module === 'object' && module.exports){
         // Node/CommonJS
         module.exports = function(root, jQuery){
@@ -32,16 +32,20 @@
                     jQuery = require('jquery')(root);
                 }
             }
-            factory(jQuery, window);
+            factory(jQuery);
             return jQuery;
         };
     }else{
         // Browser globals
-        factory(jQuery, window);
+        factory(jQuery);
     }
-}(function($, window){
+}(function($){
     "use strict";
-    var jconfirm, Jconfirm;
+
+    // locally assign window
+    var w = window;
+    // w.jconfirm
+    // w.Jconfirm;
 
     $.fn.confirm = function(options, option2){
         if(typeof options === 'undefined') options = {};
@@ -73,7 +77,7 @@
 
                 jcOption['$target'] = $this;
                 if($this.attr('href') && Object.keys(jcOption['buttons']).length === 0){
-                    var buttons = $.extend(true, {}, jconfirm.pluginDefaults.defaultButtons, (jconfirm.defaults || {}).defaultButtons || {});
+                    var buttons = $.extend(true, {}, w.jconfirm.pluginDefaults.defaultButtons, (w.jconfirm.defaults || {}).defaultButtons || {});
                     var firstBtn = Object.keys(buttons)[0];
                     jcOption['buttons'] = buttons;
                     jcOption.buttons[firstBtn].action = function(){
@@ -103,14 +107,14 @@
             options['buttons'] = {};
 
         if(Object.keys(options['buttons']).length === 0 && putDefaultButtons){
-            var buttons = $.extend(true, {}, jconfirm.pluginDefaults.defaultButtons, (jconfirm.defaults || {}).defaultButtons || {});
+            var buttons = $.extend(true, {}, w.jconfirm.pluginDefaults.defaultButtons, (w.jconfirm.defaults || {}).defaultButtons || {});
             options['buttons'] = buttons;
         }
 
         /*
          *  Alias of jconfirm
          */
-        return jconfirm(options);
+        return w.jconfirm(options);
     };
     $.alert = function(options, option2){
         if(typeof options === 'undefined') options = {};
@@ -127,14 +131,14 @@
             options.buttons = {};
 
         if(Object.keys(options['buttons']).length === 0 && putDefaultButtons){
-            var buttons = $.extend(true, {}, jconfirm.pluginDefaults.defaultButtons, (jconfirm.defaults || {}).defaultButtons || {});
+            var buttons = $.extend(true, {}, w.jconfirm.pluginDefaults.defaultButtons, (w.jconfirm.defaults || {}).defaultButtons || {});
             var firstBtn = Object.keys(buttons)[0];
             options['buttons'][firstBtn] = buttons[firstBtn];
         }
         /*
          *  Alias of jconfirm
          */
-        return jconfirm(options);
+        return w.jconfirm(options);
     };
     $.dialog = function(options, option2){
         if(typeof options === 'undefined') options = {};
@@ -159,28 +163,28 @@
          *  Alias of jconfirm
          */
         options.confirmKeys = [13];
-        return jconfirm(options);
+        return w.jconfirm(options);
     };
 
-    jconfirm = function(options){
+    w.jconfirm = function(options){
         if(typeof options === 'undefined') options = {};
         /*
          * initial function for calling.
          */
-        var pluginOptions = $.extend(true, {}, jconfirm.pluginDefaults);
-        if(jconfirm.defaults){
-            pluginOptions = $.extend(true, pluginOptions, jconfirm.defaults);
+        var pluginOptions = $.extend(true, {}, w.jconfirm.pluginDefaults);
+        if(w.jconfirm.defaults){
+            pluginOptions = $.extend(true, pluginOptions, w.jconfirm.defaults);
         }
 
         /*
          * merge options with plugin defaults.
          */
         pluginOptions = $.extend(true, {}, pluginOptions, options);
-        var instance = new Jconfirm(pluginOptions);
-        jconfirm.instances.push(instance);
+        var instance = new w.Jconfirm(pluginOptions);
+        w.jconfirm.instances.push(instance);
         return instance;
     };
-    Jconfirm = function(options){
+    w.Jconfirm = function(options){
         /*
          * constructor function Jconfirm,
          * options = user options.
@@ -188,12 +192,12 @@
         $.extend(this, options);
         this._init();
     };
-    Jconfirm.prototype = {
+    w.Jconfirm.prototype = {
         _init: function(){
             var that = this;
 
-            if(!jconfirm.instances.length)
-                jconfirm.lastFocused = $('body').find(':focus');
+            if(!w.jconfirm.instances.length)
+                w.jconfirm.lastFocused = $('body').find(':focus');
 
             this._id = Math.round(Math.random() * 99999);
             /**
@@ -317,7 +321,7 @@
                 that._watchContent();
             });
 
-            if (this.animation === 'none') {
+            if(this.animation === 'none'){
                 this.animationSpeed = 1;
                 this.animationBounce = 1;
             }
@@ -547,12 +551,12 @@
                 if(that.smoothContent){
                     var contentHeight = that.$content.outerHeight() || 0;
                     if(contentHeight !== prevContentHeight){
- 
-                       // Commented out to prevent scroll to top when updating the content 
-                       // (for example when using ajax in forms in content) 
-                       // that.$contentPane.css({
-                       //     'height': contentHeight
-                       // }).scrollTop(0);
+
+                        // Commented out to prevent scroll to top when updating the content
+                        // (for example when using ajax in forms in content)
+                        // that.$contentPane.css({
+                        //     'height': contentHeight
+                        // }).scrollTop(0);
                         prevContentHeight = contentHeight;
                     }
                     var wh = $(window).height();
@@ -1089,22 +1093,22 @@
                 setTimeout(function(){
                     that.$el.remove();
 
-                    var l = jconfirm.instances;
-                    var i = jconfirm.instances.length - 1;
+                    var l = w.jconfirm.instances;
+                    var i = w.jconfirm.instances.length - 1;
                     for(i; i >= 0; i--){
-                        if(jconfirm.instances[i]._id === that._id){
-                            jconfirm.instances.splice(i, 1);
+                        if(w.jconfirm.instances[i]._id === that._id){
+                            w.jconfirm.instances.splice(i, 1);
                         }
                     }
 
                     // Focusing a element, scrolls automatically to that element.
                     // no instances should be open, lastFocused should be true, the lastFocused element must exists in DOM
-                    if(!jconfirm.instances.length){
-                        if(that.scrollToPreviousElement && jconfirm.lastFocused && jconfirm.lastFocused.length && $.contains(document, jconfirm.lastFocused[0])){
-                            var $lf = jconfirm.lastFocused;
+                    if(!w.jconfirm.instances.length){
+                        if(that.scrollToPreviousElement && w.jconfirm.lastFocused && w.jconfirm.lastFocused.length && $.contains(document, w.jconfirm.lastFocused[0])){
+                            var $lf = w.jconfirm.lastFocused;
                             if(that.scrollToPreviousElementAnimate){
                                 var st = $(window).scrollTop();
-                                var ot = jconfirm.lastFocused.offset().top;
+                                var ot = w.jconfirm.lastFocused.offset().top;
                                 var wh = $(window).height();
                                 if(!(ot > st && ot < (st + wh))){
                                     var scrollTo = (ot - Math.round((wh / 3)));
@@ -1121,7 +1125,7 @@
                             }else{
                                 $lf.focus();
                             }
-                            jconfirm.lastFocused = false;
+                            w.jconfirm.lastFocused = false;
                         }
                     }
 
@@ -1149,10 +1153,10 @@
 
             if(this.animateFromElement !== true && this.animateFromElement){
                 el = this.animateFromElement;
-                jconfirm.lastClicked = false;
-            }else if(jconfirm.lastClicked && this.animateFromElement === true){
-                el = jconfirm.lastClicked;
-                jconfirm.lastClicked = false;
+                w.jconfirm.lastClicked = false;
+            }else if(w.jconfirm.lastClicked && this.animateFromElement === true){
+                el = w.jconfirm.lastClicked;
+                w.jconfirm.lastClicked = false;
             }else{
                 return false;
             }
@@ -1215,7 +1219,7 @@
             }, this.animationSpeed);
         },
         loadedClass: 'jconfirm-open',
-        isClosed: function () {
+        isClosed: function(){
             return !this.$el || this.$el.parent().length === 0;
         },
         isOpen: function(){
@@ -1229,40 +1233,40 @@
         }
     };
 
-    jconfirm.instances = [];
-    jconfirm.lastFocused = false;
-    jconfirm.pluginDefaults = {
+    w.jconfirm.instances = [];
+    w.jconfirm.lastFocused = false;
+    w.jconfirm.pluginDefaults = {
         template: '' +
-        '<div class="jconfirm">' +
-        '<div class="jconfirm-bg jconfirm-bg-h"></div>' +
-        '<div class="jconfirm-scrollpane">' +
-        '<div class="jconfirm-row">' +
-        '<div class="jconfirm-cell">' +
-        '<div class="jconfirm-holder">' +
-        '<div class="jc-bs3-container">' +
-        '<div class="jc-bs3-row">' +
-        '<div class="jconfirm-box-container jconfirm-animated">' +
-        '<div class="jconfirm-box" role="dialog" aria-labelledby="labelled" tabindex="-1">' +
-        '<div class="jconfirm-closeIcon">&times;</div>' +
-        '<div class="jconfirm-title-c">' +
-        '<span class="jconfirm-icon-c"></span>' +
-        '<span class="jconfirm-title"></span>' +
-        '</div>' +
-        '<div class="jconfirm-content-pane">' +
-        '<div class="jconfirm-content"></div>' +
-        '</div>' +
-        '<div class="jconfirm-buttons">' +
-        '</div>' +
-        '<div class="jconfirm-clear">' +
-        '</div>' +
-        '</div>' +
-        '</div>' +
-        '</div>' +
-        '</div>' +
-        '</div>' +
-        '</div>' +
-        '</div>' +
-        '</div></div>',
+            '<div class="jconfirm">' +
+            '<div class="jconfirm-bg jconfirm-bg-h"></div>' +
+            '<div class="jconfirm-scrollpane">' +
+            '<div class="jconfirm-row">' +
+            '<div class="jconfirm-cell">' +
+            '<div class="jconfirm-holder">' +
+            '<div class="jc-bs3-container">' +
+            '<div class="jc-bs3-row">' +
+            '<div class="jconfirm-box-container jconfirm-animated">' +
+            '<div class="jconfirm-box" role="dialog" aria-labelledby="labelled" tabindex="-1">' +
+            '<div class="jconfirm-closeIcon">&times;</div>' +
+            '<div class="jconfirm-title-c">' +
+            '<span class="jconfirm-icon-c"></span>' +
+            '<span class="jconfirm-title"></span>' +
+            '</div>' +
+            '<div class="jconfirm-content-pane">' +
+            '<div class="jconfirm-content"></div>' +
+            '</div>' +
+            '<div class="jconfirm-buttons">' +
+            '</div>' +
+            '<div class="jconfirm-clear">' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div></div>',
         title: 'Hello',
         titleClass: '',
         type: 'default',
@@ -1368,8 +1372,8 @@
     $(window).on('keyup', function(){
         keyDown = false;
     });
-    jconfirm.lastClicked = false;
-    $(document).on('mousedown', 'button, a', function(){
-        jconfirm.lastClicked = $(this);
+    w.jconfirm.lastClicked = false;
+    $(document).on('mousedown', 'button, a, [jc-source]', function(){
+        w.jconfirm.lastClicked = $(this);
     });
 }));
