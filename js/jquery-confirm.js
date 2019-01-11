@@ -1,10 +1,10 @@
 /*!
- * jquery-confirm v3.3.3 (http://craftpip.github.io/jquery-confirm/)
+ * jquery-confirm v3.3.4 (http://craftpip.github.io/jquery-confirm/)
  * Author: Boniface Pereira
  * Website: www.craftpip.com
  * Contact: hey@craftpip.com
  *
- * Copyright 2013-2018 jquery-confirm
+ * Copyright 2013-2019 jquery-confirm
  * Licensed under MIT (https://github.com/craftpip/jquery-confirm/blob/master/LICENSE)
  */
 
