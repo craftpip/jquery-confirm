@@ -943,16 +943,17 @@
 
                     // working with images
                     var getNewMeme = function(){
+                        var prevTitle = $('.meme-text').html();
                         $('.meme-text').html('Loading memes 👌');
                         $.get('https://craftpip.com/api/memes.json', {
-                            previousTitle: $('.meme-text').html(),
+                            previousTitle: prevTitle,
                         }).then(function(data){
                             console.log(data);
                             $('.meme-text').html(data.title);
                             $('.meme-image img').attr('src', data.image);
                         }).catch(function(err){
 
-                        })
+                        });
                     };
                     // todo: images is not tested yet.
                     $('.example-pc-2').on('click', function(){
