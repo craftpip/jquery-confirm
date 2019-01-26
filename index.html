@@ -52,6 +52,10 @@
           content="craftpip.github.io"/>
 
     <link rel="stylesheet"
+          id="bs-stylesheet"
+          href="demo/libs/bs3.css">
+
+    <link rel="stylesheet"
           href="demo/libs/bundled.css">
     <script src="demo/libs/bundled.js"></script>
 
@@ -938,27 +942,45 @@
                     });
 
                     // working with images
+                    var getNewMeme = function(){
+                        $('.meme-text').html('Loading memes 👌');
+                        $.get('https://craftpip.com/api/memes.json').then(function(data){
+                            console.log(data);
+                            $('.meme-text').html(data.title);
+                            $('.meme-image img').attr('src', data.image);
+                        }).catch(function(err){
+
+                        })
+                    };
                     // todo: images is not tested yet.
                     $('.example-pc-2').on('click', function(){
                         $.confirm({
                             title: 'Adding images',
-                            content: '<p>Images from flickr</p>' +
-                                '<img src="https://c2.staticflickr.com/4/3891/14354989289_2eec0ba724_b.jpg">',
+                            content: '' +
+                                '<div class="meme-image"><img style="    border: solid 1px #ddd;\n' +
+                                '    margin-bottom: 10px;\n' +
+                                '    border-radius: 4px;" src="" alt=""></div>' +
+                                '<div class="meme-text" style="font-weight: bold;margin-bottom: 20px;"></div>' +
+                                '<div>Memes from <a target="_blank" href="https://www.reddit.com/r/programminghumor">ProgrammingHumor</a></div>' +
+                                '',
                             animation: 'scale',
                             animationClose: 'top',
                             buttons: {
                                 confirm: {
-                                    text: 'Add more',
+                                    text: 'Next meme',
                                     btnClass: 'btn-blue',
                                     action: function(){
-                                        this.$content.append('<img src="https://c2.staticflickr.com/6/5248/5240523362_8d6d315391_b.jpg">');
-                                        return false; // prevent dialog from closing.
+                                        getNewMeme();
+                                        return false;
                                     }
                                 },
                                 cancel: function(){
                                     // lets the user close the modal.
                                 }
                             },
+                            onContentReady: function(){
+                                getNewMeme();
+                            }
                         });
                     });
 
