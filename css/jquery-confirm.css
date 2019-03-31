@@ -640,6 +640,11 @@ body[class*=jconfirm-no-scroll-] {
     margin-right: 0px;
 }
 
+.jconfirm.jconfirm-white.jconfirm-rtl .jconfirm-buttons,
+.jconfirm.jconfirm-light.jconfirm-rtl .jconfirm-buttons{
+	float: left;
+}
+
 .jconfirm.jconfirm-black .jconfirm-bg,
 .jconfirm.jconfirm-dark .jconfirm-bg {
     background-color: darkslategray;
@@ -696,6 +701,11 @@ body[class*=jconfirm-no-scroll-] {
 .jconfirm.jconfirm-dark.jconfirm-rtl .jconfirm-title-c .jconfirm-icon-c {
     margin-left: 8px;
     margin-right: 0px;
+}
+
+.jconfirm.jconfirm-black.jconfirm-rtl .jconfirm-buttons,
+.jconfirm.jconfirm-dark.jconfirm-rtl .jconfirm-buttons{
+	float: left;
 }
 
 .jconfirm .jconfirm-box.hilight.jconfirm-hilight-shake {
