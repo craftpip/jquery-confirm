@@ -944,6 +944,7 @@
                     // working with images
                     var getNewMeme = function(){
                         var prevTitle = $('.meme-text').html();
+                        $('.meme-image img').attr('src', '');
                         $('.meme-text').html('Loading memes 👌');
                         $.get('https://craftpip.com/api/memes.json', {
                             previousTitle: prevTitle,
