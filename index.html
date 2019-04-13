@@ -944,6 +944,7 @@
                     // working with images
                     var getNewMeme = function(){
                         var prevTitle = $('.meme-text').html();
+                        $('.meme-image img').attr('src', '');
                         $('.meme-text').html('Loading memes 👌');
                         $.get('https://craftpip.com/api/memes.json', {
                             previousTitle: prevTitle,
@@ -953,7 +954,7 @@
                             $('.meme-image img').attr('src', data.image);
                         }).catch(function(err){
 
-                        })
+                        });
                     };
                     // todo: images is not tested yet.
                     $('.example-pc-2').on('click', function(){
@@ -1092,8 +1093,8 @@
 
                     <p>
                         <strong>via CDN:</strong>
-                    <pre class="prettyprint"><code class="html">&lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css"&gt;
-&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"&gt;&lt;/script&gt;</code></pre>
+                    <pre class="prettyprint"><code class="html">&lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.4/jquery-confirm.min.css"&gt;
+&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.4/jquery-confirm.min.js"&gt;&lt;/script&gt;</code></pre>
                     </p>
 
                     <p>
