@@ -206,60 +206,18 @@
             this.contentParsed = $(document.createElement('div'));
 
             if(!this.lazyOpen){
-                setTimeout(function(){
-                    that.open();
-                }, 0);
+                this.prepare();
+                that.open();
             }
         },
-        _buildHTML: function(){
+        prepare: function(){
             var that = this;
-
-            // prefix the animation string and store in animationParsed
-            this._parseAnimation(this.animation, 'o');
-            this._parseAnimation(this.closeAnimation, 'c');
-            this._parseBgDismissAnimation(this.backgroundDismissAnimation);
-            this._parseColumnClass(this.columnClass);
-            this._parseTheme(this.theme);
-            this._parseType(this.type);
-
-            /*
-             * Append html.
-             */
-            var template = $(this.template);
-            template.find('.jconfirm-box').addClass(this.animationParsed).addClass(this.backgroundDismissAnimationParsed).addClass(this.typeParsed);
-
-            if(this.typeAnimated)
-                template.find('.jconfirm-box').addClass('jconfirm-type-animated');
-
-            if(this.useBootstrap){
-                template.find('.jc-bs3-row').addClass(this.bootstrapClasses.row);
-                template.find('.jc-bs3-row').addClass('justify-content-md-center justify-content-sm-center justify-content-xs-center justify-content-lg-center');
-
-                template.find('.jconfirm-box-container').addClass(this.columnClassParsed);
-
-                if(this.containerFluid)
-                    template.find('.jc-bs3-container').addClass(this.bootstrapClasses.containerFluid);
-                else
-                    template.find('.jc-bs3-container').addClass(this.bootstrapClasses.container);
-            }else{
-                template.find('.jconfirm-box').css('width', this.boxWidth);
-            }
-
-            if(this.titleClass)
-                template.find('.jconfirm-title-c').addClass(this.titleClass);
-
-            template.addClass(this.themeParsed);
-            var ariaLabel = 'jconfirm-box' + this._id;
-            template.find('.jconfirm-box').attr('aria-labelledby', ariaLabel).attr('tabindex', -1);
-            template.find('.jconfirm-content').attr('id', ariaLabel);
-            if(this.bgOpacity !== null)
-                template.find('.jconfirm-bg').css('opacity', this.bgOpacity);
-            if(this.rtl)
-                template.addClass('jconfirm-rtl');
-
-            this.$el = template.appendTo(this.container);
+            // prepare the whole modal here.
+            this.$el = $(this.template);
+            this.container = this.container || 'body';
+            this.$container = $(this.container);
             this.$jconfirmBoxContainer = this.$el.find('.jconfirm-box-container');
-            this.$jconfirmBox = this.$body = this.$el.find('.jconfirm-box');
+            this.$body = this.$jconfirmBox = this.$el.find('.jconfirm-box');
             this.$jconfirmBg = this.$el.find('.jconfirm-bg');
             this.$title = this.$el.find('.jconfirm-title');
             this.$titleContainer = this.$el.find('.jconfirm-title-c');
@@ -268,28 +226,545 @@
             this.$icon = this.$el.find('.jconfirm-icon-c');
             this.$closeIcon = this.$el.find('.jconfirm-closeIcon');
             this.$holder = this.$el.find('.jconfirm-holder');
-            // this.$content.css(this._getCSS(this.animationSpeed, this.animationBounce));
-            this.$btnc = this.$el.find('.jconfirm-buttons');
+            this.$buttons = this.$el.find('.jconfirm-buttons');
+            this.$btnc = this.$buttons;
             this.$scrollPane = this.$el.find('.jconfirm-scrollpane');
 
-            that.setStartingPoint();
+
+            this._contentReady = $.Deferred();
+            this._modalReady = $.Deferred();
+
+            var titlePromise = this.setTitle(this.title);
+            this.setIcon(this.icon);
+            this.setOffset('top', this.offsetTop);
+            this.setOffset('bottom', this.offsetBottom);
+            this.setAnimation2(this.animation);
+            this.setCloseAnimation2(this.closeAnimation);
+            this.setBackgroundDismissAnimation(this.backgroundDismissAnimation);
+            this.setType2(this.type);
+            this.setTheme2(this.theme);
+            var contentPromise = this.setContent2(this.content);
+            this.setUseBootstrap(this.useBootstrap);
+            this.setColumnClass2(this.columnClass);
+            this.setIsTypeAnimated(this.typeAnimated);
+            this.setTitleClass(this.titleClass);
+            this.setBgOpacity(this.bgOpacity);
+            this.setRtl(this.rtl);
+            this.setCloseIcon(this.closeIcon);
+            this.setCloseIconClass(this.closeIconClass);
+            this.bindCloseIconEvent();
+            this.setButtons(this.buttons);
+            this.initDraggable();
+
+            var ariaLabel = this._prefix + 'box' + this._id;
+            this.$jconfirmBox.attr('aria-labelledby', ariaLabel)
+                .attr('tabindex', -1);
+            this.$content.attr('id', ariaLabel);
+            // set the initial animation, to animate have to remove this class
+            this.$jconfirmBox.addClass(this.animation);
+
+            this.$container.append(this.$el);
+            this.setStartingPoint();
+
+            setTimeout(function(){
+                if(that.animation !== 'none'){
+                    that.$body.css(that._getCSS(that.animationSpeed, that.animationBounce));
+                    that.$contentPane.css(that._getCSS(that.animationSpeed, 1));
+                    that.$jconfirmBg.css(that._getCSS(that.animationSpeed, 1));
+                    that.$jconfirmBoxContainer.css(that._getCSS(that.animationSpeed, 1));
+                }
+            }, 1)
+        },
+        setButtons: function(buttons){
+            var totalButtons = 0;
+            var that = this;
+            $.each(buttons, function(key, button){
+                totalButtons++;
+                if(typeof button === 'function'){
+                    buttons[key] = {
+                        action: button,
+                    };
+                }
+                if(typeof button === 'string'){
+                    buttons[key] = {
+                        text: button,
+                    };
+                }
+                var btn = buttons[key];
+                btn.text = button.text || key;
+                btn.btnClass = button.btnClass || 'btn-default'; //@todo, make that default, what if i want to have no class on my buttons
+                btn.action = button.action || that.noop;
+                btn.keys = (button.keys || []).map(function(a){
+                    return a.toLowerCase();
+                });
+                btn.isHidden = button.isHidden || false;
+                btn.isDisabled = button.isDisabled || false;
+
+                var buttonElement = $('<button type="button" class="btn">')
+                    .html(btn.text)
+                    .addClass(btn.btnClass)
+                    .prop('disabled', btn.isDisabled)
+                    .css({
+                        'display': btn.isHidden ? 'none' : null,
+                    });
+                btn.el = buttonElement;
+                btn.el.on('click', function(e){
+                    // register handler
+                    e.preventDefault();
+                    var shouldClose = btn.action.apply(that, [
+                        btn,
+                    ]);
+                    (that.onAction || that.noop).apply(that, [
+                        key, btn
+                    ]);
+
+                    that._stopCountDown();
+                    if(typeof shouldClose === 'undefined' || shouldClose){
+                        that.close();
+                    }
+                });
+
+                /**
+                 * Add button functions
+                 * @param text
+                 */
+                btn.setText = function(text){
+                    btn.el.html(text);
+                };
+                btn.addClass = function(className){
+                    btn.el.addClass(className);
+                };
+                btn.removeClass = function(className){
+                    btn.el.removeClass(className);
+                };
+                btn.disable = function(){
+                    btn.isDisabled = true;
+                    btn.el.prop('disabled', true);
+                };
+                btn.enable = function(){
+                    btn.isDisabled = false;
+                    btn.el.prop('disabled', false);
+                };
+                btn.show = function(){
+                    btn.isHidden = false;
+                    btn.el.css({
+                        'display': null
+                    });
+                };
+                btn.hide = function(){
+                    btn.isHidden = true;
+                    btn.el.hide();
+                };
+                btn.getButton = function(){
+                    return btn.el;
+                };
+                // store the buttons in parent object for quick access
+                that['$_' + key] = that['$$' + key] = btn.el;
+                that.$buttons.append(btn.el);
+            });
+
+            if(totalButtons === 0)
+                that.$buttons.hide();
+            else
+                that.$buttons.show();
+        },
+        /**
+         * Show or hide the close icon
+         * If state is provided null, and no buttons are present:
+         * the state will turn to true. this is to have an alternative button for user to click on,
+         * @param state
+         */
+        setCloseIcon: function(state){
+            var buttonsLength = Object.keys(this.buttons).length;
+
+            if(buttonsLength === 0 && state === null){
+                // ok, this is ready to be a dialog
+                state = true;
+            }
+
+            if(state){
+                this.$closeIcon.show();
+            }else{
+                this.$closeIcon.hide();
+            }
+            this.closeIcon = state;
+        },
+        /**
+         * Bind event for close icon
+         */
+        bindCloseIconEvent: function(){
+            var that = this;
+            this.$closeIcon.on('click.jcCloseIcon', function(e){
+                e.preventDefault();
+                console.log('clicked');
+                var buttonName = false;
+                var shouldClose = false;
+                that.resolveOption(that.closeIcon).then(function(response){
+                    console.log(response);
+                    if(typeof response === 'string'
+                        && that.buttons[response] !== 'undefined'
+                    ){
+                        // a button with the same name exists.
+                        buttonName = response;
+                        shouldClose = false; // let the button decide if it wants to close.
+                    }else if(typeof response === 'undefined'
+                        || !!response === true
+                    ){
+                        shouldClose = true;
+                    }else{
+                        shouldClose = false;
+                    }
+
+                    // ok
+                    if(buttonName){
+                        var buttonResponse = that.buttons[buttonName].action.apply(that, [
+                            that.buttons[buttonName]
+                        ]);
+                        shouldClose = (typeof buttonResponse === 'undefined') || !!buttonResponse;
+                    }
+
+                    if(shouldClose){
+                        that.close();
+                    }
+                })
+            });
+        },
+        /**
+         * Set the close icon's class
+         * @param iconClass
+         */
+        setCloseIconClass: function(iconClass){
+            if(iconClass){
+                this.$closeIcon.html('<i class="' + iconClass + '"></i>');
+            }else{
+                this.$closeIcon.html('&times;');
+            }
+            this.closeIcon = iconClass;
+        },
+        /**
+         * Set the box to rtl or no ?
+         * @param state
+         */
+        setRtl: function(state){
+            if(state){
+                this.$el.addClass(this._prefix + 'rtl');
+            }else{
+                this.$el.removeClass(this._prefix + 'rtl');
+            }
+            this.rtl = state;
+        },
+        setBgOpacity: function(opacity){
+            this.$jconfirmBg.css({
+                'opacity': typeof opacity === 'number' ? opacity : null,
+            });
+        },
+        setTitleClass: function(titleClass){
+            var previousValue = this.titleClass;
+            this.$titleContainer
+                .removeClass(previousValue)
+                .addClass(titleClass);
+            this.titleClass = titleClass;
+        },
+        setUseBootstrap: function(state){
+            var $bsRow = this.$el.find('.jc-bs3-row');
+            var $bsContainer = this.$el.find('.jc-bs3-container');
+            if(state){
+                $bsRow.addClass(this.bootstrapClasses.row)
+                    .addClass('justify-content-md-center justify-content-sm-center justify-content-xs-center justify-content-lg-center');
+
+                this.setColumnClass2(this.columnClass);
+                this.setContainerFluid(this.containerFluid);
+                this.$jconfirmBox.css({
+                    'width': null
+                });
+            }else{
+
+                this.$jconfirmBox.css({
+                    'width': this.boxWidth
+                });
+                this.setColumnClass2(this.columnClass);
+                this.setContainerFluid(this.containerFluid);
+            }
+            this.useBootstrap = state;
+        },
+        setContainerFluid: function(state){
+            var $bsContainer = this.$el.find('.jc-bs3-container');
+
+            $bsContainer.removeClass(this.bootstrapClasses.containerFluid)
+                .removeClass(this.bootstrapClasses.container);
+
+            if(this.useBootstrap){
+                if(state){
+                    $bsContainer.addClass(this.bootstrapClasses.containerFluid);
+                }else{
+                    $bsContainer.addClass(this.bootstrapClasses.container);
+                }
+                this.containerFluid = state;
+            }
+        },
+        setIsTypeAnimated: function(state){
+            var n = this._prefix + 'type-animated';
+            if(state){
+                this.$jconfirmBox.addClass(n);
+            }else{
+                this.$jconfirmBox.removeClass(n);
+            }
+        },
+        animation: '',
+        closeAnimation: '',
+        setAnimation2: function(animation){
+            var that = this;
+            this.resolveOption(animation).then(function(response){
+                response = (response || '').split(',').map(function(a){
+                    return that._prefix + 'animation-' + $.trim(a);
+                });
+                this.animation = response;
+            });
+        },
+        setCloseAnimation2: function(animation){
+            var that = this;
+            this.resolveOption(animation).then(function(response){
+                response = (response || '').split(',').map(function(a){
+                    return that._prefix + 'animation-' + $.trim(a);
+                }).join(' ');
+                this.closeAnimation = response;
+            });
+        },
+        setType2: function(type){
+            var that = this;
+            var previousValue = this.type;
+            this.resolveOption(type).then(function(response){
+                that.type = response ? that._prefix + 'type-' + response : '';
+                that.$jconfirmBox
+                    .removeClass(previousValue)
+                    .addClass(that.type);
+            });
+        },
+        setBackgroundDismissAnimation: function(animation){
+            var that = this;
+            var previousValue = this.backgroundDismissAnimation;
+            this.resolveOption(animation).then(function(response){
+                that.backgroundDismissAnimation = (response || '').split(',').map(function(a){
+                    return that._prefix + 'hilight-' + $.trim(a);
+                }).join(' ');
+                that.$jconfirmBox
+                    .removeClass(previousValue)
+                    .addClass(that.backgroundDismissAnimation);
+            });
+        },
+        setTheme2: function(theme){
+            var that = this;
+            var previousValue = typeof this.theme === 'string' ? this.theme : '';
+            this.resolveOption(theme).then(function(response){
+                that.theme = (response || '').split(',').map(function(a){
+                    return that._prefix + $.trim(a);
+                }).join(' ');
+                that.$el
+                    .removeClass(previousValue)
+                    .addClass(that.theme);
+            });
+        },
+        setContent2: function(content){
+            var that = this;
+
+            if(typeof content === 'string'
+                && content.substr(0, 4).toLowerCase() === 'url:'){
+                // we need to replace content with $.get promise
+                content = $.get(content.substring(4));
+            }
+
+            return this.resolveOption(content).then(function(response){
+                that.content = response;
+                that.$content.html('');
+                that.$content.append(that.content);
+                (that.contentLoaded || that.noop)(response);
+                that.onContentReady.apply(that);
+                return that.content;
+            });
+        },
+        setColumnClass2: function(columnClass){
+            var p = '';
+            var previousValue = this.columnClass;
+            if(!this.useBootstrap){
+                this.$jconfirmBoxContainer.removeClass(previousValue);
+                return;
+            }
+            switch(columnClass.toLowerCase()){
+                case 'xl':
+                case 'xlarge':
+                    p = 'col-md-12';
+                    break;
+                case 'l':
+                case 'large':
+                    p = 'col-md-8 col-md-offset-2';
+                    break;
+                case 'm':
+                case 'medium':
+                    p = 'col-md-6 col-md-offset-3';
+                    break;
+                case 's':
+                case 'small':
+                    p = 'col-md-4 col-md-offset-4';
+                    break;
+                case 'xs':
+                case 'xsmall':
+                    p = 'col-md-2 col-md-offset-5';
+                    break;
+                default:
+                    p = columnClass;
+            }
+            this.columnClass = p;
+            this.$jconfirmBoxContainer
+                .removeClass(previousValue)
+                .addClass(this.columnClass);
+        },
+        noop: function(){
+        },
+        /**
+         * Set all initial options
+         * @param position
+         * @param value
+         */
+        setOffset: function(position, value){
+            var o = {};
+            o['padding-' + position] = value;
+            this.$holder.css(o);
+        },
+        /**
+         * Resolving options,
+         * string, promises, & functions that return string or promise recursively.
+         * @param option
+         * @param promise
+         * @param context
+         * @returns {*}
+         */
+        resolveOption: function(option, promise, context){
+            if(!promise)
+                promise = $.Deferred();
+            var that = this;
+            switch(typeof option){
+                case 'undefined':
+                    promise.resolve(option);
+                    break;
+                case 'string':
+                    // found a string
+                    promise.resolve(option);
+                    break;
+                case 'object':
+                    if(option == null){
+                        promise.resolve('');
+                    }else if(typeof option.then === 'function'){
+                        // found a promise
+                        option.then(function(response){
+                            promise.resolve(response);
+                        }, function(err){
+                            console.error('An error occurred while resolving the promise: ', err);
+                        });
+                    }else{
+                        // what is it?
+                        promise.resolve(repsonse);
+                    }
+                    break;
+                case 'function':
+                    // its a function, execute it.
+                    var response;
+                    if(!context)
+                        response = option();
+                    else
+                        response = option.apply(context);
+                    this.resolveOption(response, promise);
+                    break;
+                case 'boolean':
+                    promise.resolve(option);
+                    break;
+                case 'number':
+                    promise.resolve(option);
+                    break;
+            }
+
+            return promise;
+        },
+        _buildHTML: function(){
+            var that = this;
+
+            // prefix the animation string and store in animationParsed
+            // this._parseAnimation(this.animation, 'o');
+            // this._parseAnimation(this.closeAnimation, 'c');
+            // this._parseBgDismissAnimation(this.backgroundDismissAnimation);
+            // this._parseColumnClass(this.columnClass);
+            // this._parseTheme(this.theme);
+            // this._parseType(this.type);
+
+            /*
+             * Append html.
+             */
+            this.$el = $(this.template);
+            var template = this.$el;
+            // template.find('.jconfirm-box').addClass(this.animationParsed).addClass(this.backgroundDismissAnimationParsed).addClass(this.typeParsed);
+            //
+            // if(this.typeAnimated)
+            //     template.find('.jconfirm-box').addClass('jconfirm-type-animated');
+            //
+            // if(this.useBootstrap){
+            //     template.find('.jc-bs3-row').addClass(this.bootstrapClasses.row);
+            //     template.find('.jc-bs3-row').addClass('justify-content-md-center justify-content-sm-center justify-content-xs-center justify-content-lg-center');
+            //
+            //     template.find('.jconfirm-box-container').addClass(this.columnClassParsed);
+            //
+            //     if(this.containerFluid)
+            //         template.find('.jc-bs3-container').addClass(this.bootstrapClasses.containerFluid);
+            //     else
+            //         template.find('.jc-bs3-container').addClass(this.bootstrapClasses.container);
+            // }else{
+            //     template.find('.jconfirm-box').css('width', this.boxWidth);
+            // }
+
+            // if(this.titleClass)
+            //     template.find('.jconfirm-title-c').addClass(this.titleClass);
+
+            // template.addClass(this.themeParsed);
+            // var ariaLabel = 'jconfirm-box' + this._id;
+            // template.find('.jconfirm-box').attr('aria-labelledby', ariaLabel).attr('tabindex', -1);
+            // template.find('.jconfirm-content').attr('id', ariaLabel);
+            // if(this.bgOpacity !== null)
+            //     template.find('.jconfirm-bg').css('opacity', this.bgOpacity);
+            // if(this.rtl)
+            //     template.addClass('jconfirm-rtl');
+
+            // this.$el = template.appendTo(this.container);
+            // console.log(this.$el);
+            // this.$jconfirmBoxContainer = this.$el.find('.jconfirm-box-container');
+            // this.$jconfirmBox = this.$body = this.$el.find('.jconfirm-box');
+            // this.$jconfirmBg = this.$el.find('.jconfirm-bg');
+            // this.$title = this.$el.find('.jconfirm-title');
+            // this.$titleContainer = this.$el.find('.jconfirm-title-c');
+            // this.$content = this.$el.find('div.jconfirm-content');
+            // this.$contentPane = this.$el.find('.jconfirm-content-pane');
+            // this.$icon = this.$el.find('.jconfirm-icon-c');
+            // this.$closeIcon = this.$el.find('.jconfirm-closeIcon');
+            // this.$holder = this.$el.find('.jconfirm-holder');
+            // this.$content.css(this._getCSS(this.animationSpeed, this.animationBounce));
+            // this.$btnc = this.$el.find('.jconfirm-buttons');
+            // this.$scrollPane = this.$el.find('.jconfirm-scrollpane');
+
+            // that.setStartingPoint();
 
             // for loading content via URL
             this._contentReady = $.Deferred();
             this._modalReady = $.Deferred();
-            this.$holder.css({
-                'padding-top': this.offsetTop,
-                'padding-bottom': this.offsetBottom,
-            });
+            // this.$holder.css({
+            //     'padding-top': this.offsetTop,
+            //     'padding-bottom': this.offsetBottom,
+            // });
 
-            this.setTitle();
-            this.setIcon();
-            this._setButtons();
-            this._parseContent();
-            this.initDraggable();
+            // this.setTitle(this.title);
+            // this.setIcon(this.icon);
+            // this._setButtons();
+            // this._parseContent();
 
-            if(this.isAjax)
-                this.showLoading(false);
+
+            // if(this.isAjax)
+            //     this.showLoading(false);
 
             $.when(this._contentReady, this._modalReady).then(function(){
                 if(that.isAjaxLoading)
@@ -326,10 +801,10 @@
                 this.animationBounce = 1;
             }
 
-            this.$body.css(this._getCSS(this.animationSpeed, this.animationBounce));
-            this.$contentPane.css(this._getCSS(this.animationSpeed, 1));
-            this.$jconfirmBg.css(this._getCSS(this.animationSpeed, 1));
-            this.$jconfirmBoxContainer.css(this._getCSS(this.animationSpeed, 1));
+            // this.$body.css(this._getCSS(this.animationSpeed, this.animationBounce));
+            // this.$contentPane.css(this._getCSS(this.animationSpeed, 1));
+            // this.$jconfirmBg.css(this._getCSS(this.animationSpeed, 1));
+            // this.$jconfirmBoxContainer.css(this._getCSS(this.animationSpeed, 1));
         },
         _typePrefix: 'jconfirm-type-',
         typeParsed: '',
@@ -374,6 +849,7 @@
         },
         animationParsed: '',
         closeAnimationParsed: '',
+        _prefix: 'jconfirm-',
         _animationPrefix: 'jconfirm-animation-',
         setAnimation: function(animation){
             this.animation = animation || this.animation;
@@ -705,6 +1181,7 @@
                             that.close();
                     });
 
+                // @todo: m here
                 that.buttons[key].el = button_element;
                 that.buttons[key].setText = function(text){
                     button_element.html(text);
@@ -789,58 +1266,35 @@
             }
         },
         setTitle: function(string, force){
-            force = force || false;
-
-            if(typeof string !== 'undefined')
-                if(typeof string === 'string')
-                    this.title = string;
-                else if(typeof string === 'function'){
-                    if(typeof string.promise === 'function')
-                        console.error('Promise was returned from title function, this is not supported.');
-
-                    var response = string();
-                    if(typeof response === 'string')
-                        this.title = response;
-                    else
-                        this.title = false;
-                }else
-                    this.title = false;
-
-            if(this.isAjaxLoading && !force)
-                return;
-
-            this.$title.html(this.title || '');
-            this.updateTitleContainer();
+            var that = this;
+            return this.resolveOption(string).then(function(response){
+                that.title = response || '';
+                that.$title.html(that.title);
+                that.updateTitleIconContainer();
+                return that.title;
+            });
         },
         setIcon: function(iconClass, force){
-            force = force || false;
-
-            if(typeof iconClass !== 'undefined')
-                if(typeof iconClass === 'string')
-                    this.icon = iconClass;
-                else if(typeof iconClass === 'function'){
-                    var response = iconClass();
-                    if(typeof response === 'string')
-                        this.icon = response;
-                    else
-                        this.icon = false;
-                }
-                else
-                    this.icon = false;
-
-            if(this.isAjaxLoading && !force)
-                return;
-
-            this.$icon.html(this.icon ? '<i class="' + this.icon + '"></i>' : '');
-            this.updateTitleContainer();
+            var that = this;
+            this.resolveOption(iconClass).then(function(response){
+                that.icon = response || '';
+                that.$icon.html(this.icon ? '<i class="' + this.icon + '"></i>' : '');
+                that.updateTitleIconContainer();
+            });
         },
-        updateTitleContainer: function(){
-            if(!this.title && !this.icon){
-                this.$titleContainer.hide();
+        updateTitleIconContainer: function(){
+            var that = this;
+            if(!that.title && !that.icon){
+                that.$titleContainer.hide();
             }else{
-                this.$titleContainer.show();
+                that.$titleContainer.show();
             }
         },
+        /**
+         * @todo needs attention
+         * @param content
+         * @param force
+         */
         setContentPrepend: function(content, force){
             if(!content)
                 return;
