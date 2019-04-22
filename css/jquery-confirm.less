@@ -36,56 +36,39 @@ body[class*=jconfirm-no-scroll-] {
 }
 
 .jconfirm {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 99999999;
-  font-family: inherit;
-  overflow: hidden;
+  //position: fixed;
+  //top: 0;
+  //left: 0;
+  //right: 0;
+  //bottom: 0;
+  //z-index: 99999999;
+  //font-family: inherit;
+  //overflow: hidden;
 
   .jconfirm-bg {
-    position: fixed;
+    //position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     transition: opacity .4s;
+    position: fixed;
 
     &.jconfirm-bg-h {
       opacity: 0 !important;
     }
-  }
-  .jconfirm-scrollpane {
-    //overflow-y: auto;
-    perspective: 500px;
-    perspective-origin: center;
 
-    display: table;
-    width: 100%;
-    height: 100%;
-  }
-  .jconfirm-row {
-    display: table-row;
-    width: 100%;
-  }
-  .jconfirm-cell {
-    //height: 100%;
-    display: table-cell;
-    vertical-align: middle;
-  }
-  .jconfirm-holder {
-    max-height: 100%;
-    padding: 50px 0;
-  }
-  .jconfirm-box-container {
-    transition: transform;
-
-    &.jconfirm-no-transition {
-      transition: none !important;
+    &.jconfirm-bg-dn {
+      visibility: hidden;
     }
   }
+
+  // markup to get bootstrap column sizes.
+  .jconfirm-bs-sandbox {
+    position: absolute;
+    visibility: hidden;
+  }
+
   .jconfirm-box {
     background: white;
     border-radius: 4px;
@@ -144,34 +127,42 @@ body[class*=jconfirm-no-scroll-] {
         border-color: lighten(@dark, 10%);
       }
     }
+
     &.jconfirm-type-animated {
       animation-duration: 2s;
       animation-iteration-count: infinite;
     }
+
     &.jconfirm-type-blue {
       border-top: solid 7px @blue;
       animation-name: type-blue;
     }
+
     &.jconfirm-type-green {
       border-top: solid 7px @green;
       animation-name: type-green;
     }
+
     &.jconfirm-type-red {
       border-top: solid 7px @red;
       animation-name: type-red;
     }
+
     &.jconfirm-type-orange {
       border-top: solid 7px @orange;
       animation-name: type-orange;
     }
+
     &.jconfirm-type-purple {
       border-top: solid 7px @purple;
       animation-name: type-purple;
     }
+
     &.jconfirm-type-dark {
       border-top: solid 7px @dark;
       animation-name: type-dark;
     }
+
     &.loading {
       height: 120px;
 
@@ -186,6 +177,7 @@ body[class*=jconfirm-no-scroll-] {
         border-radius: 10px;
         z-index: 1;
       }
+
       &:after {
         opacity: 0.6;
         content: '';
@@ -225,9 +217,11 @@ body[class*=jconfirm-no-scroll-] {
       .fa {
         font-size: 16px;
       }
+
       .glyphicon {
         font-size: 16px;
       }
+
       .zmdi {
         font-size: 16px;
       }
@@ -236,6 +230,7 @@ body[class*=jconfirm-no-scroll-] {
         opacity: 1;
       }
     }
+
     div.jconfirm-title-c {
       display: block;
       font-size: 22px;
@@ -247,18 +242,22 @@ body[class*=jconfirm-no-scroll-] {
       &.jconfirm-hand {
         cursor: move;
       }
+
       .jconfirm-icon-c {
         font-size: inherit;
         //padding-bottom: 15px;
         display: inline-block;
         vertical-align: middle;
+
         i {
           vertical-align: middle;
         }
+
         &:empty {
           display: none;
         }
       }
+
       .jconfirm-title {
         user-select: none;
         font-size: inherit;
@@ -285,6 +284,7 @@ body[class*=jconfirm-no-scroll-] {
       &.no-scroll {
         overflow-y: hidden;
       }
+
       &::-webkit-scrollbar {
         width: 3px;
       }
@@ -305,6 +305,7 @@ body[class*=jconfirm-no-scroll-] {
           max-width: 100%;
           height: auto;
         }
+
         &:empty {
           display: none;
         }
@@ -313,6 +314,7 @@ body[class*=jconfirm-no-scroll-] {
 
     .jconfirm-buttons {
       padding-bottom: 11px;
+
       > button {
         margin-bottom: 4px;
         margin-left: 2px;
@@ -349,6 +351,7 @@ body[class*=jconfirm-no-scroll-] {
           color: #FFF;
           text-shadow: none;
           transition: background .2s;
+
           &:hover {
             background-color: @blueHover;
             color: #FFF;
@@ -360,6 +363,7 @@ body[class*=jconfirm-no-scroll-] {
           color: #FFF;
           text-shadow: none;
           transition: background .2s;
+
           &:hover {
             background-color: @greenHover;
             color: #FFF;
@@ -371,6 +375,7 @@ body[class*=jconfirm-no-scroll-] {
           color: #FFF;
           text-shadow: none;
           transition: background .2s;
+
           &:hover {
             background-color: @redHover;
             color: #FFF;
@@ -382,6 +387,7 @@ body[class*=jconfirm-no-scroll-] {
           color: #FFF;
           text-shadow: none;
           transition: background .2s;
+
           &:hover {
             background-color: @orangeHover;
             color: #FFF;
@@ -393,6 +399,7 @@ body[class*=jconfirm-no-scroll-] {
           color: #000;
           text-shadow: none;
           transition: background .2s;
+
           &:hover {
             background-color: @defaultHover;
             color: #000;
@@ -404,6 +411,7 @@ body[class*=jconfirm-no-scroll-] {
           color: #FFF;
           text-shadow: none;
           transition: background .2s;
+
           &:hover {
             background-color: @purpleHover;
             color: #FFF;
@@ -415,6 +423,7 @@ body[class*=jconfirm-no-scroll-] {
           color: #FFF;
           text-shadow: none;
           transition: background .2s;
+
           &:hover {
             background-color: @darkHover;
             color: #FFF;
@@ -426,18 +435,23 @@ body[class*=jconfirm-no-scroll-] {
     &.jconfirm-type-red .jconfirm-title-c .jconfirm-icon-c {
       color: @red !important;
     }
+
     &.jconfirm-type-blue .jconfirm-title-c .jconfirm-icon-c {
       color: @blue !important;
     }
+
     &.jconfirm-type-green .jconfirm-title-c .jconfirm-icon-c {
       color: @green !important;
     }
+
     &.jconfirm-type-purple .jconfirm-title-c .jconfirm-icon-c {
       color: @purple !important;
     }
+
     &.jconfirm-type-orange .jconfirm-title-c .jconfirm-icon-c {
       color: @orange !important;
     }
+
     &.jconfirm-type-dark .jconfirm-title-c .jconfirm-icon-c {
       color: @dark !important;
     }
@@ -449,6 +463,7 @@ body[class*=jconfirm-no-scroll-] {
 
   &.jconfirm-rtl {
     direction: rtl;
+
     div.jconfirm-closeIcon {
       left: 5px;
       right: auto;
@@ -460,6 +475,7 @@ body[class*=jconfirm-no-scroll-] {
       background-color: #444;
       opacity: .2;
     }
+
     .jconfirm-box {
       box-shadow: 0 2px 6px rgba(0, 0, 0, .2);
       border-radius: 5px;
@@ -468,6 +484,7 @@ body[class*=jconfirm-no-scroll-] {
         margin-right: 8px;
         margin-left: 0px;
       }
+
       .jconfirm-buttons {
         float: right;
 
@@ -477,6 +494,7 @@ body[class*=jconfirm-no-scroll-] {
           font-weight: bold;
           text-shadow: none;
         }
+
         button.btn-default {
           box-shadow: none;
           color: #333;
@@ -487,6 +505,7 @@ body[class*=jconfirm-no-scroll-] {
         }
       }
     }
+
     &.jconfirm-rtl {
       .jconfirm-title-c .jconfirm-icon-c {
         margin-left: 8px;
@@ -500,6 +519,7 @@ body[class*=jconfirm-no-scroll-] {
       background-color: darkslategray;
       opacity: .4;
     }
+
     .jconfirm-box {
       box-shadow: 0 2px 6px rgba(0, 0, 0, .2);
       background: #444;
@@ -524,6 +544,7 @@ body[class*=jconfirm-no-scroll-] {
           transition: background .1s;
           color: white;
         }
+
         button.btn-default {
           box-shadow: none;
           color: #fff;
@@ -549,6 +570,7 @@ body[class*=jconfirm-no-scroll-] {
       animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
       transform: translate3d(0, 0, 0);
     }
+
     &.jconfirm-hilight-glow {
       animation: glow 0.82s cubic-bezier(.36, .07, .19, .97) both;
       transform: translate3d(0, 0, 0);
@@ -591,54 +613,69 @@ body[class*=jconfirm-no-scroll-] {
     &.jconfirm-animation-top, &.jconfirm-animation-left, &.jconfirm-animation-right, &.jconfirm-animation-bottom, &.jconfirm-animation-opacity, &.jconfirm-animation-zoom, &.jconfirm-animation-scale, &.jconfirm-animation-none, &.jconfirm-animation-rotate, &.jconfirm-animation-rotatex, &.jconfirm-animation-rotatey, &.jconfirm-animation-scaley, &.jconfirm-animation-scalex {
       opacity: 0;
     }
+
     &.jconfirm-animation-rotate {
       transform: rotate(90deg);
     }
+
     &.jconfirm-animation-rotatex {
       transform: rotateX(90deg);
       transform-origin: center;
     }
+
     &.jconfirm-animation-rotatexr {
       transform: rotateX(-90deg);
       transform-origin: center;
     }
+
     &.jconfirm-animation-rotatey {
       transform: rotatey(90deg);
       transform-origin: center;
     }
+
     &.jconfirm-animation-rotateyr {
       transform: rotatey(-90deg);
       transform-origin: center;
     }
+
     &.jconfirm-animation-scaley {
       transform: scaley(1.5);
       transform-origin: center;
     }
+
     &.jconfirm-animation-scalex {
       transform: scalex(1.5);
       transform-origin: center;
     }
+
     &.jconfirm-animation-top {
       transform: translate(0px, -100px);
     }
+
     &.jconfirm-animation-left {
       transform: translate(-100px, 0px);
     }
+
     &.jconfirm-animation-right {
       transform: translate(100px, 0px);
     }
+
     &.jconfirm-animation-bottom {
       transform: translate(0px, 100px);
     }
+
     &.jconfirm-animation-opacity {
 
     }
+
     &.jconfirm-animation-zoom {
       transform: scale(1.2);
     }
+
     &.jconfirm-animation-scale {
       transform: scale(0.5);
     }
+
     &.jconfirm-animation-none {
       visibility: hidden;
     }
@@ -656,18 +693,23 @@ body[class*=jconfirm-no-scroll-] {
     &.jconfirm-type-blue {
       border: none;
     }
+
     &.jconfirm-type-green {
       border: none;
     }
+
     &.jconfirm-type-red {
       border: none;
     }
+
     &.jconfirm-type-orange {
       border: none;
     }
+
     &.jconfirm-type-purple {
       border: none;
     }
+
     &.jconfirm-type-dark {
       border: none;
     }
@@ -681,6 +723,7 @@ body[class*=jconfirm-no-scroll-] {
       color: white;
       font-size: 28px;
       font-weight: normal;
+
       > * {
         padding-bottom: 25px;
       }
@@ -690,9 +733,11 @@ body[class*=jconfirm-no-scroll-] {
         margin-left: 0px;
       }
     }
+
     div.jconfirm-content-pane {
       margin-bottom: 25px;
     }
+
     div.jconfirm-content {
       text-align: center;
       color: white;
@@ -701,11 +746,13 @@ body[class*=jconfirm-no-scroll-] {
         &:before {
 
         }
+
         &:after {
 
         }
       }
     }
+
     .jconfirm-buttons {
       text-align: center;
 
@@ -719,10 +766,12 @@ body[class*=jconfirm-no-scroll-] {
         padding: 10px;
         min-width: 100px;
       }
+
       button + button {
 
       }
     }
+
     &.hilight {
 
     }
@@ -740,6 +789,7 @@ body[class*=jconfirm-no-scroll-] {
   .jconfirm-bg {
     background-color: rgba(0, 0, 0, .67);
   }
+
   .jconfirm-box {
     background-color: white;
     box-shadow: 0 7px 8px -4px rgba(0, 0, 0, .2), 0 13px 19px 2px rgba(0, 0, 0, .14), 0 5px 24px 4px rgba(0, 0, 0, .12);
@@ -759,6 +809,7 @@ body[class*=jconfirm-no-scroll-] {
       font-size: 22px;
       font-weight: bold;
     }
+
     div.jconfirm-content {
       color: rgba(0, 0, 0, .87);
 
@@ -766,11 +817,13 @@ body[class*=jconfirm-no-scroll-] {
         &:before {
 
         }
+
         &:after {
 
         }
       }
     }
+
     .jconfirm-buttons {
       text-align: right;
 
@@ -778,10 +831,12 @@ body[class*=jconfirm-no-scroll-] {
         text-transform: uppercase;
         font-weight: 500;
       }
+
       button + button {
 
       }
     }
+
     &.hilight {
 
     }
@@ -822,9 +877,11 @@ body[class*=jconfirm-no-scroll-] {
       padding-left: 15px;
       padding-right: 15px;
     }
+
     div.jconfirm-content-pane {
 
     }
+
     div.jconfirm-content {
       color: rgba(0, 0, 0, 0.87);
       padding: 0px 15px;
@@ -833,11 +890,13 @@ body[class*=jconfirm-no-scroll-] {
         &:before {
 
         }
+
         &:after {
 
         }
       }
     }
+
     .jconfirm-buttons {
       text-align: right;
       padding: 10px;
@@ -849,10 +908,12 @@ body[class*=jconfirm-no-scroll-] {
       button {
         font-weight: 500;
       }
+
       button + button {
 
       }
     }
+
     &.hilight {
 
     }
@@ -912,11 +973,13 @@ body[class*=jconfirm-no-scroll-] {
         &:before {
 
         }
+
         &:after {
 
         }
       }
     }
+
     .jconfirm-buttons {
       text-align: center;
 
@@ -930,11 +993,13 @@ body[class*=jconfirm-no-scroll-] {
 
         }
       }
+
       button + button {
         margin-left: 4px;
       }
     }
   }
+
   &.jconfirm-open {
     .jconfirm-box .jconfirm-title-c .jconfirm-icon-c {
       transform: scale(1);

@@ -27,8 +27,7 @@
                 // if it's defined (how jquery works)
                 if(typeof window !== 'undefined'){
                     jQuery = require('jquery');
-                }
-                else{
+                }else{
                     jQuery = require('jquery')(root);
                 }
             }
@@ -203,12 +202,16 @@
             /**
              * contentParsed maintains the contents for $content, before it is put in DOM
              */
-            this.contentParsed = $(document.createElement('div'));
+            this.contentParsed = $('<div>');
 
-            if(!this.lazyOpen){
-                this.prepare();
-                that.open();
-            }
+            this.prepare();
+
+            setTimeout(function(){
+                that.open2();
+            }, 100);
+            // if(!this.lazyOpen){
+            // that.open();
+            // }
         },
         prepare: function(){
             var that = this;
@@ -230,15 +233,16 @@
             this.$btnc = this.$buttons;
             this.$scrollPane = this.$el.find('.jconfirm-scrollpane');
 
-
             this._contentReady = $.Deferred();
             this._modalReady = $.Deferred();
 
             var titlePromise = this.setTitle(this.title);
+            this.setAnimation2(this.animation);
+            this.$jconfirmBox.addClass(this.animation);
+
             this.setIcon(this.icon);
             this.setOffset('top', this.offsetTop);
             this.setOffset('bottom', this.offsetBottom);
-            this.setAnimation2(this.animation);
             this.setCloseAnimation2(this.closeAnimation);
             this.setBackgroundDismissAnimation(this.backgroundDismissAnimation);
             this.setType2(this.type);
@@ -250,11 +254,12 @@
             this.setTitleClass(this.titleClass);
             this.setBgOpacity(this.bgOpacity);
             this.setRtl(this.rtl);
-            this.setCloseIcon(this.closeIcon);
             this.setCloseIconClass(this.closeIconClass);
             this.bindCloseIconEvent();
             this.setButtons(this.buttons);
-            this.initDraggable();
+            this.setCloseIcon(this.closeIcon);
+            // this.initDraggable();
+            this.setAutoClose(this.autoClose);
 
             var ariaLabel = this._prefix + 'box' + this._id;
             this.$jconfirmBox.attr('aria-labelledby', ariaLabel)
@@ -262,18 +267,53 @@
             this.$content.attr('id', ariaLabel);
             // set the initial animation, to animate have to remove this class
             this.$jconfirmBox.addClass(this.animation);
-
             this.$container.append(this.$el);
-            this.setStartingPoint();
 
-            setTimeout(function(){
-                if(that.animation !== 'none'){
-                    that.$body.css(that._getCSS(that.animationSpeed, that.animationBounce));
-                    that.$contentPane.css(that._getCSS(that.animationSpeed, 1));
-                    that.$jconfirmBg.css(that._getCSS(that.animationSpeed, 1));
-                    that.$jconfirmBoxContainer.css(that._getCSS(that.animationSpeed, 1));
-                }
-            }, 1)
+            if(that.animation == 'none'){
+                // seems ok
+                this.animationSpeed = 0;
+                this.animationBounce = 0;
+            }
+
+            // that.$body.css(that._getCSS(that.animationSpeed, that.animationBounce));
+            // that.$contentPane.css(that._getCSS(that.animationSpeed, 1));
+            // that.$jconfirmBg.css(that._getCSS(that.animationSpeed, 1));
+            // that.$jconfirmBoxContainer.css(that._getCSS(that.animationSpeed, 1));
+        },
+        open2: function(){
+            var that = this;
+
+            // this.setStartingPoint();
+            this.$body.removeClass(this.animation); // remove the animation class.
+            this.$jconfirmBg.removeClass(this._prefix + 'bg-h');
+            // this.$body.focus();
+        },
+        startAutoCloseCountdown: function(){
+            if(!this.autoClose){
+                return false;
+            }
+
+            var option = this.autoClose.split('|');
+            var buttonKey = option[0];
+            var time = option[1];
+
+            if(typeof this.buttons[buttonKey] === 'undefined'){
+                console.error("AutoClose: could not find button '" + buttonKey + "'");
+                return false;
+            }
+
+            var seconds = Math.ceil(time / 1000);
+        },
+        stopAutoCloseCountdown: function(){
+
+        },
+        setAutoClose: function(autoClose){
+            if(autoClose && autoClose.split('|').length !== 2){
+                console.error('Invalid option for autoClose. example \'buttonName|1000\'');
+                return false;
+            }
+
+            this.autoClose = autoClose;
         },
         setButtons: function(buttons){
             var totalButtons = 0;
@@ -399,6 +439,7 @@
                 console.log('clicked');
                 var buttonName = false;
                 var shouldClose = false;
+                console.log(that.closeIcon);
                 that.resolveOption(that.closeIcon).then(function(response){
                     console.log(response);
                     if(typeof response === 'string'
@@ -439,7 +480,7 @@
             }else{
                 this.$closeIcon.html('&times;');
             }
-            this.closeIcon = iconClass;
+            this.closeIconClass = iconClass;
         },
         /**
          * Set the box to rtl or no ?
@@ -512,29 +553,35 @@
         },
         animation: '',
         closeAnimation: '',
+        /**
+         * Set animation is directly setting the animation class.
+         * to promises here please.
+         * @param animation
+         * @returns {*|PromiseLike<T | never>|Promise<T | never>}
+         */
         setAnimation2: function(animation){
             var that = this;
-            this.resolveOption(animation).then(function(response){
-                response = (response || '').split(',').map(function(a){
-                    return that._prefix + 'animation-' + $.trim(a);
-                });
-                this.animation = response;
-            });
+            this.animation = (animation || '').split(',').map(function(a){
+                // return that._prefix + 'animation-' + $.trim(a);
+                return that.prefix('animation-', a);
+            }).join(' ');
+            return this.animation;
         },
+        /**
+         * Set close animation no promises
+         * @param animation
+         */
         setCloseAnimation2: function(animation){
             var that = this;
-            this.resolveOption(animation).then(function(response){
-                response = (response || '').split(',').map(function(a){
-                    return that._prefix + 'animation-' + $.trim(a);
-                }).join(' ');
-                this.closeAnimation = response;
-            });
+            return (animation || '').split(',').map(function(a){
+                return that._prefix + 'animation-' + $.trim(a);
+            }).join(' ');
         },
         setType2: function(type){
             var that = this;
             var previousValue = this.type;
-            this.resolveOption(type).then(function(response){
-                that.type = response ? that._prefix + 'type-' + response : '';
+            return this.resolveOption(type).then(function(response){
+                that.type = that.prefix('type-', response);
                 that.$jconfirmBox
                     .removeClass(previousValue)
                     .addClass(that.type);
@@ -545,12 +592,22 @@
             var previousValue = this.backgroundDismissAnimation;
             this.resolveOption(animation).then(function(response){
                 that.backgroundDismissAnimation = (response || '').split(',').map(function(a){
-                    return that._prefix + 'hilight-' + $.trim(a);
+                    return that.prefix('hilight-', a);
                 }).join(' ');
                 that.$jconfirmBox
                     .removeClass(previousValue)
                     .addClass(that.backgroundDismissAnimation);
             });
+        },
+        prefix: function(prefix, str){
+            if(!str)
+                return str;
+
+            if(str.indexOf(prefix) == -1){
+                return this._prefix + prefix + str.trim();
+            }else{
+                return str.trim();
+            }
         },
         setTheme2: function(theme){
             var that = this;
@@ -766,40 +823,41 @@
             // if(this.isAjax)
             //     this.showLoading(false);
 
-            $.when(this._contentReady, this._modalReady).then(function(){
-                if(that.isAjaxLoading)
-                    setTimeout(function(){
-                        that.isAjaxLoading = false;
-                        that.setContent();
-                        that.setTitle();
-                        that.setIcon();
-                        setTimeout(function(){
-                            that.hideLoading(false);
-                            that._updateContentMaxHeight();
-                        }, 100);
-                        if(typeof that.onContentReady === 'function')
-                            that.onContentReady();
-                    }, 50);
-                else{
-                    // that.setContent();
-                    that._updateContentMaxHeight();
-                    that.setTitle();
-                    that.setIcon();
-                    if(typeof that.onContentReady === 'function')
-                        that.onContentReady();
-                }
+            // @todo: set the content height and watch for changes.
+            // $.when(this._contentReady, this._modalReady).then(function(){
+            //     if(that.isAjaxLoading)
+            //         setTimeout(function(){
+            //             that.isAjaxLoading = false;
+            //             that.setContent();
+            //             that.setTitle();
+            //             that.setIcon();
+            //             setTimeout(function(){
+            //                 that.hideLoading(false);
+            //                 that._updateContentMaxHeight();
+            //             }, 100);
+            //             if(typeof that.onContentReady === 'function')
+            //                 that.onContentReady();
+            //         }, 50);
+            //     else{
+            //         // that.setContent();
+            //         that._updateContentMaxHeight();
+            //         that.setTitle();
+            //         that.setIcon();
+            //         if(typeof that.onContentReady === 'function')
+            //             that.onContentReady();
+            //     }
+            //
+            //     // start countdown after content has loaded.
+            //     if(that.autoClose)
+            //         that._startCountDown();
+            // }).then(function(){
+            //     that._watchContent();
+            // });
 
-                // start countdown after content has loaded.
-                if(that.autoClose)
-                    that._startCountDown();
-            }).then(function(){
-                that._watchContent();
-            });
-
-            if(this.animation === 'none'){
-                this.animationSpeed = 1;
-                this.animationBounce = 1;
-            }
+            // if(this.animation === 'none'){
+            //     this.animationSpeed = 1;
+            //     this.animationBounce = 1;
+            // }
 
             // this.$body.css(this._getCSS(this.animationSpeed, this.animationBounce));
             // this.$contentPane.css(this._getCSS(this.animationSpeed, 1));
@@ -1010,8 +1068,7 @@
             if(typeof pageYOffset !== 'undefined'){
                 //most browsers except IE before #9
                 return pageYOffset;
-            }
-            else{
+            }else{
                 var B = document.body; //IE 'quirks'
                 var D = document.documentElement; //IE with doctype
                 D = (D.clientHeight) ? D : B;
@@ -1348,8 +1405,7 @@
                 var res = this.content.apply(this);
                 if(typeof res === 'string'){
                     this.content = res;
-                }
-                else if(typeof res === 'object' && typeof res.always === 'function'){
+                }else if(typeof res === 'object' && typeof res.always === 'function'){
                     // this is ajax loading via promise
                     this.isAjax = true;
                     this.isAjaxLoading = true;
@@ -1483,8 +1539,7 @@
             if(keyChar === 'esc' && this.escapeKey){
                 if(this.escapeKey === true){
                     this.$scrollPane.trigger('click');
-                }
-                else if(typeof this.escapeKey === 'string' || typeof this.escapeKey === 'function'){
+                }else if(typeof this.escapeKey === 'string' || typeof this.escapeKey === 'function'){
                     var buttonKey;
                     if(typeof this.escapeKey === 'function'){
                         buttonKey = this.escapeKey();
@@ -1513,6 +1568,18 @@
         },
         _unwatchContent: function(){
             clearInterval(this._timer);
+        },
+        _bgShow: function(){
+            var that = this;
+            this.$jconfirmBg.removeClass(this._prefix + 'bg-h');
+            setTimeout(function(){
+                that.$jconfirmBg.addClass(this._prefix + 'bg-dn');
+            }, this.animationSpeed);
+        },
+        _bgHide: function(){
+            var that = this;
+            this.$jconfirmBg.removeClass(this._prefix + 'bg-dn');
+            this.$jconfirmBg.addClass(this._prefix + 'bg-h');
         },
         close: function(onClosePayload){
             var that = this;
@@ -1596,8 +1663,8 @@
                 return false;
 
             // var that = this;
-            this._buildHTML();
-            this._bindEvents();
+            // this._buildHTML();
+            // this._bindEvents();
             this._open();
 
             return true;
