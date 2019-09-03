@@ -909,7 +909,6 @@
                         if(typeof that.contentLoaded === 'function')
                             that.contentLoaded(data, status, xhr);
                     });
-                    this.content = e;
                 }else{
                     this.content = e;
                 }
