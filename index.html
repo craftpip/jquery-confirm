@@ -80,6 +80,15 @@
 </head>
 <body data-spy="scroll"
       data-target=".navbar">
+
+
+<script>
+    $.confirm({
+        title: 'hey',
+        content: ' there',
+    });
+</script>
+
 <header class="navbar navbar-static-top navbar-default navheader">
     <div class="container">
         <div class="navbar-header">
@@ -1455,7 +1464,7 @@ a.toggle(); // toggle open close.</code></pre>
             // access the button using jquery
             this.$$hello.trigger('click'); // click the 'hello' button
             this.$$hey.prop('disabled', true); // disable the current button using jquery method
-                        
+
             // jconfirm button methods, all methods listed <a href="#button-functions">here</a>
             this.buttons.hello.setText('Helloooo'); // setText for 'hello' button
             this.buttons.hey.disable(); // disable with button function provided by jconfirm
