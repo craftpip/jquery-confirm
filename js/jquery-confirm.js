@@ -750,8 +750,9 @@
             if(this.closeIcon){
                 if(this.closeIconClass){
                     // user requires a custom class.
-                    var closeHtml = '<i class="' + this.closeIconClass + '"></i>';
+                    var closeHtml = '<i id="closeIconClass"></i>';
                     this.$closeIcon.html(closeHtml);
+                    $("#closeIconClass").addClass(this.closeIconClass);
                 }
 
                 this.$closeIcon.click(function(e){
@@ -831,7 +832,8 @@
             if(this.isAjaxLoading && !force)
                 return;
 
-            this.$icon.html(this.icon ? '<i class="' + this.icon + '"></i>' : '');
+            this.$icon.html(this.icon ? '<i id="setIcon"></i>' : '');
+            $("#setIcon").addClass(this.icon);
             this.updateTitleContainer();
         },
         updateTitleContainer: function(){
