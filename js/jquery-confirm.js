@@ -560,7 +560,7 @@
                         prevContentHeight = contentHeight;
                     }
                     var wh = $(window).height();
-                    var total = that.offsetTop + that.offsetBottom + that.$jconfirmBox.height() - that.$contentPane.height() + that.$content.height();
+                    var total = that.offsetTop + that.offsetBottom + that.$jconfirmBox.outerHeight() - that.$contentPane.outerHeight() + that.$content.outerHeight();
                     if(total < wh){
                         that.$contentPane.addClass('no-scroll');
                     }else{
