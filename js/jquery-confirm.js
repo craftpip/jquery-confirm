@@ -357,7 +357,7 @@
             theme = theme.split(',');
             $.each(theme, function(k, a){
                 if(a.indexOf(that._themePrefix) === -1)
-                    theme[k] = that._themePrefix + $.trim(a);
+                    theme[k] = that._themePrefix + a.trim();
             });
             this.themeParsed = theme.join(' ').toLowerCase();
         },
@@ -368,7 +368,7 @@
             var that = this;
             $.each(animation, function(k, a){
                 if(a.indexOf(that._bgDismissPrefix) === -1)
-                    animation[k] = that._bgDismissPrefix + $.trim(a);
+                    animation[k] = that._bgDismissPrefix + a.trim();
             });
             this.backgroundDismissAnimationParsed = animation.join(' ').toLowerCase();
         },
@@ -385,7 +385,7 @@
             var that = this;
             $.each(animations, function(k, a){
                 if(a.indexOf(that._animationPrefix) === -1)
-                    animations[k] = that._animationPrefix + $.trim(a);
+                    animations[k] = that._animationPrefix + a.trim();
             });
             var a_string = animations.join(' ').toLowerCase();
             if(which === 'o')
