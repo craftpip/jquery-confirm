@@ -1,6 +1,6 @@
 {
   "name": "jquery-confirm",
-  "version": "3.3.4",
+  "version": "3.3.4-revival.0",
   "title": "jquery-confirm.js | A multipurpose alert and confirm plugin",
   "description": "A jQuery plugin that provides great set of features like, Auto-close, Ajax-loading, background-dismiss, themes and more.",
   "homepage": "http://craftpip.github.io/jquery-confirm/",
@@ -15,7 +15,7 @@
     "type": "git",
     "url": "https://github.com/craftpip/jquery-confirm.git"
   },
-  "main": "dist/jquery-confirm.min.js",
+  "main": "js/jquery-confirm-revival.js",
   "dependencies": {
     "jquery": ">=1.6"
   },
@@ -23,7 +23,7 @@
     "url": "https://github.com/craftpip/jquery-confirm/issues"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Manual browser regression tests live in tests/manual/regression.html\""
   },
   "keywords": [
     "jquery-plugin",
@@ -34,4 +34,3 @@
   ],
   "license": "MIT"
 }
-

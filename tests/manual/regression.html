@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>jquery-confirm revival manual regression tests</title>
+    <link rel="stylesheet" href="../../css/jquery-confirm.css">
+    <style>
+        body { font-family: Arial, sans-serif; padding: 24px; line-height: 1.5; }
+        button { margin: 4px 8px 4px 0; }
+        .result { margin-top: 16px; padding: 12px; border: 1px solid #ddd; }
+        .pass { color: #167a16; }
+        .fail { color: #a40000; }
+    </style>
+</head>
+<body>
+<h1>jquery-confirm revival manual regression tests</h1>
+
+<p>
+    Run this file from a local checkout. Load order matters: jQuery, original jquery-confirm.js,
+    then jquery-confirm-revival.js.
+</p>
+
+<div>
+    <button id="test-trim">Test jQuery 4 trim compatibility</button>
+    <button id="test-icons">Test safe icon class rendering</button>
+    <button id="test-disabled-escape">Test disabled escape button</button>
+    <button id="test-content-api">Test dynamic content API</button>
+    <button id="test-background-dismiss">Test background dismiss</button>
+</div>
+
+<div class="result" id="result">No test run yet.</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="../../js/jquery-confirm.js"></script>
+<script src="../../js/jquery-confirm-revival.js"></script>
+<script>
+(function(){
+    function log(message, passed){
+        $('#result').append('<div class="' + (passed ? 'pass' : 'fail') + '">' + message + '</div>');
+    }
+
+    function reset(name){
+        $('#result').html('<strong>' + name + '</strong>');
+    }
+
+    $('#test-trim').on('click', function(){
+        reset('jQuery 4 trim compatibility');
+        var originalTrim = $.trim;
+        try {
+            $.trim = undefined;
+            var jc = $.confirm({
+                title: 'Trim compatibility',
+                theme: ' modern ',
+                animation: ' scale ',
+                backgroundDismissAnimation: ' shake ',
+                content: 'If this opens, deprecated $.trim() is not required.',
+                buttons: {
+                    ok: function(){ }
+                }
+            });
+            setTimeout(function(){
+                log('Dialog opened without $.trim().', !!jc && jc.isOpen());
+                jc.close();
+                $.trim = originalTrim;
+            }, 100);
+        } catch (e) {
+            $.trim = originalTrim;
+            log('Failed without $.trim(): ' + e.message, false);
+        }
+    });
+
+    $('#test-icons').on('click', function(){
+        reset('Safe icon class rendering');
+        $.confirm({
+            title: 'Icon test',
+            icon: 'fa fa-info-circle',
+            closeIcon: true,
+            closeIconClass: 'fa fa-times',
+            content: 'Icon and close icon should be created safely.',
+            buttons: {
+                ok: function(){ }
+            },
+            onContentReady: function(){
+                log('Title icon element exists.', this.$icon.find('i.fa-info-circle').length === 1);
+                log('Close icon element exists.', this.$closeIcon.find('i.fa-times').length === 1);
+            }
+        });
+    });
+
+    $('#test-disabled-escape').on('click', function(){
+        reset('Disabled escape button');
+        var actionCount = 0;
+        $.confirm({
+            title: 'Disabled escape test',
+            content: 'Press Escape. Dialog should stay open and action should not run.',
+            escapeKey: 'danger',
+            buttons: {
+                danger: {
+                    text: 'Danger disabled',
+                    isDisabled: true,
+                    action: function(){ actionCount += 1; }
+                },
+                close: function(){ }
+            },
+            onContentReady: function(){
+                var event = $.Event('keyup');
+                event.which = 27;
+                this.reactOnKey(event);
+                log('Action was not called.', actionCount === 0);
+                log('Dialog stayed open.', this.isOpen());
+            }
+        });
+    });
+
+    $('#test-content-api').on('click', function(){
+        reset('Dynamic content API');
+        $.confirm({
+            title: 'Content API test',
+            content: '<span id="content-start">Start</span>',
+            buttons: {
+                ok: function(){ }
+            },
+            onContentReady: function(){
+                this.setContentAppend('<span id="content-append"> Append</span>');
+                this.setContentPrepend('<span id="content-prepend">Prepend </span>');
+                log('Prepended content is visible.', this.$content.find('#content-prepend').length === 1);
+                log('Original content is visible.', this.$content.find('#content-start').length === 1);
+                log('Appended content is visible.', this.$content.find('#content-append').length === 1);
+                this.setContent('<span id="content-replaced">Replaced</span>');
+                log('setContent replaces visible content.', this.$content.find('#content-replaced').length === 1 && this.$content.find('#content-start').length === 0);
+            }
+        });
+    });
+
+    $('#test-background-dismiss').on('click', function(){
+        reset('Background dismiss');
+        $.confirm({
+            title: 'Background dismiss test',
+            content: 'The test will simulate background click. Dialog should close.',
+            backgroundDismiss: true,
+            buttons: false,
+            closeIcon: false,
+            onContentReady: function(){
+                var that = this;
+                setTimeout(function(){
+                    that.$scrollPane.trigger('click');
+                    setTimeout(function(){
+                        log('Dialog closed after background click.', that.isClosed());
+                    }, 300);
+                }, 100);
+            }
+        });
+    });
+}());
+</script>
+</body>
+</html>
